@@ -18,6 +18,7 @@ $(function(){
 				}, 
 				async : false,
 				success : function(JSONData, status) {
+					console.log(JSONData);
 					var display = '';
 					for ( var i = 0; i < JSONData.eventList.length; i++) {
 						display += '<div class="event-owl-img-outer-div">';
