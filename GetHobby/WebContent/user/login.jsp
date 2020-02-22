@@ -131,7 +131,7 @@ $(function(){
 						  showConfirmButton: 'ture',
 						  timer: 1300
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'fail'){
 					Swal.fire({
@@ -139,7 +139,7 @@ $(function(){
 						  title: '보안번호가 틀렸습니다',
 						  showConfirmButton: 'ture',
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'pwfail'){
 					Swal.fire({
@@ -148,7 +148,7 @@ $(function(){
 						  showConfirmButton: 'ture',
 						  timer: 1000
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'success'){
 					Swal.fire({
@@ -157,7 +157,7 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://192.168.0.159:8080/index.jsp";
+							self.location = "http://127.0.0.1:8080/index.jsp";
 						})
 					
 				}
@@ -168,7 +168,7 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://192.168.0.159:8080/admin/user/listUserAdmin";
+							self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
 						})
 					
 				}
