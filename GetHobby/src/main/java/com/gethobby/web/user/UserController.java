@@ -464,7 +464,7 @@ public class UserController {
 	
 	@RequestMapping(value="kakaoCallBack" , method = RequestMethod.GET)
 	public String kakoCallBack(@RequestParam("code") String code, HttpSession session) throws Exception{
-		String redirectURL = "http://192.168.0.159:8080/user/kakaoCallBack";
+		String redirectURL = "http://127.0.0.1:8080/user/kakaoCallBack";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
 		
 		Map<String,Object> userInfo = new HashMap<String, Object>();
