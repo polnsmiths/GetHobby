@@ -36,11 +36,6 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-	
 	<!-- highchart CDN -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -50,6 +45,10 @@
 
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
     
 	<script type="text/javascript">
 		var startDate = []; 
@@ -271,7 +270,7 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
 
 							}
@@ -399,7 +398,7 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton'>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton' disabled>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton'>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton' disabled>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
 
 							}
@@ -493,7 +492,7 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
 
 							}
@@ -727,7 +726,7 @@
 								    }]
 								});
 							}
-							var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+							var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 							$('span[name="buttonSpan"]').html(display);
 
 						}
@@ -1031,8 +1030,9 @@
  
 </head>
 <body>
-	<input type="hidden" class="hidden-class-number" value="10025" />
-	<br/><br/><br/>
+	<input type="hidden" class="hidden-class-number" value="10000" />
+	<jsp:include page="/common/header.jsp"/>
+	<br/><br/><br/><br/><br/>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">

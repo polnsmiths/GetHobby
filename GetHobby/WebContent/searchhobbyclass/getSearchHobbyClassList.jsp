@@ -56,7 +56,7 @@
 	<script src="../resources/javascript/min/listPopularHobbyClass.js"></script>
 	<script src="../resources/javascript/min/listRegisterHobbyClass.js"></script>
 	<script src="/resources/javascript/min/listRecommendHobbyClass.js"></script>
-	<script src="/resources/javascript/commonHeader.js"></script>
+	<script src="/resources/javascript/min/getProgressEvent.js"></script>
 
 	<!-- css import -->
 	<link href="../resources/css/min/searchHobbyClassMain.css" rel="stylesheet" />
@@ -65,13 +65,18 @@
 	<link href="../resources/css/min/listRegisterHobbyClass.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/resources/css/min/listRecommendHobbyClass.css" />
 	<link rel="stylesheet" href="/resources/css/min/getProgressEvent.css" />
+	
+	<!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-
 </head>
 <body>
 	<input type="hidden" class="user-hidden-value" value="${sessionScope.user.userId }"/>
 	<input type="hidden" id="role" value="${sessionScope.user.role}"/>
+	
 	<jsp:include page="/common/header.jsp"/>
+	
+	<br/><br/><br/><br/>
 	
 	<!-- navbar 시작 -->
 	<div class="container">

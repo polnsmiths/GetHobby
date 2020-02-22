@@ -22,14 +22,8 @@
     <!-- 웹 폰트 (나눔고딕) -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
-
     <!--부트스트랩 CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <!-- fontawesome cdn(웹 아이콘 라이브러리) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-
 
     <!-- jQuery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -41,11 +35,6 @@
 
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
-
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
 	
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
@@ -57,6 +46,13 @@
 	
 	<!-- channelTalk -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
+	
+	<!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	
+	<!-- fontawesome cdn(웹 아이콘 라이브러리) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -223,7 +219,7 @@
 					return;
 				}
 				
-				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val();
+				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val() + "&eventDiscount=" + "${hobbyClass.event.eventDiscount}";
 				
 				// 단순 네비게이션만 하면 될듯 
 			});
@@ -1783,7 +1779,7 @@
 		.class-intro-expect-days-inner {
 		    width: 100%;
 		    height: 104px;
-		    background-color: rgb(248, 248, 249);
+		    background-color: rgb(255, 255, 255);
 		    margin-bottom: 16px;
 		    padding-top: 12px;
 		    border-radius: 3px;
@@ -2171,7 +2167,6 @@
 			overflow : hidden;
 		}
 		
-		
 	</style>
 
 </head>
@@ -2190,6 +2185,8 @@
 	<input type="hidden" class="hidden-purchase-check" value="${purchaseCheck }" />
 	<input type="hidden" class="hidden-class-state" value="${hobbyClass.hobbyClassState }" />
 	<input type="hidden" class="hidden-class-assess-check" value="${ !empty classAssess ? '1' : '0' }" />
+	
+	<br/><br/><br/><br/>
 	
 	<div class="container">
 		<div class="row">
@@ -2376,8 +2373,20 @@
 															최종 금액
 														</dd>
 													</dl>
-													
-													<!-- if문 돌릴곳 시작 -->
+													<dl class="dl-event">
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventTitle }
+														</dt>
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventStartDate } 부터 ~ ${hobbyClass.event.eventEndDate } 까지
+														</dt>
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventDiscount } % 할인
+														</dt>
+														<dd class="this-is-dd">
+															<fmt:formatNumber value="${hobbyClass.event.resultPrice }" pattern="#,###" />&nbsp;원
+														</dd>
+													<!-- 
 													<c:forEach var="event" items="${eventList }">
 														<dl class="dl-event">
 															<dt class="this-is-dt mr-4">
@@ -2394,7 +2403,7 @@
 															</dd>
 														</dl>
 													</c:forEach>
-													<!-- if문 돌릴곳 끝 -->
+													 -->
 												</div>
 											</div>
 										</div>

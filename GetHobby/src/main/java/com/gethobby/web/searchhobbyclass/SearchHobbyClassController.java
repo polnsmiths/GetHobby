@@ -201,7 +201,12 @@ public class SearchHobbyClassController {
 		System.out.println("------hobbyClass ? : " + hobbyClass);
 
 		System.out.println("-------------------hobbyClass.getHobbyClassPrice() ? : " + hobbyClass.getHobbyClassPrice());
+		
+		hobbyClass.getEvent().setResultPrice( (int)Math.round( ( (100 - hobbyClass.getEvent().getEventDiscount() ) / 100.0 ) * hobbyClass.getHobbyClassPrice() ) );
+		
 		model.addAttribute("hobbyClass", hobbyClass);
+		
+		
 		
 		// 구매여부 판별 -----------------------
 		int purchaseCheck = 0;

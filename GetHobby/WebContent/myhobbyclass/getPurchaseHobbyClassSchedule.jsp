@@ -55,6 +55,10 @@
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
     
+    <!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" /> 
+    
 	<script>
 	
 	$(function(){
@@ -471,7 +475,8 @@
  
 </head>
 <body>
-	<br/><br/><br/>
+	<jsp:include page="/common/header.jsp"/>
+	<br/><br/><br/><br/><br/>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">

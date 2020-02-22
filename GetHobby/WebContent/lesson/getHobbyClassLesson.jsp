@@ -57,6 +57,10 @@
 	<script src="../resources/javascript/min/getHobbyClassLesson.js"></script>
 	
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
+	
+	<!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<!-- <link rel="stylesheet" href="/resources/css/commonHeader.css" />  -->
 </head>
 <body>
 	<jsp:include page="/common/header.jsp"/>
