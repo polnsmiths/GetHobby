@@ -486,7 +486,7 @@
 			<div class="col-lg-4 fixed-right-tool-bar">
 				<h3 class="schedule-text-normal-span1 schedule-text-normal-span2">
 					<span class="schedule-text-strong-span">
-						${sessionScope.user.userId }
+						${ !empty sessionScope.user.nickName ? sessionScope.user.nickName : sessionScope.user.name }
 					</span>
 					<br/>
 					님이 
