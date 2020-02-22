@@ -160,7 +160,14 @@
 	width : 761px;
 	height : 428px;
 	overflow : hidden;
-} 
+}
+
+.event-img-carousel-tag img{
+	display: block; /* Otherwise it keeps some space around baseline */ 
+	min-width: 100%; /* Scale up to fill container width */ 
+	min-height: 100%; /* Scale up to fill container height */ 
+	-ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
+}
 
 .wrapper-basic-event {
    	background-color: rgb(253, 126, 20);
@@ -184,10 +191,6 @@
 	-o-transition:.3s;
 	transition:.3s;
 	cursor: pointer;
-	display: block; /* Otherwise it keeps some space around baseline */ 
-	min-width: 100%; /* Scale up to fill container width */ 
-	min-height: 100%; /* Scale up to fill container height */ 
-	-ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
 }
 
 .event-img-carousel-tag:hover img {
