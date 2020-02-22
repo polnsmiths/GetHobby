@@ -22,6 +22,8 @@
         
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <!-- sweetalert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -31,7 +33,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+	
 	<style>
 		/*
     DEMO STYLE
@@ -485,54 +487,36 @@ h1 {
             <!-- 모듈관리명 -->
 			<div class="manager-title">
             	<h1>회원 관리
-            	<span class="manager-title-state">총 회원 : ${purchaseMap.purchaseTotalCount}명</span>
-            	<span class="manager-title-state">총 크리에이터 회원 : ${purchaseMap.purchasePaymentCount}명</span>
-            	<span class="manager-title-state">총 정지 회원 : ${purchaseMap.purchaseRefundCount}명</span>
-            	<span class="manager-title-state">총 탈퇴 회원 : ${purchaseMap.purchaseRefundCount}명</span>
+            	<span class="manager-title-state">총 회원 : ${totalCount}명</span>
+            	<span class="manager-title-state">총 일반회원 : ${userCount}명</span>
+            	<span class="manager-title-state">총 크리에이터 회원 : ${creatorCount}명</span>
+            	<span class="manager-title-state">총 정지 회원 : ${stopUserCount}명</span>
+            	<span class="manager-title-state">총 탈퇴 회원 : ${retireUserCount}명</span>
             	</h1>          	
             </div>
             
             <!-- 관리 메뉴( 검색창, 정렬버튼, 수정버튼, 삭제버튼 ) -->
             <div class="manage-menu-div">
-            	<%-- <div class="">
-						<select class="" name="searchCondition">
-							<option value="0"
-								${! empty search.searchCondition && search.searchCondition == 0 ? "selected" : "" }>아이디(이메일)</option>
-							<option value="1"
-								${! empty search.searchCondition && search.searchCondition == 1 ? "selected" : "" }>상품가격</option>
-
-						</select>
-					</div> --%>
             	<!-- 검색창 -->
-	            <div class="manager-title-searchbar">
+	            <div class="manager-title-searchbar" style="margin-left: 800px;height: 40px;width: 250px;border: 1px solid #ced4da;">
 	            	<input type="text" name="searchKeyword" class="manager-title-search-input-box" placeholder="아이디 검색" value="">
-	            	<svg width="24" height="24" class="SearchBox__SearchIcon-rplyxp-2 beZsar" viewBox="0 0 24 24">
+	            	<svg width="30" height="30" class="SearchBox__SearchIcon-rplyxp-2 beZsar" viewBox="0 0 24 24" style="border-right-width: 20px;margin-right: 0px;width: 30px;height: 30px;">
 		            	<path fill="#3e4042" fill-rule="evenodd" d="M15.593 14.54L20.5 19 19 20.5l-4.46-4.907a6.5 6.5 0 111.054-1.054zM10.5 15a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" />
 	            	</svg>	
 	            </div>
 	            
-	            <div class="manage-search-menu-div-left-sort">
+	            <div class="manage-search-menu-div-left-sort" style="width: 300px;">
 		            <!-- 정렬버튼 -->
 		            <div class="btn-group manage-sort-button-div">
-					  <!-- <button type="button" class="btn-outline-light manage-sort-button black-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    	회원자격
-					    	<svg width="20" height="20" viewBox="0 0 24 28">
-						    	<path fill="#3e4042" fill-rule="evenodd" d="M5.5 8.5l6.5 6 6.5-6L20 10l-8 7.5L4 10z" />
-					    	</svg>
-					  </button> 
-					  <div class="dropdown-menu">
-					    <a class="dropdown-item" href="#">전체</a>
-					    <a class="dropdown-item" href="#">일반 회원</a>
-					    <a class="dropdown-item" href="#">크리에이터 회원</a>
-					    <a class="dropdown-item" href="#">정지 회원</a>
-					    <a class="dropdown-item" href="#">탈퇴 회원</a>-->
 					     <div>					     
-					     <select id="searchCondition" class="form-control cvzQqA" name="searchCondition">
+					     <select id="searchCondition" class="form-control cvzQqA" name="searchCondition" style="height: 41px;margin-left: 10px;background-color: #fafafa;">
 						<option  selected disabled>회원자격</option>
 						<option value="3">전체</option>
 						<option  value="0">일반 회원</option>
 						<option  value="1">크리에이터 회원</option>
-						<option  value="2">정지 회원</option>
+						<option  value="2">관리자</option>
+						<option  value="8">정지 회원</option>
+						<option  value="9">탈퇴 회원</option>
 						
 						</select>
 					  </div> 
@@ -571,7 +555,7 @@ h1 {
 				    
 				      <input type="hidden" name="userId" value="${user.userId}">
 				      <!-- 번호 -->
-				      <th scope="row" class="purchaseIdAdmin"></th>
+				      <td scope="row" class="purchaseIdAdmin">${i}</td>
 				      
 				      <!-- 유저 아이디 -->				      
 				      <td class="userIdInfo" style="cursor: pointer;">${user.userId}</td> 
@@ -592,28 +576,23 @@ h1 {
 				       <c:if test="${user.role == '9'}">탈퇴 회원</c:if>
 				       </td>
 				      <!-- 가입 날짜 -->
-				      <td class="addUserInfo"><fmt:formatDate value="${user.addDate}" pattern="yyyy-mm-dd"/></td>
+				      <td class="addUserInfo"><fmt:formatDate value="${user.addDate}" pattern="yyyy-MM-dd"/></td>
 				      
 				      <!-- 정지 날짜 -->
-				      <td class="stopUserInfo"><fmt:formatDate value="${user.stopDate}" pattern="yyyy-mm-dd"/></td>
+				      <td class="stopUserInfo"><fmt:formatDate value="${user.stopDate}" pattern="yyyy-MM-dd"/></td>
 				      
 				      <!-- 탈퇴 날짜 -->
-				      <td class="retireUserInfo"><fmt:formatDate value="${user.retireDate}" pattern="yyyy-mm-dd"/></td>
+				      <td class="retireUserInfo"><fmt:formatDate value="${user.retireDate}" pattern="yyyy-MM-dd"/></td>
 				      
-				      <!-- 정지 -->
+				      <!-- 상태 변경 -->
 				      
-				      <td class="addstopUser" style="font-size: 25px;"><i class="fas fa-user-times"></i>&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;
-				      <i class="fas fa-user-minus"></i>&nbsp;&nbsp;<i class="fas fa-user-plus"></i></td>
-				      <%-- <c:choose>
-				      	<c:when test="${user.role == '2'}">관리자</c:when>				      	
-				      </c:choose>				     
-				      <c:otherwise>
-				      	정지/탈퇴
-				    	<!-- <div>정지 시키기</div>
-				    	<div>/</div>
-				    	<div>탈퇴 시키기</div>  -->
-				      </c:otherwise>
-				      </td> --%>
+				      <td class="addstopUser" style="font-size: 25px;">
+				       <input type="hidden" id="secondUserId" value="${user.userId}">
+				      <span id="doStopUser" > <i class="fas fa-user-times" style="cursor: pointer;"></i></span>&nbsp;&nbsp;
+				      <span id="doRemoveStopUser"><i class="fas fa-user" style="cursor: pointer;"></i></span>&nbsp;&nbsp;
+				      <i id="doRetireUser" class="fas fa-user-minus" style="cursor: pointer;"></i>&nbsp;&nbsp;
+				      <i id="doRemoveRetireUser" class="fas fa-user-plus" style="cursor: pointer;"></i>
+				      </td>
 				  
 				    </tr>	
 				    					    
@@ -631,13 +610,7 @@ h1 {
         </div>
     </div>
 
-   			
-		   	<%-- 	<input type="hidden" name="searchKeyword" value="">
-		   		<input type="hidden" name="searchCondition" value="">
-		   		<input type="hidden" name="category" value="">
-		   		<input type="hidden" name="currentPage" value="${resultPage.currentPage}">
-		   		<input type="hidden" name="maxPage" value="${resultPage.maxPage}"> --%>
-		   	</form>
+</form>
 
     <script type="text/javascript">
     
@@ -656,6 +629,7 @@ h1 {
 		});
 		 	
 		 $("#searchCondition").change("click",function(){
+			 
 			 $("form").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();		
 			 
 			/*  $.ajax ({
@@ -676,7 +650,101 @@ h1 {
 			 
 			 }) */
 		 }); 
-	   });
+		 
+		 $(".SearchBox__SearchIcon-rplyxp-2.beZsar").on("click",function(){
+			 $("form").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
+		 });
+		 
+		 $(document).on("click","#doStopUser",function(){
+			 Swal.fire({
+				  title: '정말 정지 시키겠습니까?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '네, 정지 시키겠습니다',
+				  cancelButtonText: '아니요'
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+			    	  icon: 'success',
+					  title: '정지 완료',
+					  showConfirmButton: false,
+					  timer : 800
+				    }).then((result) => {
+							self.location = "/admin/user/doUser?code=1&userId="+$(this).siblings("#secondUserId").val();
+				    })
+				  }
+				})
+		 });
+		 $(document).on("click","#doRemoveStopUser",function(){
+			 Swal.fire({
+				  title: '정지 해제 할까요?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '네, 정지 해제 하겠습니다',
+				  cancelButtonText: '아니요'
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+			    	  icon: 'success',
+					  title: '정지 해제 ',
+					  showConfirmButton: false,
+					  timer : 800
+				    }).then((result) => {
+							 self.location = "/admin/user/doUser?code=2&userId="+$(this).siblings("#secondUserId").val();
+				    })
+				  }
+				})
+		 });
+		 $(document).on("click","#doRetireUser",function(){
+			 Swal.fire({
+				  title: '정말 탈퇴 시키겠습니까?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '네, 탈퇴 시키겠습니다',
+				  cancelButtonText: '아니요'
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+			    	  icon: 'success',
+					  title: '탈퇴 완료',
+					  showConfirmButton: false,
+					  timer : 800
+				    }).then((result) => {
+			 			self.location = "/admin/user/doUser?code=3&userId="+$(this).siblings("#secondUserId").val();
+				    })
+				  }
+				})
+				    
+		 });
+		 $(document).on("click","#doRemoveRetireUser",function(){
+			 Swal.fire({
+				  title: '탈퇴 해제 할까요?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '네, 탈퇴 해제 하겠습니다',
+				  cancelButtonText: '아니요'
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+			    	  icon: 'success',
+					  title: '탈퇴 해제 ',
+					  showConfirmButton: false,
+					  timer : 800
+				    }).then((result) => {
+							 self.location = "/admin/user/doUser?code=4&userId="+$(this).siblings("#secondUserId").val();
+				    })
+				  }
+				})
+ 		 });
+   });
 	   
 	  
     </script>
