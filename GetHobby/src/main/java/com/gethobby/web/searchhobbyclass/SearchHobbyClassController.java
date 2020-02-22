@@ -547,15 +547,10 @@ public class SearchHobbyClassController {
 		
 		System.out.println(article.getUser());
 		List<Reply> list = (List<Reply>)map.get("replyList");
-		for (int i = 0; i < list.size(); i++) {
-//			System.out.println("replyList의 ----"+list.get(i).getReplyNo());
-//			System.out.println(list.get(i).getRegDate());
-//			System.out.println(list.get(i).getUser().getName());
-		}
-		//System.out.println(map.get("replyList"));
-		
+
 		model.addAttribute("article", map.get("article"));
 		model.addAttribute("replyList", list);
 		return "forward:/questionreport/getReportTargetCommunityArticle.jsp";
 	}
+
 }

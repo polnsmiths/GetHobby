@@ -47,12 +47,16 @@
 	<!-- channelTalk -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
 	
-	<!-- 헤더 -->
-	<script src="/resources/javascript/commonHeader.js"></script>
-	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-	
 	<!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -206,7 +210,9 @@
 				
 				var userId = $('.user-hidden-class-intro-value').val();
 				
-				if ( !userId ) {  
+				if ( !userId ) { 
+						
+					/*
 					console.log('로그인이 필요합니다.');
 					
 					Swal.fire({
@@ -217,6 +223,9 @@
 						timer : 800
 					})
 					return;
+					*/
+					self.location = '/user/noLogonUser?type=purchase&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					return false;
 				}
 				
 				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val() + "&eventDiscount=" + "${hobbyClass.event.eventDiscount}";
@@ -227,33 +236,60 @@
 			
 			// 찜하기 이벤트 시작--------------------------------------
 			$('.steam-button').on('click', function(){
-				console.log('찜하기 버튼을 눌렀읍니다.');
 				var userId = $('.user-hidden-class-intro-value').val();
+				var checkPurchase = $('.hidden-purchase-check').val();
+				var classState = $('.hidden-class-state').val();
 				
-				if ( !userId ) {  
-					console.log('로그인이 필요합니다.');
-					
-					Swal.fire({
-						icon : 'error',
-						title : '로그인이 필요합니다.',
+				if ( classState != '3' ) {
+					const Toast = Swal.mixin({
+						toast : true, 
+						position : 'top', 
 						showConfirmButton : false, 
-						allowOutsideClick : true,
-						timer : 800
-					})
-					return;
+						showCancelButton : false,
+						timer : 1500, 
+						timerProgressBar : true, 
+						onOpen : (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer);
+							toast.addEventListener('mouseleave', Swal.resumeTimer);
+						}
+					});
+					
+					Toast.fire({
+						icon : 'error', 
+						title : '찜하기는 수요조사 중인 클래스에만 가능합니다.'
+					}).then((result) => {
+						event.preventDefault();	
+					});		
+					
+					event.preventDefault();	
+					return false;
 				}
 				
-				if ( purchaseCheck != '0' ) {
-					console.log('이미 구매한 클래스입니다.');
-					
+				if ( checkPurchase == '1' ) {
 					Swal.fire({
 						icon : 'error',
 						title : '이미 구매한 클래스입니다.',
 						showConfirmButton : false, 
 						allowOutsideClick : true,
 						timer : 800
+					}).then((result) => {
+						event.preventDefault();
 					})
-					return;
+				}
+				
+				if ( !userId ) {  
+					/*
+					Swal.fire({
+						icon : 'error',
+						title : '로그인이 필요합니다.',
+						showConfirmButton : false, 
+						allowOutsideClick : true,
+						timer : 800
+					}).then((result) => {
+						event.preventDefault();
+					})
+					*/
+					self.location = '/user/noLogonUser?type=steamHobbyClass&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 				}
 				
 				var steamCheck = $('.steam-check').val();
@@ -477,7 +513,6 @@
 			
 			// 한줄평 더보기 요청 시 -----------------------------------------------
 			$('.btn-class-assess-more').on('click', function(){
-				console.log('클래스 더보기 버튼을 클릭하셨읍니다.');
 				
 				currentPage = (currentPage * 1) + 1;
 				var hobbyClassNo = "${hobbyClass.hobbyClassNo}";
@@ -498,9 +533,15 @@
 							}), 
 							success : function(JSONData, status) {
 								var display = '';
-								
+								var logonUserId = "${sessionScope.user.userId}";
 								for ( var i = 0; i < JSONData.assessContentList.length; i++ ) {
-									display += '<div class="class-assess-content-outer-div">';
+									if ( JSONData.assessContentList[i].user.userId == logonUserId ) {
+										display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+									}
+									else {
+										display += '<div class="class-assess-content-outer-div">';
+									}
+
 									display += '<div class="profile-and-name">';
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
@@ -647,7 +688,15 @@
 						    				var display = '';
 						    				
 						    				for (var i = 0; i < e.classAssessList.length; i++) {
-						    					display += '<div class="class-assess-content-outer-div">';
+						    					var logonUserId = "${sessionScope.user.userId}";
+						    				
+						    					if ( e.classAssessList[i].user.userId == logonUserId ) {
+													display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+												}
+												else {
+													display += '<div class="class-assess-content-outer-div">';
+												}
+						    					
 						    					display += '<div class="profile-and-name">';
 						    					display += '<div size="24" class="profile-outer-div">';
 						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
@@ -1652,6 +1701,10 @@
 		.class-assess-content-outer-div {
 		    margin-bottom: 24px;
 		}
+		
+		.class-assess-content-outer-div-logon-mine {
+		    background-color : #fefbed;
+		}
 
 		.profile-and-name {
 		    display: flex;
@@ -2545,7 +2598,12 @@
 						
 						<c:forEach var="assessContent" items="${listAssessContent }">
 							<!-- 나중에 그거 forEach문 돌릴 구간 -->
-							<div class="class-assess-content-outer-div">
+							<c:if test="${sessionScope.user.userId == assessContent.user.userId }">
+								<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">
+							</c:if>
+							<c:if test="${sessionScope.user.userId != assessContent.user.userId }">
+								<div class="class-assess-content-outer-div">
+							</c:if>
 								<div class="profile-and-name">
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">

@@ -38,11 +38,6 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-	
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
 	
@@ -58,9 +53,15 @@
 	
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 	
-	<!-- 헤더 -->
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
 	<script src="/resources/javascript/commonHeader.js"></script>
-	<!-- <link rel="stylesheet" href="/resources/css/commonHeader.css" />  -->
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	
+	
 </head>
 <body>
 	<jsp:include page="/common/header.jsp"/>
@@ -385,20 +386,12 @@
 		$(document).on('keydown', function(event){
 			var updatetextarea = $('.update-textarea-check').val();
 			var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
-			console.log('updatetextarea ? : ' + updatetextarea);
-			console.log('checkFocusTextArea ? : ' + checkFocusTextArea);
-			console.log(checkFocusTextArea);
 			
 				if ( checkFocusTextArea.length == 0 ) {
 					var currentTime = Math.floor(video.currentTime());
 					var duration = Math.floor(video.duration());
-
-					console.log('keydown event run : ' + event.keyCode);
-					console.log($('.lesson-reply-add-textarea').attr('disabled'));
-					console.log(event.keyCode);
 		
 					if ( event.keyCode == '37' ) {
-						console.log('left keydown');
 						
 						if ( currentTime - 10 <= 0 ) {
 							video.currentTime(0);
@@ -407,7 +400,6 @@
 						video.currentTime( ( currentTime - 10 ) ); 
 					}
 					else if ( event.keyCode == '39' ) {
-						console.log('right key');
 						
 						if ( currentTime + 10 >= duration ) {
 							video.currentTime( duration );

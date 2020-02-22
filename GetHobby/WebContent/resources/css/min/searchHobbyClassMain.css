@@ -436,3 +436,7 @@
 	.mini-size-category-li:hover {
 		cursor : pointer;
 	}
+	
+	.dropdown-nav-bar-class-search-button:after {
+		content: none;
+	}

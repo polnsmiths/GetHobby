@@ -23,7 +23,7 @@ $(function(){
 					for ( var i = 0; i < JSONData.eventList.length; i++) {
 						display += '<div class="event-owl-img-outer-div">';
 						display += '<div class="item event-img-carousel-tag">';
-						display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '">';
+						display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '" id="event-image-id">';
 						display += '</div>';
 						display += '<input type="hidden" class="hidden-event-img-event-id" value="' + JSONData.eventList[i].eventId + '" />';
 						display += '</div>';

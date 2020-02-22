@@ -201,6 +201,13 @@ public class SearchHobbyClassRestController {
 		Map<String, Object> map = searchHobbyClassService.getPopularHobbyClassList(inputData);
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		List<HobbyClass> forlist = (List<HobbyClass>)map.get("list");
+		
+		for( HobbyClass hobbyClass : forlist) {
+			System.out.println("-----popular hobbyClass ? : " + hobbyClass);
+		}
+		
 		returnMap.put("popularHobbyClassList", map.get("list"));
 		
 		return returnMap;
