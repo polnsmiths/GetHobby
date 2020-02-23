@@ -36,6 +36,7 @@
 	<button class="test-button getPaymentHistoryListAdmin" style="color:white; background-color:black; box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px;">관리자</button>
 	<button class="test-button getStartDB" style="color:white; background-color:rgb(42, 143, 180); border: 0; outline:0 none;">?</button>
 	<button class="test-button getStartDB-none" style="display:none; position:fixed; top:30%; left:40%; color:white; background-color:rgb(42, 143, 180); border: 0; outline:0 none;">?</button>
+	<button class="test-button getPreview" style="position:fixed; top:40%; left:40%; color:white; background-color:purple; border: 0; outline:0 none;">미리보기</button>
 	
 </body>
 
@@ -47,13 +48,16 @@ $(function(){
 		self.location = "/hobbyclass/getMyHobbyClassList";
 	});
 	$(".getSelectOption").on("click", function(){
-		self.location = "/purchase/getSelectOption?hobbyClassNo=10000";
+		self.location = "/purchase/getSelectOption?hobbyClassNo=10000&discountPrice=50";
 	});
 	$(".getPaymentHistory").on("click", function(){
 		self.location = "/purchase/getPaymentHistoryList";
 	});
 	$(".getPaymentHistoryListAdmin").on("click", function(){
 		self.location = "/admin/purchase/getPaymentHistoryListAdmin";
+	});
+	$(".getPreview").on("click", function(){
+		self.location = "/hobbyclass/getPreview?hobbyClassNo=10000";
 	});
 	$(".getStartDB").on("click", function(){
 		$("body").css("background-color","red");

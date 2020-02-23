@@ -467,7 +467,7 @@ iframe{
 									<input type="image" src="/resources/image/gon/addimage.jpg" class="file_input_test infoInput classInfo_image">
 								</c:if>
 								<c:if test="${!empty hobbyClass.hobbyClassImage}">
-								<input type="image" src="/resources/image/gon/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
+								<input type="image" src="/images/gon/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
 								</c:if>
 								<button type="button" class="shc-classInfo-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -685,7 +685,7 @@ iframe{
 									<input type="image" src="/resources/image/gon/lessonaddimage.jpg" class="file_input_test_lesson lessonInput classLesson_image_two">
 									</c:if>
 									<c:if test="${!empty hobbyClass.lesson[0].lessonImage}">
-										<input type="image" src="/resources/image/gon/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
+										<input type="image" src="/images/gon/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
 									</c:if>
 									<button type="button" class="shc-lesson-two-ImageDeleteButton">
 										<svg width="24" height="24" viewBox="0 2 24 24">
@@ -753,7 +753,7 @@ iframe{
 								<input type="image" src="/resources/image/gon/addimage.jpg" class="file_input_test kitInput classKit_image">
 								</c:if>
 								<c:if test="${!empty hobbyClass.kitImage}">
-									<input type="image" src="/resources/image/gon/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
+									<input type="image" src="/images/gon/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
 								</c:if>
 								<button type="button" class="shc-kit-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -1205,8 +1205,8 @@ iframe{
 				    	        processData : false,
 				    	        success : function(JSONData) {
 				    	        	
-				    	        	$(el).summernote('editor.insertImage',"/resources/image/gon/"+JSONData);
-				    	    	    $('#imageBoard > ul').append('<li><img src="/resources/image/gon/'+JSONData+'" width="480" height="auto"/></li>');
+				    	        	$(el).summernote('editor.insertImage',"/images/gon/"+JSONData);
+				    	    	    $('#imageBoard > ul').append('<li><img src="/images/gon/'+JSONData+'" width="480" height="auto"/></li>');
 				    	        }
 		 	  	 	});
 	    	}
@@ -1239,13 +1239,11 @@ iframe{
 					// 일반 데이터 변경 시
 					if( !$(e.target).hasClass("file_input_div") && !$(e.target).hasClass("classLesson_file_two")
 							&& !$(e.target).hasClass("file_input_hidden") && !$(e.target).hasClass("file_input_test") ){
-						alert("일반 데이터 이벤트");
 						changeEvent();
 						
 						//파일 업로드 이벤트
 					}else if( $(e.target).hasClass("file_input_div") || $(e.target).hasClass("classLesson_file_two") 
 							|| $(e.target).hasClass("file_input_hidden") || $(e.target).hasClass("file_input_test") ){
-						alert("파일 업로드 이벤트");
 						// 파일업로드 성공 시 비활성화
 
 					}
@@ -1281,7 +1279,6 @@ iframe{
 						&& $(".classInfo_image").attr("src") != "/resources/image/gon/addimage.jpg"
 						&& $(".classInfo_image").attr("src") != null && $(".classInfo_image").attr("src") != ""
 						&& $("input[name='hobbyClassName']").val().length <= 30	) {
-					alert("?");
 					progress += 30;
 					infoSvgCheck = true;
 					$('#infoNoButton').css({'display':'none'});
@@ -1379,7 +1376,7 @@ iframe{
 				}
 			
 			function closeFileUpload(){
-				alert("closeFileUpload");
+
 				var changeEventTag = false;
 				setTimeout(function(){
 					if( $(".classInfo_image").attr("src") != "/resources/image/gon/addimage.jpg" ){
@@ -1506,13 +1503,7 @@ iframe{
 	    				    		$("a[href='#hobbyClassLesson']").click();
 
 	    						}
-	    					},
-							error : function(xhr, ajaxSettings, thrownError) 
-						   {
-						       //alert(xhr);
-						       //alert(ajaxSettings);
-						       //alert(thrownError);
-						   }	
+	    					}
    				});//end of ajax
 	    	});
 	    	
@@ -1572,16 +1563,7 @@ iframe{
 	    				    		$("a[href='#hobbyClassKit']").click();
 	    						}		
 
-	    					},
-	    					complete : function(data){
-							},
-							error : function(xhr, ajaxSettings, thrownError) 
-						   {
-						       //alert(xhr);
-						       //alert(ajaxSettings);
-						       //alert(thrownError);
-						   }
-        					
+	    					}
 	    				});//end of ajax
 	    		
 	    		
@@ -1610,6 +1592,11 @@ iframe{
 					 }
 	   		         $(".progress-bar").css("width",progress+"%"); // 진행바 변경
 				}
+	    		alert( $("input[name='hobbyClassNo']").val() );
+	    		alert( $("input[name='kitName']").val() );
+	    		alert( $("input[name='kitIntro']").val() );
+	    		alert( $("input[name='kitPrice']").val() );
+	    		alert( $("input[name='kitImage']").val() );
 	    		
 	    		$.ajax(
 	    				{
@@ -1623,19 +1610,17 @@ iframe{
 	    							kitImage : $("input[name='kitImage']").val()
 	    							
 	    						}),
-	    					dataType : "json" ,
+	    					dataType : "text" ,
         					headers : {
         						"Accept" : "application/json" ,
         						"Content-Type" : "application/json"
         					} ,
 	    					success : function(JSONData, status) {
-	    						
 	    						if ( JSONData == 1){
 	    							closePreviousCheckButton();
 	    							$(window).scrollTop(0);
 	    							
-	    							closePreviousCheckButton();
-	    							
+	    							setTimeout(function(){
 	    							// 기본정보가 미완성일 경우
 	    							if( $(".shc-info-tb").css("display") == 'none' ){
 	    								$("a[href='#hobbyClassInfo']").click();
@@ -1648,6 +1633,7 @@ iframe{
 	    							}else{
 	    								$("a[href='#hobbyClassLesson']").click();
 	    							}
+	    							},100);
 	    								
 	    						}//end of if
 	    					}//end of Call Back Function
@@ -1709,7 +1695,7 @@ iframe{
 	    					success : function(JSONData, status) {
 	    						
 	    						if( JSONData.lesson[0].lessonVideo != null && JSONData.lesson[0].lessonVideo != "" ){
-									$(".classLesson_image_one").attr("src","/resources/image/gon/"+JSONData.lesson[0].lessonVideo);
+									$(".classLesson_image_one").attr("src","/resources/video/"+JSONData.lesson[0].lessonVideo);
 									$(".classLesson_file_one").attr("disabled",true);
 	    							$(".classLesson_file_one").css("cursor","default");
 	    							$(".shc-lesson-one-ImageDeleteButton").css("display","block");
@@ -1735,7 +1721,7 @@ iframe{
 	    							$("input[name='lessonIntro']").val("");
 	    						}
 	    						if( JSONData.lesson[0].lessonImage != null && JSONData.lesson[0].lessonImage != "" ){
-	    							$(".classLesson_image_two").attr("src","/resources/image/gon/"+JSONData.lesson[0].lessonImage);
+	    							$(".classLesson_image_two").attr("src","/images/gon/"+JSONData.lesson[0].lessonImage);
 	    							$(".classLesson_file_two").attr("disabled",true);
 	    							$(".classLesson_file_two").css("cursor","default");
 	    							$(".shc-lesson-two-ImageDeleteButton").css("display","block");
@@ -1770,7 +1756,7 @@ iframe{
         					} ,
 	    					success : function(JSONData, status) {
 								if( JSONData.kitImage != null && JSONData.kitImage != "" ){
-									$(".classKit_image").attr("src", "/resources/image/gon/"+JSONData.kitImage);
+									$(".classKit_image").attr("src", "/images/gon/"+JSONData.kitImage);
 									$(".classKit_file").attr("disabled",true);
 									$(".classKit_file").css("cursor","default");
 									$(".shc-kit-ImageDeleteButton").css("display","block");
@@ -2121,7 +2107,7 @@ iframe{
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
 									closeFileUpload();
-									$(".classInfo_image").attr("src","/resources/image/gon/"+jsonObj[0]);
+									$(".classInfo_image").attr("src","/images/gon/"+jsonObj[0]);
 									$("input[name='hobbyClassImage']").val(jsonObj[0]);
 									
 								}
@@ -2179,7 +2165,7 @@ iframe{
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
 									closeFileUpload();
-									$(".classLesson_image_two").attr("src","/resources/image/gon/"+jsonObj[0]);
+									$(".classLesson_image_two").attr("src","/images/gon/"+jsonObj[0]);
 									$("input[name='lessonImage']").val(jsonObj[0]);
 								}
 						});//end of ajax
@@ -2207,7 +2193,7 @@ iframe{
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
 									closeFileUpload();
-									$(".classKit_image").attr("src","../resources/image/gon/"+jsonObj[0]);
+									$(".classKit_image").attr("src","/images/gon/"+jsonObj[0]);
 									$("input[name='kitImage']").val(jsonObj[0]);
 								}
 						})//end of ajax
