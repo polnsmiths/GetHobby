@@ -826,7 +826,7 @@ path[Attributes Style] {
 											  <div size="88" class="ProfileImageUploadHandler__Container-sc-1advxtt-0 jLGbZG">
 												  <div size="88" class="ProfileImage__Container-sc-1h9kedz-0 kgaAUr">
 													  <span class="RatioImage__Container-wwqqoo-0 eAfAEc ProfileImage__UserProfileImage-sc-1h9kedz-1 bKTweb">
-													 	 <img  src="" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
+													 	 <img  src="../resources/image/woo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
 													  </span>
 												  </div>
 												  <div class="ProfileImageUploadHandler__EditIconWrapper-sc-1advxtt-1 eYYvSv" style="top: 80px;left: 80px;">
