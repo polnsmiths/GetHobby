@@ -1211,6 +1211,12 @@ iframe{
 		 	  	 	});
 	    	}
 			
+    		// 클래스 미리보기
+    		$(document).on("click", ".getPreviewClass", function(){
+    			// 미리보기 하기 전에 ajax로 저장처리
+    			self.location = "/searchHobbyClass/getPreview?hobbyClassNo="+$("input[name='hobbyClassNo']").val();
+    		});
+    		
 			// Category Validation Check
 			if( $("select[name='hobbyClassCategory']").val() != null ) {
 				var category = $("select[name='hobbyClassCategory']").val();
