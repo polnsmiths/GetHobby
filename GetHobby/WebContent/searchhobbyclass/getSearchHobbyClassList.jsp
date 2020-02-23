@@ -226,49 +226,49 @@
 						<ul class="mini-size-category-ul">
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-all.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-all.png" class="mini-category-img" />
 									전체
 									<input type="hidden" class="mini-category-value" value="all">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-art.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-art.png" class="mini-category-img" />
 									미술
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-craft.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-craft.png" class="mini-category-img" />
 									공예
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-exercise.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-exercise.png" class="mini-category-img" />
 									운동
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-food.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-food.png" class="mini-category-img" />
 									음식
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-lifestyle.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-lifestyle.png" class="mini-category-img" />
 									라이프스타일
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-music.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-music.png" class="mini-category-img" />
 									음악
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>

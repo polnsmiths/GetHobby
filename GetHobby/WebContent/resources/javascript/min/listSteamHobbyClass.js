@@ -78,7 +78,7 @@ $(function(){
 				display += "<div id='steamCardImage'>";
 				display += "<input type='hidden' class='hidden-image-to-steam' value='" + JSONData.steamHobbyClassList[i].hobbyClassImage + "'";
 				display += "<span>";
-				display += "<img name='steamCardImage' src='/images/min/" + JSONData.steamHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+				display += "<img name='steamCardImage' src='/images/hobbyclass/" + JSONData.steamHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 				
 				if ( JSONData.steamHobbyClassList[i].event != null ) { 
 					display += "<div class='outer-card-image'>";
@@ -300,7 +300,7 @@ $(function(){
   						else if ( JSONData.hobbyClass.steamCheck == '1' ) {
   							// 기존 데이터로 복구시키기 
   							var changeImage = steamButton.parents('.item').find('.hidden-image-to-steam').val();
-  							var changeImageUrl = '/images/min/' + changeImage;
+  							var changeImageUrl = '/images/hobbyclass/' + changeImage;
   							console.log('changeImageUrl ? : ' + changeImageUrl);
   							steamButton.parents('.item').find('img[name="steamCardImage"]').attr('src', changeImageUrl);
   							display += "<i class='fas fa-heart'></i>";
