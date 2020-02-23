@@ -38,11 +38,6 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-	
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
 	
@@ -58,9 +53,15 @@
 	
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 	
-	<!-- 헤더 -->
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
 	<script src="/resources/javascript/commonHeader.js"></script>
-	<!-- <link rel="stylesheet" href="/resources/css/commonHeader.css" />  -->
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	
+	
 </head>
 <body>
 	<jsp:include page="/common/header.jsp"/>
@@ -379,61 +380,30 @@
 	</div>
 	<!-- 신고처리 완료 모달창 끝 -->
 	
-	<script type="text/javascript">
-		var video = videojs('lesson-video');
-
-		$(document).on('keydown', function(event){
-			var updatetextarea = $('.update-textarea-check').val();
-			var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
-			console.log('updatetextarea ? : ' + updatetextarea);
-			console.log('checkFocusTextArea ? : ' + checkFocusTextArea);
-			console.log(checkFocusTextArea);
-			
-				if ( checkFocusTextArea.length == 0 ) {
-					var currentTime = Math.floor(video.currentTime());
-					var duration = Math.floor(video.duration());
-
-					console.log('keydown event run : ' + event.keyCode);
-					console.log($('.lesson-reply-add-textarea').attr('disabled'));
-					console.log(event.keyCode);
+	<script type="text/javascript">	
+		// 바로 video.js 생성 ----------------------------------------------
 		
-					if ( event.keyCode == '37' ) {
-						console.log('left keydown');
-						
-						if ( currentTime - 10 <= 0 ) {
-							video.currentTime(0);
-							return;
-						}
-						video.currentTime( ( currentTime - 10 ) ); 
-					}
-					else if ( event.keyCode == '39' ) {
-						console.log('right key');
-						
-						if ( currentTime + 10 >= duration ) {
-							video.currentTime( duration );
-							return;
-						}
-						video.currentTime( ( currentTime + 10 ) );
-					}
-				}
-			
-			
+		var video = videojs('lesson-video', {
+				controls : true,
+				autoplay : false, 
+				preload : 'auto', 
+				playbackRates: [0.5, 1, 1.5, 2, 2.5] 
 		})
-	</script>
+		
+		// var video = videojs('lesson-video');
+		// 바로 video.js 생성 ----------------------------------------------
 	
-	<script type="text/javascript">
+		// window.onload 이벤트 -------------------------------------------
 		window.onload = function(){
 			var totalTimes = "${lesson.totalTimes }";
 			var lessonNo = "${lesson.lesson.lessonNo }";
 			var hobbyClassNo = "${lesson.lesson.hobbyClass.hobbyClassNo}";
 			var currentTimes = "${lesson.currentTimes }";
 			var maxTimes = "${lesson.maxTimes }";
-			
-			var video = videojs('lesson-video');
-			
+
 			console.log('getLesson 입장');
 			console.log('totalTimes ? : ' + totalTimes);
-
+	
 			if (totalTimes == 0){
 				console.log('addLessonTimes 동작');
 				
@@ -448,7 +418,6 @@
 							},
 							data : JSON.stringify({
 								lessonNo : lessonNo,
-								// 원래는 비디오 최대길이를 가져와야하지만 video.js는 안되서 탈출할때나 사용...
 								hobbyClassNo : hobbyClassNo
 							}),
 							success : function(JSONData, status) {
@@ -464,10 +433,40 @@
 			}
 			
 		}
+		// window.onload 이벤트 -------------------------------------------
 		
+		// keydown 이벤트 ----------------------------------------------
+		$(document).on('keydown', function(event){
+			var updatetextarea = $('.update-textarea-check').val();
+			var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
+			
+				if ( checkFocusTextArea.length == 0 ) {
+					var currentTime = Math.floor(video.currentTime());
+					var duration = Math.floor(video.duration());
+		
+					if ( event.keyCode == '37' ) {
+						
+						if ( currentTime - 10 <= 0 ) {
+							video.currentTime(0);
+							return;
+						}
+						video.currentTime( ( currentTime - 10 ) ); 
+					}
+					else if ( event.keyCode == '39' ) {
+						
+						if ( currentTime + 10 >= duration ) {
+							video.currentTime( duration );
+							return;
+						}
+						video.currentTime( ( currentTime + 10 ) );
+					}
+				}
+		})
+		// keydown 이벤트 ----------------------------------------------
+		
+		// window.onbeforeunload 이벤트 -----------------------------------
 		window.onbeforeunload = function(e) {
 			e = e || window.event; 
-			var video = videojs('lesson-video');
 			
 			var maxTimes = "${lesson.maxTimes }";
 			var lessonNo = "${lesson.lesson.lessonNo }";
@@ -485,7 +484,6 @@
 							"Content-Type" : "application/json"
 						}, 
 						data : JSON.stringify({
-							// 현재 비디오 시간을 가져와야되는데 그냥 55초라고 가정 
 							currentTimes :currentTimes,
 							maxTimes : maxTimes, 
 							lessonNo : lessonNo, 
@@ -497,12 +495,10 @@
 						}
 					}
 			)
-			
-//			return video.duration();
 		}
-		
-		
+		// window.onbeforeunload 이벤트 -----------------------------------
 	</script>
+
 	
 </body>
 </html>

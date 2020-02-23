@@ -17,17 +17,14 @@ $(function(){
 	
 	// 화살표 버튼 활성화 비활성화 결정 ---------------
 	if ( currentCount == 1 ) {
-		console.log('currentCount는 1');
 		$('.left-arrow').attr('disabled', true);
 		$('.right-arrow').attr('disabled', false);
 	}
 	else if ( currentCount == totalCount ) {
-		console.log('currentCount는 totalCount와 같다');
 		$('.left-arrow').attr('disabled', false);
 		$('.right-arrow').attr('disabled', true);
 	}
 	else {
-		console.log('그 외의 상황');
 		$('.left-arrow').attr('disabled', false);
 		$('.right-arrow').attr('disabled', false);
 	}
@@ -66,7 +63,6 @@ $(function(){
 				}),
 				success : function(JSONData, status) {
 					var display = '';
-					console.log(JSONData);
 					for (var i = 0; i < JSONData.lessonList.length; i++) {
 						if (JSONData.lessonList[i].lesson.lessonNo == lessonNo) {
 							// 현재 재생중인 강의 
@@ -108,11 +104,8 @@ $(function(){
 							
 							// 그거 진행률 표시해야 할 구간 ------------------------------
 							if ( JSONData.lessonList[i].maxTimes != 0 && JSONData.lessonList[i].totalTimes != 0 ) {
-								console.log('진행률 if문 돌았음');
-								console.log( JSONData.lessonList[i].maxTimes + ' / ' + JSONData.lessonList[i].totalTimes );
 								
 								var percent = (JSONData.lessonList[i].maxTimes / JSONData.lessonList[i].totalTimes).toFixed(3) * 100;
-								console.log('percent ? : ' + percent);
 								
 								display += '<div>';
 								display += '<div class="run-text-wrapper">';
@@ -139,11 +132,6 @@ $(function(){
 	$(document).on('click', '.inner-modal-li', function(){
 		var lessonNo = $(this).find('.inner-modal-lesson-number').val();
 		var hobbyClassNo = $(this).find('.inner-modal-hobbyclass-number').val();
-		console.log('lessonNo ? : ' + lessonNo);
-		console.log('hobbyClassNo ? : ' + hobbyClassNo);
-
-		console.log($('.form-lesson-number').val());
-		console.log($('.form-hobbyclass-number').val());
 
 		self.location = "/lesson/getLesson?lessonNo=" + lessonNo + "&hobbyClassNo=" + hobbyClassNo;
 	})
@@ -165,9 +153,7 @@ $(function(){
 	
 	// 댓글 입력에 따른 댓글 버튼 활성화 비활성화 선택 이벤트 ------------------------------------------
 	$('.form-control.col-9.col-md-10.mr-1').on('keyup', function(event){
-		console.log('keyup 이벤트 발생');
 		var thisLength = $(this).val().length;
-		console.log('thisLength ? : ' + thisLength);
 		$('.text-danger').text(thisLength);
 		/* 복붙해서 양식 바뀜
 		console.log('textarea 이벤트 발생 : ' + $('.lesson-reply-add-textarea').val());
@@ -197,7 +183,6 @@ $(function(){
 	//$('.lesson-reply-add-button-div').on('click', function(){
 	$(document).on('click', '.col-2.col-md-1.btn.btn-basic', function(){
 		var replyContent = $('.form-control.col-9.col-md-10.mr-1').val();
-		console.log('replyContent ? : ' + replyContent);
 		$('.form-control.col-9.col-md-10.mr-1').val('');
 		$('.form-control.col-9.col-md-10.mr-1').val(null);
 		
@@ -206,7 +191,6 @@ $(function(){
 		$('.lesson-reply-add-button').attr('disabled', true);
 		
 		var lessonNo = $('.lesson-number').val();
-		console.log('lessonNo ? : ' + lessonNo);
 		var reply = new Object();
 		reply.lesson = {
 				lessonNo : lessonNo
@@ -228,9 +212,26 @@ $(function(){
 							reply
 					),
 					success : function(JSONData, status) {
-						console.log(JSONData);
+						const Toast = Swal.mixin({
+							toast : true, 
+							position : 'top', 
+							showConfirmButton : false, 
+							showCancelButton : false,
+							timer : 1500, 
+							timerProgressBar : true, 
+							onOpen : (toast) => {
+								toast.addEventListener('mouseenter', Swal.stopTimer);
+								toast.addEventListener('mouseleave', Swal.resumeTimer);
+							}
+						});
+						
+						Toast.fire({
+							icon : 'success', 
+							title : '댓글 작성이 완료되었습니다.'
+						});
+						
+						
 						var userId = $('.user-id-hidden').val();
-						console.log('userId ? : ' + userId);
 				
 						var display = '';
 						display += '<ul class="list-unstyled">';
@@ -274,7 +275,6 @@ $(function(){
 							display += '</h6>';
 							display += '<div class="here-is-change-update-div">';
 							
-							console.log('if문 전 : ' + JSONData.replyList[i].totalReport);
 							
 							if( JSONData.replyList[i].totalReport >= 5 ) {
 								display += '<p class="blind-reply-content">블라인드 처리된 댓글입니다.</p>'
@@ -318,11 +318,9 @@ $(function(){
 		
 		var newRightButtonSpan = $(this).parents('.media.my-4').find('.lesson-reply-reset-button-span');
 		
-		console.log('replyNo ? : ' + replyNo);
 		
 		
 		if ( contentValue == '2' ) {
-			console.log('신고 hidden value ? : ' + contentValue);
 			
 			var replyText = $(this).parents('.media.my-4').find('.lesson-reply-content-hidden-value').val();
 			
@@ -337,7 +335,6 @@ $(function(){
 			
 			replyText = $('.report-reply-hidden-content').val();
 			
-			console.log('replyText ? : ' + replyText);
 			
 			$('.report-reply-number-hidden').val(replyNo);
 			
@@ -349,8 +346,6 @@ $(function(){
 			$('.report-madal-total').modal('show');
 		}
 		else if ( contentValue == '1' ) {
-			console.log('수정 hidden value ? : ' + contentValue);
-			console.log('length ? : ' + $('.media.my-4').length);
 
 			// 기존 댓글 양식으로 초기화시키기 ------------------------------------------
 			var resetTargetLength = $('.media.my-4').length;
@@ -363,7 +358,6 @@ $(function(){
 				var replyUserId = $('.lesson-reply-reset-button-span').eq(i).parents('.media.my-4').find('.lesson-reply-user-userId-hidden-value').val();
 				var loginUserId = $('.user-id-hidden').val();
 				
-				console.log(replyUserId + ' / ' + loginUserId);
 				
 				if ( replyUserId == loginUserId ) {
 					resetDisplay += '<small class="lesson-reply-content-right ml-3">삭제<input type="hidden" class="lesson-reply-content-hidden" value="0"/></small>';
@@ -376,18 +370,14 @@ $(function(){
 				$('.lesson-reply-reset-button-span').eq(i).html(resetDisplay);
 				
 				var resetTextAreaDisplay = '<p>' + resetReplyContent + '</p>';
-				console.log('resetTextAreaDisplay ? : ' + resetTextAreaDisplay);
-				console.log( $('.media.my-4').find('.here-is-change-update-div') );
 				$('.media.my-4').find('.here-is-change-update-div').eq(i).html(resetTextAreaDisplay);
 			}
 			// 기존 댓글 양식으로 초기화시키기 ------------------------------------------
 			
-			console.log(thisButtonParent.find('.lesson-reply-content-hidden-value').val());
 			
 			// 댓글 수정 양식으로 바꿔치기 -------------------------------------------------------------------
 			var replyContent = thisButtonParent.find('.lesson-reply-content-hidden-value').val();
 			
-			console.log('replyContent ??? 수정구간임 : ' + replyContent);
 			
 			display += '<textarea class="form-control lesson-reply-update-edit-textarea" rows="3" maxlength="500">' + replyContent + '</textarea>';
 			display += '<span class="m-1"><strong class="text-danger">' + replyContent.length + '</strong> / 500자</span>';
@@ -400,7 +390,6 @@ $(function(){
 			rightButtonDisplay += '<small class="lesson-reply-content-right lesson-reply-content-update-right ml-3">수정<input type="hidden" class="lesson-reply-content-update-hidden" value="1"/></small>';
 			rightButtonDisplay += '</span>';
 			
-			console.log('rightButtonDisplay ? : ' + rightButtonDisplay);
 //			$(this).parents('.media.my-4').find('.lesson-reply-reset-button-span').html(rightButtonDisplay);
 			newRightButtonSpan.html(rightButtonDisplay);
 			// 댓글 수정 양식으로 바꿔치기 ------------------------------------------------------------------- 
@@ -409,7 +398,6 @@ $(function(){
 			$('.lesson-reply-update-edit-textarea').focus();
 			
 			var textarea = document.getElementsByClassName('lesson-reply-update-edit-textarea');
-			console.log(textarea);
 			textarea[0].setSelectionRange(replyContent.length, replyContent.length);
 			
 			$('.update-textarea-check').val("1");
@@ -417,11 +405,9 @@ $(function(){
 			
 		}
 		else if ( contentValue == '0' ) {
-			console.log('삭제 hidden value ? : ' + contentValue);
 			
 			// 왜 무고한 댓글을 삭제하려고 하십니까 선생님
 			var replyNo = $(this).parents('.media.my-4').find('.lesson-reply-number-hidden').val();
-			console.log('replyNo ? : ' + replyNo);
 			/*
 			Swal.fire({
 				icon : 'question', 
@@ -448,9 +434,7 @@ $(function(){
 						}),
 						async : false,
 						success : function(JSONData, status) {
-							console.log(JSONData);
 							var userId = $('.user-id-hidden').val();
-							console.log('userId ? : ' + userId);
 					
 							var display = '';
 							display += '<ul class="list-unstyled">';
@@ -531,7 +515,6 @@ $(function(){
 		var userId = $('.user-id-hidden').val();
 		var replyUserId = $(this).parents('.media.my-4').find('.lesson-reply-user-name').text().trim();
 		
-		console.log('updateValue ? : ' + updateValue);
 		
 		var newRightButtonSpan = $(this).parents('.media.my-4').find('.lesson-reply-reset-button-span');
 		var newReplyTextDiv = $(this).parents('.media.my-4').find('.here-is-change-update-div');
@@ -550,7 +533,6 @@ $(function(){
 			
 			var replyContentDisplay = '';
 			replyContentDisplay += '<p>' + newReplyContent + '</p>';
-			console.log('newReplyContent ? : ' + newReplyContent);
 			newReplyTextDiv.html(replyContentDisplay);
 
 			$('.update-textarea-check').val('0');
@@ -558,8 +540,6 @@ $(function(){
 		}
 		else if ( updateValue == 1 ) {
 			var replyContent = $('.lesson-reply-update-edit-textarea').val();
-			
-			console.log('replyContent ??? 수정 요청 구간임 : ' + replyContent);
 			
 			
 			
@@ -619,7 +599,6 @@ $(function(){
 		
 		if ( $(document).height() <= $(window).scrollTop() + $(window).height() ) {
 			if ( maxPage >= currentPage ) {
-				console.log('scroll이 됩니까');
 				
 				$.ajax(
 						{
@@ -636,7 +615,6 @@ $(function(){
 							}), 
 							success : function(JSONData, status) {
 								var userId = $('.user-id-hidden').val();
-								console.log('scroll ajax');
 								var display = '';
 								display += '<ul class="list-unstyled">';
 								for(var i = 0; i < JSONData.replyList.length; i++) {
@@ -721,7 +699,6 @@ $(function(){
 		var replyContent = $('.report-reply-hidden-content').val();
 		
 		$('.report-hidden-input-value').val(stateValue);
-		console.log( $('.report-hidden-input-value').val() + ' / ' + buttonText );
 		
 		var display = '';
 		display += '<div class="report-check-reason-text">해당 댓글' + replyContent + '을 <span class="text-danger">' + buttonText + '</span> 사유로 <br/>신고하시겠습니까?</div>';
@@ -737,7 +714,6 @@ $(function(){
 		$('.report-container').find('.report-cirlce').eq(0).attr('class', 'report-cirlce report-cirlce-select');
 		$('.report-container').find('.report-div').eq(0).attr('class', 'report-div report-text-select');
 		
-		console.log('modal이 닫히긴 했다');
 	})
 	// 신고 모달창 그냥 닫혔을때 초기화 이벤트 -----------------------------------------------
 	
@@ -761,7 +737,6 @@ $(function(){
 						report		
 					),
 					success : function(JSONData, status) {
-						console.log('JSONData.result ? : ' + JSONData.result);
 						
 						if (JSONData.result == 'true') {
 							$('.report-madal-total').modal('hide');
@@ -786,11 +761,8 @@ $(function(){
 	$( window ).resize(function() {
 	   var windowWidth = $(this).width(); // 화면 창 변화 그대로 가져오기 
 	   var windowHeight = $(this).height();
-	   console.log('windowWidth ? : ' + windowWidth);
-//			   console.log('windowHeight ? : ' + windowHeight);
 
 	   if ( windowWidth <= 1090 ) {
-		   console.log('위치가 변경되었읍니다!');
 		   $('.lesson-project-content-outer-div').hide();
 		   $('.lesson-reply-content-total-outer-div').hide();
 		   $('.col-lg-4.fixed-right-tool-bar').hide();
@@ -830,7 +802,6 @@ $(function(){
 	
 	// 블라인드 처리된 댓글 상세보기 -------------------------------------------------------
 	$(document).on('click', '.here-is-change-update-div > .blind-reply-content', function(){
-		console.log('click');
 		var blindReplyContent = $(this).parents('.media.my-4').find('.lesson-reply-content-hidden-value').val();
 		Swal.fire({
 			icon : 'info',

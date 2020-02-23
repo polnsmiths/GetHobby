@@ -727,6 +727,10 @@ public class UserController {
 		return "forward:/user/mypageUser.jsp";
 	}
 	
-	
-	
+	// 수정한 부분 ////////////////////////////////////////////////////////
+	@RequestMapping( value = "noLogonUser" ) 
+	public String noLogonUser() throws Exception {
+		return null;
+	}
+	// 수정한 부분 ////////////////////////////////////////////////////////
 }

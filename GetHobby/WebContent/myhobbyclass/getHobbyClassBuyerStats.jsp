@@ -25,8 +25,6 @@
     <!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
-
-
     <!-- jQuery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -38,20 +36,23 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-    
-    <!-- highchart CDN -->
+	<!-- highchart CDN -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/series-label.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+	<!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- 헤더 -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
     
 	<script type="text/javascript">
 		var startDate = []; 
+		var disabledButtonIndexArray = [];
 		
 		$(function(){
 			// 바로 collapse를 표시하기 위해 document.ready시 ajax로 날짜 가져옴 -----------------------
@@ -81,22 +82,28 @@
 								
 								// JSON으로 가져온 날짜 년/월/일로 parsing  
 								var dataSplit = JSONData.calendarList[i].split('-');
-								
-								$("button[name='selectDateButton']").attr('class', 'btn btn-outline-secondary btn-sm');
-								
-								
+						
 								if ( nowYear < dataSplit[0] ) {		// 현재 년도가 데이터 년도보다 작다면 
 									$("button[name='selectDateButton']").eq(i + 1).attr('disabled', true);
+									$("button[name='selectDateButton']").eq(i + 1).attr('class', 'class-statement-non-selected-disabled');
 								}
 								else if ( nowYear >= dataSplit[0] && nowMonth < dataSplit[1] ) {	// 현재 년도가 데이터 년도보다 크거나 같지만 현재 달이 데이터 달보다 작다면 
-									$("button[name='selectDateButton']").eq(i + 1).attr('disabled', true);
+									console.log(nowYear + ' / ' + dataSplit[0] );
+									console.log(nowMonth + ' / ' + dataSplit[1] );
+									
+									if ( nowYear <= dataSplit[0] ) {
+										$("button[name='selectDateButton']").eq(i + 1).attr('disabled', true);
+										$("button[name='selectDateButton']").eq(i + 1).attr('class', 'class-statement-non-selected-disabled');
+										
+										disabledButtonIndexArray.push(i + 1);
+									}
+									
 								}
 								else { // 그외에는 버튼 동작 
 									$("button[name='selectDateButton']").attr('disabled', false);
 								}
 								
 								// 전체 버튼을 제외한 나머지 버튼에 데이터 setting 
-								console.log(JSONData.calendarNameList[i]);
 								$("button[name='selectDateButton']").eq(i + 1).text(JSONData.calendarNameList[i]);
 								$("button[name='selectDateButton']").eq(i + 1).val(JSONData.calendarList[i]);
 								
@@ -105,10 +112,7 @@
 					}
 			);
 			// 바로 collapse를 표시하기 위해 document.ready시 ajax로 날짜 가져옴 -----------------------
-			
-			// 그냥 날짜 버튼 바로 보여줌 
-			$('#selectDateCollapse').collapse('show');
-			
+
 			// 날짜 버튼 클릭시 -------------------------------------------------
 			$('button[name="selectDateButton"]').on('click', function(){
 				// 버튼 this로 가져옴 
@@ -126,6 +130,18 @@
 				if ( selectDateButton.val() == 'all' ) {
 					url = '/myHobbyClass/json/getHobbyClassBuyerAllAgeStats';
 				}
+				
+				$("button[name='selectDateButton']").attr('class', 'class-statement-non-selected-button1 class-statement-non-selected-button2');
+				$("button[name='selectDateButton']").attr('disabled', false);
+				
+				$(this).attr('class', 'class-statement-selected-button');
+				$(this).attr('disabled', true);
+				
+				for(var count = 0; count < disabledButtonIndexArray.length; count++) {
+					$("button[name='selectDateButton']").eq(disabledButtonIndexArray[count]).attr('class', 'class-statement-selected-button');
+					$("button[name='selectDateButton']").eq(disabledButtonIndexArray[count]).attr('disabled', true);
+				}
+				
 				console.log('now url ? : ' + url);
 				$.ajax(
 						{
@@ -137,7 +153,6 @@
 								"Content-Type" : "application/json"
 							}, 
 							data : JSON.stringify({
-								// hobbyClassNo 그냥 10000이라고 침 
 								hobbyClassNo : $('.hidden-class-number').val(),  
 								dateTarget : selectDateButton.val() 
 							}), 
@@ -255,10 +270,9 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
-								
-								$('#buyerStateCollapse').collapse('show');
+
 							}
 						}
 				)
@@ -269,9 +283,9 @@
 			
 			// 성별 버튼 클릭 시 ------------------------------------------------------
 			$(document).on('click', 'button[name="maleButton"]', function(){
-				
+				console.log('malebutton click');
 				var selectDateButtonValue = $('input[name="targetValue"]').val();
-				
+				console.log('selectDateButtonValue ? : ' + selectDateButtonValue);
 				var url = '';
 				
 				// 전체 버튼이 아닐 때 
@@ -384,10 +398,9 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton'>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton' disabled>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton'>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton' disabled>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
-								
-								$('#buyerStateCollapse').collapse('show');
+
 							}
 						}
 				)
@@ -479,11 +492,9 @@
 									    }]
 									});
 								}
-								var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+								var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 								$('span[name="buttonSpan"]').html(display);
-								
-								$('#buyerStateCollapse').collapse('show');
-								
+
 							}
 						}
 				)
@@ -715,11 +726,9 @@
 								    }]
 								});
 							}
-							var display = "<button type='button' class='btn btn-outline-secondary btn-sm' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-outline-secondary btn-sm' name='maleButton'>성별</button>";
+							var display = "<button type='button' class='btn btn-basic' name='ageButton' disabled>연령대</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-basic' name='maleButton'>성별</button>";
 							$('span[name="buttonSpan"]').html(display);
-							
-							$('#buyerStateCollapse').collapse('show');
-							
+
 						}
 					}
 			)
@@ -727,64 +736,358 @@
 	</script>
 	
 	<style>
-		.card-chart-body {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			min-width: 0;
-			word-wrap: break-word;
-			background-color: #FFF;
-			border: 0px solid rgba(0,0,0,.125); /*EDIT this part*/
-			border-radius: 0.25rem;
+		html, body {
+		  margin: 0;
+		  padding: 0;
+		  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+		  font-size: 14px;
 		}
 		
-		.total-chart-contaier {
-			margin-top : 50px;
+		#external-events {
+		  position: fixed;
+		  z-index: 2;
+		  top: 300px;
+		  left: 140px;
+		  width: 150px;
+		  padding: 0 10px;
+		  border: 1px solid #ccc;
+		  background: #eee;
+		}
+		
+		.demo-topbar + #external-events { /* will get stripped out */
+		  top: 60px;
+		}
+		
+		#external-events .fc-event {
+		  margin: 1em 0;
+		  cursor: move;
+		}
+		
+		#calendar-container {
+		  position: relative;
+		  z-index: 1;
+		  margin-left: 200px;
+		}
+		
+		#calendar {
+		  max-width: 900px;
+		  margin: 20px auto;
+		}
+	 
+		.fc-content {
+	    	cursor: pointer;
+		}
+		
+		.fc-event, .fc-event:hover {
+		    color: #fff !important; 
+		    text-decoration: none;
+		}
+		
+		.fixed-right-tool-bar {
+			box-shadow: rgba(41, 42, 43, 0.16) 0px 2px 6px -2px;
+		    position: sticky;
+		    top: 0px;
+		    max-height: 100vh;
+		    padding: 24px;
+		    border-radius: 3px;
+		    border-width: 1px;
+		    border-style: solid;
+		    border-color: rgb(255, 255, 255);
+		    border-image: initial;
+		    overflow: auto;
+		}
+		
+		.this-is-class-title-to-the-right-fixed-tool-bar {
+		    font-size: 20px;
+		    font-weight: bold;
+		    line-height: 28px;
+		    letter-spacing: -0.3px;
+		    color: rgb(62, 64, 66);
+		    word-break: keep-all;
+		    margin: 0px 0px 8px;
+		}
+		
+		.schedule-text-normal-span2 {
+		    font-size: 20px;
+		    font-weight: bold;
+		    color: rgb(62, 64, 66);
+		    line-height: 32px;
+		    letter-spacing: -0.4px;
+		    margin: 0px;
+		}
+		
+		.schedule-text-normal-span1 {
+		    word-break: keep-all;
+		}
+		
+		.schedule-text-strong-span {
+		    color: rgb(253, 126, 20);
+		}
+		
+		.schedule-text-blue-strong-span {
+		    color: rgb(42, 143, 180);
+		}
+		
+		.schedule-text-gray-strong-span {
+		    color: rgb(168, 174, 179);
+		}
+		
+		.schedule-text-small-span2 {
+		    font-size: 15px;
+		    font-weight: bold;
+		    color: rgb(62, 64, 66);
+		    line-height: 32px;
+		    letter-spacing: -0.4px;
+		    margin: 0px;
+		}
+		
+		.schedule-text-small-span1 {
+		    word-break: keep-all;
+		}
+		
+		.schedule-selected-button {
+		    width: 100%;
+		    display: flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgba(255, 146, 43, 0.5);
+		    font-weight: 700;
+		    font-size: 16px;
+		    letter-spacing: -0.2px;
+		    height: 48px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 20px;
+		    transition: background-color 0.1s ease 0s;
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		}
+		
+		.schedule-button-text {
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex: 0 0 auto;
+		}
+		
+		.schedule-non-selected-button1 {
+		    width: 100%;
+		    display: flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(255, 146, 43);
+		    font-weight: 700;
+		    font-size: 16px;
+		    letter-spacing: -0.2px;
+		    height: 48px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 20px;
+		    transition: background-color 0.1s ease 0s;
+	    }
+	    
+	   	.schedule-non-selected-button2 {
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		}
+	
+		.swal-div {
+			float : left !important;
+		}
+		
+		
+		.wrapper-gray {
+	    	background-color: rgb(62, 64, 66);
+	    	color: white;
+		}
+		
+		.class-statement-selected-button {
+		    width: 100%;
+		    display: flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgba(255, 146, 43, 0.5);
+		    font-weight: 700;
+		    font-size: 16px;
+		    letter-spacing: -0.2px;
+		    height: 48px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 20px;
+		    transition: background-color 0.1s ease 0s;
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		    cursor : not-allowed !important;
+		}
+		
+		.class-statement-non-selected-button1 {
+		    width: 100%;
+		    display: flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(255, 146, 43);
+		    font-weight: 700;
+		    font-size: 16px;
+		    letter-spacing: -0.2px;
+		    height: 48px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 20px;
+		    transition: background-color 0.1s ease 0s;
+		}
+		
+		.class-statement-non-selected-button2 {
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		}
+		
+		.class-statement-non-selected-disabled {
+		    width: 100%;
+		    display: flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgba(255, 146, 43, 0.5);
+		    font-weight: 700;
+		    font-size: 16px;
+		    letter-spacing: -0.2px;
+		    height: 48px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 20px;
+		    transition: background-color 0.1s ease 0s;
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		    cursor : not-allowed !important;
 		}
 	</style>
- </head>
- <body>
- 	<input type="hidden" class="hidden-class-number" value="10025" />
+ 
+</head>
+<body>
+	<!-- 나중에 번호 바꾸기 -->
+	<input type="hidden" class="hidden-class-number" value="10000" />
+	<jsp:include page="/common/header.jsp"/>
 	<br/><br/><br/><br/><br/>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3">
-				<button class="btn btn-secondary btn-lg btn-block" name="selectDate" type="button" data-toggle="collapse" data-target="#selectDateCollapse" aria-expanded="false" aria-controls="#selectDateCollapse">날짜선택</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="collapse" id="selectDateCollapse">
-					<div class="card card-body">
-						<button type="button" class="btn btn-outline-secondary btn-sm" name="selectDateButton" value="all">전체</button>
-			    		<br/>
-			    		<button type="button" class="btn btn-outline-secondary btn-sm" name="selectDateButton"></button>
-			    		<br/>
-			    		<button type="button" class="btn btn-outline-secondary btn-sm" name="selectDateButton"></button>
-			    		<br/>
-			    		<button type="button" class="btn btn-outline-secondary btn-sm" name="selectDateButton"></button>
-			    		<br/>
-			    		<button type="button" class="btn btn-outline-secondary btn-sm" name="selectDateButton"></button>
-			    		<br/>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-1">
-				
-			</div>
 			<div class="col-lg-8">
-				<div class="collapse" id="buyerStateCollapse">
-					<div class="card card-body card-chart-body margin-0 pie-chart-div">
-						<div id="chart_div"></div>
-						<span name="buttonSpan"></span>
-						<input type="hidden" name="targetValue" />
-					</div>
-				</div>
+				<div id="chart_div"></div>
+				<span name="buttonSpan"></span>
+				<input type="hidden" name="targetValue" value="all" />
 			</div>
+			
+			<div class="col-lg-4 fixed-right-tool-bar">
+				<h3 class="schedule-text-normal-span1 schedule-text-normal-span2">
+					<span class="schedule-text-strong-span">
+						${sessionScope.user.userId }
+					</span>
+					<br/>
+					님이 
+					<span class="schedule-text-blue-strong-span">
+						개설
+					</span>
+					하신
+					<br/>
+					클래스의 통계를
+					<br/>
+					<span class="schedule-text-blue-strong-span">
+						확인
+					</span>
+					할 수 있습니다.
+				</h3>
+				<br/>
+				<h5 class="schedule-text-small-span1 schedule-text-small-span2">
+					하단의 버튼으로 
+					<span class="schedule-text-strong-span">
+						정렬
+					</span>
+					이 가능합니다. 
+				</h5>
+				<br/>
+				<div class="date-button-for-schedule">
+					<button type="button" class="class-statement-selected-button" name="selectDateButton" value="all">전체</button>
+		    		<br/>
+		    		<button type="button" class="class-statement-non-selected-button1 class-statement-non-selected-button2" name="selectDateButton"></button>
+		    		<br/>
+		    		<button type="button" class="class-statement-non-selected-button1 class-statement-non-selected-button2" name="selectDateButton"></button>
+		    		<br/>
+		    		<button type="button" class="class-statement-non-selected-button1 class-statement-non-selected-button2" name="selectDateButton"></button>
+		    		<br/>
+		    		<button type="button" class="class-statement-non-selected-button1 class-statement-non-selected-button2" name="selectDateButton"></button>
+		    		<br/>
+				</div>			
+			</div>		
 		</div>
 	</div>
 	
-	<div class="container total-chart-contaier">
+	<br/><br/><br/>
+	<div class="container total-chart-contaier mt-5">
 		<div class="row">
 			<div class="col-lg">
 				<div id="total_chart_div">
@@ -793,5 +1096,8 @@
 			</div>
 		</div>
 	</div>
+	
+	<br/><br/><br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>
