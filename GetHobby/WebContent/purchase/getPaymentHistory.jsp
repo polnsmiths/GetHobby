@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>  
-  <link rel="stylesheet" href="../resources/css/purchase.css">
+  <link rel="stylesheet" href="/resources/css/purchase.css">
 <style>
 	body{
 		margin: 0px;
@@ -350,7 +350,7 @@
 		
 		<c:if test="${purchaseMap.totalCount} == 0">
 		<div class="noBuyClass-div">
-		<img src="../resources/image/gon/empty-pay.png" class="noBuyImage">
+		<img src="/resources/image/gon/empty-pay.png" class="noBuyImage">
 		<span class="noBuyClass-span">
 		아직 구매하신 클래스가 없어요
 		</span>
@@ -395,7 +395,7 @@
 						</div>
 						<div class="history-content-div-out">
 							<div class="history-content-div-in-image">
-								<img class="history-content-div-in-image" alt="" src="../resources/image/gon/${purchase.hobbyClass.hobbyClassImage}">
+								<img class="history-content-div-in-image" alt="" src="/images/hobbyclass/${purchase.hobbyClass.hobbyClassImage}">
 							</div>
 							<div class="history-content-div-in-content">
 								<div class="history-content-div-in-content-title">
@@ -435,7 +435,7 @@
 						</div>
 						<div class="history-content-div-out">
 							<div class="history-content-div-kit-image">
-								<img class="history-content-div-kit-image" alt="" src="../resources/image/gon/${purchase.hobbyClass.kitImage}">
+								<img class="history-content-div-kit-image" alt="" src="/images/hobbyclass/${purchase.hobbyClass.kitImage}">
 							</div>
 							<div class="history-content-div-in-content">
 								<div class="history-content-div-in-content-title">
@@ -635,7 +635,7 @@
 					</div>
 					<div class="history-content-div-out">
 						<div class="history-content-div-in-image">
-							<img class="history-content-div-in-image history-hobbyClassIamge" alt="" src="../resources/image/gon/0123456789123.jpg">
+							<img class="history-content-div-in-image history-hobbyClassImage" alt="" src="/images/hobbyclass/${purchase.hobbyClass.hobbyClassImage}">
 						</div>
 						<div class="history-content-div-in-content">
 							<div class="history-content-div-in-content-title history-hobbyClassName">
@@ -665,7 +665,7 @@
 					</div>
 					<div class="history-content-div-out">
 						<div class="history-content-div-kit-image">
-							<img class="history-content-div-kit-image history-kitImage" alt="" src="../resources/image/gon/0123456789123.jpg">
+							<img class="history-content-div-kit-image history-kitImage" alt="" src="/images/hobbyclass/${purchase.hobbyClass.kitImage}">
 						</div>
 						<div class="history-content-div-in-content">
 							<div class="history-content-div-in-content-title history-kitName">
@@ -831,7 +831,6 @@
 								}
 							}
 							
-							
 							// Data
 							var payMethod;
 							if ( JSONData.payMethod == 0){
@@ -857,12 +856,12 @@
 							$(".history-finalPrice").text( numberFormat(finalPrice)+"원" );
 							$(".history-receiverName").text(JSONData.receiverName);
 							$(".history-receiverPhone").text(JSONData.receiverPhone);
-							$(".history-dlvyAddress").text( JSONData.dlvyAddr+" "+JSONData.dlvyDetailAddr );
+							$(".history-dlvyAddress").text( JSONData.dlvyAddr+" "+JSONData.dlvyDetailAddr);
 							$(".history-dlvyRequest").text(JSONData.dlvyRequest);
 							$(".history-hobbyClassName").text(JSONData.hobbyClass.hobbyClassName);
 							$(".history-kitName").text(JSONData.hobbyClass.kitName);
-							$(".history-hobbyClassImage").attr("src","../resources/image/gon/"+JSONData.hobbyClass.hobbyClassIamge);
-							$(".history-kitImage").attr("src","../resources/image/gon/"+JSONData.hobbyClass.kitImage);
+							$(".history-hobbyClassImage").attr("src","/images/hobbyclass/"+JSONData.hobbyClass.hobbyClassImage);
+							$(".history-kitImage").attr("src","/images/hobbyclass/"+JSONData.hobbyClass.kitImage);
 							$("input[name='history-purchaseId']").val(JSONData.purchaseId);
 							$("input[name='history-purchasePrice']").val(JSONData.purchasePrice);
 							$("input[name='history-hobbyClassNo']").val(JSONData.hobbyClass.hobbyClassNo);
@@ -948,7 +947,7 @@
 																+'</div>'
 																+'<div class="history-content-div-out">'
 																+'<div class="history-content-div-in-image">'
-																+'<img class="history-content-div-in-image" alt="" src="../resources/image/gon/'+JSONData.purchaseList[i].hobbyClass.hobbyClassImage+'">'
+																+'<img class="history-content-div-in-image" alt="" src="/images/hobbyclass/'+JSONData.purchaseList[i].hobbyClass.hobbyClassImage+'">'
 																+'</div>'
 																+'<div class="history-content-div-in-content">'
 																+'<div class="history-content-div-in-content-title">'
@@ -987,7 +986,7 @@
 																	+'</div>'
 																	+'<div class="history-content-div-out">'
 																	+'<div class="history-content-div-kit-image">'
-																	+'<img class="history-content-div-kit-image" alt="" src="../resources/image/gon/'+JSONData.purchaseList[i].hobbyClass.kitImage+'">'
+																	+'<img class="history-content-div-kit-image" alt="" src="/images/hobbyclass/'+JSONData.purchaseList[i].hobbyClass.kitImage+'">'
 																	+'</div>'
 																	+'<div class="history-content-div-in-content">'
 																	+'<div class="history-content-div-in-content-title">'

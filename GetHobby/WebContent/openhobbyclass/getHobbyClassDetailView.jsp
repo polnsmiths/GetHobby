@@ -47,7 +47,7 @@
 		padding: .8em .5em;
 		border: 1px solid #999;
 		font-family: inherit;
-		background: url('../resources/image/gon/flow.jpg') no-repeat 97% 50%;
+		background: url('/resources/image/gon/flow.jpg') no-repeat 97% 50%;
 		border-radius: 0px;
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -539,7 +539,7 @@
 							<label for="inputState" style="margin:4px; font-size:14px;">커버 이미지</label>
 							<div class="file_input_div" style="margin-bottom:32px;">
 								<input type="hidden" name="hobbyClassImage" value="${hobbyClass.hobbyClassImage}">
-								<input type="image" src="/images/gon/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
+								<input type="image" src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
 							</div>
 					
 			  		 
@@ -622,7 +622,7 @@
 							<div class="file_input_div" style="margin-bottom:32px;">
 								<input type="hidden" name="lessonNo" value="${hobbyClass.lesson[0].lessonNo}">
 								<input type="hidden" name="lessonVideo" value="${hobbyClass.lesson[0].lessonVideo}">
-								<iframe src="/resources/video/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one"></iframe>	
+								<iframe src="/video/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one"></iframe>	
 							</div>
 						</div>
 							
@@ -648,7 +648,7 @@
 
 								<div class="file_input_lesson" style="float:left;">
 									<input type="hidden" name="lessonImage" value="${hobbyClass.lesson[0].lessonImage}">
-									<input type="image" src="/images/gon/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
+									<input type="image" src="/images/hobbyclass/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
 									
 								</div>
  
@@ -700,7 +700,7 @@
 							<label for="inputState" style="margin:4px; font-size:14px;">준비물 이미지</label>
 							<div class="file_input_div" style="margin-bottom:32px;">
 								<input type="hidden" name="kitImage" value="${hobbyClass.kitImage}">
-								<input type="image" src="/images/gon/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
+								<input type="image" src="/images/hobbyclass/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
 							</div>
 					
 					

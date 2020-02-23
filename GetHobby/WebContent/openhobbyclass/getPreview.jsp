@@ -312,7 +312,7 @@
 								var nowMaxPage = ( i * pageSize );
 			
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {
-									display += '<div class="item"><img src="/images/gon/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+									display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 								}
 								
 								display += '</div>';
@@ -361,7 +361,7 @@
 									
 									console.log(currentPage);
 									for(var j = currentPage; j <= JSONData.resultPage.totalCount; j++ ) {
-										display += '<div class="item"><img src="/images/gon/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 									}
 									
 									display += '</div>';
@@ -1652,7 +1652,7 @@
 				
 				<div class="image-outer-div">
 					<span class="image-outer-span">
-						<img src="/images/gon/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 					</span>
 				</div>
 				
@@ -1850,7 +1850,7 @@
 						
 						<div class="image-outer-div mt-5">
 							<span class="image-outer-span">
-								<img src="/images/gon/${hobbyClass.kitImage }" class="img-class-intro" onError="this.src='/resources/image/gon/ohcbImage.png'"/>
+								<img src="/images/hobbyclass/${hobbyClass.kitImage }" class="img-class-intro" onError="this.src='/resources/image/gon/ohcbImage.png'"/>
 							</span>
 						</div>
 						

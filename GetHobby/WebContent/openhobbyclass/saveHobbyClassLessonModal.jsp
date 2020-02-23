@@ -104,7 +104,7 @@
 				if( $(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val() != null  
 						&& $(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val() != ""	){
 					$(".classLesson_image_one").remove();
-					$("input[name='lessonVideo']").after('<iframe src="/resources/video/'+$(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val()+'" class="file_input_test lessonInput classLesson_image_one"></iframe>');
+					$("input[name='lessonVideo']").after('<iframe src="/video/'+$(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val()+'" class="file_input_test lessonInput classLesson_image_one"></iframe>');
 					$("input[name='lessonVideo']").val( $(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val() );
 					$(".classLesson_file_one").attr("disabled",true);
 					$(".classLesson_file_one").css("cursor","default");
@@ -124,7 +124,7 @@
 				$("input[name='lessonIntro']").val( $(this).prev().prev("input[name='lessonIntro-modal']").val() );
 				
 				if( $(this).prev("input[name='lessonImage-modal']").val() != null && $(this).prev("input[name='lessonImage-modal']").val() != "" ){
-					$(".classLesson_image_two").attr("src", "/images/gon/"+$(this).prev("input[name='lessonImage-modal']").val() );
+					$(".classLesson_image_two").attr("src", "/images/hobbyclass/"+$(this).prev("input[name='lessonImage-modal']").val() );
 				}else{
 					$(".classLesson_image_two").attr("src", "/resources/image/gon/lessonaddimage.jpg" );
 				}
