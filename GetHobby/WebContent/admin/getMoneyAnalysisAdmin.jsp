@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+f<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -604,7 +604,7 @@ h1 {
 					startLineHighChats(dec, lastDec, lastDayDate, 'December', year, lastYear );
 				}
 			}//end of getLineHighCharts
-	
+
 			// 1년 비교 차트 참고정보
 			function getOneYearTitle(year){
 				var date = new Date();
