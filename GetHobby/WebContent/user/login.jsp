@@ -131,7 +131,7 @@ $(function(){
 						  showConfirmButton: 'ture',
 						  timer: 1300
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'fail'){
 					Swal.fire({
@@ -139,7 +139,7 @@ $(function(){
 						  title: '보안번호가 틀렸습니다',
 						  showConfirmButton: 'ture',
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'pwfail'){
 					Swal.fire({
@@ -148,7 +148,7 @@ $(function(){
 						  showConfirmButton: 'ture',
 						  timer: 1000
 						}).then((result) =>{
-							self.location ="http://192.168.0.159:8080/user/captcha";
+							self.location ="http://127.0.0.1:8080/user/captcha";
 						})
 				}if(JSONData.result == 'success'){
 					Swal.fire({
@@ -157,7 +157,17 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://192.168.0.159:8080/index.jsp";
+							// self.location = "http://127.0.0.1:8080/index.jsp"; // 기존
+							// 수정한 부분 /////////////////////////////
+							var redirectUrl = '';
+							redirectUrl = "${redirectUrl}";
+							if ( redirectUrl != '' ) {
+								self.location = redirectUrl;
+							}
+							else {
+								self.location = "http://127.0.0.1:8080/index.jsp";
+							}
+							// 수정한 부분 /////////////////////////////
 						})
 					
 				}
@@ -168,7 +178,7 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://192.168.0.159:8080/admin/user/listUserAdmin";
+							self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
 						})
 					
 				}
@@ -244,7 +254,30 @@ $(function(){
 		}
 	});
 	
+	// 추가된 부분 ---------------------------------------------------------
+	var checkRedirectUrl = '';
+	checkRedirectUrl = '${redirectUrl}';
 	
+	if ( checkRedirectUrl != '' ) {
+		const Toast = Swal.mixin({
+			toast : true, 
+			position : 'top', 
+			showConfirmButton : false, 
+			showCancelButton : false,
+			timer : 1500, 
+			timerProgressBar : false, 
+			onOpen : (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			}
+		});
+		
+		Toast.fire({
+			icon : 'error', 
+			title : '로그인이 필요한 기능입니다.'
+		});
+	}
+	// 추가된 부분 ---------------------------------------------------------
 });
 
 

@@ -18,11 +18,12 @@ $(function(){
 				}, 
 				async : false,
 				success : function(JSONData, status) {
+					console.log(JSONData);
 					var display = '';
 					for ( var i = 0; i < JSONData.eventList.length; i++) {
 						display += '<div class="event-owl-img-outer-div">';
 						display += '<div class="item event-img-carousel-tag">';
-						display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '">';
+						display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '" id="event-image-id">';
 						display += '</div>';
 						display += '<input type="hidden" class="hidden-event-img-event-id" value="' + JSONData.eventList[i].eventId + '" />';
 						display += '</div>';
@@ -35,6 +36,7 @@ $(function(){
 					}
 					
 					var miniText = '';
+					
 					miniText += JSONData.eventList[0].eventStartDate + ' 부터 ~ ' + JSONData.eventList[0].eventEndDate + ' 까지';
 					miniText += '<br/>';
 					miniText += JSONData.eventList[0].eventDiscount + ' % 할인';
@@ -67,10 +69,10 @@ $(function(){
 						miniText += '<span class="badge wrapper-basic-event text-wrap"><i class="fas fa-list"></i>&nbsp;' + category + '</span>';
 						miniText += '&nbsp;&nbsp;';
 						if ( i == 3 ) {
-							miniText = '<br/>';
+							miniText += '<br/>';
 						}
 					}
-					
+					console.log(miniText);
 					$('.p-small-text').html(miniText);
 					$('.p-big-text').text(JSONData.eventList[0].eventTitle);
 					$('#event-owl-carousel').html(display);
@@ -108,7 +110,6 @@ $(function(){
 		eventOwl.trigger('stop.owl.autoplay');
 		if ( index == -1 || index == (eventEndDateArray.length - 1)) {
 			var target = eventEndDateArray.length - 1;
-			
 			var miniText = '';
 			miniText += eventStartDateArray[target] + ' 부터 ~ ' + eventEndDateArray[target] + ' 까지';
 			miniText += '<br/>';
@@ -147,7 +148,6 @@ $(function(){
 				}
 				
 			}
-			
 			$('.p-small-text').html(miniText);
 			
 			$('.p-big-text').text(eventTitleArray[target]);
@@ -190,7 +190,7 @@ $(function(){
 				miniText += '&nbsp;&nbsp;';
 				
 				if ( i == 3 ) {
-					miniText = '<br/>';
+					miniText += '<br/>';
 				}
 			}
 			

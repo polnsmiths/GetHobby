@@ -86,6 +86,11 @@
 		});
 		
 		
+		
+		$("#buyschedule").on("click",function(){
+			
+			self.location="/myhobbyclass/getPurchaseHobbyClassSchedule.jsp";
+		});
 	});
 	
 	
@@ -287,7 +292,7 @@ hr {
     display: flex;
     vertical-align: middle;
     color: rgb(255, 255, 255);
-    background-color: #f27474;
+    background-color: #fd7e14;
     font-weight: 500;
     font-size: 14px;
     letter-spacing: -0.2px;
@@ -337,33 +342,28 @@ button {
 			</div>		
 		<div class="goPQgE">
 			<div>
-				<button type="button" id="getuser" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="padding-left: 16px;border-left-width: 20px;margin-left: 0px;width: 100%;">
+				<button type="button" id="getuser" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="padding-left: 16px;border-left-width: 20px;margin-left: 0px;width: 120px;cursor: pointer;">
 					<span class="sc-fjdhpX kCztpU">회원 정보</span>							
 				</button>
 			</div>
 			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 70%;">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
 					<span class="sc-fjdhpX kCztpU">좋아요 목록</span>							
 				</button>
 			</div>
 			<div>
-				<button type="button" id="steamclick" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 70%;">
-					<span class="sc-fjdhpX kCztpU">찜하기 목록</span>							
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+					<span class="sc-fjdhpX kCztpU">구매내역</span>							
 				</button>
 			</div>
 			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 70%;">
-					<span class="sc-fjdhpX kCztpU">결제내역</span>							
-				</button>
-			</div>
-			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 70%;">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
 					<span class="sc-fjdhpX kCztpU">수강</span>							
 				</button>
 			</div>
 			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 70%;">
-					<span class="sc-fjdhpX kCztpU">구매한 클래스 일정</span>							
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="buyschedule" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+					<span class="sc-fjdhpX kCztpU">클래스 일정</span>							
 				</button>
 			</div>
 		</div>
