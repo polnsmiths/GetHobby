@@ -22,14 +22,8 @@
     <!-- 웹 폰트 (나눔고딕) -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
-
     <!--부트스트랩 CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <!-- fontawesome cdn(웹 아이콘 라이브러리) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-
 
     <!-- jQuery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -41,11 +35,6 @@
 
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
-
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
 	
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
@@ -57,6 +46,17 @@
 	
 	<!-- channelTalk -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
+	
+	<!-- fontawesome cdn(웹 아이콘 라이브러리) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -210,7 +210,9 @@
 				
 				var userId = $('.user-hidden-class-intro-value').val();
 				
-				if ( !userId ) {  
+				if ( !userId ) { 
+						
+					/*
 					console.log('로그인이 필요합니다.');
 					
 					Swal.fire({
@@ -221,9 +223,13 @@
 						timer : 800
 					})
 					return;
+					*/
+					// self.location = '/user/noLogonUser?type=purchase&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					return false;
 				}
 				
-				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val();
+				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val() + "&eventDiscount=" + "${hobbyClass.event.eventDiscount}";
 				
 				// 단순 네비게이션만 하면 될듯 
 			});
@@ -231,41 +237,67 @@
 			
 			// 찜하기 이벤트 시작--------------------------------------
 			$('.steam-button').on('click', function(){
-				console.log('찜하기 버튼을 눌렀읍니다.');
 				var userId = $('.user-hidden-class-intro-value').val();
+				var checkPurchase = $('.hidden-purchase-check').val();
+				var classState = $('.hidden-class-state').val();
 				
-				if ( !userId ) {  
-					console.log('로그인이 필요합니다.');
-					
-					Swal.fire({
-						icon : 'error',
-						title : '로그인이 필요합니다.',
+				if ( classState != '3' ) {
+					const Toast = Swal.mixin({
+						toast : true, 
+						position : 'top', 
 						showConfirmButton : false, 
-						allowOutsideClick : true,
-						timer : 800
-					})
-					return;
+						showCancelButton : false,
+						timer : 1500, 
+						timerProgressBar : true, 
+						onOpen : (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer);
+							toast.addEventListener('mouseleave', Swal.resumeTimer);
+						}
+					});
+					
+					Toast.fire({
+						icon : 'error', 
+						title : '찜하기는 수요조사 중인 클래스에만 가능합니다.'
+					}).then((result) => {
+						event.preventDefault();	
+					});		
+					
+					event.preventDefault();	
+					return false;
 				}
 				
-				if ( purchaseCheck != '0' ) {
-					console.log('이미 구매한 클래스입니다.');
-					
+				if ( checkPurchase == '1' ) {
 					Swal.fire({
 						icon : 'error',
 						title : '이미 구매한 클래스입니다.',
 						showConfirmButton : false, 
 						allowOutsideClick : true,
 						timer : 800
+					}).then((result) => {
+						event.preventDefault();
 					})
-					return;
+				}
+				
+				if ( !userId ) {  
+					/*
+					Swal.fire({
+						icon : 'error',
+						title : '로그인이 필요합니다.',
+						showConfirmButton : false, 
+						allowOutsideClick : true,
+						timer : 800
+					}).then((result) => {
+						event.preventDefault();
+					})
+					*/
+					// self.location = '/user/noLogonUser?type=steamHobbyClass&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 				}
 				
 				var steamCheck = $('.steam-check').val();
 				var hobbyClassNo = '${hobbyClass.hobbyClassNo}';
 				var steamCount = $('.steam-count').val();
 				var steamButton = $(this);
-				
-				console.log(steamCheck + ' / ' + hobbyClassNo + ' / ' + steamCount);
 				
 				var url = '';
 				
@@ -481,7 +513,6 @@
 			
 			// 한줄평 더보기 요청 시 -----------------------------------------------
 			$('.btn-class-assess-more').on('click', function(){
-				console.log('클래스 더보기 버튼을 클릭하셨읍니다.');
 				
 				currentPage = (currentPage * 1) + 1;
 				var hobbyClassNo = "${hobbyClass.hobbyClassNo}";
@@ -502,9 +533,15 @@
 							}), 
 							success : function(JSONData, status) {
 								var display = '';
-								
+								var logonUserId = "${sessionScope.user.userId}";
 								for ( var i = 0; i < JSONData.assessContentList.length; i++ ) {
-									display += '<div class="class-assess-content-outer-div">';
+									if ( JSONData.assessContentList[i].user.userId == logonUserId ) {
+										display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+									}
+									else {
+										display += '<div class="class-assess-content-outer-div">';
+									}
+
 									display += '<div class="profile-and-name">';
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
@@ -651,7 +688,15 @@
 						    				var display = '';
 						    				
 						    				for (var i = 0; i < e.classAssessList.length; i++) {
-						    					display += '<div class="class-assess-content-outer-div">';
+						    					var logonUserId = "${sessionScope.user.userId}";
+						    				
+						    					if ( e.classAssessList[i].user.userId == logonUserId ) {
+													display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+												}
+												else {
+													display += '<div class="class-assess-content-outer-div">';
+												}
+						    					
 						    					display += '<div class="profile-and-name">';
 						    					display += '<div size="24" class="profile-outer-div">';
 						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
@@ -944,6 +989,8 @@
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
 				console.log('purchaseCheck ? : ' + purchaseCheck);	
 			
+				// 유저 로그인 안되있을 경우
+				
 				if ( purchaseCheck != '1' ) {
 					Swal.fire({
 						icon : 'error',
@@ -1656,6 +1703,10 @@
 		.class-assess-content-outer-div {
 		    margin-bottom: 24px;
 		}
+		
+		.class-assess-content-outer-div-logon-mine {
+		    background-color : #fefbed;
+		}
 
 		.profile-and-name {
 		    display: flex;
@@ -1783,7 +1834,7 @@
 		.class-intro-expect-days-inner {
 		    width: 100%;
 		    height: 104px;
-		    background-color: rgb(248, 248, 249);
+		    background-color: rgb(255, 255, 255);
 		    margin-bottom: 16px;
 		    padding-top: 12px;
 		    border-radius: 3px;
@@ -2171,7 +2222,6 @@
 			overflow : hidden;
 		}
 		
-		
 	</style>
 
 </head>
@@ -2190,6 +2240,8 @@
 	<input type="hidden" class="hidden-purchase-check" value="${purchaseCheck }" />
 	<input type="hidden" class="hidden-class-state" value="${hobbyClass.hobbyClassState }" />
 	<input type="hidden" class="hidden-class-assess-check" value="${ !empty classAssess ? '1' : '0' }" />
+	
+	<br/><br/><br/><br/>
 	
 	<div class="container">
 		<div class="row">
@@ -2376,8 +2428,20 @@
 															최종 금액
 														</dd>
 													</dl>
-													
-													<!-- if문 돌릴곳 시작 -->
+													<dl class="dl-event">
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventTitle }
+														</dt>
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventStartDate } 부터 ~ ${hobbyClass.event.eventEndDate } 까지
+														</dt>
+														<dt class="this-is-dt mr-4">
+															${hobbyClass.event.eventDiscount } % 할인
+														</dt>
+														<dd class="this-is-dd">
+															<fmt:formatNumber value="${hobbyClass.event.resultPrice }" pattern="#,###" />&nbsp;원
+														</dd>
+													<!-- 
 													<c:forEach var="event" items="${eventList }">
 														<dl class="dl-event">
 															<dt class="this-is-dt mr-4">
@@ -2394,7 +2458,7 @@
 															</dd>
 														</dl>
 													</c:forEach>
-													<!-- if문 돌릴곳 끝 -->
+													 -->
 												</div>
 											</div>
 										</div>
@@ -2536,7 +2600,12 @@
 						
 						<c:forEach var="assessContent" items="${listAssessContent }">
 							<!-- 나중에 그거 forEach문 돌릴 구간 -->
-							<div class="class-assess-content-outer-div">
+							<c:if test="${sessionScope.user.userId == assessContent.user.userId }">
+								<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">
+							</c:if>
+							<c:if test="${sessionScope.user.userId != assessContent.user.userId }">
+								<div class="class-assess-content-outer-div">
+							</c:if>
 								<div class="profile-and-name">
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">
@@ -2828,6 +2897,7 @@
 		</div>
 	</div>
 	클래스 한줄평 작성 모달창 끝 -->
-	
+	<br/><br/><br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -715,3 +715,7 @@ ul {
 .blind-reply-content {
 	cursor : pointer;	
 }
+
+.card-footer {
+	background-color : #FFFFFF;	
+}

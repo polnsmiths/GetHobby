@@ -56,7 +56,7 @@
 	<script src="../resources/javascript/min/listPopularHobbyClass.js"></script>
 	<script src="../resources/javascript/min/listRegisterHobbyClass.js"></script>
 	<script src="/resources/javascript/min/listRecommendHobbyClass.js"></script>
-	<script src="/resources/javascript/commonHeader.js"></script>
+	<script src="/resources/javascript/min/getProgressEvent.js"></script>
 
 	<!-- css import -->
 	<link href="../resources/css/min/searchHobbyClassMain.css" rel="stylesheet" />
@@ -65,13 +65,25 @@
 	<link href="../resources/css/min/listRegisterHobbyClass.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/resources/css/min/listRecommendHobbyClass.css" />
 	<link rel="stylesheet" href="/resources/css/min/getProgressEvent.css" />
+	
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-
+	
 </head>
 <body>
 	<input type="hidden" class="user-hidden-value" value="${sessionScope.user.userId }"/>
 	<input type="hidden" id="role" value="${sessionScope.user.role}"/>
+	
 	<jsp:include page="/common/header.jsp"/>
+	
+	<br/><br/><br/><br/>
 	
 	<!-- navbar 시작 -->
 	<div class="container">
@@ -81,7 +93,7 @@
 					<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 						<ul class="navbar-nav ">
 							<li class="nav-item dropdown align-self-center">
-								<button class="btn wrapper-basic dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;전체 카테고리</button>
+								<button class="btn wrapper-basic dropdown-toggle dropdown-nav-bar-class-search-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;전체 카테고리</button>
 								<div class="dropdown-menu mr-1 dropdown-menu-center" aria-labelledby="categoryDropdown">
 									<div class="dropdown dropdown-inner-text">
 										<img src="/resources/image/min/im-all.png" height="45px"/>
@@ -168,6 +180,7 @@
 									</span>
 								</a>
 							</li>
+							<!-- 자유게시판 사진게시판 헤더에 놓게 됨으로써 사라지게 되었다
 							<li class="nav-item dropdown align-self-center">
 								<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;Get취미 커뮤니티</button>
 								<div class="dropdown-menu mr-1 dropdown-menu-center" aria-labelledby="categoryDropdown">
@@ -186,6 +199,7 @@
 									</div>
 								</div>
 							</li>
+							 -->
 						</ul>
 					</div>
 				</nav>
@@ -539,7 +553,7 @@
 			<br/><br/>
 		</div>
 	</c:if>
-	
+	<br/><br/><br/><br/><br/>
 	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>
