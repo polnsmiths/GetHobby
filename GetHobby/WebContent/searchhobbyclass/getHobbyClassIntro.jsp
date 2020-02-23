@@ -248,7 +248,7 @@
 						showConfirmButton : false, 
 						showCancelButton : false,
 						timer : 1500, 
-						timerProgressBar : true, 
+						timerProgressBar : false, 
 						onOpen : (toast) => {
 							toast.addEventListener('mouseenter', Swal.stopTimer);
 							toast.addEventListener('mouseleave', Swal.resumeTimer);
@@ -755,46 +755,67 @@
 					console.log(result);
 					
 					if ( result.dismiss ) {
-						Swal.fire({
-							icon: 'error',
-							title: '댓글 작성 취소',
-							showConfirmButton : false,
-							allowOutsideClick : true, 
-							timer: 800
-						})
+						const Toast = Swal.mixin({
+							toast : true, 
+							position : 'top', 
+							showConfirmButton : false, 
+							showCancelButton : false,
+							timer : 1500, 
+							timerProgressBar : false, 
+							onOpen : (toast) => {
+								toast.addEventListener('mouseenter', Swal.stopTimer);
+								toast.addEventListener('mouseleave', Swal.resumeTimer);
+							}
+						});
+						
+						Toast.fire({
+							icon : 'error', 
+							title : '한줄평 작성 취소'
+						}).then((result) => {
+							event.preventDefault();	
+						});
 					} 
 					else {
-						Swal.fire({
-							icon: 'success',
-							title: '댓글 작성 완료',
-							showConfirmButton : false,
-							allowOutsideClick : true, 
-							timer: 800
-						}).then((result) => {
-							console.log(result);
-
-							$('.lesson-content').hide();
-							$('.class-intro-content').hide();
-							$('.class-kit-content').hide();
-							
-							
-							$('.nav-span-inner-nav-link').css({
-								'font-weight' : 'normal'
-							});
-							
-							$('.nav-span-inner-nav-link').eq(2).css({
-								'font-weight' : 'bold'
-							});
-							
-							$('.class-assess-content').show();
-							$('.non-end-class').hide();
-							
-							$('.cannot-add-button').show();
-							$('.can-add-button').hide();
-							
-							var offset = $('.class-assess-content').offset();
-							$('html, body').animate({scrollTop : offset.top}, 400);
+						const Toast = Swal.mixin({
+							toast : true, 
+							position : 'top', 
+							showConfirmButton : false, 
+							showCancelButton : false,
+							timer : 1500, 
+							timerProgressBar : false, 
+							onOpen : (toast) => {
+								toast.addEventListener('mouseenter', Swal.stopTimer);
+								toast.addEventListener('mouseleave', Swal.resumeTimer);
+							}
+						});
+						
+						Toast.fire({
+							icon : 'success', 
+							title : '한줄평 작성 완료'
 						})
+					
+						$('.lesson-content').hide();
+						$('.class-intro-content').hide();
+						$('.class-kit-content').hide();
+						
+						
+						$('.nav-span-inner-nav-link').css({
+							'font-weight' : 'normal'
+						});
+						
+						$('.nav-span-inner-nav-link').eq(2).css({
+							'font-weight' : 'bold'
+						});
+						
+						$('.class-assess-content').show();
+						$('.non-end-class').hide();
+						
+						$('.cannot-add-button').show();
+						$('.can-add-button').hide();
+						
+						var offset = $('.class-assess-content').offset();
+						$('html, body').animate({scrollTop : offset.top}, 400);
+					
 					}
 					
 				});				
@@ -2222,6 +2243,9 @@
 			overflow : hidden;
 		}
 		
+		.btn.btn-light.steam-button {
+			background-color : #FFFFFF;
+		}
 	</style>
 
 </head>

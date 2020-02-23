@@ -440,3 +440,7 @@
 	.dropdown-nav-bar-class-search-button:after {
 		content: none;
 	}
+	
+	.card-footer {
+		background-color : #FFFFFF;
+	}

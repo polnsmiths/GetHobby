@@ -60,8 +60,12 @@ public class OpenHobbyClassController {
 		return "/openhobbyclass/getHobbyClassDetailView.jsp";
 	}//end of getDetailView
 	
+	@RequestMapping( value="getPreview", method=RequestMethod.GET )
+	public String getPreview(@RequestParam("hobbyClassNo") int hobbyClassNo, Model model) throws Exception {
+		return "/openhobbyclass/test.jsp";
+	}//end of getDetailView
 
-	//@Scheduled(cron="0/5 * * * * *") // 1초마다 실행
+	@Scheduled(cron="0 0/30 * * * *") // 1초마다 실행
     public void updateClassState() throws Exception{
 		oepnhobbyClassService.updateClassState();
     }

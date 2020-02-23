@@ -9,28 +9,28 @@ import com.gethobby.service.domain.Purchase;
 //2020-02-21 Git Commit
 public interface PurchaseDAO {
 	
-	public HobbyClass getComponentOption(int hobbyClassNo) throws Exception; // Out : Ŭ���� ����, �غ� ����, �غ� �̸�, Ŭ���� �̸�, Ŭ����id, 
+	public HobbyClass getComponentOption(int hobbyClassNo) throws Exception;  
 	
-	public Purchase getPayment(String userId) throws Exception; // Out : �������(�̸�,�޴���,����ּ�,�������ּ�,�����ȣ) / ������ �Է½� flagó�� ���
+	public Purchase getPayment(String userId) throws Exception; 
 	
-	public int addPayment(Purchase purchase) throws Exception; // In : �������(�̸�,�޴���,����ּ�,�������ּ�,�����ȣ,��û����), ����ǰ��, ���űݾ�, �������, Ŭ����ID
+	public int addPayment(Purchase purchase) throws Exception; 
 	
 	public Purchase getPurchase(String purchaseId) throws Exception;
 	
-	public List getPaymentHistoryList(Search search) throws Exception; // Out : ����Id, ���Ż���, ��ۻ���, ���Ű���, ����ǰ��, �غ���ü���, Ŭ���� ����, �̹���, ī�װ�, �ؽ��±�
+	public List getPaymentHistoryList(Search search) throws Exception;
 	
 	public int getTotalPurchase(String userId) throws Exception;
 	
 	public HobbyClass getPurchaseHobbyClass(int hobbyClassId) throws Exception;
 	
-	public Purchase getDelivery(String userId) throws Exception; // Out : ������� ���
+	public Purchase getDelivery(String userId) throws Exception; 
 	
 	public int requestRefund(String purchaseId) throws Exception;
 	
 	public int getLessonNoASC(int hobbyClassNo) throws Exception;
 	
 	// Admin
-	public List getPaymentHistoryListAdmin(Search search) throws Exception; // Out : ����ǰ��, ����ID, ȸ��ID,����,�������, ����
+	public List getPaymentHistoryListAdmin(Search search) throws Exception; 
 	
 	public int getPurchaseTotalCountAdmin(Map<String, Object> totalCountMap) throws Exception;
 	
@@ -44,7 +44,7 @@ public interface PurchaseDAO {
 	
 	public int getMoneyAnalysisCount(Map<String, Object> keyWordAndWhat) throws Exception;
 	
-	public List getCreatorList() throws Exception; // Out : ũ�������� ȸ�� ����Ʈ
+	public List getCreatorList() throws Exception; 
 	
 	public int startingPurchaseData(Purchase purchase) throws Exception;
 	

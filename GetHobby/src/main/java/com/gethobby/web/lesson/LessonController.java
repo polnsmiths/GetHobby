@@ -120,5 +120,79 @@ public class LessonController {
 		//return "forward:/hobbyclass/getHobbyClassLesson.jsp";
 		return "forward:/lesson/getHobbyClassLesson.jsp";
 	}
+	
+	@RequestMapping( value = "getPreviewLesson" )
+	public String getPreviewLesson(@RequestParam Map<String, Object> map, HttpSession session, Model model) throws Exception {
+		System.out.println("----------map ? : " + map);
 
+		String userId = null;
+		
+		User user = (User)session.getAttribute("user");
+		
+		Map<String, Object> inputData = new HashMap<String, Object>();
+		inputData.put("userId", user.getUserId());
+     	inputData.put("lessonNo", map.get("lessonNo"));
+		inputData.put("hobbyClassNo", map.get("hobbyClassNo"));
+     	
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
+		
+		inputData.put("search", search);
+		
+		LessonTimes lesson = lessonService.getLesson(inputData);
+		model.addAttribute("lesson", lesson);
+		System.out.println("---------lesson ? : " + lesson);
+		Map<String, Object> replyMap = lessonService.getLessonReplyList(inputData);
+		
+		System.out.println("---------------------------------------------search ? : " + search);
+		List<Reply> lessonReply = (List<Reply>)replyMap.get("list");
+		System.out.println("--------lessonReply ? : " + lessonReply);
+		model.addAttribute("replyList", lessonReply);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)replyMap.get("total")).intValue(), 10, pageSize);
+		model.addAttribute("resultPage", resultPage);
+
+		// return "forward:/hobbyclass/getHobbyClassLesson.jsp";
+		return "forward:/openhobbyclass/getPreviewLesson.jsp";
+	}
+	
+	@RequestMapping( value = "getPreviewArrow" )
+	public String getPreviewArrow( @RequestParam Map<String, String> map, HttpSession session, Model model ) throws Exception {
+		System.out.println("-----map ? : " + map);
+
+		User user = (User)session.getAttribute("user");
+
+		Map<String, Object> inputData = new HashMap<String, Object>();
+		
+		Search search = new Search();
+		search.setCurrentPage(Integer.parseInt(map.get("currentPage")));
+		search.setPageSize(pageSize);
+		
+		inputData.put("search", search);
+		inputData.put("userId", user.getUserId());
+		inputData.put("hobbyClassNo", map.get("hobbyClassNo"));
+		
+		LessonTimes lesson = lessonService.getArrowLesson(inputData);
+
+		model.addAttribute("lesson", lesson);
+		
+		inputData.put("lessonNo", lesson.getLesson().getLessonNo());
+		
+		search.setCurrentPage(1);
+		inputData.put("search", search);
+		System.out.println("------search ? : " + search);
+		System.out.println("-------inputData ? : " + inputData);
+		Map<String, Object> replyMap = lessonService.getLessonReplyList(inputData);
+		
+		List<Reply> lessonReply = (List<Reply>)replyMap.get("list");
+		System.out.println("------lessonReply ? : " + lessonReply);
+		model.addAttribute("replyList", lessonReply);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)replyMap.get("total")).intValue(), pageUnit, pageSize);
+		model.addAttribute("resultPage", resultPage);
+		
+		//return "forward:/hobbyclass/getHobbyClassLesson.jsp";
+		return "forward:/openhobbyclass/getPreviewLesson.jsp";
+	}
 }

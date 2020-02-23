@@ -68,7 +68,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 
-	private String temDir = "C:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\GetHobby\\resources\\image\\gon\\";		
+	private String temDir = "C:\\images\\gon\\";		
 	private String videoTemDir = "C:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\GetHobby\\resources\\video\\";		
 	
 	//Constructor
@@ -82,11 +82,6 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(10);
-		// Test UserId 시작
-		User user = new User();
-		user.setUserId("c1@naver.com");
-		session.setAttribute("user", user);
-		// Test UserId 끝
 		String userId = ((User)session.getAttribute("user")).getUserId();
 
 		int totalCount = openHobbyClassDAO.getHobbyClassTotalCount(userId);
@@ -173,12 +168,6 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 	}
 	
 	public int saveHobbyClassInfo(HobbyClass hobbyClass, HttpSession session) throws Exception {
-		// Test용 UserId
-		User user = new User();
-		user.setUserId("c1@naver.com");
-		session.setAttribute("user", user);
-		// Test용 끝		
-
 		hobbyClass.setUser((User)session.getAttribute("user"));
 
 		List list = new ArrayList();
@@ -216,11 +205,6 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 	}
 
 	public int saveLesson(Lesson lesson, HttpSession session) throws Exception {
-		// Test용 UserId
-		User user = new User();
-		user.setUserId("c1@naver.com");
-		session.setAttribute("user", user);
-		// Test용 끝
 		List list = new ArrayList();
 		list.add(lesson.getLessonImage());
 		list.add(lesson.getLessonVideo());
@@ -342,11 +326,6 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		if( search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
-//		System.out.println("================================================================\n");
-//		System.out.println("searchCondition : "+search.getSearchCondition());
-//		System.out.println("searchKeyword : "+search.getSearchKeyword());
-//		System.out.println("currentPage : "+search.getCurrentPage()+"\n");
-//		System.out.println("================================================================");
 		search.setPageSize(4);
 		Map<String, Object> hobbyClassMap = new HashMap<String, Object>();
 		Map<String, Object> totalCountMap = new HashMap<String, Object>();
@@ -365,6 +344,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		hobbyClassMap.put("hobbyClassOpenCount", openHobbyClassDAO.getHobbyClassTotalCountAdmin(totalCountMap));
 		totalCountMap.put("totalCountHobbyClass", "종강");
 		hobbyClassMap.put("hobbyClassEndCount", openHobbyClassDAO.getHobbyClassTotalCountAdmin(totalCountMap));
+		
 		// 정렬기능 maxPage 
 		if(search.getSearchCondition() != null && search.getSearchCondition().equals("hobbyClassState")) {
 			totalCountMap.clear();
@@ -385,11 +365,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 			totalCountMap.put("category", search.getCategory());
 			int totalCount = openHobbyClassDAO.getHobbyClassTotalCountAdmin(totalCountMap);
 			hobbyClassMap.put("resultPage", new Page(search.getCurrentPage(), totalCount, pageUnit, 4));
-		}
-//		System.out.println("startRowNum : "+search.getStartRowNum());
-//		System.out.println("endRowNum : "+search.getEndRowNum());
-//		System.out.println("maxPage : "+((Page)hobbyClassMap.get("resultPage")).getMaxPage());
-		
+		}	
 		return hobbyClassMap;
 	}
 	
