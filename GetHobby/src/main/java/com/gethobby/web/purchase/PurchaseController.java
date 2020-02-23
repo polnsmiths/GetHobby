@@ -38,10 +38,10 @@ public class PurchaseController {
 	//Method
 	@RequestMapping( value="getSelectOption", method=RequestMethod.GET )
 	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo,
-			@RequestParam("discountPrice") int discountPrice, HttpSession session, Model model) throws Exception {
+			@RequestParam("eventDiscount") int eventDiscount, HttpSession session, Model model) throws Exception {
 		model.addAttribute("purchase", purchaseService.getPayment(((User)session.getAttribute("user")).getUserId()));
 		model.addAttribute("hobbyClass", purchaseService.getPaymentOption(hobbyClassNo, session));
-		model.addAttribute("discountPrice", discountPrice);
+		model.addAttribute("discountPrice", eventDiscount);
 		return "/purchase/getSelectOption.jsp";
 	}
 
