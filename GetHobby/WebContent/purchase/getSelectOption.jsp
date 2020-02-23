@@ -1310,7 +1310,9 @@ path[Attributes Style] {
 .nono{
 	background-color: #f3b368;
 }
-
+.header-mynemo-logout-span:hover {
+	color: rgb(27, 28, 29);
+}
   </style>
 </head>
 
@@ -1646,10 +1648,10 @@ path[Attributes Style] {
 			<nav class="navbar navbar-expand-lg navbar-light bg-light header-navbar gso-hea-nav">
                <div class="container-fluid" style="padding:0px 16px; background-color:black; height:100%; width:100%;">
 
-                   <div href="/index.jsp" id="sidebarCollapse" class="test" style="border:0; outline:none; background-color: black; display:flex; justify-content: left;">   
+                   <div id="sidebarCollapse" class="test" style="border:0; outline:none; background-color: black; display:flex; justify-content: left;">   
                    	                    
 					<img src="/resources/image/logo/logo-favicon.png">	
-					<a href="/index.jsp" style="float:left; color:white; font-size:22px; font-weight:bold; line-height:32px; margin-left:12px; etter-spacing: -0.4px;">
+					<a href="/index.jsp" style="text-decoration:none; float:left; color:white; font-size:22px; font-weight:bold; line-height:32px; margin-left:12px; etter-spacing: -0.4px;">
                    	  GetHobby
                    </a>
                    </div>
@@ -1676,28 +1678,33 @@ path[Attributes Style] {
 							<!-- 마이페이지 미니메뉴 -->
 							<div class="dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0 first-load-div" style="position:absolute; top: -100px;">
 				                <div class="header-mynemo-out-div">
-				                <a class="header-mynemo-first-a" href="/user/mypageUser">
-					                <span class="header-mynemo-first-span">
-					                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
-					                </span>
-					                <div class="header-mynemo-span-next-first-div">
-						                <div class="header-mynemo-span-next-first-div-in-div">
-						                	${user.nickName}
-						                </div>
-						                <span class="header-mynemo-span-next-first-div-in-span">
-							                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
-							                	마이페이지
-							                </div>
-							                <svg width="12" height="12" viewBox="0 0 24 24">
-							                	<path fill="#fd7e14" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z" />
-							                </svg>
+					                <a class="header-mynemo-first-a" href="/user/mypageUser" style="text-decoration:none;">
+						                <span class="header-mynemo-first-span">
+						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
 						                </span>
+						                <div class="header-mynemo-span-next-first-div">
+							                <div class="header-mynemo-span-next-first-div-in-div" >
+							                	${user.nickName}
+							                </div>
+							                <span class="header-mynemo-span-next-first-div-in-span">
+								                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
+								                	마이페이지
+								                </div>
+								                <svg width="12" height="12" viewBox="0 0 24 24">
+								                	<path fill="#fd7e14" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z" />
+								                </svg>
+							                </span>
+						                </div>
+					                </a>
+			
+					                <div><hr class="header-mynemo-logout-hr">
+						                <div color="#1b1c1d" class="header-mynemo-logout-div">
+							                <a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">
+							                	로그아웃
+							                </a>
+						                </div>
 					                </div>
-				                </a>
-		
-				                <div><hr class="header-mynemo-logout-hr">
-				                <div color="#1b1c1d" class="header-mynemo-logout-div">
-				                <a href="" class="header-mynemo-logout-span">로그아웃</a></div></div></div>
+				                </div>
 			                </div>
 			                
 			            </div>
@@ -1969,7 +1976,7 @@ path[Attributes Style] {
 	<script type="text/javascript">
 		
 			function numberFormat(inputNumber) {
-				   Math.floor(inputNumber);
+				   inputNumber = Math.floor(inputNumber);
 				   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
 			
@@ -1994,7 +2001,7 @@ path[Attributes Style] {
 			var hobbyClassPrice = ${hobbyClass.hobbyClassPrice};
 			var kitPrice = ${hobbyClass.kitPrice};
 			var setTotalPrice = hobbyClassPrice + kitPrice;
-			var salePercent = 20;// 이벤트 모듈과 연동 필요!
+			var salePercent = ${discountPrice};// 이벤트 모듈과 연동 필요!
 			var paymentSingleFinalPrice;
 			var paymentSetFinalPrice;
 			var iamportSetTotalPrice;

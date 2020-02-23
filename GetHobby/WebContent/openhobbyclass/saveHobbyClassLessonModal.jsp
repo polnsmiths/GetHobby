@@ -124,7 +124,7 @@
 				$("input[name='lessonIntro']").val( $(this).prev().prev("input[name='lessonIntro-modal']").val() );
 				
 				if( $(this).prev("input[name='lessonImage-modal']").val() != null && $(this).prev("input[name='lessonImage-modal']").val() != "" ){
-					$(".classLesson_image_two").attr("src", "/resources/image/gon/"+$(this).prev("input[name='lessonImage-modal']").val() );
+					$(".classLesson_image_two").attr("src", "/images/gon/"+$(this).prev("input[name='lessonImage-modal']").val() );
 				}else{
 					$(".classLesson_image_two").attr("src", "/resources/image/gon/lessonaddimage.jpg" );
 				}
