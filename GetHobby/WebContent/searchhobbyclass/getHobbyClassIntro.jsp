@@ -224,7 +224,8 @@
 					})
 					return;
 					*/
-					self.location = '/user/noLogonUser?type=purchase&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					// self.location = '/user/noLogonUser?type=purchase&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 					return false;
 				}
 				
@@ -289,15 +290,14 @@
 						event.preventDefault();
 					})
 					*/
-					self.location = '/user/noLogonUser?type=steamHobbyClass&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					// self.location = '/user/noLogonUser?type=steamHobbyClass&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 				}
 				
 				var steamCheck = $('.steam-check').val();
 				var hobbyClassNo = '${hobbyClass.hobbyClassNo}';
 				var steamCount = $('.steam-count').val();
 				var steamButton = $(this);
-				
-				console.log(steamCheck + ' / ' + hobbyClassNo + ' / ' + steamCount);
 				
 				var url = '';
 				
@@ -989,6 +989,8 @@
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
 				console.log('purchaseCheck ? : ' + purchaseCheck);	
 			
+				// 유저 로그인 안되있을 경우
+				
 				if ( purchaseCheck != '1' ) {
 					Swal.fire({
 						icon : 'error',
@@ -2895,6 +2897,7 @@
 		</div>
 	</div>
 	클래스 한줄평 작성 모달창 끝 -->
-	
+	<br/><br/><br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

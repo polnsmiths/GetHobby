@@ -553,7 +553,7 @@
 			<br/><br/>
 		</div>
 	</c:if>
-	
+	<br/><br/><br/><br/><br/>
 	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

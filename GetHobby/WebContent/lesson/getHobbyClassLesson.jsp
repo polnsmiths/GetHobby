@@ -380,9 +380,62 @@
 	</div>
 	<!-- 신고처리 완료 모달창 끝 -->
 	
-	<script type="text/javascript">
-		var video = videojs('lesson-video');
+	<script type="text/javascript">	
+		// 바로 video.js 생성 ----------------------------------------------
+		
+		var video = videojs('lesson-video', {
+				controls : true,
+				autoplay : false, 
+				preload : 'auto', 
+				playbackRates: [0.5, 1, 1.5, 2, 2.5] 
+		})
+		
+		// var video = videojs('lesson-video');
+		// 바로 video.js 생성 ----------------------------------------------
+	
+		// window.onload 이벤트 -------------------------------------------
+		window.onload = function(){
+			var totalTimes = "${lesson.totalTimes }";
+			var lessonNo = "${lesson.lesson.lessonNo }";
+			var hobbyClassNo = "${lesson.lesson.hobbyClass.hobbyClassNo}";
+			var currentTimes = "${lesson.currentTimes }";
+			var maxTimes = "${lesson.maxTimes }";
 
+			console.log('getLesson 입장');
+			console.log('totalTimes ? : ' + totalTimes);
+	
+			if (totalTimes == 0){
+				console.log('addLessonTimes 동작');
+				
+				$.ajax(
+						{
+							url : "/lesson/json/addLessonTimes",
+							method : "post", 
+							dataType : "json", 
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							data : JSON.stringify({
+								lessonNo : lessonNo,
+								hobbyClassNo : hobbyClassNo
+							}),
+							success : function(JSONData, status) {
+								console.log(JSONData.result);
+							}
+						}
+				)
+				
+			}
+			else if(currentTimes != 0) {
+				console.log('이어보기가 가능합니다. 시작 구간은 : ' + currentTimes);
+				video.currentTime(currentTimes);
+			}
+			
+		}
+		// window.onload 이벤트 -------------------------------------------
+		
+		// keydown 이벤트 ----------------------------------------------
 		$(document).on('keydown', function(event){
 			var updatetextarea = $('.update-textarea-check').val();
 			var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
@@ -408,58 +461,12 @@
 						video.currentTime( ( currentTime + 10 ) );
 					}
 				}
-			
-			
 		})
-	</script>
-	
-	<script type="text/javascript">
-		window.onload = function(){
-			var totalTimes = "${lesson.totalTimes }";
-			var lessonNo = "${lesson.lesson.lessonNo }";
-			var hobbyClassNo = "${lesson.lesson.hobbyClass.hobbyClassNo}";
-			var currentTimes = "${lesson.currentTimes }";
-			var maxTimes = "${lesson.maxTimes }";
-			
-			var video = videojs('lesson-video');
-			
-			console.log('getLesson 입장');
-			console.log('totalTimes ? : ' + totalTimes);
-
-			if (totalTimes == 0){
-				console.log('addLessonTimes 동작');
-				
-				$.ajax(
-						{
-							url : "/lesson/json/addLessonTimes",
-							method : "post", 
-							dataType : "json", 
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							data : JSON.stringify({
-								lessonNo : lessonNo,
-								// 원래는 비디오 최대길이를 가져와야하지만 video.js는 안되서 탈출할때나 사용...
-								hobbyClassNo : hobbyClassNo
-							}),
-							success : function(JSONData, status) {
-								console.log(JSONData.result);
-							}
-						}
-				)
-				
-			}
-			else if(currentTimes != 0) {
-				console.log('이어보기가 가능합니다. 시작 구간은 : ' + currentTimes);
-				video.currentTime(currentTimes);
-			}
-			
-		}
+		// keydown 이벤트 ----------------------------------------------
 		
+		// window.onbeforeunload 이벤트 -----------------------------------
 		window.onbeforeunload = function(e) {
 			e = e || window.event; 
-			var video = videojs('lesson-video');
 			
 			var maxTimes = "${lesson.maxTimes }";
 			var lessonNo = "${lesson.lesson.lessonNo }";
@@ -477,7 +484,6 @@
 							"Content-Type" : "application/json"
 						}, 
 						data : JSON.stringify({
-							// 현재 비디오 시간을 가져와야되는데 그냥 55초라고 가정 
 							currentTimes :currentTimes,
 							maxTimes : maxTimes, 
 							lessonNo : lessonNo, 
@@ -489,12 +495,10 @@
 						}
 					}
 			)
-			
-//			return video.duration();
 		}
-		
-		
+		// window.onbeforeunload 이벤트 -----------------------------------
 	</script>
+
 	
 </body>
 </html>

@@ -265,7 +265,7 @@ $(function(){
 			showConfirmButton : false, 
 			showCancelButton : false,
 			timer : 1500, 
-			timerProgressBar : true, 
+			timerProgressBar : false, 
 			onOpen : (toast) => {
 				toast.addEventListener('mouseenter', Swal.stopTimer);
 				toast.addEventListener('mouseleave', Swal.resumeTimer);

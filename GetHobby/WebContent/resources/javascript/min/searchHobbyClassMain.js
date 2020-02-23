@@ -89,8 +89,6 @@
 			
 			var index = $(this).find('.navbar-nav-link-input').val();
 			
-			console.log(index);
-			
 			if ( index == 0 ) {
 				// 메인 삭제됨 
 				$('.include-for-popular-hobby-class').show();
@@ -169,8 +167,6 @@
 			
 			categoryValue = $(this).find('input[name="categoryValue"]').val();
 			categoryName = $(this).text().trim();
-			console.log('categoryValue ? : ' + categoryValue);
-			console.log('categoryName ? : ' + categoryName);
 			
 			$('.input-group-text').text(categoryName);
 			$('.category-name').text('카테고리 : ' + categoryName);
@@ -198,8 +194,6 @@
 									stateValue : stateValue 
 								}), 
 								success : function(JSONData, status) {
-									console.log('검색결과 : ' );
-									console.log(JSONData);
 									currentPage += 1;
 									
 									var display = "";
@@ -328,8 +322,6 @@
 									$(".scroll-page:last").after(display);
 									
 									maxPage = JSONData.resultPage.maxPage;
-									console.log('maxPage ? : ' + maxPage);
-									console.log('currentPage ? : ' + currentPage);
 									
 									$('#search-alignment-button-div').show();
 								}
@@ -345,11 +337,9 @@
 			// 경고창 가리기
 			$('.warning-text').attr('style', 'visibility:hidden');
 			
-			console.log('.search-button-but-form click');
 			
 			if ( categoryValue == '' ) {
-				console.log('카테고리를 선택해주세요.');
-				return;
+				return false;
 			}
 			
 			if ( categoryValue == 'all' ) {
@@ -372,11 +362,9 @@
 								categoryCode : categoryValue 
 							}), 
 							success : function(JSONData, status) {
-								console.log('해쉬태그 가져옴');
 								for(var i = 0; i < 10; i++) {
 									$("button[name='hashtagButton']").eq(i).text(JSONData.hashtagNameList[i]);
 									$("button[name='hashtagButton']").eq(i).val(JSONData.hashtagCodeList[i]);
-									console.log($("button[name='hashtagButton']").eq(i).text());
 								}
 							}
 						}
@@ -398,9 +386,6 @@
 			var hashtagText = $(this).text();
 			var hashtagValue = $(this).val();
 			
-			console.log('hashtagButton text ? : ' + hashtagText);
-			console.log('hashtagButton value ? : ' + hashtagValue);
-			
 			var currentButtonClass = $(this).attr('class');
 			
 			if ( currentButtonClass == 'btn btn-outline-secondary btn-sm btn-block' ) {
@@ -415,17 +400,12 @@
 					hashtagArray.push(hashtagValue);
 					hashtagNameArray.push('전체');
 					
-					console.log('hashtagArray ? : ' + hashtagArray);
-					console.log('hashtagNameArray ? : ' + hashtagNameArray);
-					
 					hashtagSelectCount = 1;
-					console.log('hashtagSelectCount ? : ' + hashtagSelectCount);
 					
-					return;
+					return false;
 				}
 				
 				if ( hashtagSelectCount > 2 ) {
-					console.log('해쉬태그는 최대 3개까지 선택 가능합니다.');
 					
 					var display = '';
 					display += '<h6 class="warning-h6">';
@@ -439,11 +419,10 @@
 //					$('.warning-text').text('해쉬태그는 최대 3개까지 선택 가능합니다.');
 					$('.warning-text').html(display);
 					$('.warning-text').attr('style', 'visibility:visibie');
-					return;
+					return false;
 				}
 				
 				if ( hashtagArray.indexOf('all') != -1 ) {
-					console.log('이미 해쉬태그 전체를 선택하셨습니다.');
 					
 					var display = '';
 					display += '<h6 class="warning-h6">';
@@ -476,10 +455,6 @@
 				
 			}
 			
-			console.log('hashtagArray ? : ' + hashtagArray);
-			console.log('hashtagNameArray ? : ' + hashtagNameArray);
-			console.log('hashtagSelectCount ? : ' + hashtagSelectCount);
-			
 		});
 		// 모달 안 해쉬태그 버튼 클릭 시 이벤트------------------------------------------------
 		
@@ -491,8 +466,6 @@
 			$('.dropdown-main-button').text($(this).text());
 			
 			searchCondition = $(this).find('input').val();
-			console.log(searchCondition);
-			console.log($(this).text());
 			
 			if (searchCondition != '0' ) {
 				$('.search-keyword-input').attr('disabled', false);
@@ -509,16 +482,17 @@
 		// 스크롤 이벤트 --------------------------------------------------------------
 		$(window).scroll(function(){
 			clearTimeout( timer );
-		    timer = setTimeout( scrollHobbyClass, delta );
+//		    timer = setTimeout( scrollHobbyClass, delta );
+			timer = setTimeout( scrollHobbyClass, 20 );
 		});
 		// 스크롤 이벤트 --------------------------------------------------------------
 		
 		// 스크롤 내려서 다음페이지에 넘길 때 쓸 function--------------------------------------
 		function scrollHobbyClass() {
 	
-	 		if( $(document).height() - 100 <= $(window).scrollTop() + $(window).height() ){
+//	 		if( $(document).height() - 100 <= $(window).scrollTop() + $(window).height() ){
+			if( $(document).height() - 1000 <= $(window).scrollTop() + $(window).height() ){
 	 			if ( maxPage >= currentPage ) {
-					console.log('searchKeyword ? : ' + searchKeyword);
 									
 					var obj = new Object();
 					obj.currentPage = currentPage;
@@ -668,9 +642,6 @@
 										
 									$(".scroll-page:last").after(display);
 									
-									console.log('maxPage ? : ' + maxPage);
-									console.log('currentPage ? : ' + currentPage);
-									
 								}
 							}
 					)
@@ -682,7 +653,6 @@
 		
 		// 클래스 찜하기 이벤트----------------------------------------------------------
 		$(document).on('click', 'button[name="steam"]', function(){
-			console.log('steam button click');
 			var steamButton = $(this);
 			var hobbyClassInput = $(this).parent().parent().parent().parent().children('input[name="hobbyClassNo"]');
 			var steamCountInput = $(this).parent().parent().parent().parent().children('input[name="steamCount"]');
@@ -692,9 +662,6 @@
 			var steamCheck = $(this).val();
 			var hobbyClassNo = $(this).parent().parent().parent().parent().children('input[name="hobbyClassNo"]').val();
 			var steamCount = $(this).parent().parent().parent().parent().children('input[name="steamCount"]').val();
-			console.log('steamCheck ? : ' + steamCheck);
-			console.log('hobbyClassNo ? : ' + hobbyClassNo);
-			console.log('steamCount ? : ' + steamCount);
 			
 			var url = '';
 			
@@ -724,7 +691,6 @@
 							var display = "";
 							steamButton.val(JSONData.hobbyClass.steamCheck);
 							if ( JSONData.hobbyClass.steamCheck == '0' ) {
-								console.log('0이긴하다');
 								display += "<i class='far fa-heart'></i>";
 							}
 							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
@@ -734,16 +700,12 @@
 							steamButton.html(display);
 							
 							steamCountInput.val(JSONData.hobbyClass.steamCount);
-					
-							console.log('JSONData.hobbyClass.steamCount ? : ' + JSONData.hobbyClass.steamCount);
-							console.log('steamCountInput ? : ' + steamCountInput.val());
 							
 							display = "";
 							display += "<span name='steamCount'>";
 							display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
 							display += "</span>";
 							
-							console.log( steamButton.parent().children('span') );
 							steamButton.parent().children('span').html(display);
 							
 						}
@@ -803,7 +765,6 @@
 			
 			var obj = new Object();
 	
-			console.log('searchKeyword ? : ' + searchKeyword);
 			currentPage = 1;
 			
 			obj.currentPage = currentPage;
@@ -958,8 +919,6 @@
 							$(".scroll-page:last").after(display);
 							
 							maxPage = JSONData.resultPage.maxPage;
-							console.log('maxPage ? : ' + maxPage);
-							console.log('currentPage ? : ' + currentPage);
 							
 							$('.search-button-but-form option')
 							
@@ -970,7 +929,6 @@
 								inputData += '해쉬태그 : ';
 								for(count = 0; count < hashtagNameArray.length; count++) {
 									inputData += hashtagNameArray[count];
-									console.log(count + ' / ' + hashtagNameArray.length);
 									if ( count < hashtagNameArray.length - 1 ) {
 										inputData += ", ";
 									}
@@ -994,7 +952,6 @@
 								inputData += " 검색어 : " + searchKeyword;
 							}
 							
-							console.log('inputData ? : ' + inputData);
 							$('.search-button-but-form').text(inputData);
 							$('.search-button-but-form').val(inputData);
 							$('#searchModal').modal('hide');																
@@ -1019,14 +976,12 @@
 			$(this).find('.alignment-div').attr('class', 'alignment-div alignment-text-select');
 			
 			stateValue = $(this).find('.alignment-hidde-value').val();
-			console.log('stateValue ? : ' + stateValue);
 			
 			var buttonText = $(this).find('.alignment-div').text();
 			
 			// 클래스 진행상태에 따른 리스트 출력 ajax -----------------------
 			var obj = new Object();
 	
-			console.log('searchKeyword ? : ' + searchKeyword);
 			currentPage = 1;
 			
 			obj.currentPage = currentPage;
@@ -1184,8 +1139,6 @@
 							$(".scroll-page:last").after(display);
 							
 							maxPage = JSONData.resultPage.maxPage;
-							console.log('maxPage ? : ' + maxPage);
-							console.log('currentPage ? : ' + currentPage);
 							
 	//						$('.search-button-but-form option') 무슨용도임이거?
 							
@@ -1196,7 +1149,6 @@
 								inputData += '해쉬태그 : ';
 								for(count = 0; count < hashtagNameArray.length; count++) {
 									inputData += hashtagNameArray[count];
-									console.log(count + ' / ' + hashtagNameArray.length);
 									if ( count < hashtagNameArray.length - 1 ) {
 										inputData += ", ";
 									}
@@ -1220,7 +1172,6 @@
 								inputData += " 검색어 : " + searchKeyword;
 							}
 							
-							console.log('inputData ? : ' + inputData);
 							//$('.search-button-but-form').text(inputData);
 							//$('.search-button-but-form').val(inputData);
 							$('#searchModal').modal('hide');	
@@ -1241,9 +1192,7 @@
 	
 		// 이미지 클릭시 클래스 상세보기로 이동 ---------------------------------
 		$(document).on('click', '#cardImage', function(){
-			console.log('이미지 클릭');
 			var hobbyClassNo = $(this).parents('.card').find('input[name="hobbyClassNo"]').val();
-			console.log('hobbyClassNo ? : ' + hobbyClassNo);
 			self.location = "/searchHobbyClass/getSearchHobbyClassIntro?hobbyClassNo=" + hobbyClassNo;
 		})
 		// 이미지 클릭시 클래스 상세보기로 이동 ---------------------------------
@@ -1280,8 +1229,6 @@
 			
 			categoryValue = $(this).parents('.dropdown-inner-text').find('input[name="categoryValue"]').val();
 			categoryName = $(this).parents('.dropdown-inner-text').find('.dropdown-span-text').text().trim();
-			console.log('categoryValue ? : ' + categoryValue);
-			console.log('categoryName ? : ' + categoryName);
 			
 			$('.input-group-text').text(categoryName);
 			$('.category-name').text('카테고리 : ' + categoryName);
@@ -1309,8 +1256,6 @@
 									stateValue : stateValue 
 								}), 
 								success : function(JSONData, status) {
-									console.log('검색결과 : ' );
-									console.log(JSONData);
 									currentPage += 1;
 									
 									var display = "";
@@ -1439,8 +1384,6 @@
 									$(".scroll-page:last").after(display);
 									
 									maxPage = JSONData.resultPage.maxPage;
-									console.log('maxPage ? : ' + maxPage);
-									console.log('currentPage ? : ' + currentPage);
 									
 									$('#search-alignment-button-div').show();
 								}
@@ -1454,7 +1397,6 @@
 		$( window ).resize(function() {
 			   var windowWidth = $(this).width(); // 화면 창 변화 그대로 가져오기 
 			   var windowHeight = $(this).height();
-			   console.log(windowWidth + ' / ' + windowHeight);
 			   
 			   if ( windowWidth <= 980 ) {
 				   $('.outer-event-carousel-div').hide();
@@ -1510,9 +1452,6 @@
 			$('button[name="hashtagButton').attr('class', 'btn btn-outline-secondary btn-sm btn-block');
 			
 			
-			console.log('categoryValue ? : ' + categoryValue);
-			console.log('categoryName ? : ' + categoryName);
-			
 			$('.input-group-text').text(categoryName);
 			$('.category-name').text('카테고리 : ' + categoryName);
 			
@@ -1538,8 +1477,6 @@
 							stateValue : "0" 
 						}), 
 						success : function(JSONData, status) {
-							console.log('검색결과 : ' );
-							console.log(JSONData);
 							currentPage += 1;
 							
 							var display = "";
@@ -1668,8 +1605,6 @@
 							$(".scroll-page:last").after(display);
 							
 							maxPage = JSONData.resultPage.maxPage;
-							console.log('maxPage ? : ' + maxPage);
-							console.log('currentPage ? : ' + currentPage);
 							
 							$('#search-alignment-button-div').hide();
 						}

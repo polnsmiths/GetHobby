@@ -65,123 +65,6 @@ public class SearchHobbyClassController {
 	
 	@RequestMapping( value = "getSearchHobbyClassIntro" )
 	public String getSearchHobbyClassIntro( @RequestParam("hobbyClassNo") String hobbyClassNo, HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model ) throws Exception {
-		/* 예전거
-		Map<String, Object> inputData = new HashMap<String, Object>();
-		
-		System.out.println("----------hobbyClassNo ? : " + hobbyClassNo);
-		
-		User user = (User)session.getAttribute("user");
-		
-		String userId = null;
-		
-		if ( user != null ) {
-			userId = user.getUserId();
-		}
-	
-		inputData.put("userId", userId);
-		inputData.put("hobbyClassNo", hobbyClassNo);
-		
-		HobbyClass hobbyClass = searchHobbyClassService.getHobbyClass(inputData);
-		System.out.println("------hobbyClass ? : " + hobbyClass);
-		
-		if(hobbyClass.getEvent() != null) {
-			hobbyClass.setHobbyClassPrice( (int)Math.round(hobbyClass.getHobbyClassPrice() * (hobbyClass.getEvent().getEventDiscount() / 100.0)) );
-		}
-		System.out.println("-------------------hobbyClass.getHobbyClassPrice() ? : " + hobbyClass.getHobbyClassPrice());
-		model.addAttribute("hobbyClass", hobbyClass);
-		
-		// 구매여부 판별 -----------------------
-		int purchaseCheck = 0;
-		
-		if ( user != null ) {
-			System.out.println("----------purchasCheck inputData ? : " + inputData);
-			purchaseCheck = searchHobbyClassService.getPurchaseClassCheck(inputData);
-		}
-		model.addAttribute("purchaseCheck", purchaseCheck);
-		System.out.println("--------------purchaseCheck ? : " + purchaseCheck);
-		// 구매여부 판별 -----------------------
-		
-		// 클래스 한줄평 가져오기 -------------------------
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(pageSize);
-		
-		inputData = new HashMap<String, Object>();
-		inputData.put("hobbyClassNo", hobbyClassNo);
-		inputData.put("search", search);
-		
-		Map<String, Object> returnMap = searchHobbyClassService.getHobbyClassAssessContent(inputData); 
-		
-		List<ClassAssess> listAssessContent = (List<ClassAssess>)returnMap.get("list"); 
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)returnMap.get("total")).intValue(), pageUnit, pageSize);
-		System.out.println("--------resultPage ? : " + resultPage);
-		model.addAttribute("listAssessContent", listAssessContent);
-		model.addAttribute("resultPage", resultPage);
-		// 클래스 한줄평 가져오기 -------------------------
-		
-		Map<String, Object> resultMap = lessonService.getLessonList(Integer.parseInt(hobbyClassNo));
-		
-		List<Lesson> lessonList = (List<Lesson>)resultMap.get("list");
-		int total = (Integer)resultMap.get("total");
-		model.addAttribute("lessonList", resultMap.get("list"));
-		
-		Page lessonCountResultPage = new Page( 1, ((Integer)returnMap.get("total")).intValue(), pageUnit, 3);
-		System.out.println("lessonCountResultPage ? : " + lessonCountResultPage);
-		model.addAttribute("lessonCountResultPage", lessonCountResultPage);
-		// 클래스 강의 가져오기 -----------------------------
-		
-		// 쿠키 저장 구간 -----------------------------------------------------------
-		Cookie[] cookies = request.getCookies();
-		
-		for(int i = 0; i < cookies.length; i++) {
-			
-			if (cookies[i] == null) {
-				System.out.println("cookie null : " + hobbyClassNo);
-				cookies[i] = new Cookie("history", hobbyClassNo);
-				cookies[i].setMaxAge(-1);
-				response.addCookie(cookies[i]);
-			}
-			else if ( cookies[i] != null && cookies[i].getName().equals("history") ) {
-				System.out.println("cookie before value : " + cookies[i].getValue());
-				String[] c = cookies[i].getValue().split(",");
-				boolean checkCookies = true;
-				
-				for(int j = 0; j < c.length; j++) {
-					if ( c[j].equals(hobbyClassNo) ) {
-						checkCookies = false;
-						cookies[i] = new Cookie("history", cookies[i].getValue());
-						break;
-					}
-				}
-				
-				if ( checkCookies ) {
-					cookies[i] = new Cookie("history", cookies[i].getValue() + "," + hobbyClassNo);
-					cookies[i].setMaxAge(-1);
-					response.addCookie(cookies[i]);
-					System.out.println("cookie after value : " + cookies[i].getValue());
-					break;
-				}
-				else {
-					System.out.println("else : " + hobbyClassNo);
-					cookies[i] = new Cookie("history", cookies[i].getValue());
-					cookies[i].setMaxAge(-1);
-					response.addCookie(cookies[i]);
-				}
-			}
-			else {
-				System.out.println("else : " + hobbyClassNo);
-				cookies[i] = new Cookie("history", hobbyClassNo);
-				cookies[i].setMaxAge(-1);
-				response.addCookie(cookies[i]);
-			}
-		}
-		
-		// 쿠키 저장 구간 -----------------------------------------------------------
-		
-		return "forward:/searchhobbyclass/getHobbyClassIntro.jsp";
-		*/
-		
 		Map<String, Object> inputData = new HashMap<String, Object>();
 		
 		System.out.println("----------hobbyClassNo ? : " + hobbyClassNo);
@@ -244,7 +127,8 @@ public class SearchHobbyClassController {
 		int total = (Integer)resultMap.get("total");
 		model.addAttribute("lessonList", resultMap.get("list"));
 		
-		Page lessonCountResultPage = new Page( 1, ((Integer)returnMap.get("total")).intValue(), pageUnit, 3);
+		// Page lessonCountResultPage = new Page( 1, ((Integer)returnMap.get("total")).intValue(), pageUnit, 3);
+		Page lessonCountResultPage = new Page( 1, total, pageUnit, 3);
 		System.out.println("lessonCountResultPage ? : " + lessonCountResultPage);
 		model.addAttribute("lessonCountResultPage", lessonCountResultPage);
 		// 클래스 강의 가져오기 -----------------------------
@@ -553,4 +437,33 @@ public class SearchHobbyClassController {
 		return "forward:/questionreport/getReportTargetCommunityArticle.jsp";
 	}
 
+	
+	@RequestMapping( value = "getPreview" )
+	public String getPreview(@RequestParam("hobbyClassNo") String hobbyClassNo, Model model) throws Exception {
+		// 클래스 가져오기 ----------------------
+		Map<String, Object> inputData = new HashMap<String, Object>();
+
+		inputData.put("hobbyClassNo", hobbyClassNo);
+		
+		HobbyClass hobbyClass = searchHobbyClassService.getHobbyClass(inputData);
+		
+		model.addAttribute("hobbyClass", hobbyClass);
+		// 클래스 가져오기 ----------------------
+		
+		// 클래스 강의 가져오기 -----------------------------
+		Map<String, Object> resultMap = lessonService.getLessonList(Integer.parseInt(hobbyClassNo));
+		
+		List<Lesson> lessonList = (List<Lesson>)resultMap.get("list");
+		int total = (Integer)resultMap.get("total");
+		model.addAttribute("lessonList", resultMap.get("list"));
+		
+		Page lessonCountResultPage = new Page( 1, total, pageUnit, 3);
+		System.out.println("lessonCountResultPage ? : " + lessonCountResultPage);
+		model.addAttribute("lessonCountResultPage", lessonCountResultPage);
+		// 클래스 강의 가져오기 -----------------------------
+		
+		return "forward:/searchhobbyclass/getHobbyClassIntro.jsp";
+		// return "forward:/openhobbyclass/getPreview.jsp";
+	}
+	
 }
