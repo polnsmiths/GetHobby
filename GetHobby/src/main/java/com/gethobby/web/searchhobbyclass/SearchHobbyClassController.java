@@ -462,8 +462,8 @@ public class SearchHobbyClassController {
 		model.addAttribute("lessonCountResultPage", lessonCountResultPage);
 		// 클래스 강의 가져오기 -----------------------------
 		
-		return "forward:/searchhobbyclass/getHobbyClassIntro.jsp";
-		// return "forward:/openhobbyclass/getPreview.jsp";
+		//return "forward:/searchhobbyclass/getHobbyClassIntro.jsp";
+		return "forward:/openhobbyclass/getPreview.jsp";
 	}
 	
 }

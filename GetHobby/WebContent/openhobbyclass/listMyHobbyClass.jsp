@@ -378,7 +378,7 @@
 			  <div class="row no-gutters" style="padding: 0px;">
 			    <div style="width:238px; height:178.5px; margin-right:24px;">	
 			      <c:if test="${!empty hobbyClass.hobbyClassImage}">	    
-			      <img src="/resources/image/gon/${hobbyClass.hobbyClassImage}" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	  
+			      <img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	  
 			      </c:if>
 			      <c:if test="${empty hobbyClass.hobbyClassImage}">	
 			      <img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	   
@@ -456,7 +456,7 @@
 	<div class="card col-md-12 d-block d-lg-none lmhc-adr-div-in" style="margin-top: 16px; padding:0px; border: 0; box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px;">
 		  <input type="hidden" name="classState-andr" value="${hobbyClass.hobbyClassState}">	   
 		  <c:if test="${!empty hobbyClass.hobbyClassImage}">	    
-	      <img src="/resources/image/gon/${hobbyClass.hobbyClassImage}" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	  
+	      <img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	  
 	      </c:if>
 	      <c:if test="${empty hobbyClass.hobbyClassImage}">	
 	      <img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	   
@@ -624,7 +624,7 @@
 			    				    										+ '<div class="row no-gutters" style="padding: 0px;">'
 			    				    										+ '<div style="width:238px; height:178.5px; margin-right:24px;">';
 			    				    										if( JSONData.hobbyClass[9].hobbyClassImage != null ){
-			    				    											displayValue += '<img src="/resources/image/gon/'+JSONData.hobbyClass[9].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
+			    				    											displayValue += '<img src="/images/hobbyclass/'+JSONData.hobbyClass[9].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 			    				    										}else if( JSONData.hobbyClass[9].hobbyClassImage == null ){
 			    				    											displayValue += '<img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 			    				    										}
@@ -658,7 +658,7 @@
 			    				    										
 			    				    						var anrdDisplayValue = '<div class="card col-md-12 d-block d-lg-none lmhc-adr-div-in" style="margin-top: 16px; padding:0px; border: 0; box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px;">';
 								    				    						if( JSONData.hobbyClass[9].hobbyClassImage != null ){
-								    				    							anrdDisplayValue += '<img src="/resources/image/gon/'+JSONData.hobbyClass[9].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
+								    				    							anrdDisplayValue += '<img src="/images/hobbyclass/'+JSONData.hobbyClass[9].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 									    										}else if( JSONData.hobbyClass[9].hobbyClassImage == null ){
 									    											anrdDisplayValue += '<img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 									    										}
@@ -770,7 +770,7 @@ $(function(){
 	    										+ '<div class="row no-gutters" style="padding: 0px;">'
 	    										+ '<div style="width:238px; height:178.5px; margin-right:24px;">';
 	    										if( JSONData.hobbyClass[i].hobbyClassImage != null ){
-	    											displayValue += '<img src="/resources/image/gon/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
+	    											displayValue += '<img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 	    										}else if( JSONData.hobbyClass[i].hobbyClassImage == null ){
 	    											displayValue += '<img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 	    										}
@@ -804,7 +804,7 @@ $(function(){
 	    										
 	    							anrdDisplayValue += '<div class="card col-md-12 d-block d-lg-none lmhc-adr-div-in" style="margin-top: 16px; padding:0px; border: 0; box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px;">';
 	    				    						if( JSONData.hobbyClass[i].hobbyClassImage != null ){
-	    				    							anrdDisplayValue += '<img src="/resources/image/gon/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
+	    				    							anrdDisplayValue += '<img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 		    										}else if( JSONData.hobbyClass[i].hobbyClassImage == null ){
 		    											anrdDisplayValue += '<img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">';
 		    										}

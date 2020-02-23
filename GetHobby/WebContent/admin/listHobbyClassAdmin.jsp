@@ -576,7 +576,7 @@ h1 {
 				      <td class="hobbyClassProgressAdmin">45명/500명</td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
 				      
 				      <!-- 커버 이미지 -->		 
-				      <td class="hobbyClassImageAdmin"><img src="/resources/image/gon/${hobbyClass.hobbyClassImage}" style="width:134px; height:100.5px;"></td>
+				      <td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="width:134px; height:100.5px;"></td>
 				    
 				      <!-- 클래스 제목 -->
 				      <td class="hobbyClassNameAdmin">${hobbyClass.hobbyClassName}</td>
@@ -845,7 +845,7 @@ h1 {
 												
 									displayValue +=	'</td>' +
 												'<td class="hobbyClassProgressAdmin">0강/45강</td>' +
-												'<td class="hobbyClassImageAdmin"><img src="/resources/image/gon/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="width:134px; height:100.5px;"></td>' +
+												'<td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="width:134px; height:100.5px;"></td>' +
 												'<td class="hobbyClassNameAdmin">'+JSONData.hobbyClass[i].hobbyClassName;
 									displayValue +=	'</td>' +
 												'<td class="userIdAdmin">'+JSONData.hobbyClass[i].user.nickName+"/"+JSONData.hobbyClass[i].user.userId+'</td>' +

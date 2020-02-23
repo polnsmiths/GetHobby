@@ -37,14 +37,19 @@ public class PurchaseController {
 	
 	//Method
 	@RequestMapping( value="getSelectOption", method=RequestMethod.GET )
-	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo, HttpSession session, Model model) throws Exception {
+	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo,
+			@RequestParam("eventDiscount") int eventDiscount, HttpSession session, Model model) throws Exception {
 		model.addAttribute("purchase", purchaseService.getPayment(((User)session.getAttribute("user")).getUserId()));
 		model.addAttribute("hobbyClass", purchaseService.getPaymentOption(hobbyClassNo, session));
+		model.addAttribute("discountPrice", eventDiscount);
 		return "/purchase/getSelectOption.jsp";
 	}
 
 	@RequestMapping( value="getPaymentHistoryList", method=RequestMethod.GET )
 	public String getPaymentHistoryList(HttpSession session, Model model) throws Exception {
+		User user = new User();
+		user.setUserId("user01@naver.com");
+		session.setAttribute("user", user);
 		model.addAttribute("purchaseMap", purchaseService.getPaymentHistoryList(((User)session.getAttribute("user")).getUserId(), new Search()));
 		return "/purchase/getPaymentHistory.jsp";
 	}

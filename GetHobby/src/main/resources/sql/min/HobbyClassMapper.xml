@@ -144,7 +144,7 @@
  		SELECT  
  		hc.class_no, hc.user_id, hc.class_title, hc.class_image, hc.class_state, hc.class_intro, hc.class_price, hc.total_money, hc.kit_image, 
  		hc.total_lesson, hc.total_student, hc.total_steam, TO_DATE(TO_CHAR(hc.start_date, 'YYYY-MM-DD'), 'YYYY-MM-DD') start_date, TO_DATE(TO_CHAR(hc.end_date, 'YYYY-MM-DD'), 'YYYY-MM-DD') end_date, 
- 		hc.category, hc.kit_name, hc.kit_price, hc.kit_intro, u.nickname, u.profile_image, u.role, NVL2(s.steam_no, '1', '0') steam_check, NVL(grade.assess_star, 0) total_grade, 
+ 		UPPER(hc.category) category, hc.kit_name, hc.kit_price, hc.kit_intro, u.nickname, u.profile_image, u.role, NVL2(s.steam_no, '1', '0') steam_check, NVL(grade.assess_star, 0) total_grade, 
  		e.event_no_string, e.event_discount_string, e.event_category, e.event_title_string, e.event_start_date_string event_start_date_string, e.event_end_date_string event_end_date_string       
  		FROM hobbyclass hc, users u, ( SELECT
  						  	     	   steam_no, class_no 
