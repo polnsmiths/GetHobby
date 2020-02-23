@@ -24,7 +24,7 @@
 		padding: .8em .5em;
 		border: 1px solid #999;
 		font-family: inherit;
-		background: url('../resources/image/gon/flow.jpg') no-repeat 97% 50%;
+		background: url('/resources/image/gon/flow.jpg') no-repeat 97% 50%;
 		border-radius: 0px;
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -452,7 +452,7 @@
 									<input type="image" src="/resources/image/gon/addimage.jpg" class="file_input_test infoInput classInfo_image">
 								</c:if>
 								<c:if test="${!empty hobbyClass.hobbyClassImage}">
-								<input type="image" src="/resources/image/gon/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
+								<input type="image" src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" class="file_input_test infoInput classInfo_image">
 								</c:if>
 								<button type="button" class="shc-classInfo-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -600,7 +600,7 @@
 									<input type="image" src="/resources/image/gon/addVideo.png" class="file_input_test lessonInput classLesson_image_one">
 								</c:if>
 								<c:if test="${!empty hobbyClass.lesson[0].lessonVideo}">
-									<input type="image" src="/resources/image/gon/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one">
+									<input type="image" src="/video/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one">
 								</c:if>
 								<button type="button" class="shc-lesson-one-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -670,7 +670,7 @@
 									<input type="image" src="/resources/image/gon/lessonaddimage.jpg" class="file_input_test_lesson lessonInput classLesson_image_two">
 									</c:if>
 									<c:if test="${!empty hobbyClass.lesson[0].lessonImage}">
-										<input type="image" src="/resources/image/gon/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
+										<input type="image" src="/images/hobbyclass/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
 									</c:if>
 									<button type="button" class="shc-lesson-two-ImageDeleteButton">
 										<svg width="24" height="24" viewBox="0 2 24 24">
@@ -738,7 +738,7 @@
 								<input type="image" src="/resources/image/gon/addimage.jpg" class="file_input_test kitInput classKit_image">
 								</c:if>
 								<c:if test="${!empty hobbyClass.kitImage}">
-									<input type="image" src="/resources/image/gon/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
+									<input type="image" src="/images/hobbyclass/${hobbyClass.kitImage}" class="file_input_test kitInput classKit_image">
 								</c:if>
 								<button type="button" class="shc-kit-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -1025,8 +1025,8 @@
 				    	        processData : false,
 				    	        success : function(JSONData) {
 				    	        	
-				    	        	$(el).summernote('editor.insertImage',"/resources/image/gon/"+JSONData);
-				    	    	    $('#imageBoard > ul').append('<li><img src="/resources/image/gon/'+JSONData+'" width="480" height="auto"/></li>');
+				    	        	$(el).summernote('editor.insertImage',"/images/hobbyclass/"+JSONData);
+				    	    	    $('#imageBoard > ul').append('<li><img src="/images/hobbyclass/'+JSONData+'" width="480" height="auto"/></li>');
 				    	        }
 		 	  	 	});
 	    	}
@@ -1497,7 +1497,7 @@
 	    					success : function(JSONData, status) {
 	    						
 	    						if( JSONData.lesson[0].lessonVideo != null && JSONData.lesson[0].lessonVideo != "" ){
-									$(".classLesson_image_one").attr("src","/resources/image/gon/"+JSONData.lesson[0].lessonVideo);
+									$(".classLesson_image_one").attr("src","/images/hobbyclass/"+JSONData.lesson[0].lessonVideo);
 									$(".classLesson_file_one").attr("disabled",true);
 	    							$(".classLesson_file_one").css("cursor","default");
 	    							$(".shc-lesson-one-ImageDeleteButton").css("display","block");
@@ -1523,7 +1523,7 @@
 	    							$("input[name='lessonIntro']").val("");
 	    						}
 	    						if( JSONData.lesson[0].lessonImage != null && JSONData.lesson[0].lessonImage != "" ){
-	    							$(".classLesson_image_two").attr("src","/resources/image/gon/"+JSONData.lesson[0].lessonImage);
+	    							$(".classLesson_image_two").attr("src","/images/hobbyclass/"+JSONData.lesson[0].lessonImage);
 	    							$(".classLesson_file_two").attr("disabled",true);
 	    							$(".classLesson_file_two").css("cursor","default");
 	    							$(".shc-lesson-two-ImageDeleteButton").css("display","block");
@@ -1558,7 +1558,7 @@
         					} ,
 	    					success : function(JSONData, status) {
 								if( JSONData.kitImage != null && JSONData.kitImage != "" ){
-									$(".classKit_image").attr("src", "/resources/image/gon/"+JSONData.kitImage);
+									$(".classKit_image").attr("src", "/images/hobbyclass/"+JSONData.kitImage);
 									$(".classKit_file").attr("disabled",true);
 									$(".classKit_file").css("cursor","default");
 									$(".shc-kit-ImageDeleteButton").css("display","block");
@@ -1813,7 +1813,7 @@
 				                cache: false,
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
-									$(".classInfo_image").attr("src","../resources/image/gon/"+jsonObj[0]);
+									$(".classInfo_image").attr("src","/images/hobbyclass/"+jsonObj[0]);
 									$("input[name='hobbyClassImage']").val(jsonObj[0]);
 								},
 								error : function(xhr, ajaxSettings, thrownError) 
@@ -1846,7 +1846,7 @@
 				                cache: false,
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
-									$(".classLesson_image_one").attr("src","../resources/image/gon/"+jsonObj[0]);
+									$(".classLesson_image_one").attr("src","/video/"+jsonObj[0]);
 									$("input[name='lessonVideo']").val(jsonObj[0]);
 								},
 								complete : function(data){
@@ -1881,7 +1881,7 @@
 				                cache: false,
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
-									$(".classLesson_image_two").attr("src","../resources/image/gon/"+jsonObj[0]);
+									$(".classLesson_image_two").attr("src","/images/hobbyclass/"+jsonObj[0]);
 									$("input[name='lessonImage']").val(jsonObj[0]);
 								},
 								complete : function(data){
@@ -1916,7 +1916,7 @@
 				                cache: false,
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
-									$(".classKit_image").attr("src","../resources/image/gon/"+jsonObj[0]);
+									$(".classKit_image").attr("src","/images/hobbyclass/"+jsonObj[0]);
 									$("input[name='kitImage']").val(jsonObj[0]);
 								},
 								complete : function(data){

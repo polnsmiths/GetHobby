@@ -61,6 +61,12 @@ public class OpenHobbyClassRestController {
 	
 	@RequestMapping( value="json/saveKit", method=RequestMethod.POST )
 	public int saveKit(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
+		System.out.println("시작");
+		System.out.println(hobbyClass.getHobbyClassNo());
+		System.out.println(hobbyClass.getKitImage());
+		System.out.println(hobbyClass.getKitIntro());
+		System.out.println(hobbyClass.getKitName());
+		System.out.println(hobbyClass.getKitPrice());
 		return oepnhobbyClassService.saveKit(hobbyClass);
 	}
 	

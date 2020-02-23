@@ -15,7 +15,10 @@
 
 <!-- 웹 폰트 (나눔고딕) -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
-
+<!-- <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
 <!--부트스트랩 CSS-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -39,13 +42,18 @@
 <link rel="stylesheet" href="/" />
 
 <style>
+
+/* @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap'); */
+
+
 ::-webkit-scrollbar {
 	display:none;
 }
 body{
 	margin: 0;
 	padding: 0;
-	font-family: sans-serif;
+	/* font-family: sans-serif; */
+	/* font-family: 'Black Han Sans' !important; */
 }
 
 ul{
@@ -113,13 +121,22 @@ ul li a:hover{
 #container{
 	width: 100%;
 	height: 100vh;
+	/* font-family: 'Black Han Sans' !important; */
+	/* font-family: 'Noto Sans KR' !important; */
+	/* font-family: 'Jua' !important; */
+	font-family: 'Do Hyeon' !important;
 }
 #container div{
 	position: relative;
 	width: 100%;
 	height: 100%;
+	/* font-family: 'Black Han Sans' !important; */
+	cursor: pointer;
 }
 #container div h1{
+	/* font-family: 'Noto Sans KR' !important; */
+	/* font-family: 'Jua' !important; */
+	font-family: 'Do Hyeon' !important;
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -127,15 +144,19 @@ ul li a:hover{
 	text-align: center;
 	margin: 0;
 	padding: 0;
-	font-size: 5em;
+	font-size: 6rem;
 	text-transform: uppercase;
 	color: #fff;
+	/* font-weight: bold; */
 }
 
-#container div h1:nth-child(2) {
+/* #green > h1 {
 	color: black;
-}
+} */
 #container div h3{
+	/* font-family: 'Noto Sans KR' !important; */
+	/* font-family: 'Jua' !important; */
+	font-family: 'Do Hyeon' !important;
 	position: absolute;
 	top: 60%;
 	transform: translateY(-50%);
@@ -149,24 +170,27 @@ ul li a:hover{
 }
 
 #container div#red{
-	//background-image: url('https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
-	background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url('https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80') fixed;
+	/* background-image: url('https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'); */
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url('/resources/image/logo/red.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#green{
-	background-image: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+	background-image: url('/resources/image/logo/green.jpeg');
 	background-size: cover  ;
 }
 #container div#blue{
-	background-image: url('/resources/image/gon/bg3.jpg');
+	/* background-image: url('https://images.unsplash.com/photo-1541443517255-9e9aa2962f14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'); */
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/blue.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#yellow{
-	background-image: url('./resources/image/gon/bg4.jpg');
+	/* background-image: url('https://images.unsplash.com/photo-1449247666642-264389f5f5b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1649&q=80'); */
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/yellow.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#magenta{
-	background-image: url('/resources/image/gon/bg5.jpg');
+	/* background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80'); */
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/magenta.jpeg') fixed;
 	background-size: cover  ;
 }
 .circle-span {
@@ -199,10 +223,10 @@ ul li a:hover{
 	</ul>
 	<div id="container">
 		<div class="box" id="red"><h1>당신을 위한 취미 클래스</h1><h3>바쁜 당신을 위해 맞춤 취미 큐레이션을 제공합니다.</h3></div>
-		<div class="box" id="green"><h1>집에서 쉽고 간단하게 취미를 즐겨보세요</h1></div>
-		<div class="box" id="blue"><h1>blue</h1></div>
-		<div class="box" id="yellow"><h1>yellow</h1></div>
-		<div class="box" id="magenta"><h1>magenta</h1></div>
+		<div class="box" id="green"><h1>어디서든 새로운 취미를 즐겨보세요</h1><h3>온라인으로 쉽고 간편하게 어디서든 볼 수 있습니다.</h3></div>
+		<div class="box" id="blue"><h1>관심분야를 선택하세요!</h1><h3>선별된 클래스를 추천해드립니다</h3></div>
+		<div class="box" id="yellow"><h1>준비물 걱정은 하지마세요</h1><h3>필요한 준비물까지 챙겨드린답니다.</h3></div>
+		<div class="box" id="magenta"><h1>지금 바로 시작하세요!</h1><h3>개설된 클래스 구경하러가기<i class="ml-3 far fa-hand-point-right"></i></h3></div>
 	</div>
 <script>
 
@@ -296,6 +320,12 @@ ul li a:hover{
         	  return false;
         	});
          
+         
+         
+         $("#magenta h3").on("click", function() {
+        	 //alert("클래스 목록으로");
+        	self.location = "/searchhobbyclass/getSearchHobbyClassList.jsp"; 
+         });
          
      }
   

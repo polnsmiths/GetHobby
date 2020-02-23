@@ -66,9 +66,16 @@
 	<link rel="stylesheet" href="/resources/css/min/listRecommendHobbyClass.css" />
 	<link rel="stylesheet" href="/resources/css/min/getProgressEvent.css" />
 	
-	<!-- 헤더 -->
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<!-- Header js & css -->
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	
 </head>
 <body>
 	<input type="hidden" class="user-hidden-value" value="${sessionScope.user.userId }"/>
@@ -86,7 +93,7 @@
 					<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 						<ul class="navbar-nav ">
 							<li class="nav-item dropdown align-self-center">
-								<button class="btn wrapper-basic dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;전체 카테고리</button>
+								<button class="btn wrapper-basic dropdown-toggle dropdown-nav-bar-class-search-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;전체 카테고리</button>
 								<div class="dropdown-menu mr-1 dropdown-menu-center" aria-labelledby="categoryDropdown">
 									<div class="dropdown dropdown-inner-text">
 										<img src="/resources/image/min/im-all.png" height="45px"/>
@@ -173,6 +180,7 @@
 									</span>
 								</a>
 							</li>
+							<!-- 자유게시판 사진게시판 헤더에 놓게 됨으로써 사라지게 되었다
 							<li class="nav-item dropdown align-self-center">
 								<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i>&nbsp;&nbsp;Get취미 커뮤니티</button>
 								<div class="dropdown-menu mr-1 dropdown-menu-center" aria-labelledby="categoryDropdown">
@@ -191,6 +199,7 @@
 									</div>
 								</div>
 							</li>
+							 -->
 						</ul>
 					</div>
 				</nav>
@@ -217,49 +226,49 @@
 						<ul class="mini-size-category-ul">
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-all.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-all.png" class="mini-category-img" />
 									전체
 									<input type="hidden" class="mini-category-value" value="all">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-art.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-art.png" class="mini-category-img" />
 									미술
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-craft.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-craft.png" class="mini-category-img" />
 									공예
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-exercise.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-exercise.png" class="mini-category-img" />
 									운동
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-food.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-food.png" class="mini-category-img" />
 									음식
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-lifestyle.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-lifestyle.png" class="mini-category-img" />
 									라이프스타일
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
-									<img src="/images/min/im-music.png" class="mini-category-img" />
+									<img src="/images/hobbyclass/im-music.png" class="mini-category-img" />
 									음악
 									<input type="hidden" class="mini-category-value" value="A">
 								</a>
@@ -544,7 +553,7 @@
 			<br/><br/>
 		</div>
 	</c:if>
-	
+	<br/><br/><br/><br/><br/>
 	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

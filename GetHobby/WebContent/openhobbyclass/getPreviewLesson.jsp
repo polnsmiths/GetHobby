@@ -49,7 +49,7 @@
 	<link href="../resources/css/min/getHobbyClassLesson.css" rel="stylesheet" />
 	
 	<!-- javascript import -->
-	<script src="../resources/javascript/min/getHobbyClassLesson.js"></script>
+	<script src="/resources/javascript/min/getPreviewLesson.js"></script>
 	
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 	
@@ -57,15 +57,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 	<!-- jQuery Custom Scroller CDN -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-	<!-- Header js & css -->
-	<script src="/resources/javascript/commonHeader.js"></script>
-	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-	
+
 	
 </head>
 <body>
-	<jsp:include page="/common/header.jsp"/>
-	
+
 	<input type="hidden" class="lesson-number" value="${lesson.lesson.lessonNo}" />
 	<input type="hidden" class="class-number" value="${lesson.lesson.hobbyClass.hobbyClassNo}" />
 	<input type="hidden" class="total-count" value="${lesson.lesson.totalCount}" />
@@ -135,83 +131,6 @@
 					</div>
 					<!-- 과제알림 끝 -->
 					
-					<!-- 댓글 숨기기용 -->
-					<div class="lesson-reply-content-total-outer-div">
-						<!-- 댓글 안내 구간 시작 -->
-						<div class="KlassCommentContainer__Header-kq9l9j-1 eiMOfM mt-3">
-							<h4 class="sc-bdVaJa cZzCCw KlassCommentContainer__Title-kq9l9j-2 dPaGDF">
-								댓글 
-								<div class="sc-bdVaJa hBKkTB KlassCommentContainer__Count-kq9l9j-3 iYqxgO">
-									${resultPage.totalCount } 개
-								</div>
-							</h4>
-						</div>
-						<!-- 댓글 안내 구간 끝 -->
-						
-						<!-- 댓글 선 구간 -->
-						<hr class="KlassCommentContainer__Hr-kq9l9j-6 mIsej">
-						
-						<!-- 댓글 작성 양식 배낀거 -->
-						<div class="border-bottom mt-2 mb-4 py-4">
-				            <div class="form-row d-flex justify-content-center">
-				                <textarea class="form-control col-9 col-md-10 mr-1" id="reply-textarea" name="replyContent" rows="3" maxlength="500"></textarea>
-				                <button class="col-2 col-md-1 btn btn-basic">등록</button>
-				            </div>
-				            <span class="m-3 m-md-5"><strong class="text-danger">0</strong> / 500자</span>
-				        </div>
-						<!-- 댓글 작성 양식 배낀거 -->								
-						
-						<!-- 댓글 작성 후 삭제시킬 기준점이 되는 span -->
-						<span class="this-is-gi-jun"></span>
-						
-						<div class="why-div-wrapper-need">
-							<ul class="list-unstyled">
-								<c:forEach var="reply" items="${replyList }">
-									<li class="media my-4">
-										<input type="hidden" class="lesson-reply-number-hidden" value="${reply.replyNo }"/>
-										<input type="hidden" class="lesson-reply-content-hidden-value" value="${reply.replyContent }" />
-										<input type="hidden" class="lesson-reply-user-userId-hidden-value" value="${reply.user.userId }" />
-										
-										<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">
-										<div class="media-body">
-											<h6 class="mt-0 mb-1 d-flex justify-content-between">
-												<span>
-													<strong>${ !empty reply.user.nickName ? reply.user.nickName : reply.user.name }</strong>
-													<small class="text-muted">${reply.regDate }</small>
-												</span>
-												<span class="lesson-reply-reset-button-span">
-													<span>
-													<c:if test="${user.userId eq reply.user.userId }">
-															<small class="lesson-reply-content-right ml-3">삭제<input type="hidden" class="lesson-reply-content-hidden" value="0"/></small>
-															<small class="lesson-reply-content-right ml-3">수정<input type="hidden" class="lesson-reply-content-hidden" value="1"/></small>
-													</c:if>
-													<c:if test="${user.userId != reply.user.userId }">
-															<small class="lesson-reply-content-right">신고<input type="hidden" class="lesson-reply-content-hidden" value="2"/></small>
-													</c:if>
-													</span>
-												</span>
-											</h6>
-											<div class="here-is-change-update-div">
-												<c:if test="${reply.totalReport >= 5 }">
-													<p class="blind-reply-content">블라인드 처리된 댓글입니다.</p>
-												</c:if>
-												<c:if test="${reply.totalReport < 5 }">
-													<p>${reply.replyContent }</p>
-												</c:if>
-											</div>
-										</div>
-									</li>
-									
-								</c:forEach>
-								
-								<!-- 검색결과 출력될 span -->
-							</ul>
-							
-							<span class="scroll-page"></span>
-							
-						</div>
-					</div>
-					
 				</div>
 			</div>
 			<div class="col-lg-4 fixed-right-tool-bar">
@@ -226,7 +145,7 @@
 								${lesson.lesson.hobbyClass.hobbyClassName } 
 							</div>
 							<span class="right-fixed-button-outer-span">
-								<button type="button" class="btn btn-basic go-to-the-class-intro-button">클래스 살펴보기</button>
+								<button type="button" class="btn btn-basic go-to-the-class-intro-button">클래스 미리보기</button>
 							</span>
 						</div>
 					</div>
@@ -249,7 +168,7 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/hobbyclass${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -296,90 +215,6 @@
 	</div>
 	<!-- 레슨 제목 선택 시 뜨는 모달창 끝 -->
 	
-	<!-- 신고 모달창 시작 -->
-	<div class="modal fade report-madal-total" tabindex="-1" role="dialog" aria-labelledby="report-modal-label" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="report-modal-label">신고하기</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="container report-container">
-						<input type="hidden" class="report-reply-number-hidden" />
-						<input type="hidden" class="report-hidden-input-value" value="0" />
-						<input type="hidden" class="report-reply-hidden-content" />
-						<div class="row report-row-div">
-							<div class="col-sm-12 report-col">
-								<div color="#3e4042" class="report-cirlce report-cirlce-select"></div>
-								<div color="#3e4042" class="report-div report-text-select">
-									부적절한 내용
-								</div>
-								<input type="hidden" class="report-hidde-value" value="0" />
-							</div>
-						</div>
-						<br/>
-						<div class="row report-row-div">
-							<div class="col-sm-12 report-col">
-								<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
-								<div color="#3e4042" class="report-div report-text-non-select">
-									광고
-								</div>
-								<input type="hidden" class="report-hidde-value" value="1" />
-							</div>
-						</div>
-						<br/>
-						<div class="row report-row-div">
-							<div class="col-sm-12 report-col">
-								<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
-								<div color="#3e4042" class="report-div report-text-non-select">
-									욕설
-								</div>
-								<input type="hidden" class="report-hidde-value" value="2" />
-							</div>
-						</div>
-						<br/>
-						<div class="row">
-							<div class="col-sm-12">
-								<span class="report-reply-content-check">
-									
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary modal-to-report-process-button">신고</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 신고 모달창 끝 -->
-	
-	<!-- 신고처리 완료 모달창 시작 -->
-	<div class="modal fade report-result-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="report-result-modal" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title report-result-modal" id="report-result-modal">신고 결과 확인</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<span class="report-navi-span-text">신고가 정상적으로 접수되었습니다.</span>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary report-result-modal-close-button" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 신고처리 완료 모달창 끝 -->
-	
 	<script type="text/javascript">	
 		// 바로 video.js 생성 ----------------------------------------------
 		
@@ -392,48 +227,6 @@
 		
 		// var video = videojs('lesson-video');
 		// 바로 video.js 생성 ----------------------------------------------
-	
-		// window.onload 이벤트 -------------------------------------------
-		window.onload = function(){
-			var totalTimes = "${lesson.totalTimes }";
-			var lessonNo = "${lesson.lesson.lessonNo }";
-			var hobbyClassNo = "${lesson.lesson.hobbyClass.hobbyClassNo}";
-			var currentTimes = "${lesson.currentTimes }";
-			var maxTimes = "${lesson.maxTimes }";
-
-			console.log('getLesson 입장');
-			console.log('totalTimes ? : ' + totalTimes);
-	
-			if (totalTimes == 0){
-				console.log('addLessonTimes 동작');
-				
-				$.ajax(
-						{
-							url : "/lesson/json/addLessonTimes",
-							method : "post", 
-							dataType : "json", 
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							data : JSON.stringify({
-								lessonNo : lessonNo,
-								hobbyClassNo : hobbyClassNo
-							}),
-							success : function(JSONData, status) {
-								console.log(JSONData.result);
-							}
-						}
-				)
-				
-			}
-			else if(currentTimes != 0) {
-				console.log('이어보기가 가능합니다. 시작 구간은 : ' + currentTimes);
-				video.currentTime(currentTimes);
-			}
-			
-		}
-		// window.onload 이벤트 -------------------------------------------
 		
 		// keydown 이벤트 ----------------------------------------------
 		$(document).on('keydown', function(event){
@@ -463,40 +256,6 @@
 				}
 		})
 		// keydown 이벤트 ----------------------------------------------
-		
-		// window.onbeforeunload 이벤트 -----------------------------------
-		window.onbeforeunload = function(e) {
-			e = e || window.event; 
-			
-			var maxTimes = "${lesson.maxTimes }";
-			var lessonNo = "${lesson.lesson.lessonNo }";
-			var hobbyClassNo = "${lesson.lesson.hobbyClass.hobbyClassNo}";
-			var currentTimes = Math.floor( video.currentTime() );
-			var totalTimes = Math.floor( video.duration() );
-			$.ajax(
-					{
-						url : "/lesson/json/updateLessonTimes", 
-						method : "post", 
-						async : false, 
-						dataType : "json", 
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						}, 
-						data : JSON.stringify({
-							currentTimes :currentTimes,
-							maxTimes : maxTimes, 
-							lessonNo : lessonNo, 
-							hobbyClassNo : hobbyClassNo,
-							totalTimes : totalTimes 
-						}),
-						success : function(JSONData, status) {
-							console.log(JSONData.result);
-						}
-					}
-			)
-		}
-		// window.onbeforeunload 이벤트 -----------------------------------
 	</script>
 
 	

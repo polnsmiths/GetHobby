@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.Event;
 import com.gethobby.service.domain.User;
@@ -133,9 +134,9 @@ public class EventRestController {
 		
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
-			search.setSearchCondition("진행중"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
+		}else if(search.getSearchCondition().equals("1")) {
+			search.setSearchCondition("진행중"); //==>얘가 기본
 		}else if(search.getSearchCondition().equals("2")) {
 			search.setSearchCondition("종료"); //==>얘가 기본
 
@@ -144,13 +145,17 @@ public class EventRestController {
 		System.out.println("CurrentPage---"+search.getCurrentPage()+"\npageSize---"+search.getPageSize()+
 				"\nSearchCondition---"+search.getSearchCondition());
 		
+		
 		Map<String, Object>map = eventService.getEventListGroupBYId(search);
 		System.out.println(map.get("list")+"\n"+map.get("total"));
 		System.out.println("size--"+((List<Event>)(map.get("list") )) .size());
 		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize);
+		
 		map.put("list", (List<Event>)map.get("list"));
 		map.put("total", map.get("total"));
 		map.put("success", "200");
+		map.put("resultPage", resultPage);
 		
 		return map;
 		

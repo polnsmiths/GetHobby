@@ -37,10 +37,21 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
+
     <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
+<!--     <link rel="stylesheet" href="/resources/css/header.css"> -->
     <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
+<!--     <script src="/resources/javascript/header.js"></script> -->
+
+
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+
 
 
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
@@ -139,7 +150,9 @@ function fncAddBoardArticle(){
 </head>
 
 <body>
+<jsp:include page="/common/header.jsp"/>
 
+	<div class="mt-5">&nbsp;</div>
 	<div class="container">
     <h1 class="sol-board-header">자유게시판 게시글 작성</h1>
         <form class="form-group my-5 py-5">
@@ -166,6 +179,9 @@ function fncAddBoardArticle(){
         </form>
 
     </div>
+    
+    
+    <%-- <jsp:include page="/common/footer.jsp"/> --%>
 </body>
 
 </html>

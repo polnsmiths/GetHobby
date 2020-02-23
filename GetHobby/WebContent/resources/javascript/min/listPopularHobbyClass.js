@@ -74,7 +74,7 @@ $(function(){
 						display += "<div id='popularCardImage'>";
 						
 						display += "<span>";
-						display += "<img name='popularCardImage' src='/images/min/" + JSONData.popularHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+						display += "<img name='popularCardImage' src='/images/hobbyclass/" + JSONData.popularHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 						
 						if ( JSONData.popularHobbyClassList[i].event != null ) { 
 							display += "<div class='outer-card-image'>";
@@ -202,7 +202,7 @@ $(function(){
   	$(document).on('click', 'button[name="popularSteam"]', function(){
   		// 로그인 안했으면 하라고 시키기 네비게이션 시키면 될듯 
   		if ( userId == null || userId == '' ) {
-  			
+  			/*
   			Swal.fire({
 				icon : 'error',
 				title : '로그인이 필요합니다.',
@@ -211,66 +211,70 @@ $(function(){
 				timer : 800
 			}).then((result) => {
 				console.log(result);
-				
-				if ( result.dismiss ) {
-					self.location = "/user/captcha";
-				}
+
+				self.location = '/user/noLogonUser?type=steam';	
+				event.preventDafault();
 			});
-  			
+			*/
+  			self.location = '/user/noLogonUser?type=steam';	
+  			event.preventDafault();
+  		}
+  		else {
+  			console.log('userId ? : ' + userId);
+  	  		var steamButton = $(this);
+  	  		var hobbyClassInput = $(this).parents('.card').find('input[name="popularHobbyClassNo"]');
+  	  		var steamCountInput = $(this).parents('.card').find('input[name="popularSteamCount"]');
+  	  		var divCard = $(this).parents('.card');
+  	  		
+  	  		var url = '';
+  	  		
+  	  		// 찜하기 유무로 찜할지말건지 
+  	  		if ( steamButton.val() == 0 ) {
+  	  			url = '/myHobbyClass/json/addSteamHobbyClass';
+  	  		}
+  	  		else if ( steamButton.val() == 1 ) {
+  	  			url = '/myHobbyClass/json/deleteSteamHobbyClass';
+  	  		}
+  	  		
+  	  		console.log('url ? : ' + url);
+  	  		
+  	  		$.ajax(
+  	  				{
+  	  					url : url, 
+  	  					method : "post",
+  	  					dataType : "json", 
+  	  					headers : {
+  	  						"Accept" : "application/json",
+  	  						"Content-Type" : "application/json"
+  	  					},
+  	  					data : JSON.stringify({
+  	  						hobbyClassNo : hobbyClassInput.val(),
+  	  						// 이거 삭제해도 될듯 
+  	  						steamCount : steamCountInput.val()
+  	  					}),
+  	  					success : function(JSONData, status) {
+  	  						
+  	  						var display = "";
+  	  						display += "<button type='button' class='btn btn-light' name='popularSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
+  	  						
+  	  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
+  								display += "<i class='far fa-heart'></i>";
+  							}
+  							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
+  								display += "<i class='fas fa-heart'></i>";
+  							}
+  	  						
+  	  						display += "<span name='popularSteamCount'>";
+  	  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
+  	  						display += "</button>";
+  	  						
+  	  						steamCountInput.val(JSONData.hobbyClass.steamCount);
+  							steamButton.parent().html(display);
+  	  					}
+  	  				}
+  	  		)
   		}
   		
-  		console.log('userId ? : ' + userId);
-  		var steamButton = $(this);
-  		var hobbyClassInput = $(this).parents('.card').find('input[name="popularHobbyClassNo"]');
-  		var steamCountInput = $(this).parents('.card').find('input[name="popularSteamCount"]');
-  		var divCard = $(this).parents('.card');
-  		
-  		var url = '';
-  		
-  		// 찜하기 유무로 찜할지말건지 
-  		if ( steamButton.val() == 0 ) {
-  			url = '/myHobbyClass/json/addSteamHobbyClass';
-  		}
-  		else if ( steamButton.val() == 1 ) {
-  			url = '/myHobbyClass/json/deleteSteamHobbyClass';
-  		}
-  		
-  		console.log('url ? : ' + url);
-  		
-  		$.ajax(
-  				{
-  					url : url, 
-  					method : "post",
-  					dataType : "json", 
-  					headers : {
-  						"Accept" : "application/json",
-  						"Content-Type" : "application/json"
-  					},
-  					data : JSON.stringify({
-  						hobbyClassNo : hobbyClassInput.val(),
-  						// 이거 삭제해도 될듯 
-  						steamCount : steamCountInput.val()
-  					}),
-  					success : function(JSONData, status) {
-  						
-  						var display = "";
-  						display += "<button type='button' class='btn btn-light' name='popularSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
-  						
-  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
-							display += "<i class='far fa-heart'></i>";
-						}
-						else if ( JSONData.hobbyClass.steamCheck == '1' ) {
-							display += "<i class='fas fa-heart'></i>";
-						}
-  						
-  						display += "<span name='popularSteamCount'>";
-  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
-  						display += "</button>";
-  						
-						steamButton.parent().html(display);
-  					}
-  				}
-  		)
   	})
   	// 찜하기 이벤트 끝 
   	

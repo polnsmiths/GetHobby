@@ -72,7 +72,7 @@ $(function(){
 						display += "<div id='registerCardImage'>";
 						console.log(JSONData.registerHobbyClassList[i].hobbyClassImage);
 						display += "<span>";
-						display += "<img name='registerCardImage' src='/images/min/" + JSONData.registerHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+						display += "<img name='registerCardImage' src='/images/hobbyclass/" + JSONData.registerHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 						
 						if ( JSONData.registerHobbyClassList[i].event != null ) { 
 							display += "<div class='outer-card-image'>";
@@ -199,7 +199,7 @@ $(function(){
   	$(document).on('click', 'button[name="registerSteam"]', function(){
   		// 로그인 안했으면 하라고 시키기 네비게이션 시키면 될듯 
   		if ( userId == null || userId == '' ) {
-  			
+  			/*
   			Swal.fire({
 				icon : 'error',
 				title : '로그인이 필요합니다.',
@@ -210,10 +210,13 @@ $(function(){
 				console.log(result);
 				
 				if ( result.dismiss ) {
-					self.location = "/user/captcha";
+					self.location = '/user/noLogonUser?type=steam';	
 				}
+				return false;
 			});
-  			
+  			*/
+  			self.location = '/user/noLogonUser?type=steam';	
+  			return false;
   		}
   		
   		console.log('userId ? : ' + userId);
@@ -264,6 +267,7 @@ $(function(){
   						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
   						display += "</button>";
   						
+  						steamCountInput.val(JSONData.hobbyClass.steamCount);
 						steamButton.parent().html(display);
   					}
   				}

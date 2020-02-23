@@ -47,12 +47,16 @@
 	<!-- channelTalk -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
 	
-	<!-- 헤더 -->
-	<script src="/resources/javascript/commonHeader.js"></script>
-	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-	
 	<!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -206,7 +210,9 @@
 				
 				var userId = $('.user-hidden-class-intro-value').val();
 				
-				if ( !userId ) {  
+				if ( !userId ) { 
+						
+					/*
 					console.log('로그인이 필요합니다.');
 					
 					Swal.fire({
@@ -217,6 +223,10 @@
 						timer : 800
 					})
 					return;
+					*/
+					// self.location = '/user/noLogonUser?type=purchase&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					return false;
 				}
 				
 				self.location = "/purchase/getSelectOption?hobbyClassNo=" + $('.hidden-hobby-class-number').val() + "&eventDiscount=" + "${hobbyClass.event.eventDiscount}";
@@ -227,41 +237,80 @@
 			
 			// 찜하기 이벤트 시작--------------------------------------
 			$('.steam-button').on('click', function(){
-				console.log('찜하기 버튼을 눌렀읍니다.');
 				var userId = $('.user-hidden-class-intro-value').val();
+				var checkPurchase = $('.hidden-purchase-check').val();
+				var classState = $('.hidden-class-state').val();
+				
+				if ( classState != '3' ) {
+					const Toast = Swal.mixin({
+						toast : true, 
+						position : 'top', 
+						showConfirmButton : false, 
+						showCancelButton : false,
+						timer : 1500, 
+						timerProgressBar : false, 
+						onOpen : (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer);
+							toast.addEventListener('mouseleave', Swal.resumeTimer);
+						}
+					});
+					
+					Toast.fire({
+						icon : 'error', 
+						title : '찜하기는 수요조사 중인 클래스에만 가능합니다.'
+					}).then((result) => {
+						event.preventDefault();	
+					});		
+					
+					event.preventDefault();	
+					return false;
+				}
+				
+				if ( checkPurchase == '1' ) {
+					const Toast = Swal.mixin({
+						toast : true, 
+						position : 'top', 
+						showConfirmButton : false, 
+						showCancelButton : false,
+						timer : 1500, 
+						timerProgressBar : false, 
+						onOpen : (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer);
+							toast.addEventListener('mouseleave', Swal.resumeTimer);
+						}
+					});
+					
+					Toast.fire({
+						icon : 'error', 
+						title : '이미 구매한 클래스입니다.'
+					}).then((result) => {
+						event.preventDefault();	
+					});		
+					
+					event.preventDefault();	
+					return false;
+				}
 				
 				if ( !userId ) {  
-					console.log('로그인이 필요합니다.');
-					
+					/*
 					Swal.fire({
 						icon : 'error',
 						title : '로그인이 필요합니다.',
 						showConfirmButton : false, 
 						allowOutsideClick : true,
 						timer : 800
+					}).then((result) => {
+						event.preventDefault();
 					})
-					return;
-				}
-				
-				if ( purchaseCheck != '0' ) {
-					console.log('이미 구매한 클래스입니다.');
-					
-					Swal.fire({
-						icon : 'error',
-						title : '이미 구매한 클래스입니다.',
-						showConfirmButton : false, 
-						allowOutsideClick : true,
-						timer : 800
-					})
-					return;
+					*/
+					// self.location = '/user/noLogonUser?type=steamHobbyClass&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 				}
 				
 				var steamCheck = $('.steam-check').val();
 				var hobbyClassNo = '${hobbyClass.hobbyClassNo}';
 				var steamCount = $('.steam-count').val();
 				var steamButton = $(this);
-				
-				console.log(steamCheck + ' / ' + hobbyClassNo + ' / ' + steamCount);
 				
 				var url = '';
 				
@@ -477,7 +526,6 @@
 			
 			// 한줄평 더보기 요청 시 -----------------------------------------------
 			$('.btn-class-assess-more').on('click', function(){
-				console.log('클래스 더보기 버튼을 클릭하셨읍니다.');
 				
 				currentPage = (currentPage * 1) + 1;
 				var hobbyClassNo = "${hobbyClass.hobbyClassNo}";
@@ -498,14 +546,20 @@
 							}), 
 							success : function(JSONData, status) {
 								var display = '';
-								
+								var logonUserId = "${sessionScope.user.userId}";
 								for ( var i = 0; i < JSONData.assessContentList.length; i++ ) {
-									display += '<div class="class-assess-content-outer-div">';
+									if ( JSONData.assessContentList[i].user.userId == logonUserId ) {
+										display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+									}
+									else {
+										display += '<div class="class-assess-content-outer-div">';
+									}
+
 									display += '<div class="profile-and-name">';
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
 									// 나중에 회원 프로필 사진으로 대체하기 
-									display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
+									display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
 									display += '</span>';
 									display += '</div>';
 									display += '<div class="name-outer-div">';
@@ -647,13 +701,21 @@
 						    				var display = '';
 						    				
 						    				for (var i = 0; i < e.classAssessList.length; i++) {
-						    					display += '<div class="class-assess-content-outer-div">';
+						    					var logonUserId = "${sessionScope.user.userId}";
+						    				
+						    					if ( e.classAssessList[i].user.userId == logonUserId ) {
+													display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+												}
+												else {
+													display += '<div class="class-assess-content-outer-div">';
+												}
+						    					
 						    					display += '<div class="profile-and-name">';
 						    					display += '<div size="24" class="profile-outer-div">';
 						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
 						    					
 						    					// 나중에 프로필 사진으로 대체하기 
-						    					display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
+						    					display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
 						    					// 나중에 프로필 사진으로 대체하기 
 						    					
 						    					display += '</span>';
@@ -706,46 +768,67 @@
 					console.log(result);
 					
 					if ( result.dismiss ) {
-						Swal.fire({
-							icon: 'error',
-							title: '댓글 작성 취소',
-							showConfirmButton : false,
-							allowOutsideClick : true, 
-							timer: 800
-						})
+						const Toast = Swal.mixin({
+							toast : true, 
+							position : 'top', 
+							showConfirmButton : false, 
+							showCancelButton : false,
+							timer : 1500, 
+							timerProgressBar : false, 
+							onOpen : (toast) => {
+								toast.addEventListener('mouseenter', Swal.stopTimer);
+								toast.addEventListener('mouseleave', Swal.resumeTimer);
+							}
+						});
+						
+						Toast.fire({
+							icon : 'error', 
+							title : '한줄평 작성 취소'
+						}).then((result) => {
+							event.preventDefault();	
+						});
 					} 
 					else {
-						Swal.fire({
-							icon: 'success',
-							title: '댓글 작성 완료',
-							showConfirmButton : false,
-							allowOutsideClick : true, 
-							timer: 800
-						}).then((result) => {
-							console.log(result);
-
-							$('.lesson-content').hide();
-							$('.class-intro-content').hide();
-							$('.class-kit-content').hide();
-							
-							
-							$('.nav-span-inner-nav-link').css({
-								'font-weight' : 'normal'
-							});
-							
-							$('.nav-span-inner-nav-link').eq(2).css({
-								'font-weight' : 'bold'
-							});
-							
-							$('.class-assess-content').show();
-							$('.non-end-class').hide();
-							
-							$('.cannot-add-button').show();
-							$('.can-add-button').hide();
-							
-							var offset = $('.class-assess-content').offset();
-							$('html, body').animate({scrollTop : offset.top}, 400);
+						const Toast = Swal.mixin({
+							toast : true, 
+							position : 'top', 
+							showConfirmButton : false, 
+							showCancelButton : false,
+							timer : 1500, 
+							timerProgressBar : false, 
+							onOpen : (toast) => {
+								toast.addEventListener('mouseenter', Swal.stopTimer);
+								toast.addEventListener('mouseleave', Swal.resumeTimer);
+							}
+						});
+						
+						Toast.fire({
+							icon : 'success', 
+							title : '한줄평 작성 완료'
 						})
+					
+						$('.lesson-content').hide();
+						$('.class-intro-content').hide();
+						$('.class-kit-content').hide();
+						
+						
+						$('.nav-span-inner-nav-link').css({
+							'font-weight' : 'normal'
+						});
+						
+						$('.nav-span-inner-nav-link').eq(2).css({
+							'font-weight' : 'bold'
+						});
+						
+						$('.class-assess-content').show();
+						$('.non-end-class').hide();
+						
+						$('.cannot-add-button').show();
+						$('.can-add-button').hide();
+						
+						var offset = $('.class-assess-content').offset();
+						$('html, body').animate({scrollTop : offset.top}, 400);
+					
 					}
 					
 				});				
@@ -845,7 +928,7 @@
 								var nowMaxPage = ( i * pageSize );
 			
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {
-									display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+									display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 								}
 								
 								display += '</div>';
@@ -894,7 +977,7 @@
 									
 									console.log(currentPage);
 									for(var j = currentPage; j <= JSONData.resultPage.totalCount; j++ ) {
-										display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 									}
 									
 									display += '</div>';
@@ -938,8 +1021,15 @@
 			
 			// 강의 상세보기 구간 ------------------------------------------------
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
-				console.log('purchaseCheck ? : ' + purchaseCheck);	
 			
+				// 유저 로그인 안되있을 경우
+				var userId = $('.user-hidden-class-intro-value').val();
+				
+				if ( !userId ) {  	
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+					return false;
+				}
+				
 				if ( purchaseCheck != '1' ) {
 					Swal.fire({
 						icon : 'error',
@@ -948,7 +1038,7 @@
 						allowOutsideClick : true,
 						timer : 800
 					})
-					return;
+					return false;
 				}
 				
 				if ( classState != '5' ) {
@@ -959,7 +1049,7 @@
 						allowOutsideClick : true,
 						timer : 800
 					})
-					return;
+					return false;
 				}
 				
 				console.log('click');
@@ -1652,6 +1742,10 @@
 		.class-assess-content-outer-div {
 		    margin-bottom: 24px;
 		}
+		
+		.class-assess-content-outer-div-logon-mine {
+		    background-color : #fefbed;
+		}
 
 		.profile-and-name {
 		    display: flex;
@@ -2167,6 +2261,9 @@
 			overflow : hidden;
 		}
 		
+		.btn.btn-light.steam-button {
+			background-color : #FFFFFF;
+		}
 	</style>
 
 </head>
@@ -2255,7 +2352,7 @@
 				
 				<div class="image-outer-div">
 					<span class="image-outer-span">
-						<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 					</span>
 				</div>
 				
@@ -2265,7 +2362,7 @@
 						<!--  
 						<div class="image-outer-div">
 							<span class="image-outer-span">
-								<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+								<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						-->
@@ -2453,7 +2550,7 @@
 						
 						<div class="image-outer-div mt-5">
 							<span class="image-outer-span">
-								<img src="/images/min/${hobbyClass.kitImage }" class="img-class-intro"/>
+								<img src="/images/hobbyclass/${hobbyClass.kitImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						
@@ -2545,12 +2642,17 @@
 						
 						<c:forEach var="assessContent" items="${listAssessContent }">
 							<!-- 나중에 그거 forEach문 돌릴 구간 -->
-							<div class="class-assess-content-outer-div">
+							<c:if test="${sessionScope.user.userId == assessContent.user.userId }">
+								<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">
+							</c:if>
+							<c:if test="${sessionScope.user.userId != assessContent.user.userId }">
+								<div class="class-assess-content-outer-div">
+							</c:if>
 								<div class="profile-and-name">
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">
 											<!-- 나중에 프로필 사진으로 대체하기 -->
-											<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>
+											<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>
 										</span>
 									</div>
 									
@@ -2799,7 +2901,7 @@
 					<!-- 한줄평 작성 양식 시작 
 					<div class="lesson-reply-add-format">
 						<div class="leeson-reply-add-container">
-							<img src="/images/min/default-profile.jpg" class="rounded-circle"/>
+							<img src="/images/hobbyclass/default-profile.jpg" class="rounded-circle"/>
 							<br/>	
 							<br/>
 							<span class="star-value-span">
@@ -2837,6 +2939,7 @@
 		</div>
 	</div>
 	클래스 한줄평 작성 모달창 끝 -->
-	
+	<br/><br/><br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

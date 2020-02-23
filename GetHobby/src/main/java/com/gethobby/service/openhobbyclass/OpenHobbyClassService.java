@@ -15,7 +15,7 @@ import com.gethobby.service.domain.Lesson;
 //2020-02-21 Git Commit
 public interface OpenHobbyClassService {
 	
-	public Map<String, Object> getHobbyClassList(Search search, HttpSession session) throws Exception; // Out : Ŭ����ID , Ŭ���� ���� , Ŭ���� Ŀ�� �̹��� , Ŭ���� ����
+	public Map<String, Object> getHobbyClassList(Search search, HttpSession session) throws Exception; 
 	
 	public List changeHobbyClassState(List list) throws Exception;
 	
@@ -25,11 +25,11 @@ public interface OpenHobbyClassService {
 	
 	public HobbyClass getSaveHobbyClass(int hobbyClassNo) throws Exception;
 	
-	public HobbyClass getHobbyClass(int hobbyClassNo, String what) throws Exception; // Out : flag(1,2,3) ���� ���� save������ ��������
+	public HobbyClass getHobbyClass(int hobbyClassNo, String what) throws Exception; 
 	
-	public int saveHobbyClassInfo(HobbyClass hobbyClass, HttpSession session) throws Exception; // In : Ŭ����ID , Ŭ���� Ŀ�� �̹��� , Ŭ���� ����,Ŭ���� ī�װ�,Ŭ���� �ؽ��±�,Ŭ���� ����,Ŭ���� �Ұ���
+	public int saveHobbyClassInfo(HobbyClass hobbyClass, HttpSession session) throws Exception; 
 	
-	public int saveKit(HobbyClass hobbyClass) throws Exception; // In : Ŭ����ID, �غ� �̸�, �غ� �Ұ�, �غ� ����, �غ� �̹���
+	public int saveKit(HobbyClass hobbyClass) throws Exception;
 	
 	public int saveCheckHobbyClass(int hobbyClassNo) throws Exception; 
 	
@@ -43,7 +43,7 @@ public interface OpenHobbyClassService {
 	
 	public int addHashtag(HobbyClass hobbyClass) throws Exception;
 	
-	public List getHashtag(int hobbyClassNo) throws Exception; // Out : hashtag
+	public List getHashtag(int hobbyClassNo) throws Exception; 
 	
 	public int updateTotalMoney(int hobbyClassNo, int money, String what) throws Exception;
 	
@@ -60,10 +60,10 @@ public interface OpenHobbyClassService {
 	public void updateClassState() throws Exception;
 	
 	// Admin
-	public Map<String, Object> getHobbyClassListAdmin(Search search) throws Exception; // Out : �̹���, ����, Ŭ�������̵�, ȸ�����̵�, ���ϱ��, �Ѽ���, ����, �����ο�, ��Ż����
+	public Map<String, Object> getHobbyClassListAdmin(Search search) throws Exception;
 	
-	public int saveCheckHobbyClassAdmin(int hobbyClassNo) throws Exception; //
+	public int saveCheckHobbyClassAdmin(int hobbyClassNo) throws Exception; 
 	
-	public int updateHobbyClassAdmin(HobbyClass hobbyClass, String what, HttpSession session) throws Exception; // In : save ������ ����
+	public int updateHobbyClassAdmin(HobbyClass hobbyClass, String what, HttpSession session) throws Exception; 
 	
 }//end of interface HobbyClassService

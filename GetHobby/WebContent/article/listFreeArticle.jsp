@@ -41,12 +41,19 @@
     <link rel="stylesheet" href="/resources/css/common.css">
 
     <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
+<!--     <link rel="stylesheet" href="/resources/css/header.css"> -->
     <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
+<!--     <script src="/resources/javascript/header.js"></script> -->
 
 
-<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 
 
 
@@ -61,9 +68,10 @@
 //=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 function fncGetBoardArticleList(currentPage) {
 	$("#currentPage").val(currentPage);
+	alert($("#currentPage").val());
 	//console.log(boardCode);
 	//var boardCode = $("input[name='boardCode']").val();
-	$("form").attr("method" , "POST").attr("action" , "/article/getBoardArticleList").submit();
+	$("#search").attr("method" , "POST").attr("action" , "/article/getBoardArticleList").submit();
 }
 
 
@@ -118,11 +126,11 @@ $(function() {
 <body>
 <jsp:include page="/common/header.jsp"/>
 
-	
+		<div class="mt-5">&nbsp;</div>
 	    <div class="container">
         <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
-        <form class="form-group search my-5 pt-5 d-flex justify-content-between">
+        <form  id="search" class="form-group search my-5 pt-5 d-flex justify-content-between">
             <h4 class="font-weight-bold"><i class="far fa-file-alt mx-3"></i>자유게시판</h4>
             <input type="hidden" name="boardCode" value="0">
             <div class="form-row">
@@ -274,6 +282,7 @@ $(function() {
 
 <jsp:include page="/common/pagenation.jsp"/>
     </div>
+<%-- <jsp:include page="/common/footer.jsp"/> --%>
 </body>
 
 </html>

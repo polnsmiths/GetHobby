@@ -157,7 +157,17 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://127.0.0.1:8080/index.jsp";
+							// self.location = "http://127.0.0.1:8080/index.jsp"; // 기존
+							// 수정한 부분 /////////////////////////////
+							var redirectUrl = '';
+							redirectUrl = "${redirectUrl}";
+							if ( redirectUrl != '' ) {
+								self.location = redirectUrl;
+							}
+							else {
+								self.location = "http://127.0.0.1:8080/index.jsp";
+							}
+							// 수정한 부분 /////////////////////////////
 						})
 					
 				}
@@ -244,7 +254,30 @@ $(function(){
 		}
 	});
 	
+	// 추가된 부분 ---------------------------------------------------------
+	var checkRedirectUrl = '';
+	checkRedirectUrl = '${redirectUrl}';
 	
+	if ( checkRedirectUrl != '' ) {
+		const Toast = Swal.mixin({
+			toast : true, 
+			position : 'top', 
+			showConfirmButton : false, 
+			showCancelButton : false,
+			timer : 1500, 
+			timerProgressBar : false, 
+			onOpen : (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			}
+		});
+		
+		Toast.fire({
+			icon : 'error', 
+			title : '로그인이 필요한 기능입니다.'
+		});
+	}
+	// 추가된 부분 ---------------------------------------------------------
 });
 
 

@@ -40,10 +40,22 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
+
     <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
+<!--     <link rel="stylesheet" href="/resources/css/header.css"> -->
     <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
+<!--     <script src="/resources/javascript/header.js"></script> -->
+
+
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+
+
 
 
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
@@ -64,6 +76,9 @@
 </head>
 
 <body>
+<jsp:include page="/common/header.jsp"/>
+
+	<div class="mt-5">&nbsp;</div>
 	<div class="container mb-5">
 		<input type="hidden" name="articleNo" value="${ article.articleNo }" >
         <div class="sol-article-header mb-1">
@@ -109,7 +124,7 @@
 			<button type="button" class="btn btn-basic btn-sm col-lg-1 col-md-3 mx-1" onclick="location.href='/article/getBoardArticleList?boardCode=0'">목록</button>
 		</div>
 		
-		
+<%-- <jsp:include page="/common/footer.jsp"/> --%>		
 </body>
 
 </html>
