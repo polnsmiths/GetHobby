@@ -68,8 +68,8 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 
-	private String temDir = "C:\\images\\gon\\";		
-	private String videoTemDir = "C:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\GetHobby\\resources\\video\\";		
+	private String temDir = "C:\\images\\hobbyclass\\";		
+	private String videoTemDir = "C:\\video\\";		
 	
 	//Constructor
 	public OpenHobbyClassServiceImpl() {

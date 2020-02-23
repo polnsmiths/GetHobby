@@ -214,6 +214,7 @@ small.text-muted:hover {
     display: block;
     min-width: 100%;
     max-width: 100%;
+    min-height: 200px;
 }
 
 @media (min-width: 577px) and (max-width: 1200px) {

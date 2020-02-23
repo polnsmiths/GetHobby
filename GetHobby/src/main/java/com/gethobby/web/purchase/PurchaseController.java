@@ -47,6 +47,9 @@ public class PurchaseController {
 
 	@RequestMapping( value="getPaymentHistoryList", method=RequestMethod.GET )
 	public String getPaymentHistoryList(HttpSession session, Model model) throws Exception {
+		User user = new User();
+		user.setUserId("user01@naver.com");
+		session.setAttribute("user", user);
 		model.addAttribute("purchaseMap", purchaseService.getPaymentHistoryList(((User)session.getAttribute("user")).getUserId(), new Search()));
 		return "/purchase/getPaymentHistory.jsp";
 	}

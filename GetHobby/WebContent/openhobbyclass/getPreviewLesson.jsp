@@ -138,7 +138,7 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -155,7 +155,7 @@
 					<div class="lesson-project-real-content-outer-div">
 						<span class="lesson-project-outer-div-of-many-p overflow-auto ">
 							<p><strong>[WELCOME]</strong> ${lesson.lesson.lessonTitle }</p>
-							<p><img src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" /></p>
+							<p><img src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" /></p>
 							<p>${lesson.lesson.lessonContent }</p>
 						</span>
 					</div>
@@ -168,7 +168,7 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
