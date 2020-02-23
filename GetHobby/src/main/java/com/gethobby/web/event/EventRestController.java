@@ -3,6 +3,7 @@ package com.gethobby.web.event;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.Event;
 import com.gethobby.service.domain.User;
@@ -114,7 +116,7 @@ public class EventRestController {
 	
 	@RequestMapping(value = "json/eventList", method = RequestMethod.POST)
 	public Map<String, Object> eventList( @RequestBody Search search,
-			HttpSession session)throws Exception{
+			HttpSession session, Model model)throws Exception{
 		
 		System.out.println("\n\n\n\n\n\n===============================\n\n\n\n");
 		System.out.println("\n\n\n\n\n\njson/eventList\n\n\n\n");
@@ -123,21 +125,31 @@ public class EventRestController {
 		System.out.println("\n\nsearchCondition--\n"+search);
 		
 		
-		search.setPageSize(pageSize); 
+		if(user == null) {
+			
+			search.setPageSize(pageSize); 
+			
+		}else if(user != null) {
+			
+			if(user.getUserId().equals("admin@naver.com")) {
+				search.setPageSize(pageSize*3); 
+			}else {
+				search.setPageSize(pageSize); 
+
+			}
+			
+		}
 		
-//		if(user != null) {
-//			if(user.getUserId().equals("admin@naver.com")) {
-//			search.setPageSize(pageSize*3); 
-//			}
-//		}
-		
-		
+		String state= "";
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
-			search.setSearchCondition("진행중"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
+			state = "전체";
+		}else if(search.getSearchCondition().equals("1")) {
+			search.setSearchCondition("진행중"); //==>얘가 기본
+			state = "진행중";
 		}else if(search.getSearchCondition().equals("2")) {
 			search.setSearchCondition("종료"); //==>얘가 기본
+			state = "종료";
 
 		}
 		
@@ -145,12 +157,23 @@ public class EventRestController {
 				"\nSearchCondition---"+search.getSearchCondition());
 		
 		Map<String, Object>map = eventService.getEventListGroupBYId(search);
-		System.out.println(map.get("list")+"\n"+map.get("total"));
+		System.out.println("/n/n/n/n/n/n 결과\n\n"+map.get("list")+"\n"+map.get("total"));
 		System.out.println("size--"+((List<Event>)(map.get("list") )) .size());
 		
+		List<Event> list = (List<Event>)map.get("list");
+		for (int i = 0; i < list.size(); i++) {
+			
+			System.out.println("\n"+list.get(i).getEventId()+"\n"+list.get(i).getEventTitle()+"\n\n");
+		}
+		
+		Page resultPage = new Page(1, ((Integer)map.get("total")).intValue(), pageUnit, pageSize);
+
 		map.put("list", (List<Event>)map.get("list"));
 		map.put("total", map.get("total"));
 		map.put("success", "200");
+		map.put("resultPage", resultPage);
+		map.put("state", state);
+		model.addAttribute("total", map.get("total"));
 		
 		return map;
 		

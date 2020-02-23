@@ -108,10 +108,11 @@ $(function() {
 		
 	})
 	
-	$("#onGoing").on("click", function() {
+ 	//////////////
+/* 	$("#onGoing").on("click", function() {
 		
 		//alert('진행중');
-		fnGetListEvent('0');
+		fnGetListEvent('1');
 
 		
 	})
@@ -119,7 +120,7 @@ $(function() {
 	$("#entireEvent").on("click", function() {
 		
 		//alert('전체');
-		fnGetListEvent('1');
+		fnGetListEvent('0');
 		
 	})
 	
@@ -127,7 +128,30 @@ $(function() {
 		
 		//alert('종료');
 		fnGetListEvent('2');
-	})
+	}) */
+	
+	
+	// 페이지네이션 이벤트
+   // $(document).on("click", ".breadcrumb-item", function(){
+	   $(".breadcrumb-item").on("click", function() {
+    		alert('fff');
+    		if($(this).text().trim() == '전체'){
+		 //  if($(this).val( $(this).text().trim() ) == '전체'){
+    		//alert('전');
+    		$("#listEvent_form").children("input[name='searchCondition']").val(0);
+    		//alert($("#listEvent_form").children("input[name='searchCondition']").val());
+    	
+    	}else if($(this).val() == '진행중'){
+    		alert('진');
+    		$("#listEvent_form").children("input[name='searchCondition']").val(1);
+    	}else if($(this).val() == '종료'){
+    		alert('종');
+    		$("#listEvent_form").children("input[name='searchCondition']").val(2);
+    	}
+        	//listEventAjax();    	
+    })
+	 
+	
 	
 	
 //	$(window).scroll(function () {
@@ -137,19 +161,44 @@ $(function() {
 		
 //	});
 	
+	
+
+	
 }); 
 
-/* 	$(function() {
+ 	$(function() {
 		
 		/////더보기버튼 클릭시 BUTTON1
 		 $(document).on("click", "#moreEventButton", function() {
+			 if( $("#listEvent_form").children("input[name='searchCondition']").val() == 0 || $("#listEvent_form").children("input[name='searchCondition']").val() == null){
+         		$("#listEvent_form").children("input[name='searchCondition']").val(0);
+			 }
+			 else if($("#listEvent_form").children("input[name='searchCondition']").val() == 1){
+      			$("#listEvent_form").children("input[name='searchCondition']").val(1);
+			 }
+			 else if($("#listEvent_form").children("input[name='searchCondition']").val() == 2){
+				$("#listEvent_form").children("input[name='searchCondition']").val(2);
+			 }
+ 			listEventAjax();
+ 				
+			})//더보기버튼 function 
+
+	}); 
+ 	
+ 	
+			 
+	 function listEventAjax() {		 
 
 			 alert('더보기버튼');
 			currentPage += 1;
+			searchCondition = $("#listEvent_form").children("input[name='searchCondition']").val();
 			
 			alert('currentPage-->'+currentPage);
-			var Search = {
-					"currentPage" : currentPage
+			alert('searchCondition-->'+searchCondition);
+			
+			var search = {
+					"currentPage" : currentPage,
+					"searchCondition" : searchCondition
 			};
 			
 	 		$.ajax({
@@ -169,55 +218,99 @@ $(function() {
 						
 						for(var i =0; i<data.list.length; i++){
 							
+							moreEventList += "<div class='oneRowEvent row d-flex justify-content-between'>"
 							if(data.list.length < 1){
 								
 							moreEventList += "이벤트가 없습니다;;";
 							}//if
+							else if(data.list.length = 1){
 							
 							moreEventList += "<div class='kyung-card card col-lg-4 border-0 mb-5'>"
-							+"<input type='hidden' class='eventId_hidden' value='data.list[i].eventId'/>"
-							+"<img src=''/images/kyung/"+data.list[i].eventImage' class='card-img-top' alt='...'>"
+							+"<input type='hidden' class='eventId_hidden' value='"+data.list[i].eventId+"'/>"
+							+"<img src='/images/kyung/"+data.list[i].eventImage+"' class='card-img-top' alt='...'>"
 							+"<div class='card-body'>"
 							+"	<p><strong>"+data.list[i].eventTitle+"</strong></p>"
-							+"	<p>기간: "+data.list[i].eventStartDate+" ~ +"data.list[i].eventEndDate+"</p>"
+							+"	<p>기간: "+data.list[i].eventStartDate+" ~ "+data.list[i].eventEndDate+"</p>"
 									//<!-- 
 									//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
 									//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
 								+"	</div>"
 							+"</div>";
+							}
 							
-							if(data.list.length > 1){
+							else if(data.list.length == 2){
+								moreEventList += "<div class='kyung-card card col-lg-4 border-0 mb-5'>"
+									+"<input type='hidden' class='eventId_hidden' value='"+data.list[i].eventId+"'/>"
+									+"<img src='/images/kyung/"+data.list[i].eventImage+"' class='card-img-top' alt='...'>"
+									+"<div class='card-body'>"
+									+"	<p><strong>"+data.list[i].eventTitle+"</strong></p>"
+									+"	<p>기간: "+data.list[i].eventStartDate+" ~ "+data.list[i].eventEndDate+"</p>"
+											//<!-- 
+											//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+											//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
+										+"	</div>"
+									+"</div>";		
+								
 							moreEventList += "<div class='kyung-card card col-lg-4 border-0 mb-5'>"
-								+"<input type='hidden' class='eventId_hidden' value='data.list[i+1].eventId'/>"
-								+"<img src=''/images/kyung/"+data.list[i+1].eventImage' class='card-img-top' alt='...'>"
+								+"<input type='hidden' class='eventId_hidden' value='"+data.list[i+1].eventId+"'/>"
+								+"<img src='/images/kyung/"+data.list[i+1].eventImage+"' class='card-img-top' alt='...'>"
 								+"<div class='card-body'>"
 								+"	<p><strong>"+data.list[i+1].eventTitle+"</strong></p>"
-								+"	<p>기간: "+data.list[i+1].eventStartDate+" ~ +"data.list[i+1].eventEndDate+"</p>"
+								+"	<p>기간: "+data.list[i+1].eventStartDate+" ~ "+data.list[i+1].eventEndDate+"</p>"
 										//<!-- 
 										//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
 										//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
 									+"	</div>"
 								+"</div>";
 							}//if
-							if(data.list.length >2){
+							else if(data.list.length >2){
+								moreEventList += "<div class='kyung-card card col-lg-4 border-0 mb-5'>"
+									+"<input type='hidden' class='eventId_hidden' value='"+data.list[i].eventId+"'/>"
+									+"<img src='/images/kyung/"+data.list[i].eventImage+"' class='card-img-top' alt='...'>"
+									+"<div class='card-body'>"
+									+"	<p><strong>"+data.list[i].eventTitle+"</strong></p>"
+									+"	<p>기간: "+data.list[i].eventStartDate+" ~ "+data.list[i].eventEndDate+"</p>"
+											//<!-- 
+											//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+											//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
+										+"	</div>"
+									+"</div>";		
+								
+							moreEventList += "<div class='kyung-card card col-lg-4 border-0 mb-5'>"
+								+"<input type='hidden' class='eventId_hidden' value='"+data.list[i+1].eventId+"'/>"
+								+"<img src='/images/kyung/"+data.list[i+1].eventImage+"' class='card-img-top' alt='...'>"
+								+"<div class='card-body'>"
+								+"	<p><strong>"+data.list[i+1].eventTitle+"</strong></p>"
+								+"	<p>기간: "+data.list[i+1].eventStartDate+" ~ "+data.list[i+1].eventEndDate+"</p>"
+										//<!-- 
+										//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+										//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
+									+"	</div>"
+								+"</div>";
+								
 								moreEventList += "<div class='kyung-card col-lg-4 border-0 mb-5'>"
-									+"<input type='hidden' class='eventId_hidden' value='data.list[i+2].eventId'/>"
-									+"<img src=''/images/kyung/"+data.list[i+2].eventImage' class='card-img-top' alt='...'>"
+									+"<input type='hidden' class='eventId_hidden' value='"+data.list[i+2].eventId+"'/>"
+									+"<img src='/images/kyung/"+data.list[i+2].eventImage+"' class='card-img-top' alt='...'>"
 									+"<div class='card-body'>"
 									+"	<p><strong>"+data.list[i+2].eventTitle+"</strong></p>"
-									+"	<p>기간: "+data.list[i+2].eventStartDate+" ~ +"data.list[i+2].eventEndDate+"</p>"
+									+"	<p>기간: "+data.list[i+2].eventStartDate+" ~ "+data.list[i+2].eventEndDate+"</p>"
 											//<!-- 
 											//<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
 											//card title and make up the bulk of the card's content.card title and make up the bulk of the card's content.</p>  -->
 										+"	</div>"
 									+"</div>";
+									
+									moreEventList += "<div style='margin-top : 20px'>"
+								
+								    +"<button type='button' class='btn btn-basic m-1' id='moreEventButton'>더보기</button>"
+
+								    +"</div>";
 							}//if
-						
-							
+							moreEventList += "</div>";
 						}//for
 					}//if
-						alert('ddd');
-						$('.update').html(moreEventList);
+					
+						$('.update').append(moreEventList);
 					
 					},//success
 	
@@ -227,9 +320,9 @@ $(function() {
 			});//ajax
 				
 				
-	})//더보기버튼 function 
-
-	}); */
+	 };
+ 	
+ 	
 
 	function fnGetListEvent(searchCondition) {
 		
@@ -254,16 +347,21 @@ $(function() {
 	
 	<h2>${total}개의 이벤트</h2>
 	<hr>
+	
+	<form id="listEvent_form">
+		<input type="hidden" name="searchCondition" value="">
+	</form>
  
  
  <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" id="onGoing" value="진행중"><a href="#">진행중</a></li>
     <li class="breadcrumb-item" id="entireEvent" value="전체"><a href="#">전체</a></li>
+    <li class="breadcrumb-item" id="onGoing" value="진행중"><a href="#">진행중</a></li>
     <li class="breadcrumb-item active" id="ended" value="종료" aria-current="page">종료</li>
   </ol>
 </nav>
  
+ <input type="hidden" name="searchCondition" value="">
  
 <c:set var="i" value="0"/>
 <c:forEach var="eventList" items="${list}" varStatus="status" begin="0" end="0" >

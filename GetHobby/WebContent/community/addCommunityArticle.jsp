@@ -108,7 +108,7 @@
 				
 			})
 			
-			///글 등록하기 버튼 클릭시
+			///글 취소하기 버튼 클릭시
 			$(document).on("click", "#beforeAddArticleButton", function() {
 				
 				//alert('뒤로가기 버튼');
@@ -194,15 +194,17 @@
 	<jsp:include page="/common/header.jsp" />
 
 	<!-- 전체 묶음 -->
-	<div class="wholeGetEvent container mt-5">
+	<div class="container">
 
-<form name="addCommunityArticle">
+    <h1 class="sol-board-header">클래스 커뮤니티 게시글 작성</h1>
 
-<!-- 일단 때려박음 -->
-	<input type="hidden" name="HobbyClass.hobbyClassNo" value="10005">
+		<form name="addCommunityArticle" class="form-group my-5 py-5">
+
+		<input type="hidden" name="HobbyClass.hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
+
 	
   
-        <div class="p-3 py-4 mb-2 text-left rounded">
+<!--         <div class="p-3 py-4 mb-2 text-left rounded">
           <svg id="beforeAddArticleButton" class="bi bi-chevron-left" width="4em" height="4em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  		 	<path fill-rule="evenodd" d="M13.354 3.646a.5.5 0 010 .708L7.707 10l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"></path>
 		 </svg>
@@ -210,22 +212,22 @@
 		   	<button id="addArticleButton" type="button" class="btn btn-basic m-1" >
   				등록
   			</button>
-        </div>
+        </div> -->
   
  	<!-- 이벤트 내용 --> 
- 	<div class="input-group">
 
 			<textarea  class="form-control" id="summernote" name="articleContent"  aria-label="With textarea"></textarea>
-	</div>
-	
-  	
-  </form>
+			
+			            <div class="form-row d-flex justify-content-center my-5">
+                <button type="button" class="btn btn-outline-basic m-1" id="beforeAddArticleButton">취소</button>
+                <button type="button" class="btn btn-basic m-1" id="addArticleButton">등록</button>
+            </div>
+  		</form>
   
-  <p>footer</p>	
 
 
-
-</div>
+	</div>
 
 </body>
+
 </html>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.Event;
 import com.gethobby.service.domain.User;
@@ -72,11 +73,11 @@ public class EventController {
 		search.setCurrentPage(1);
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
-			search.setSearchCondition("진행중"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
+		}else if(search.getSearchCondition().equals("1")) {
+			search.setSearchCondition("진행중"); 
 		}else if(search.getSearchCondition().equals("2")) {
-			search.setSearchCondition("종료"); //==>얘가 기본
+			search.setSearchCondition("종료");
 
 		}
 		

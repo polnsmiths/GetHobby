@@ -53,9 +53,9 @@
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
 
-<!-- 메인 메뉴 CSS  -->
-<link rel="stylesheet" href="/resources/css/header.css"> 
-<!-- 메인 메뉴 js  -->
+<!-- 메인 메뉴 CSS -->
+<link rel="stylesheet" href="/resources/css/header.css">
+<!-- 메인 메뉴 js -->
 <script src="/resources/javascript/header.js"></script>
 
 
@@ -115,17 +115,9 @@ $(function() {
 
 </head>
 <body>
-<!--  
-	<c:if test="${user.userId eq 'admin@naver.com'}">
-	<jsp:include page="/admin/sidebarAdmin.jsp" />
-	</c:if> -->
-	
+
 	<!-- toolbar -->
 	<jsp:include page="/common/header.jsp" />
-<!-- 
-	<c:if test="${user.userId eq 'admin@naver.com'}">
-	<div id="content">
-	</c:if>  -->
 
 	<!-- 전체 묶음 -->
 	<div class="wholeGetEvent container mt-5">
