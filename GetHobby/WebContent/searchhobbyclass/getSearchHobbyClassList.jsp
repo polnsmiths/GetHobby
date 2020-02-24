@@ -386,7 +386,7 @@
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<div class="dropdown">
-  													<button class="btn btn-secondary dropdown-toggle dropdown-main-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">검색조건</button>
+  													<button class="btn btn-secondary dropdown-toggle dropdown-main-button search-condition-dropdown-button-modal" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">검색조건</button>
 													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 														<a class="dropdown-item search-condition-dropdown" href="#">전체보기<input type="hidden" class="search-condition-dropdown-value" value="0"/></a>
 														<a class="dropdown-item search-condition-dropdown" href="#">클래스 제목<input type="hidden" class="search-condition-dropdown-value" value="1"/></a>
@@ -553,7 +553,10 @@
 			<br/><br/>
 		</div>
 	</c:if>
-	<br/><br/><br/><br/><br/>
-	<jsp:include page="/common/footer.jsp"></jsp:include>
+	
+	<div class="footer-outer-div">
+		<br/><br/><br/><br/><br/>
+		<jsp:include page="/common/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

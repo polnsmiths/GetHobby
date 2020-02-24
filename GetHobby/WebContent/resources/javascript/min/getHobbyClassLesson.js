@@ -218,7 +218,7 @@ $(function(){
 							showConfirmButton : false, 
 							showCancelButton : false,
 							timer : 1500, 
-							timerProgressBar : true, 
+							timerProgressBar : false, 
 							onOpen : (toast) => {
 								toast.addEventListener('mouseenter', Swal.stopTimer);
 								toast.addEventListener('mouseleave', Swal.resumeTimer);
@@ -241,7 +241,15 @@ $(function(){
 							display += '<input type="hidden" class="lesson-reply-content-hidden-value" value="' + JSONData.replyList[i].replyContent + '" />';
 							display += '<input type="hidden" class="lesson-reply-user-userId-hidden-value" value="' + JSONData.replyList[i].user.userId + '" />';
 							// 나중에 프로필 사진 바꾸기 
-							display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+							// display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+							
+							var profileImage = 'default-profile.jpg';
+							
+							if (JSONData.replyList[i].user.profileImage != null) {
+								profileImage = JSONData.replyList[i].user.profileImage; 
+							}
+							
+							display += '<img src="/images/woo/' + profileImage + '" class="mr-3 rounded-circle" onError="this.src="/resources/image/min/default-profile.jpg"">';
 							
 							display += '<div class="media-body">';
 							display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
@@ -434,6 +442,25 @@ $(function(){
 						}),
 						async : false,
 						success : function(JSONData, status) {
+							const Toast = Swal.mixin({
+								toast : true, 
+								position : 'top', 
+								showConfirmButton : false, 
+								showCancelButton : false,
+								timer : 1500, 
+								timerProgressBar : false, 
+								onOpen : (toast) => {
+									toast.addEventListener('mouseenter', Swal.stopTimer);
+									toast.addEventListener('mouseleave', Swal.resumeTimer);
+								}
+							});
+							
+							Toast.fire({
+								icon : 'success', 
+								title : '댓글 삭제가 완료되었습니다.'
+							});
+							
+							
 							var userId = $('.user-id-hidden').val();
 					
 							var display = '';
@@ -568,13 +595,31 @@ $(function(){
 							textAreaDisplay += '<p>' + JSONData.reply.replyContent + '</p>';
 							targetReplyContentTextArea.html(textAreaDisplay);
 							
-							
+							/*
 							Swal.fire({
 								icon : 'success',
 								title : '댓글 수정 완료',
 								showConfirmButton : false, 
 								allowOutsideClick : true,
 								timer : 800
+							});
+							*/
+							const Toast = Swal.mixin({
+								toast : true, 
+								position : 'top', 
+								showConfirmButton : false, 
+								showCancelButton : false,
+								timer : 1500, 
+								timerProgressBar : false, 
+								onOpen : (toast) => {
+									toast.addEventListener('mouseenter', Swal.stopTimer);
+									toast.addEventListener('mouseleave', Swal.resumeTimer);
+								}
+							});
+							
+							Toast.fire({
+								icon : 'success', 
+								title : '댓글 수정이 완료되었습니다.'
 							});
 						}
 					}

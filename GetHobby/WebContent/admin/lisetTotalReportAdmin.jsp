@@ -858,7 +858,7 @@ h1 {
 				var reportTargetType = $(this).find('.report-target-type').val();
 				console.log('reportTargetType ? : ' + reportTargetType);
 				
-				if ( reportTargetType == 'reply' && reportTargetType >= 10000 ) {
+				if ( reportTargetType == 'reply' && reportTargetNo >= 10000 ) {
 					$.ajax(
 							{
 								url : "/lesson/json/getLessonReply",
