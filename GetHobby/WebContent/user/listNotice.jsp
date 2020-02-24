@@ -38,14 +38,13 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
 
 
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
-
+<!-- header CSS -->
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	<!-- header js -->
+	<script src="/resources/javascript/commonHeader.js"></script>
 
 
 	<link rel="stylesheet" href="/resources/css/woo/article.css">
