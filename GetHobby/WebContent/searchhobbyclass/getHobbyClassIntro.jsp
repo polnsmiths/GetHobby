@@ -267,28 +267,15 @@
 				}
 				
 				if ( checkPurchase == '1' ) {
-					const Toast = Swal.mixin({
-						toast : true, 
-						position : 'top', 
+					Swal.fire({
+						icon : 'error',
+						title : '이미 구매한 클래스입니다.',
 						showConfirmButton : false, 
-						showCancelButton : false,
-						timer : 1500, 
-						timerProgressBar : false, 
-						onOpen : (toast) => {
-							toast.addEventListener('mouseenter', Swal.stopTimer);
-							toast.addEventListener('mouseleave', Swal.resumeTimer);
-						}
-					});
-					
-					Toast.fire({
-						icon : 'error', 
-						title : '이미 구매한 클래스입니다.'
+						allowOutsideClick : true,
+						timer : 800
 					}).then((result) => {
-						event.preventDefault();	
-					});		
-					
-					event.preventDefault();	
-					return false;
+						event.preventDefault();
+					})
 				}
 				
 				if ( !userId ) {  
@@ -559,7 +546,7 @@
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
 									// 나중에 회원 프로필 사진으로 대체하기 
-									display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
+									display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
 									display += '</span>';
 									display += '</div>';
 									display += '<div class="name-outer-div">';
@@ -715,7 +702,7 @@
 						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
 						    					
 						    					// 나중에 프로필 사진으로 대체하기 
-						    					display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
+						    					display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
 						    					// 나중에 프로필 사진으로 대체하기 
 						    					
 						    					display += '</span>';
@@ -928,7 +915,7 @@
 								var nowMaxPage = ( i * pageSize );
 			
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {
-									display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+									display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 								}
 								
 								display += '</div>';
@@ -977,7 +964,7 @@
 									
 									console.log(currentPage);
 									for(var j = currentPage; j <= JSONData.resultPage.totalCount; j++ ) {
-										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+										display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 									}
 									
 									display += '</div>';
@@ -1021,14 +1008,9 @@
 			
 			// 강의 상세보기 구간 ------------------------------------------------
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
+				console.log('purchaseCheck ? : ' + purchaseCheck);	
 			
 				// 유저 로그인 안되있을 경우
-				var userId = $('.user-hidden-class-intro-value').val();
-				
-				if ( !userId ) {  	
-					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
-					return false;
-				}
 				
 				if ( purchaseCheck != '1' ) {
 					Swal.fire({
@@ -1038,7 +1020,7 @@
 						allowOutsideClick : true,
 						timer : 800
 					})
-					return false;
+					return;
 				}
 				
 				if ( classState != '5' ) {
@@ -1049,7 +1031,7 @@
 						allowOutsideClick : true,
 						timer : 800
 					})
-					return false;
+					return;
 				}
 				
 				console.log('click');
@@ -2352,7 +2334,7 @@
 				
 				<div class="image-outer-div">
 					<span class="image-outer-span">
-						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+						<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 					</span>
 				</div>
 				
@@ -2362,7 +2344,7 @@
 						<!--  
 						<div class="image-outer-div">
 							<span class="image-outer-span">
-								<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+								<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						-->
@@ -2550,7 +2532,7 @@
 						
 						<div class="image-outer-div mt-5">
 							<span class="image-outer-span">
-								<img src="/images/hobbyclass/${hobbyClass.kitImage }" class="img-class-intro"/>
+								<img src="/images/min/${hobbyClass.kitImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						
@@ -2652,7 +2634,7 @@
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">
 											<!-- 나중에 프로필 사진으로 대체하기 -->
-											<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>
+											<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>
 										</span>
 									</div>
 									
@@ -2901,7 +2883,7 @@
 					<!-- 한줄평 작성 양식 시작 
 					<div class="lesson-reply-add-format">
 						<div class="leeson-reply-add-container">
-							<img src="/images/hobbyclass/default-profile.jpg" class="rounded-circle"/>
+							<img src="/images/min/default-profile.jpg" class="rounded-circle"/>
 							<br/>	
 							<br/>
 							<span class="star-value-span">
