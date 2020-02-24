@@ -121,7 +121,7 @@
 				                <div class="dropdown-icon header-mynemo-check-mylist" data-toggle="dropdown" aria-expanded="false" style="justify-content: space-between; display:flex; align-items: center;">
 				                	<span class="header-mynemo-first-span">
 				                		<!-- 프로필 이미지 수정 -->
-				                    	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
+				                    	<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 				                    </span>
 				                    
 				                    <div class="header-mynemo-profile-flow-one fa-angle-down">
@@ -138,7 +138,7 @@
 					                <a class="header-mynemo-first-a" href="/user/mypageUser">
 						                <span class="header-mynemo-first-span">
 						                	<!-- 프로필 이미지 수정 -->
-						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
+						                	<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 						                </span>
 						                <div class="header-mynemo-span-next-first-div">
 							                <div class="header-mynemo-span-next-first-div-in-div">
