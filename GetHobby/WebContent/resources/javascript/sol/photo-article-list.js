@@ -179,7 +179,7 @@
         	    
             	
             	 
-            	$("form").attr("method","POST").attr("enctype", "multipart/form-data").attr("action","/article/addBoardArticle").submit();
+            	$("#sol-add-photo").attr("method","POST").attr("enctype", "multipart/form-data").attr("action","/article/addBoardArticle").submit();
             }
             
             
@@ -291,7 +291,7 @@
         									display += JSONData.list[i].totalFavor;			 
         									display += '</span>';			
         									display += '</div>';			
-        									display += '<h4 class="mt-1">' + JSONData.list[i].user.nickName + JSONData.list[i].articleNo + '</h4>';			
+        									display += '<h4 class="mt-1">' + JSONData.list[i].user.nickName + '</h4>';			
         									display += '</div>';			
         									display += '</div>';			
         									display += '</div>';	

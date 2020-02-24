@@ -152,7 +152,7 @@ $(function() {
 	                    </button>
 	                </div>
 	                <div class="modal-body my-3">
-	                    <form class="sol-modal-form">
+	                    <form id="sol-update-photo" class="sol-modal-form">
 		                    <input type="hidden" name="articleNo" value="${ article.articleNo }" >
 	                    	<input type="hidden" name="boardCode" value="1"/>
 	                        <div class="sol-image-frame d-flex justify-content-center">
