@@ -413,7 +413,6 @@ public class UserController {
 			 user.setUserId(userId);
 			 user.setPassword(password);	 
 			 
-			 session.setAttribute("user", user);
 			 return "forward:/user/pathSNSLoginInfo.jsp";
 		 }else {
 			Map<String, Object> map = userService.getUser(userId);
@@ -551,9 +550,8 @@ public class UserController {
 		 User user = new User();
 		 if(userService.checkDuplication(userId)) {
 			 user.setUserId(userId);
-			 user.setPassword(password);	 
+			 user.setPassword(password); 
 			 
-			 session.setAttribute("user", user);
 			 return "forward:/user/pathSNSLoginInfo.jsp";
 		 }else {
 			Map<String, Object> map = userService.getUser(userId);
