@@ -368,8 +368,8 @@ public class UserRestController {
 		MultipartFile file = multi.getFile("file");
 		
 		
-		String filepath = "C:\\Users\\user\\git\\gethobby\\GetHobby\\WebContent\\resources\\image\\woo\\";
-		String path = "..\\resources\\image\\woo\\";
+		String filepath = "C:\\Users\\user\\git\\gethobby\\GetHobby\\WebContent\\resources\\image\\logo\\";
+		String path = "..\\resources\\image\\logo\\";
 		File saveFile = new File(filepath + file.getOriginalFilename());
 		file.transferTo(saveFile);
 		String result =  path+file.getOriginalFilename();
