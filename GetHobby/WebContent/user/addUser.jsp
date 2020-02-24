@@ -43,12 +43,7 @@
 
 
     <!-- 공통 CSS -->
-    <link rel="stylesheet" href="/resources/css/common.css">
-
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
+    <link rel="stylesheet" href="/resources/css/common.css">   
 
 	<!-- 채널톡 js -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
@@ -59,7 +54,7 @@
 	<!-- header js -->
 	<script src="/resources/javascript/commonHeader.js"></script>
 <script type="text/javascript">
-	
+var hash = [];
 	
 	//////////////////////주소찾기 //////////////////////////////
 	function postcode() {
@@ -159,13 +154,13 @@
 		}else{			 
 		 
 		////////////해쉬태그 배열에 담기///////////////
-		 var hash = [];
+		/*  var hash = [];
 			$("input[type='checkbox']:checked").each(function(){
 				
 				hash.push($(this).val());	
 								
-			}); 
-			
+			});  */
+		alert("해쉬태그:"+hash.length);
 		$("#hashtag").val(hash);
 		//////////////////////////////////////////
 		Swal.fire({
@@ -363,6 +358,11 @@
 				}
 			})
 			
+		});
+		
+		$("#hashtagselect").on("click",function(){
+			
+			$("#hashtagModalButton").click();
 		});
 		
 	 }); 
@@ -974,7 +974,7 @@ path[Attributes Style] {
 											  <div size="88" class="ProfileImageUploadHandler__Container-sc-1advxtt-0 jLGbZG">
 												  <div size="88" class="ProfileImage__Container-sc-1h9kedz-0 kgaAUr">
 													  <span class="RatioImage__Container-wwqqoo-0 eAfAEc ProfileImage__UserProfileImage-sc-1h9kedz-1 bKTweb">
-													 	 <img  src="" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
+													 	 <img  src="../resources/image/woo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
 													  </span>
 												  </div>
 												  <div class="ProfileImageUploadHandler__EditIconWrapper-sc-1advxtt-1 eYYvSv" style="top: 80px;left: 80px;">
@@ -1121,7 +1121,12 @@ path[Attributes Style] {
 							  			<input class="form-check-input" type="radio" name="sex" id="female" value='F'>
 							  			<label class="form-check-label" for="female"> 여</label>
 									</div>
-								<div id="carouselExampleControls" class="carousel slide" data-interval="false" >
+									<jsp:include page="/user/hashtagModal.jsp" />
+									<div id = "hashtagselect">									
+									<span  style="cursor : pointer;">해쉬태그 선택</span>
+									</div>
+									<input type="hidden" id="hashtag" name="hashtag" />
+								<!-- <div id="carouselExampleControls" class="carousel slide" data-interval="false" >
 								<label class="sc-esjQYD cvzQqA"> 관심사 선택(최대5개)</label><br>
 									  <div class="carousel-inner cvzQqA">
 									  <input type="hidden" id="hashtag" name="hashtag" />
@@ -1206,7 +1211,7 @@ path[Attributes Style] {
 										    <span class="carousel-control-next-icon" style="height:60px;" ></span>
 										    <span class="sr-only">Next</span>
 										  </a>
-										</div>
+										</div> -->
 								
 									 <div class="form-group">
 									   	 <label for="ssn" class="cvzQqA">주소</label>

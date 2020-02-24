@@ -74,7 +74,7 @@ $(function(){
 						display += "<div id='popularCardImage'>";
 						
 						display += "<span>";
-						display += "<img name='popularCardImage' src='/images/min/" + JSONData.popularHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+						display += "<img name='popularCardImage' src='/images/hobbyclass/" + JSONData.popularHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 						
 						if ( JSONData.popularHobbyClassList[i].event != null ) { 
 							display += "<div class='outer-card-image'>";

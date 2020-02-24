@@ -75,7 +75,7 @@ $(function(){
 						
 						display += "<div id='recentlyCardImage'>";
 						display += "<span>";
-						display += "<img name='recentlyCardImage' src='/images/min/" + JSONData.recentlyHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+						display += "<img name='recentlyCardImage' src='/images/hobbyclass/" + JSONData.recentlyHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 						
 						if ( JSONData.recentlyHobbyClassList[i].event != null ) { 
 							display += "<div class='outer-card-image'>";
@@ -312,7 +312,7 @@ $(function(){
 							display += "<div id='steamCardImage'>";
 							display += "<input type='hidden' class='hidden-image-to-steam' value='" + JSONData.hobbyClass.hobbyClassImage + "'";
 							display += "<span>";
-							display += "<img name='steamCardImage' src='/images/min/" + JSONData.hobbyClass.hobbyClassImage + "' class='card-img-top' style=height:250px>";
+							display += "<img name='steamCardImage' src='/images/hobbyclass/" + JSONData.hobbyClass.hobbyClassImage + "' class='card-img-top' style=height:250px>";
 							
 							if ( JSONData.hobbyClass.event != null ) { 
 								display += "<div class='outer-card-image'>";
