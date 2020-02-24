@@ -565,8 +565,7 @@ h1 {
 				      <td class="userNameInfo">${user.name}</td>
 				      
 				      <!-- 생년월일 -->		 
-				      <td class="userBirthInfo"><%-- <fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" /> --%>${user.birth}</td>
-				       
+				      <td class="userBirthInfo">${fn:substring( user.birth,0,4 ) }.${fn:substring( user.birth,4,6 ) }.${fn:substring( user.birth,6,8 ) }</td>
 				       <!-- 회원 자격 -->
 				      <td class="userRoleInfo">
 				      <c:if test="${user.role == '0'}">일반 회원</c:if>

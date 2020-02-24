@@ -40,12 +40,15 @@
 
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
-
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-
+    
+    
+    <!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Header js & css -->
+	 <script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />	
 
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 
@@ -82,7 +85,7 @@
   </script>
 </head>
 <body>
-<jsp:include page="/common/header.jsp"/>
+  <jsp:include page="/common/header.jsp"/>
 <div class="container mb-5">
 
 	<form>
@@ -113,8 +116,10 @@
 		
 			<div class="form-row d-flex justify-content-center my-5">
                 <button type="button" id="noticelist" class="btn btn-outline-basic m-1">목록</button>
+                <c:if test="${sessionScope.user.role == '2'}">
                 <button type="button" id="noticeupdate" class="btn btn-basic m-1">수정</button>
                 <button type="button" id="noticeremove" class="btn btn-outline-basic m-1">삭제</button>
+                </c:if>
             </div>
 		</form>
     </div>
@@ -122,53 +127,6 @@
 		
 		
 		
-		
-	<%-- <div class="container">
-	
-	
-	<form>
-	<input type="hidden" name="boardCode" value="4">
-	<input type="hidden" name="articleNo" value="${article.articleNo}">
-	<hr>
-	<div class="form-row">
-		<div class="form-group col-md-10">
-			<h1><label> 공지사항</label></h1>
-			</div>
-			<div class="form-group col-md-2">
-			<label>${article.regDate}</label>
-			</div>
-		</div>
-	<hr>	
-	<div class="form-row">
-		<div class="form-group col-md-1">
-			<h3>제목 :</h3>
-		</div>
-		<div class="form-group col-md-11">
-		<input type="text" class="form-control" id="articleTitle" name="articleTitle" readonly="readonly" value="${article.articleTitle}">
-		</div>
-	</div>
-	<hr>
-	
-	<textarea  id="summernote" name="articleContent" readonly="readonly">${article.articleContent}</textarea>
-	<br>
-	<div class="form-row">
-			<div class="form-group col-md-10">
-			<button type="button" class="btn btn-success">목록</button>
-			</div> 
-			<div class="form-group col-md-1">
-			<button type="button" class="btn btn-primary">수정</button>
-			</div>
-			<div class="form-group col-md-1">
-			<button type="button" class="btn btn-danger">삭제</button>
-			</div>
-	</div>
-		
-	</form>	
-	</div>
-
-
- --%>
-  
   
 
 </body>

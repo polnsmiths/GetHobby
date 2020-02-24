@@ -409,7 +409,7 @@ path[Attributes Style] {
     animation: 0.25s ease 0s 1 normal none running openModal;
     padding: 32px 24px;
 }
-h1 {
+h1.Dialog__DialogTitle-r2swbb-3.bfIgvr {
     display: block;
     font-size: 2em;
     margin-block-start: 0.67em;
@@ -418,7 +418,7 @@ h1 {
     margin-inline-end: 0px;
     font-weight: bold;
 }
-h1 {
+h1.Dialog__DialogTitle-r2swbb-3.bfIgvr {
     color: rgb(24, 32, 38);
     font-weight: 600;
     line-height: 40px;
@@ -473,7 +473,7 @@ path[Attributes Style] {
 .bhsFBo {
     margin-top: 40px;
 }
-h4 {
+h4.sc-bdVaJa.cZzCCw {
     display: block;
     margin-block-start: 1.33em;
     margin-block-end: 1.33em;
@@ -481,7 +481,7 @@ h4 {
     margin-inline-end: 0px;
     font-weight: bold;
 }
-h4 {
+h4.sc-bdVaJa.cZzCCw {
     color: rgb(24, 32, 38);
     font-weight: 600;
     line-height: 21px;
@@ -735,7 +735,6 @@ path[Attributes Style] {
 		</div>
 	</div>
 	<!-- Modal -->
-<!-- <div id="modalopen"> -->
 <div class="Dialog__Overlay-r2swbb-0 hupVkE" style="display : none;">
 	<div class="Dialog__DialogContainer-r2swbb-1 jOWGnl" style="display : none;">
 	
@@ -787,7 +786,6 @@ path[Attributes Style] {
 		</form>
 	</div>
 </div>
-<!-- Modal -->	
 	
 </footer>
 

@@ -28,7 +28,7 @@
  	</insert>
  	
  	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
- 		SELECT article_no,user_Id,board_code,article_title,article_content,reg_date
+ 		SELECT article_no,user_Id,board_code,article_title,article_content,reg_date,total_view
  		FROM article
  		WHERE article_no = #{value} 	
  	</select>
@@ -52,7 +52,7 @@
  		<!-- SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		( -->	
-	  	SELECT article_no,article_title, reg_date
+	  	SELECT article_no,article_title, reg_date, total_view
  		FROM article
  		ORDER BY reg_date 	<!--  ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
@@ -63,5 +63,13 @@
  		DELETE article
  		WHERE article_no = #{value}
  	</delete>
+ 	
+ 	<update id="updateNoticeView" parameterType="article"> 
+ 		UPDATE article
+ 		<set>
+ 		total_view = #{totalView}		
+ 		</set>
+ 		where article_no = #{articleNo} 		
+ 	</update>
  	
 </mapper>

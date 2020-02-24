@@ -56,6 +56,9 @@ public interface UserDAO {
 	public Article getNotice(int articleNo) throws Exception;
 	
 	//Update
+	public void updateNoticeView(Article article) throws Exception;
+	
+	//Update
 	public void updateNotice(Article article) throws Exception;
 	
 	//Select

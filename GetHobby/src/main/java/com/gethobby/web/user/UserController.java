@@ -636,9 +636,22 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getNotice/{articleNo}", method = RequestMethod.GET)
-	public String getNotice(@PathVariable int articleNo , Model model) throws Exception{
+	public String getNotice(@PathVariable int articleNo , Model model) throws Exception{		
+		Article article = new Article();
+		article = userService.getNotice(articleNo);
+		int view = article.getTotalView();
+		view  = view+1;
+		System.out.println("view::::::::::::::::"+view);
+		article.setTotalView(view);
+		System.out.println(article);
+		userService.updateNoticeView(article);
+		
+		
+		System.out.println("::::::::::::::::::::::::::::"+userService.getNotice(articleNo));
 		model.addAttribute("article", userService.getNotice(articleNo))	;
 		model.addAttribute("articleNo", articleNo);
+		
+		
 		return "forward:/user/getNotice.jsp"; 
 	}
 	
@@ -664,7 +677,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="listNotice/{currentpage}")
-	public String listNotice(@PathVariable("currentpage") int current, Model model)throws Exception{
+	public String listNotice(@PathVariable("currentpage") int current, Model model, HttpSession session)throws Exception{
 		Search search = new Search();
 		if(current == 0) {
 			current = 1;
@@ -676,8 +689,14 @@ public class UserController {
 		
 		model.addAttribute("list", list);
 		
+		User user = new User();		
+		user = (User)session.getAttribute("user");
+		if(user.getRole().equals("2")) {
+			return "forward:/admin/listNoticeAdmin.jsp";
+		}else {
+			return "forward:/user/listNotice.jsp";
+		}
 		
-		return "forward:/user/listNotice.jsp";
 	}
 
 	@RequestMapping(value="deleteUser")

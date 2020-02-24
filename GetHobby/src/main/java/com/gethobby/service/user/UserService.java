@@ -50,6 +50,9 @@ public interface UserService {
 	//공지사항 수정
 	public void updateNotice(Article article) throws Exception;
 	
+	//공지사항 조회수 
+	public void updateNoticeView(Article article) throws Exception;
+	
 	//공지사항 목록 조회
 	public List<Article> getNoticeList(Search search) throws Exception;	
 	

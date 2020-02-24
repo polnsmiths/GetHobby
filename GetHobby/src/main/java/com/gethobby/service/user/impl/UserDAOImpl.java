@@ -150,4 +150,10 @@ public class UserDAOImpl implements UserDAO {
 	public void removeRetireUser(User user) throws Exception {
 		sqlSession.update("UserMapper.removeRetireUser",user);		
 	}
+
+	@Override
+	public void updateNoticeView(Article article) throws Exception {
+		System.out.println("articlearticlearticlearticlearticlearticlearticlearticle::::"+article);
+		sqlSession.update("NoticeMapper.updateNoticeView",article);
+	}
 }

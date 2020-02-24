@@ -129,5 +129,10 @@ public class UserServiceImpl implements UserService {
 	public void removeRetireUser(User user) throws Exception {
 		userDAO.removeRetireUser(user);		
 	}
+
+	@Override
+	public void updateNoticeView(Article article) throws Exception {
+		userDAO.updateNoticeView(article);
+	}
 	
 }
