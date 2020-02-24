@@ -38,8 +38,9 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassDAO;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseDAO;
 import com.gethobby.service.purchase.PurchaseService;
+import com.gethobby.service.user.UserDAO;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @Service("purchaseServiceImpl")
 public class PurchaseServiceImpl implements PurchaseService{
 	
@@ -62,6 +63,12 @@ public class PurchaseServiceImpl implements PurchaseService{
 		public void setOpenHobbyClassService(OpenHobbyClassService openHobbyClassService) {
 			this.openHobbyClassService = openHobbyClassService;
 		}
+		@Autowired
+		@Qualifier("userDAOImpl")
+		private UserDAO userDAO;
+		public void setUserDAO(UserDAO userDAO) {
+			this.userDAO = userDAO;
+		}
 		@Value("#{apiKeyProperties}")
 		private Properties apiKey;
 		
@@ -81,26 +88,13 @@ public class PurchaseServiceImpl implements PurchaseService{
 		}
 
 		public Purchase getPayment(String userId) throws Exception {
-			System.out.println("0.1");
+
 			Purchase purchase = purchaseDAO.getDelivery(userId);
-			System.out.println("0.2");
-			
 			if(purchase == null) {
-				purchase = purchaseDAO.getPayment(userId);
-				System.out.println("구매자 : "+purchase.getReceiverName());
-				System.out.println("구매 주소 : "+purchase.getDlvyAddr());
-				System.out.println("구매 상세 주소 : "+purchase.getDlvyDetailAddr());
-				System.out.println("구매 우편 : "+purchase.getDlvyPostcode());
-				System.out.println("휴대폰 : "+purchase.getReceiverPhone());
-				return purchaseDAO.getPayment(userId);
-			}else {
-				
+				Purchase userPurchase = purchaseDAO.getPayment(userId);
+				userPurchase.setReceiverName(userDAO.getUser(userId).getName());
+				return userPurchase;
 			}
-			System.out.println("구매자 : "+purchase.getReceiverName());
-			System.out.println("구매 주소 : "+purchase.getDlvyAddr());
-			System.out.println("구매 상세 주소 : "+purchase.getDlvyDetailAddr());
-			System.out.println("구매 우편 : "+purchase.getDlvyPostcode());
-			System.out.println("휴대폰 : "+purchase.getReceiverPhone());
 			return purchase;
 		}
 

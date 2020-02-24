@@ -20,7 +20,7 @@ import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @Controller
 @RequestMapping("/hobbyclass/*")
 public class OpenHobbyClassController {
@@ -65,7 +65,7 @@ public class OpenHobbyClassController {
 		return "/openhobbyclass/test.jsp";
 	}//end of getDetailView
 
-	@Scheduled(cron="0 0/30 * * * *") // 1초마다 실행
+	@Scheduled(cron="0 0 0 * * *") // 1초마다 실행
     public void updateClassState() throws Exception{
 		oepnhobbyClassService.updateClassState();
     }

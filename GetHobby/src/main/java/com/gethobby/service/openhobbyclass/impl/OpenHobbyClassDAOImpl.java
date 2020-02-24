@@ -13,7 +13,7 @@ import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Lesson;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassDAO;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @Repository("openHobbyClassDAOImpl")
 public class OpenHobbyClassDAOImpl implements OpenHobbyClassDAO{
 	

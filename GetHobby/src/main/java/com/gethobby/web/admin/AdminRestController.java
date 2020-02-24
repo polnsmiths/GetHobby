@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gethobby.common.Search;
+import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 import com.gethobby.service.user.UserService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @RestController
 @RequestMapping("/admin/*")
 public class AdminRestController {
@@ -61,6 +62,11 @@ public class AdminRestController {
 	@RequestMapping( value="json/hobbyClass/getHobbyClassListAdmin", method=RequestMethod.POST )
 	public Map getHobbyClassListAdmin(@RequestBody Search search) throws Exception {
 		return oepnhobbyClassService.getHobbyClassListAdmin(search);
+	}
+	
+	@RequestMapping( value="json/hobbyClass/saveCheckHobbyClassAdmin", method=RequestMethod.POST )
+	public int saveCheckHobbyClassAdmin(@RequestBody HobbyClass hobbyClass) throws Exception {
+		return oepnhobbyClassService.saveCheckHobbyClassAdmin(hobbyClass.getHobbyClassNo());
 	}
 	
 	@RequestMapping(value="json/user/getSearchlistUserAdmin" , method = RequestMethod.POST)

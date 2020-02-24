@@ -29,7 +29,7 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 import com.gethobby.service.user.UserService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 
 @Controller
 @RequestMapping("/admin/*")
