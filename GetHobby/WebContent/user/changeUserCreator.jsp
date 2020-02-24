@@ -12,7 +12,10 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+		<!-- header CSS -->
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	<!-- header js -->
+	<script src="/resources/javascript/commonHeader.js"></script>
 
 
 <script type="text/javascript">
@@ -212,12 +215,12 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
     background-color: rgb(255, 255, 255);
     min-height: calc(100vh);
 }
-.inUTcF {
+.inUTcFFF {
     position: relative;
     margin-left: auto;
     margin-right: auto;
 }
-.inUTcF {
+.inUTcFFF {
     max-width: 960px;
 }
 .lagYPo {
@@ -998,15 +1001,15 @@ background-color: sandybrown;
 
 </style>
 <body>
+ <jsp:include page="/common/header.jsp"/>
 <input type="hidden" id="role" value="${sessionScope.user.role}"/>
-<jsp:include page="/common/header.jsp"/>
 <div id="root">
 	<div id="wrapper">
 		<div class="pages_Body-sc-1xw23vo-0 dGxVjn">
 		
 			<main class="pages__Main-sc-1xw23vo-1 gulakV">
 				<div class="CreatorProfilePage__Container-sc-174yg5t-0 gOdssr">
-					<div class="sc-eerKOB inUTcF CreatorProfilePage__StyledGrid-sc-174yg5t-1 lagYPo">
+					<div class="sc-eerKOB inUTcFFF CreatorProfilePage__StyledGrid-sc-174yg5t-1 lagYPo">
 						<div class="sc-eilVRo QtLBl CreatorProfilePage__StyledRow-sc-174yg5t-2 hFRTPZ">
 							<div class="sc-gHboQg gNXHJx">
 								<div color="#fd7e14" font-weight="bold" class="sc-bdVaJa diAPvf">Welcome
@@ -1123,7 +1126,7 @@ background-color: sandybrown;
 	</div>
 </div>
 
-
+<jsp:include page="/common/footer.jsp"></jsp:include>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

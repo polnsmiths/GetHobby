@@ -55,8 +55,9 @@
 	<!-- header js -->
 	<script src="/resources/javascript/commonHeader.js"></script>
 <script type="text/javascript">
-	
-	
+var hash = [];
+var hashtaglist = [];
+var inputCheck = 0;
 	//////////////////////주소찾기 //////////////////////////////
 	function postcode() {
 		        new daum.Postcode({
@@ -102,9 +103,8 @@
 		    }
 	
 	//////해쉬태그 5개 선택///////////
-	var maxCheck = 5;
+	/* var maxCheck = 5;
 	
-/* 	var totalChecked = $("input[type='checkbox']:checked").length; */
 	
 	function CountChecked(field){			
 		
@@ -119,7 +119,7 @@
 				field.checked = false;
 			}
 		}
-	}
+	} */
 	
 //////회원정보 수정//////////
 
@@ -185,6 +185,11 @@
 		$(document).ready(function(){			
 			$("h6").hide();
 		}); 
+		////////해쉬태그 모달 실행//////
+		$("#hashtagselect").on("click",function(){
+			
+			$("#hashtagModalButton").click();
+		});
 
 
 		$("#name").on("blur",function(){
@@ -242,7 +247,7 @@
 			
 		});
 		///////////////////////해쉬태그 불러와서 입력//////////////////
-		var hashtaglist = [];
+		
 		hashtaglist="${list}".replace('[','');
 		var hashtaglist2=hashtaglist.replace(']','');
 		var hashtaglist3=hashtaglist2.replace(/(\s*)/g, "") ;
@@ -252,10 +257,12 @@
 			var checkboxval = $("input[type='checkbox']").eq(i).val();
 			for(var j=0; j<hashtaglist.length; j++){
 				if(checkboxval == hashtaglist[j]){
-					$("input[type='checkbox']").eq(i).prop("checked",true);
+					$(".sc-eTuwsz").children("input").eq(i).attr("checked",true);
+					$($(".sc-eTuwsz").children("input").eq(i)).siblings("svg").append().html('<path fill="#3E4042" fill-rule="evenodd" d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-8.666 13.684l7.5-7.5L16.659 8l-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path>');					
 					break;
 				}
 			}
+			inputCheck = 5;
 		}		 
 		 
 	});
@@ -876,7 +883,7 @@ path[Attributes Style] {
 											  <div size="88" class="ProfileImageUploadHandler__Container-sc-1advxtt-0 jLGbZG">
 												  <div size="88" class="ProfileImage__Container-sc-1h9kedz-0 kgaAUr">
 													  <span class="RatioImage__Container-wwqqoo-0 eAfAEc ProfileImage__UserProfileImage-sc-1h9kedz-1 bKTweb">
-													 	 <img  src="../resources/image/woo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
+													 	 <img  src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu" id="image_section">
 													  </span>
 												  </div>
 												  <div class="ProfileImageUploadHandler__EditIconWrapper-sc-1advxtt-1 eYYvSv" style="top: 80px;left: 80px;">
@@ -970,7 +977,14 @@ path[Attributes Style] {
 							  		</c:if>		
 							  		
 									</div>
-								<div id="carouselExampleControls" class="carousel slide" data-interval="false" >
+									<div>		
+									<jsp:include page="/user/hashtagModal.jsp" />								
+										<div  class="cvzQqA" style="width: 530px;height: 30px;margin-right: 0px;">					
+										<span id = "hashtagselect" class="aaa flMyeK eYKibL kVAMqa"  style="cursor : pointer;width:50%;float:right;height: 30px;float: left;heightmargin-top:0px;">관심분야 선택</span>
+										</div>
+										<input type="hidden" id="hashtag" name="hashtag" />
+									</div>
+								<!-- <div id="carouselExampleControls" class="carousel slide" data-interval="false" >
 								<label class="sc-esjQYD cvzQqA"> 관심사 선택(최대5개)</label><br>
 									  <div class="carousel-inner cvzQqA">
 									  <input type="hidden" id="hashtag" name="hashtag"/>
@@ -1055,7 +1069,7 @@ path[Attributes Style] {
 										    <span class="carousel-control-next-icon" style="height:60px;" ></span>
 										    <span class="sr-only">Next</span>
 										  </a>
-										</div>
+										</div> -->
 								
 									 <div class="form-group">
 									   	 <label for="ssn" class="cvzQqA">주소</label>

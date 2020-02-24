@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- //2020-02-21 Git Commit --%>>
 <!-- Button trigger modal -->
 <button type="button" style="display:none" id="hashtagModalButton" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-category="">
   Launch
@@ -268,7 +267,7 @@ $(function(){
 	});
 	
 	// 체크버튼
-	var inputCheck = 0;
+	
 	var maxCheck = 5;
 	/*  var hash = []; */
 	$(document).on("click",".sc-eTuwsz", function(){	

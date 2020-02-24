@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -662,70 +663,8 @@ path[Attributes Style] {
 </head>
 <body>
 <!--로그인 후-->
-    <%-- <nav class="navbar navbar-expand-lg navbar-light container px-0">
-        <!-- 사이트 로고 -->
-        <a class="col-lg-1" href="/index.jsp">
-            <!-- https://www.flaticon.com/free-icon/wool_2372978?term=wool&page=2&position=91 -->
-            <!-- https://image.flaticon.com/icons/svg/2372/2372978.svg -->
-            <img src="/resources/image/logo/logo.svg" width="50" height="50" alt="">
-        </a>
-
-
-
-		<c:if test="${ ! empty user }">
-		
-		
-        <div class="col-lg-10 d-flex justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                
-                    <a class="nav-link go-creater-center" href="/hobbyclass/getMyHobbyClassList">크리에이터 센터</a>
-                
-                
-                <a class="nav-link add-creater" href="/user/changeUserCreator">크리에이터 지원</a>
-                
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">수강 중 클래스</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-lg-1 mr-0 pr-0" id="mypage">
-            <div class="dropdown d-flex justify-content-end">
-                <div class="dropdown-icon" data-toggle="dropdown">
-                    <i class="far fa-smile"></i>
-                    <i class="fas fa-angle-down"></i>
-                </div>
-
-                <div class="dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0">
-                    <span class="dropdown-item-text font-weight-bold">${user.nickName}</span>
-                    <a class="dropdown-item" href="/user/mypageUser">마이페이지</a>
-                    <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" id="logoutout" style="cursor: pointer">로그아웃</a>
-                </div>
-            </div>
-        </div>
-		</c:if>
-		
-		<div class="col-lg-11 d-flex justify-content-end mr-0 pr-0">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> 크리에이터센터</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/captcha">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/addUser">회원가입</a>
-                </li>
-            </ul>
-        </div>
-        
-        
-        
-    </nav> --%>
 <footer>
+	<input type="hidden" name="role" value="${sessionScope.user.role}">
 	<div class="sc-eerKOB zImje Footer__FooterContainer-lv6cz2-3 eHZNoL">
 		<div class="sc-eerKOB inUTcF Footer__StyledGrid-lv6cz2-2 cPBtQc">
 			<div class="sc-eilVRo QtLBl">
@@ -740,18 +679,23 @@ path[Attributes Style] {
 						<div class="sc-bdVaJa hBKkTB Footer__LinkTitle-lv6cz2-9 liAQRm">채용
 						</div>
 					</a>
+						<c:if test="${!empty sessionScope.user.role && sessionScope.user.role != '2'}">
 						<div id="modalready" class="sc-bdVaJa hBKkTB Footer__LinkTitle-lv6cz2-9 liAQRm" style="padding-top: 10px;cursor: pointer;">회원탈퇴
 						</div>	
+						</c:if>
 					</div>
 				</div>
+			<c:if test="${sessionScope.user.role eq 0 || sessionScope.user.role eq 1 || sessionScope.user.role eq 2 }">
 			<div class="sc-gHboQg bXMAOt">
 			<div class="Footer__MenuContainer-lv6cz2-1 ekuQEe">
 			<div color="#FFF" font-weight="bold" class="sc-bdVaJa fORXCH Footer__Title-lv6cz2-4 lhJaDk">크리에이터
 			</div>
+			<c:if test="${sessionScope.user.role == '1' || sessionScope.user.role == '2' }">
 			<a href="/user/listNotice/1" target="" rel="" class="Footer__ExternalLink-lv6cz2-8 etHvQm">
 			<div class="sc-bdVaJa hBKkTB Footer__LinkTitle-lv6cz2-9 liAQRm">공지사항
 			</div>
 			</a>
+			</c:if>
 			<c:if test="${sessionScope.user.role == '0'}">
 			<a class="Footer__LinkContainer-lv6cz2-7 hGKcXL" href="/user/changeUserCreator">
 			<div class="sc-bdVaJa hBKkTB Footer__LinkTitle-lv6cz2-9 liAQRm">지원하기
@@ -766,6 +710,7 @@ path[Attributes Style] {
 			</c:if>					
 			</div>
 			</div>
+			</c:if>
 			<div class="sc-gHboQg bXMAOt" style="margin-top: 23px;">
 			<div class="Footer__FlexContainer-lv6cz2-0 htmEMd">
 				<div color="#FFF" font-weight="bold" class="sc-bdVaJa fORXCH Footer__Title-lv6cz2-4 lhJaDk">고객센터

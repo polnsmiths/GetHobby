@@ -341,7 +341,7 @@ img#imageImage {
 </style>
 <body>
 	 <jsp:include page="/common/header.jsp"/>
-	<div class="MyPage__Box-sc-15vbtd3-6 iWyAzq" style="padding-left: 320px;margin-top: 120px;">
+	<div class="MyPage__Box-sc-15vbtd3-6 iWyAzq" style="padding-left: 320px;margin-top: 120px;margin-bottom: 50px;">
 			<span class="RatioImage__Container-wwqqoo-0 eAfAEc MyPage__ProfileImg-sc-15vbtd3-11 fNYfEW" id="imageSpan">
 			<img id="imageImage" srcset="" src="../resources/image/woo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu">
 			</span>
