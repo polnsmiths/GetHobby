@@ -81,7 +81,9 @@
 	<input type="hidden" class="user-hidden-value" value="${sessionScope.user.userId }"/>
 	<input type="hidden" id="role" value="${sessionScope.user.role}"/>
 	
-	<jsp:include page="/common/header.jsp"/>
+	<div class="include-common-header">
+		<jsp:include page="/common/header.jsp"/>
+	</div>
 	
 	<br/><br/><br/><br/>
 	
@@ -242,35 +244,35 @@
 								<a class="mini-size-category-a-tag">
 									<img src="/images/hobbyclass/im-craft.png" class="mini-category-img" />
 									공예
-									<input type="hidden" class="mini-category-value" value="A">
+									<input type="hidden" class="mini-category-value" value="H">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
 									<img src="/images/hobbyclass/im-exercise.png" class="mini-category-img" />
 									운동
-									<input type="hidden" class="mini-category-value" value="A">
+									<input type="hidden" class="mini-category-value" value="E">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
 									<img src="/images/hobbyclass/im-food.png" class="mini-category-img" />
-									음식
-									<input type="hidden" class="mini-category-value" value="A">
+									요리
+									<input type="hidden" class="mini-category-value" value="C">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
 									<img src="/images/hobbyclass/im-lifestyle.png" class="mini-category-img" />
 									라이프스타일
-									<input type="hidden" class="mini-category-value" value="A">
+									<input type="hidden" class="mini-category-value" value="L">
 								</a>
 							</li>
 							<li class="mini-size-category-li">
 								<a class="mini-size-category-a-tag">
 									<img src="/images/hobbyclass/im-music.png" class="mini-category-img" />
 									음악
-									<input type="hidden" class="mini-category-value" value="A">
+									<input type="hidden" class="mini-category-value" value="M">
 								</a>
 							</li>
 						</ul>
@@ -417,7 +419,7 @@
 	<div class="container" id="search-form-group">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="input-group mb-3">
+				<div class="input-group mb-3 input-search-form-but-not-button-outer-div">
   					<div class="input-group-prepend">
     					<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
   					</div>
