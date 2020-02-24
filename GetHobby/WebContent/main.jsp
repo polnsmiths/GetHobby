@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
 <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -215,11 +216,11 @@ ul li a:hover{
 	<jsp:include page="/common/header.jsp" />
 	
 	<ul>
-		<li><a href="#red" class="circle-active"><span class="circle-span">red</span></a></li>
-		<li><a href="#green" class="circle-none"><span class="circle-span">green</span></a></li>
-		<li><a href="#blue" class="circle-none"><span class="circle-span">blue</span></a></li>
-		<li><a href="#yellow" class="circle-none"><span class="circle-span">yellow</span></a></li>
-		<li><a href="#magenta" class="circle-none"><span class="circle-span">Touch</span></a></li>
+		<li><a href="#red" class="circle-active"><span class="circle-span"></span></a></li>
+		<li><a href="#green" class="circle-none"><span class="circle-span"></span></a></li>
+		<li><a href="#blue" class="circle-none"><span class="circle-span"></span></a></li>
+		<li><a href="#yellow" class="circle-none"><span class="circle-span"></span></a></li>
+		<li><a href="#magenta" class="circle-none"><span class="circle-span"></span></a></li>
 	</ul>
 	<div id="container">
 		<div class="box" id="red"><h1>당신을 위한 취미 클래스</h1><h3>바쁜 당신을 위해 맞춤 취미 큐레이션을 제공합니다.</h3></div>

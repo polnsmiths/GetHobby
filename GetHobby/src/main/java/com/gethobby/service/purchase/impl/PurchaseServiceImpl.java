@@ -81,11 +81,26 @@ public class PurchaseServiceImpl implements PurchaseService{
 		}
 
 		public Purchase getPayment(String userId) throws Exception {
+			System.out.println("0.1");
 			Purchase purchase = purchaseDAO.getDelivery(userId);
+			System.out.println("0.2");
 			
 			if(purchase == null) {
+				purchase = purchaseDAO.getPayment(userId);
+				System.out.println("구매자 : "+purchase.getReceiverName());
+				System.out.println("구매 주소 : "+purchase.getDlvyAddr());
+				System.out.println("구매 상세 주소 : "+purchase.getDlvyDetailAddr());
+				System.out.println("구매 우편 : "+purchase.getDlvyPostcode());
+				System.out.println("휴대폰 : "+purchase.getReceiverPhone());
 				return purchaseDAO.getPayment(userId);
+			}else {
+				
 			}
+			System.out.println("구매자 : "+purchase.getReceiverName());
+			System.out.println("구매 주소 : "+purchase.getDlvyAddr());
+			System.out.println("구매 상세 주소 : "+purchase.getDlvyDetailAddr());
+			System.out.println("구매 우편 : "+purchase.getDlvyPostcode());
+			System.out.println("휴대폰 : "+purchase.getReceiverPhone());
 			return purchase;
 		}
 
