@@ -5,9 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- 웹사이트 파비콘 -->
+  <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
+  <link rel="icon" href="/resources/image/logo/logo-favicon.png">
+  
+  <!-- favicon 404 에러 안보이게  -->
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>		
@@ -17,6 +24,7 @@
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.js"></script>
   <%-- <script src="lang/summernote-ko-KR.js"></script> --%>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
 
   <style type="text/css">
   	select {
@@ -383,7 +391,6 @@ iframe{
 	outline: 0 none;
 	overflow-x:hidden;
 }
-
   </style>
 </head>
 <body id="bootstrap-overrides" class="shc-body">
@@ -498,7 +505,7 @@ iframe{
 				    </div>
 				    
 				    <div class="form-group" id="hobbyClassHashtagDiv">
-				      <label for="inputState" style="margin-bottom:4px; font-size:14px;">클래스 해쉬태그</label>
+				      <label for="inputState" style="margin-bottom:4px; font-size:14px;">클래스 해쉬태그<span style="font-size:10px; margin-left:8px;">(필수 3개)</span></label>
 				      <jsp:include page="/openhobbyclass/saveHobbyClassHashtagModal.jsp" />
 				      <c:if test="${empty hobbyClass.hashtag}">
 				      	<input id="inputState" value="" placeholder="클래스 해쉬태그를 선택해주세요." name="hobbyClassHashtag" class="form-control shc-hchashtag-ib" readonly style="font-size:14px; color: rgb(168, 174, 179); background: url('/resources/image/gon/flow.jpg') no-repeat 97% 50%;">
@@ -1598,12 +1605,7 @@ iframe{
 					 }
 	   		         $(".progress-bar").css("width",progress+"%"); // 진행바 변경
 				}
-	    		alert( $("input[name='hobbyClassNo']").val() );
-	    		alert( $("input[name='kitName']").val() );
-	    		alert( $("input[name='kitIntro']").val() );
-	    		alert( $("input[name='kitPrice']").val() );
-	    		alert( $("input[name='kitImage']").val() );
-	    		
+
 	    		$.ajax(
 	    				{
 	    					url: "/hobbyclass/json/saveKit",
@@ -2128,7 +2130,7 @@ iframe{
 				// Create an FormData Object
 				var data = new FormData();
 				data.append("file",$(".classLesson_file_one")[0].files[0]);
-
+				var progressPercent = $(".progress-bar").css("width");
 				$.ajax (
 							{
 								url : "/hobbyclass/json/saveFile",
@@ -2139,12 +2141,29 @@ iframe{
 								contentType: false,
 				                processData: false,
 				                cache: false,
+				                beforeSend: function() {
+				                	$(".progress-bar").css("width", "0%");
+				                },
+				                xhr: function() {
+				                	   var xhr = new window.XMLHttpRequest();
+				                	   //Upload progress
+				                	   xhr.upload.addEventListener("progress", function(evt) {
+				                	      if (evt.lengthComputable) {
+				                	      var percentComplete = evt.loaded / evt.total;
+				                	      $(".progress-bar").css("width",(percentComplete*100) + '%');
+				                	      }
+				                	   }, false);
+				                	   return xhr;
+				               	},
 								success: function(JSONData){
 									var jsonObj = JSON.parse(JSONData);
 									closeFileUpload();
 									$(".classLesson_image_one").remove();	
 									$("input[name='lessonVideo']").after('<iframe src="/video/'+jsonObj[0]+'" class="file_input_test lessonInput classLesson_image_one"></iframe>');
 									$("input[name='lessonVideo']").val(jsonObj[0]);
+									setTimeout(function(){
+										$(".progress-bar").css("width", progressPercent);
+									},2000);
 								}
 						});//end of ajax
 			});//end of LessonVideo Change Event
@@ -2219,57 +2238,61 @@ iframe{
 			});
 	    	
 	    	$(document).on("focus", "#inputState", function(){
-	    		if( $(this).attr("name") == 'hobbyClassName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "black");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		if( $(this).attr("name") == 'lessonTitle' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "black");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		if( $(this).attr("name") == 'kitName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "black");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		
-				if( $(this).attr("name") != 'hobbyClassName' && $(this).attr("name") != 'lessonTitle' && $(this).attr("name") != 'kitName'){
-					if( $(this).val().length > 0 ){
-						
-						$(this).css("border-color","black");
-						$(this).css("box-shadow","0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-						$(this).css("outline","0 none");
+	    		if( $(this).attr("name") != 'hobbyClassCategory' ){
+		    		if( $(this).attr("name") == 'hobbyClassName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "black");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		if( $(this).attr("name") == 'lessonTitle' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "black");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		if( $(this).attr("name") == 'kitName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "black");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		
+					if( $(this).attr("name") != 'hobbyClassName' && $(this).attr("name") != 'lessonTitle' && $(this).attr("name") != 'kitName'){
+						if( $(this).val().length > 0 ){
+							
+							$(this).css("border-color","black");
+							$(this).css("box-shadow","0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+							$(this).css("outline","0 none");
+						}
 					}
-				}
+	    		}
 	    		
 	    	});
 	    	$(document).on("focusout", "#inputState", function(){
-	    		if( $(this).attr("name") == 'hobbyClassName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "rgb(221, 224, 226)");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		
-	    		if( $(this).attr("name") == 'lessonTitle' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "rgb(221, 224, 226)");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		if( $(this).attr("name") == 'kitName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
-		    		$(this).css("border-color", "rgb(221, 224, 226)");
-		    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-		    		$(this).css("outline", "0 none");
-	    		}
-	    		if( $(this).attr("name") != 'hobbyClassName' && $(this).attr("name") != 'lessonTitle' && $(this).attr("name") != 'kitName'){
-					if( $(this).val().length > 0 ){
-						
-						$(this).css("border-color","rgb(221, 224, 226)");
-						$(this).css("box-shadow","0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
-						$(this).css("outline","0 none");
+	    		if( $(this).attr("name") != 'hobbyClassCategory' ){
+		    		if( $(this).attr("name") == 'hobbyClassName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "rgb(221, 224, 226)");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		
+		    		if( $(this).attr("name") == 'lessonTitle' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "rgb(221, 224, 226)");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		if( $(this).attr("name") == 'kitName' && $(this).val().length <= 30 && !($(this).val().length <= 0) ){
+			    		$(this).css("border-color", "rgb(221, 224, 226)");
+			    		$(this).css("box-shadow", "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+			    		$(this).css("outline", "0 none");
+		    		}
+		    		if( $(this).attr("name") != 'hobbyClassName' && $(this).attr("name") != 'lessonTitle' && $(this).attr("name") != 'kitName'){
+						if( $(this).val().length > 0 ){
+							
+							$(this).css("border-color","rgb(221, 224, 226)");
+							$(this).css("box-shadow","0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)");
+							$(this).css("outline","0 none");
+						}
 					}
-				}
+	    		}
 	    	});
 	    	
 	    	
