@@ -44,7 +44,7 @@ public class OpenHobbyClassDAOImpl implements OpenHobbyClassDAO{
 	}
 
 	public HobbyClass getNewHobbyClass(String userId) throws Exception {
-		return sqlSession.selectOne("HobbyClassMapper.getHobbyClassNo", userId);
+		return sqlSession.selectOne("HobbyClassMapper.getNewHobbyClass", userId);
 	}
 	
 	public int deleteHobbyClass(int hobbyClassNo) throws Exception {
