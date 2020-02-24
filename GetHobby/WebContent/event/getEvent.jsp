@@ -53,9 +53,9 @@
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
 
-<!-- 메인 메뉴 CSS  -->
-<link rel="stylesheet" href="/resources/css/header.css"> 
-<!-- 메인 메뉴 js  -->
+<!-- 메인 메뉴 CSS -->
+<link rel="stylesheet" href="/resources/css/header.css">
+<!-- 메인 메뉴 js -->
 <script src="/resources/javascript/header.js"></script>
 
 
@@ -63,15 +63,6 @@
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Header js & css -->
-<script src="/resources/javascript/commonHeader.js"></script>
-<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-
 
 <style type="text/css">
  .wholeGetEvent{
@@ -124,17 +115,9 @@ $(function() {
 
 </head>
 <body>
-<!--  
-	<c:if test="${user.userId eq 'admin@naver.com'}">
-	<jsp:include page="/admin/sidebarAdmin.jsp" />
-	</c:if> -->
-	
+
 	<!-- toolbar -->
 	<jsp:include page="/common/header.jsp" />
-<!-- 
-	<c:if test="${user.userId eq 'admin@naver.com'}">
-	<div id="content">
-	</c:if>  -->
 
 	<!-- 전체 묶음 -->
 	<div class="wholeGetEvent container mt-5">
@@ -200,7 +183,7 @@ $(function() {
 </form>
 
 </div>
-		<jsp:include page="/common/footer.jsp" />
+
 </body>
 
 </html>

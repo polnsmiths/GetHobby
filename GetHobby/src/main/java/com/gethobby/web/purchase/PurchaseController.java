@@ -39,9 +39,16 @@ public class PurchaseController {
 	@RequestMapping( value="getSelectOption", method=RequestMethod.GET )
 	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo,
 			@RequestParam("eventDiscount") int eventDiscount, HttpSession session, Model model) throws Exception {
+		System.out.println(hobbyClassNo);
+		System.out.println(eventDiscount);
+		System.out.println(session.getAttribute("user").toString());
 		model.addAttribute("purchase", purchaseService.getPayment(((User)session.getAttribute("user")).getUserId()));
+		System.out.println("1");
 		model.addAttribute("hobbyClass", purchaseService.getPaymentOption(hobbyClassNo, session));
+		System.out.println("2");
 		model.addAttribute("discountPrice", eventDiscount);
+		System.out.println("3");
+		System.out.println("getSelectOption End");
 		return "/purchase/getSelectOption.jsp";
 	}
 

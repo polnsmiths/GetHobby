@@ -72,9 +72,9 @@ public class EventController {
 		search.setCurrentPage(1);
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
-			search.setSearchCondition("전체"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("진행중"); //==>얘가 기본
+		}else if(search.getSearchCondition().equals("1")) {
+			search.setSearchCondition("전체"); //==>얘가 기본
 		}else if(search.getSearchCondition().equals("2")) {
 			search.setSearchCondition("종료"); //==>얘가 기본
 
@@ -216,7 +216,7 @@ public class EventController {
 	@RequestMapping(value = "updateOneEventViewAdmin", method = RequestMethod.POST)
 	public String updateOneEventViewAdmin(@RequestParam int eventId, Model model)throws Exception{
 		
-		System.out.println("\n\n\n/updateOneEventViewAdmin");
+		System.out.println("\n\n\n/updateOneEvent");
 		System.out.println("들어온 eventId확인View:\n"+eventId);
 		
 		Event event = eventService.getEvent(eventId);
@@ -250,8 +250,8 @@ public class EventController {
 		
 		System.out.println("Controller확인---\n\nevent:"+event);
 		
-		return "forward:/event/getEvent?eventId="+event.getEventId();
-		//return null;
+		//return "forward:/event/getEvent";
+		return null;
 	}
 	
 

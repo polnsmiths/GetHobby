@@ -72,7 +72,7 @@ $(function(){
 						display += "<div id='registerCardImage'>";
 						console.log(JSONData.registerHobbyClassList[i].hobbyClassImage);
 						display += "<span>";
-						display += "<img name='registerCardImage' src='/images/hobbyclass/" + JSONData.registerHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
+						display += "<img name='registerCardImage' src='/images/min/" + JSONData.registerHobbyClassList[i].hobbyClassImage + "' class='card-img-top' style=height:250px>";
 						
 						if ( JSONData.registerHobbyClassList[i].event != null ) { 
 							display += "<div class='outer-card-image'>";

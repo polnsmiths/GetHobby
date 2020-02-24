@@ -228,7 +228,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -555,7 +555,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -840,7 +840,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1068,7 +1068,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1317,7 +1317,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1544,7 +1544,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {

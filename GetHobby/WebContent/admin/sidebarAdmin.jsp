@@ -34,7 +34,7 @@
                    </a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu">
+                    <a href="/event/eventList">
                     <div class="sidebar-svg">
 						<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 							<path d="M0 0h24v24H0V0z" fill="none"/>
@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/questionReport/getTotalReportListAdmin">
            			<div class="sidebar-svg">
 						<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 							<path d="M0 0h24v24H0V0z" fill="none"/>
@@ -73,6 +73,7 @@
            	        </div>        
                     </a>
                 </li>
+                <!-- 채널톡 사용으로 인해 주석처리
                 <li>
                     <a href="#">
            			<div class="sidebar-svg">
@@ -86,6 +87,7 @@
            	        </div>         
                     </a>
                 </li>
+                 -->
                 <li>
                     <a href="/user/listNotice/1">
            			<div class="sidebar-svg">
