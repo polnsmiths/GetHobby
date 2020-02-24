@@ -451,6 +451,12 @@ div.header-mynemo-profile-flow-one.fa-angle-downa::before {
     opacity: 1;
     transition: opacity 0.1s linear 0s;
     vertical-align: middle;
-    border-style: none;
-    
+    border-style: none; 
+}
+
+.jauNaviClass:hover {
+	font-weight: bold;
+}
+.sajinNaviClass:hover {
+	font-weight: bold;
 }

@@ -142,6 +142,8 @@
 			$('.include-for-recommend-hobby-class').hide();
 			$('.outer-event-carousel-div').hide();
 			
+			$('.footer-outer-div').hide();
+			
 			$('.nav-span-text').css({
 				'font-weight' : 'normal'
 			});
@@ -226,7 +228,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -324,6 +326,12 @@
 									maxPage = JSONData.resultPage.maxPage;
 									
 									$('#search-alignment-button-div').show();
+									
+									console.log(maxPage + ' / ' + currentPage);
+									
+									if ( maxPage < currentPage ) {
+										$('.footer-outer-div').show();
+									}
 								}
 							}
 					)
@@ -482,16 +490,16 @@
 		// 스크롤 이벤트 --------------------------------------------------------------
 		$(window).scroll(function(){
 			clearTimeout( timer );
-//		    timer = setTimeout( scrollHobbyClass, delta );
-			timer = setTimeout( scrollHobbyClass, 20 );
+		    timer = setTimeout( scrollHobbyClass, delta );
+//			timer = setTimeout( scrollHobbyClass, 20 );
 		});
 		// 스크롤 이벤트 --------------------------------------------------------------
 		
 		// 스크롤 내려서 다음페이지에 넘길 때 쓸 function--------------------------------------
 		function scrollHobbyClass() {
-	
-//	 		if( $(document).height() - 100 <= $(window).scrollTop() + $(window).height() ){
-			if( $(document).height() - 1000 <= $(window).scrollTop() + $(window).height() ){
+			
+			if( $(document).height() - 100 <= $(window).scrollTop() + $(window).height() ){
+//			if( $(document).height() - 1000 <= $(window).scrollTop() + $(window).height() ){
 	 			if ( maxPage >= currentPage ) {
 									
 					var obj = new Object();
@@ -547,7 +555,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -642,6 +650,13 @@
 										
 									$(".scroll-page:last").after(display);
 									
+									console.log(JSONData.resultPage.maxPage + ' / ' + currentPage);
+									
+									if ( maxPage < currentPage ) {
+										console.log('maxPage < currentPage run');
+										console.log('==>' + JSONData.resultPage.maxPage + ' / ' + currentPage);
+										$('.footer-outer-div').show();
+									}
 								}
 							}
 					)
@@ -773,6 +788,8 @@
 			obj.hashtag = hashtagArray;
 			obj.searchKeyword = searchKeyword; 
 			
+			$('.footer-outer-div').hide();
+			
 			$.ajax(
 					{
 						url : "/searchHobbyClass/json/getHobbyClassList", 
@@ -823,7 +840,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -954,7 +971,11 @@
 							
 							$('.search-button-but-form').text(inputData);
 							$('.search-button-but-form').val(inputData);
-							$('#searchModal').modal('hide');																
+							$('#searchModal').modal('hide');				
+							
+							if ( maxPage < currentPage ) {
+								$('.footer-outer-div').show();
+							}
 						}
 					}
 			)
@@ -989,6 +1010,8 @@
 			obj.category = categoryValue; 
 			obj.hashtag = hashtagArray;
 			obj.searchKeyword = searchKeyword; 
+			
+			$('.footer-outer-div').hide();
 			
 			$.ajax(
 					{
@@ -1045,7 +1068,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1181,6 +1204,9 @@
 							
 							$('.in-the-aligment-button-text').text( buttonText );
 							
+							if ( maxPage < currentPage ) {
+								$('.footer-outer-div').show();
+							}
 						}
 					}
 			)
@@ -1203,6 +1229,9 @@
 			$('.include-for-register-hobby-class').hide();
 			$('.include-for-recommend-hobby-class').hide();
 			$('.outer-event-carousel-div').hide();
+			
+			// 푸터 가리기
+			$('.footer-outer-div').hide();
 			
 			$('.nav-span-text').css({
 				'font-weight' : 'normal'
@@ -1288,7 +1317,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1386,6 +1415,10 @@
 									maxPage = JSONData.resultPage.maxPage;
 									
 									$('#search-alignment-button-div').show();
+									
+									if ( maxPage < currentPage ) {
+										$('.footer-outer-div').show();
+									}
 								}
 							}
 					)
@@ -1451,6 +1484,8 @@
 			
 			$('button[name="hashtagButton').attr('class', 'btn btn-outline-secondary btn-sm btn-block');
 			
+			// 푸터 가리기
+			$('.footer-outer-div').hide();
 			
 			$('.input-group-text').text(categoryName);
 			$('.category-name').text('카테고리 : ' + categoryName);
@@ -1509,7 +1544,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1607,6 +1642,10 @@
 							maxPage = JSONData.resultPage.maxPage;
 							
 							$('#search-alignment-button-div').hide();
+							
+							if ( maxPage < currentPage ) {
+								$('.footer-outer-div').show();
+							}
 						}
 					}
 			)

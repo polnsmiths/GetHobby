@@ -101,8 +101,9 @@
 			SELECT PURCHASE_ID, USER_ID, CLASS_NO, RECEIVER_NAME, PHONE, ADDRESS, DETAIL_ADDRESS, POSTCODE
 			FROM PURCHASE
 			WHERE USER_ID = #{userId}
-			ORDER BY PURCHASE_DATE DESC ) search_data
+			
 		WHERE ROWNUM = 1
+		AND search_data.COMPONENT_OPTION = '1' // 이거 고쳐야 함
 	</select>
 
 	<update id="requestRefund" parameterType="string">

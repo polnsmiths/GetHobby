@@ -444,3 +444,7 @@
 	.card-footer {
 		background-color : #FFFFFF;
 	}
+	
+	.search-condition-dropdown-button-modal:after {
+		content : none;
+	}

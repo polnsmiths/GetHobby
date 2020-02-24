@@ -56,15 +56,6 @@
 
 <link rel="shortcut icon" href="/static/pc/images/favicon.ico">
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Header js & css -->
-<script src="/resources/javascript/commonHeader.js"></script>
-<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-
-
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">

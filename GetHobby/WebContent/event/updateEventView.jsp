@@ -48,24 +48,15 @@
 
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
-<link rel="stylesheet" href="/resources/css/commonAdmin.css">
 
-<!-- 메인 메뉴 CSS 
+<!-- 메인 메뉴 CSS -->
 <link rel="stylesheet" href="/resources/css/header.css">
- 메인 메뉴 js 
-<script src="/resources/javascript/header.js"></script> -->
+<!-- 메인 메뉴 js -->
+<script src="/resources/javascript/header.js"></script>
 
 
 <link rel="shortcut icon" href="/static/pc/images/favicon.ico">
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Header js & css -->
-<script src="/resources/javascript/commonHeader.js"></script>
-<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 
 
 <!-- cannot find resource 404
@@ -121,15 +112,14 @@
 			///뒤로가기 버튼 클릭시
 			$(document).on("click", "#beforeButton", function() {
 				
-				//alert('뒤로가기');
+				alert('뒤로가기');
 				history.go(-1);
 			})
 			
 			///이벤트 수정하기 버튼 클릭시
 			$(document).on("click", "#updateOneEventButton", function() {
 				
-				//alert('이벤트 수정 버튼');
-				//alert('이벤트 eventUpdatecount-'+eventUpdatecount);
+				alert('이벤트 수정 버튼');
 				fnUpdateOneEvent(eventUpdatecount);
 
 			})
@@ -143,10 +133,10 @@
     		placeholder: '글씨를 입력해주세요',
     		lang: 'ko-KR',
     		tabsize: 2,
-    		height: 550,
-    		minHeight : 550,
-    		maxHeight : 550,
-    		width: 1000,
+    		height: 350,
+    		minHeight : 350,
+    		maxHeight : 350,
+    		//width: 550,
 /*     		  toolbar: [
     		    // [groupName, [list of button]]
     		    ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -177,8 +167,8 @@
     		var event_categorys =  $('input:hidden[name=event_categorys]').val(); //수정하기전 category의 갯수
     		var event_categorys_size = $('input:hidden[name=event_categorys_size]').val();//수정하기전 category
     		var result_event_categorys = []; //수정하기전 category for문 돌려서 알파벳만 뽑은 거.
-    		console.log('수정하기전 category의 갯수-event_categorys_size-->>'+event_categorys_size);
-    		console.log('수정하기전 category는 -event_categorys--->>'+event_categorys);
+    		//console.log('수정하기전 category의 갯수-event_categorys_size-->>'+event_categorys_size);
+    		//console.log('수정하기전 category는 -event_categorys--->>'+event_categorys);
     		for(var i = 0; i<event_categorys_size; i++){
     			//console.log('y-->'+y);
     			//console.log('수정하기전 category['+y+']번째-->>'+event_categorys[y]);
@@ -193,20 +183,11 @@
         			
     		}//for
     		
-      			 $('input:checkbox[name="category"]').each(function() {
+      			 $('input:checkbox[name=category]').each(function() {
      				 for(var x = 0; x < event_categorys_size; x++){
 						
-     					//alert( $(this).val().trim() );
     			     	if(this.value == result_event_categorys[x] ){ //값 비교
-    			     		console.log(result_event_categorys[x]);
-    			     	
-    			     	//if($(this).text().trim() == result_event_categorys[x] ){ //값 비교
-    			     	//if($(this).val().trim() == result_event_categorys[x] ){ //값 비교
-    			            //this.checked = true; //checked 처리
-    		            	console.log($(this).parent().find("svg").html());
-    		            	$(this).parent().find("svg").children("path").remove();	           	
-    		            	$(this).parent().find("svg").append().html('<path fill="#3E4042" fill-rule="evenodd" d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-8.666 13.684l7.5-7.5L16.659 8l-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path>');	            	
-    		            	$(this).parent().find("input").attr("checked", true);
+    			            this.checked = true; //checked 처리
 
     			      	}//if
      				 }//for
@@ -227,7 +208,7 @@
     			}
     		}  */
     		
-      			
+    		
     });//ready
     
     $(function() {
@@ -249,43 +230,6 @@
 		$("#eventEndDate").datepicker();
 		
     });
-    
-    
-    $(function() {
-        // 한개 선택 이벤트 
-        $(document).on("click", ".select_box", function(){
-
-        	//alert($(this).find('span').text().trim());
-        	if( $(this).find("input").is(":checked") == false ) {            		
-            	$(this).find("svg").children("path").remove();	           	
-            	$(this).find("svg").append().html('<path fill="#3E4042" fill-rule="evenodd" d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-8.666 13.684l7.5-7.5L16.659 8l-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path>');	            	
-            	$(this).find("input").attr("checked", true);
-            	
-            	var category = $(this).find("input[name='category']").val();
-            	//alert('category:::'+category);
-            	
-            	var checkboxValues = [];
-        		//체크박스의 값들을 배열에 담는다.
-        	    $("input[name='category']:checked").each(function(i) {
-        	    	
-        	        checkboxValues.push($(this).val());
-        	       // console.log('checkboxValues--'+checkboxValues);
-        	        //alert('checkboxValues=='+checkboxValues);
-        	      
-        	    }); 
-        			console.log('checkboxValuesConsole 전체--'+checkboxValues);
-            	
-            	
-        	}else if( $(this).find("input").is(":checked") == true ) {
-            	$(this).find("svg").children("path").remove();
-            	$(this).find("svg").append().html('<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path>');
-            	$(this).find("input").attr("checked", false);
-            	
-        	}
-        });
-        
-      })
-    
     
 	function sendFile(file, el) {
 		var form_data = new FormData();
@@ -311,7 +255,7 @@
 				
         	},
         	error:function(request,status,error){
-		           // alert("ajax과정 실패");
+		            alert("ajax과정 실패");
 		       }
 		}); //ajax
 	}
@@ -319,27 +263,27 @@
 	
 	function fnUpdateOneEvent(eventUpdatecount) {
 		
-		//alert('fnUpdateOneEvent');
+		alert('fnUpdateOneEvent');
 		//alert('이벤트 add함수접근');
 		var eventTitle = $("input[name='eventTitle']").val();
-		//alert('eventUpdatecount----'+eventUpdatecount);
+		alert('eventUpdatecount----'+eventUpdatecount);
 
 		
 		////update시 이미 이미지가 있을 경우 count가 되게하려고//////////
 /* 		var eventImage = $("input:hidden[name='eventImage']").val();
 		//alert('eventImage--'+eventImage);
 		if(eventImage != null){
-    		//alert("사진이 한 개 있음.");
+    		alert("사진이 한 개 있음.");
     		eventUpdatecount += 1;
     	}
-		//alert('eventUpdatecount 최종----'+eventUpdatecount); */
+		alert('eventUpdatecount 최종----'+eventUpdatecount); */
 
 		//이벤트내용에 image가 있는지 체크하는 내용.
 		var eventContent = $("#summernote").val();
 		console.log('eventContent---'+eventContent);
 		if(eventContent.indexOf("<img") != -1){
 			eventUpdatecount += 1;
-			//alert('eventContent에 이미지 한개이상 있음');
+			alert('eventContent에 이미지 한개이상 있음');
 		}
 		
 		//alert('eventContent--'+eventContent);
@@ -408,22 +352,17 @@
 </head>
 
 <body>
-	<!-- Sidebar-->
-	<jsp:include page="/admin/sidebarAdmin.jsp" />
-
 	<!-- toolbar -->
 	<jsp:include page="/common/header.jsp" />
 
-	<!-- 전체 묶음 
-	<div class="wholeUpdateEvent container mt-5"> -->
-	 <div id="content">
+	<!-- 전체 묶음 -->
+	<div class="wholeUpdateEvent container mt-5">
 	
 <form name="updateOneEvent">
 
   		<input type="hidden" name="event_categorys" value="${event.category }"> 
   		<input type="hidden" name="event_categorys_size" value="${event.category.size() }"> 
   		<input type="hidden" name="eventImage" value="${event.eventImage}"> 
-  		<input type="hidden" name="eventId" value="${event.eventId}"> 
   		
         <div class="p-3 py-4 mb-2 text-left rounded">
           <svg id="beforeButton" class="bi bi-chevron-left" width="4em" height="4em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -444,71 +383,25 @@
   
   <!-- 이벤트 이름 -->
 	<div class="input-group mb-3">
-   		 		<span class="input-group-text col-lg-2" id="basic-addon1">이벤트 이름</span>
-  		<div class="input-group-prepend col-lg-9">
-  			<input type="text" name="eventTitle" class="form-control" aria-label="Username" placeholder="등록할 이벤트의 이름을 입력하세요" value="${event.eventTitle}" aria-describedby="basic-addon1">
-		</div>
+  		<div class="input-group-prepend">
+   		 	<span class="input-group-text" id="basic-addon1">이벤트 이름</span>
+  		</div>
+  		<input type="text" name="eventTitle" class="form-control" aria-label="Username" placeholder="등록할 이벤트의 이름을 입력하세요" value="${event.eventTitle}" aria-describedby="basic-addon1">
 	</div>
 	
 	 <!-- 이벤트 기간 -->
 	<div class="input-group mb-3">
-   		 	<span class="input-group-text col-lg-2" id="basic-addon1">이벤트 기간</span>
-  		<div class="input-group-prepend col-lg-9">
+  		<div class="input-group-prepend">
+   		 	<span class="input-group-text" id="basic-addon1">이벤트 기간</span>
+  		</div>
+  	
   			<input type="text" id="eventStartDate" name="eventStartDate" class="form-control" placeholder="시작일" value="${event.eventStartDate}">
   		 	<input type="text" id="eventEndDate" name="eventEndDate" class="form-control" placeholder="종료일" value="${event.eventEndDate}"> 
-  		</div>
 	</div>
 	
   
-  	<div class="input-group mb-3">
-   		 	<span class="input-group-text col-lg-2" id="basic-addon1">이벤트 카테고리</span>
-  			 
-		<!--	<th scope="col" class="select-all-box">  -->
-			<div class="input-group-prepend col-lg-9 pt-2">
-				<div class="select_box">
-      					<svg width="24" height="24" viewBox="0 0 24 24">
-							<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				 		</svg>
-						
-						<input type="checkbox" name="category" class="form-check-input"  style="display: none" id="categoryCheckbox1" value="E"><span class="mr-3">운동</span>
-				</div>
-				<div class="select_box">	
-						<svg width="24" height="24" viewBox="0 0 24 24" class="cate">
-					      	<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				      	</svg>
-						<input type="checkbox" name="category" class="custom-control-input" style="display: none" id="categoryCheckbox2" value="M"><span class="mr-3">음악</span>
-				</div>
-				<div class="select_box">
-						<svg width="24" height="24" viewBox="0 0 24 24">
-					      	<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				      	</svg>
-						<input type="checkbox" name="category" class="custom-control-input" style="display: none"  id="categoryCheckbox3" value="L">
-						<span class="mr-3">라이프스타일</span>
-				</div>
-				<div class="select_box">
-						<svg width="24" height="24" viewBox="0 0 24 24">
-					      	<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				      	</svg>
-						<input type="checkbox" name="category"  class="custom-control-input" style="display: none" id="categoryCheckbox4" value="C"><span class="mr-3">요리</span>
-				</div>
-				<div class="select_box">
-						<svg width="24" height="24" viewBox="0 0 24 24">
-					      	<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				      	</svg>
-						<input type="checkbox"  name="category" class="custom-control-input" style="display: none" id="categoryCheckbox5" value="H"><span class="mr-3">공예</span>
-				</div>
-				<div class="select_box">
-						<svg width="24" height="24" viewBox="0 0 24 24">
-					      	<path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z" />
-				      	</svg>
-						<input type="checkbox" name="category" class="custom-control-input" style="display: none" id="categoryCheckbox6" value="A"><span class="mr-3">미술</span>
-				</div>
-   			</div>
-   		</div>
-  
-  
   	
-  	<!-- 카테고리 선택 
+  	<!-- 카테고리 선택 -->
   	 <div class="input-group mb-3">
   		<div class="input-group-prepend">
    		 	<span class="input-group-text mb-3" id="basic-addon1">이벤트 카테고리</span>
@@ -545,31 +438,33 @@
  			<label class="form-check-label" for="inlineCheckbox3">미술</label>
 		</div>
  
-   	</div> -->
+   	</div>
    	
    	
    	<!-- 이벤트 할인율 -->
 	<div class="input-group mb-3">
-   		 <span class="input-group-text col-lg-2" id="basic-addon1">이벤트 할인율</span>
-   		 <div class="input-group-prepend col-lg-9">
-  			<input type="text" name="eventDiscount" class="form-control" value="${event.eventDiscount}" placeholder="등록할 이벤트의 할인율을 입력하세요. 1~100사이의 숫자">
-		</div>
+  		<div class="input-group-prepend">
+   		 	<span class="input-group-text" id="basic-addon1">이벤트 할인율</span>
+  		</div>
+  		<input type="text" name="eventDiscount" class="form-control" value="${event.eventDiscount}" placeholder="등록할 이벤트의 할인율을 입력하세요. 1~100사이의 숫자">
 	</div>
    	
  	<!-- 이벤트 내용 --> 
-
+ 	<div class="input-group">
+  		<div class="input-group-prepend">
+   		 	<span class="input-group-text" id="basic-addon1">이벤트 내용</span>
+  		</div>
   		<!--  
 			<textarea  class="form-control" id="summernote"  name="eventContent"  aria-label="With textarea">${event.eventContent}</textarea> -->
-	<div class="input-group mb-3">
-			<textarea  class="form-control  col-lg-12" id="summernote"  name="eventContent"  aria-label="With textarea"><img src="/images/kyung/${event.eventImage}" ></textarea>
-	</div>		
+			<textarea  class="form-control" id="summernote"  name="eventContent"  aria-label="With textarea"><img src="/images/kyung/${event.eventImage}" ></textarea>
+	</div>
 	
   	
   </form>
   
-  
+  <p>footer</p>	  
   
 </div>
-		<jsp:include page="/common/footer.jsp" />
+
 </body>
 </html>

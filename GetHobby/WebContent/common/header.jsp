@@ -77,10 +77,11 @@
 				
 								<!-- 마이페이지 미니메뉴 -->
 								<div class="header- dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0 first-load-div" style="position:absolute; top: -100px;">
-					                <div class="header-mynemo-out-div" style="padding:0px;">
+					                <div class="header-mynemo-out-div" style="padding:0px; background-color:white; width:120px;">
 						                <div color="#1b1c1d" class="header-mynemo-logout-div">
-						                	<div class="header-mynemo-logout-span jauNaviClass" style="float:left;">자유게시판</div>
-						                	<div class="header-mynemo-logout-span sajinNaviClass" style="float:left;">사진게시판</div>
+						                	<div class="header-mynemo-logout-span jauNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">자유게시판</div>
+						                	<div style="background:white; width:100%; height:2px;"></div>
+						                	<div class="header-mynemo-logout-span sajinNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">사진게시판</div>
 						                </div>
 					                </div>
 				                </div>
@@ -119,7 +120,8 @@
 				            <div class="dropdown d-flex justify-content-end">
 				                <div class="dropdown-icon header-mynemo-check-mylist" data-toggle="dropdown" aria-expanded="false" style="justify-content: space-between; display:flex; align-items: center;">
 				                	<span class="header-mynemo-first-span">
-				                    	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
+				                		<!-- 프로필 이미지 수정 -->
+				                    	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 				                    </span>
 				                    
 				                    <div class="header-mynemo-profile-flow-one fa-angle-down">
@@ -135,7 +137,8 @@
 					                <div class="header-mynemo-out-div">
 					                <a class="header-mynemo-first-a" href="/user/mypageUser">
 						                <span class="header-mynemo-first-span">
-						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
+						                	<!-- 프로필 이미지 수정 -->
+						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 						                </span>
 						                <div class="header-mynemo-span-next-first-div">
 							                <div class="header-mynemo-span-next-first-div-in-div">
