@@ -546,7 +546,7 @@
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
 									// 나중에 회원 프로필 사진으로 대체하기 
-									display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
+									display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
 									display += '</span>';
 									display += '</div>';
 									display += '<div class="name-outer-div">';
@@ -575,6 +575,8 @@
 								
 								display += '<span class="class-assess-scroll"></span>';
 								$('.class-assess-scroll:last').after(display);
+								
+								maxPage = JSONData.resultPage.maxPage;
 								
 								if ( maxPage == currentPage ) {
 									$('.btn-class-assess-more').hide();
@@ -702,7 +704,7 @@
 						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
 						    					
 						    					// 나중에 프로필 사진으로 대체하기 
-						    					display += '<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>';
+						    					display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
 						    					// 나중에 프로필 사진으로 대체하기 
 						    					
 						    					display += '</span>';
@@ -915,7 +917,7 @@
 								var nowMaxPage = ( i * pageSize );
 			
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {
-									display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+									display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 								}
 								
 								display += '</div>';
@@ -964,7 +966,7 @@
 									
 									console.log(currentPage);
 									for(var j = currentPage; j <= JSONData.resultPage.totalCount; j++ ) {
-										display += '<div class="item"><img src="/images/min/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
 									}
 									
 									display += '</div>';
@@ -1009,13 +1011,19 @@
 			// 강의 상세보기 구간 ------------------------------------------------
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
 				console.log('purchaseCheck ? : ' + purchaseCheck);	
-			
-				// 유저 로그인 안되있을 경우
 				
-				if ( purchaseCheck != '1' ) {
+				var userId = $('.user-hidden-class-intro-value').val();
+				
+				// 유저 로그인 안되있을 경우
+				if ( !userId ) {
+					self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + $('.hidden-hobby-class-number').val();	
+					return false;
+				}
+				
+				if ( classState != '5' ) {
 					Swal.fire({
 						icon : 'error',
-						title : '구매시에 확인 가능합니다.',
+						title : '개강시에만 확인 가능합니다.',
 						showConfirmButton : false, 
 						allowOutsideClick : true,
 						timer : 800
@@ -1023,10 +1031,10 @@
 					return;
 				}
 				
-				if ( classState != '5' ) {
+				if ( purchaseCheck != '1' ) {
 					Swal.fire({
 						icon : 'error',
-						title : '개강시에만 확인 가능합니다.',
+						title : '구매시에 확인 가능합니다.',
 						showConfirmButton : false, 
 						allowOutsideClick : true,
 						timer : 800
@@ -2334,7 +2342,7 @@
 				
 				<div class="image-outer-div">
 					<span class="image-outer-span">
-						<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 					</span>
 				</div>
 				
@@ -2344,7 +2352,7 @@
 						<!--  
 						<div class="image-outer-div">
 							<span class="image-outer-span">
-								<img src="/images/min/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+								<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						-->
@@ -2532,7 +2540,7 @@
 						
 						<div class="image-outer-div mt-5">
 							<span class="image-outer-span">
-								<img src="/images/min/${hobbyClass.kitImage }" class="img-class-intro"/>
+								<img src="/images/hobbyclass/${hobbyClass.kitImage }" class="img-class-intro"/>
 							</span>
 						</div>
 						
@@ -2634,7 +2642,7 @@
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">
 											<!-- 나중에 프로필 사진으로 대체하기 -->
-											<img src="/images/min/default-profile.jpg" class="class-assess-img-tag"/>
+											<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>
 										</span>
 									</div>
 									
@@ -2883,7 +2891,7 @@
 					<!-- 한줄평 작성 양식 시작 
 					<div class="lesson-reply-add-format">
 						<div class="leeson-reply-add-container">
-							<img src="/images/min/default-profile.jpg" class="rounded-circle"/>
+							<img src="/images/hobbyclass/default-profile.jpg" class="rounded-circle"/>
 							<br/>	
 							<br/>
 							<span class="star-value-span">

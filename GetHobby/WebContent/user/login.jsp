@@ -665,9 +665,9 @@ button {
 </style>
 </head>
 <body>
-
-
-
+<!-- 추가된 부분 -->
+<input type="hidden" class="login-redirect-url" id="login-redirect-url" value="${redirectUrl}" />
+<!-- 추가된 부분 -->
 
  <jsp:include page="/common/header.jsp"/> 
 	<div class="dGxVjn">
