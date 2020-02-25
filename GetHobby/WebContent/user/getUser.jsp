@@ -984,104 +984,18 @@ path[Attributes Style] {
 										</div>
 										<input type="hidden" id="hashtag" name="hashtag" />
 									</div>
-								<!-- <div id="carouselExampleControls" class="carousel slide" data-interval="false" >
-								<label class="sc-esjQYD cvzQqA"> 관심사 선택(최대5개)</label><br>
-									  <div class="carousel-inner cvzQqA">
-									  <input type="hidden" id="hashtag" name="hashtag"/>
-									    <div class="carousel-item active" style="text-align:center;">									    
-									    <input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H00" >플라워/꽂꽂이
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="H01">뜨개질/위빙
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H02">가구/목공예
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H03">가죽공예<br>
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H04">천연비누/화장품
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H05">디퓨저/향수
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H06">캔들/석고공예<br>
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="H07">도자공예
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="H08">금속/악세사리공예
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="H09">바느질/재봉틀
-								    </div>
-								    <div class="carousel-item" style="text-align:center;">
-								      <input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C00" >한식
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="C01">양식
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C02">중식
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C03">일식
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C04">분식<br>
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C05">베이킹
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C06">커피
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="C07">와인
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="C08">칵테일
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="C09">디저트
-								    </div>
-								    <div class="carousel-item" style="text-align:center;">
-								      	<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A00" >디지털 드로잉
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="A01">아동미술
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A02">미술 회화
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A03">소묘/드로잉<br>
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A04">만화/웹툰
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A05">애니
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A06">동양화
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="A07">팝아트
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="A08">조소
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="A09">캘리그라피
-									    </div>
-									<div class="carousel-item" style="text-align:center;">
-								      	<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M00" >보컬
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="M01">랩
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M02">디제잉
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M03">미디/컴퓨터작곡
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M04">시창청음/화성학<br>
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M05">피아노/키보드
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M06">기타
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="M07">베이스기타
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="M08">드럼
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="M09">바이올린
-									 </div>
-									 <div class="carousel-item" style="text-align:center;">
-								      	<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E00" >PT
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="E01">크로스핏
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E02">필라테스
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E03">요가
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E04">스키<br>
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E05">태권도
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E06">복싱
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="E07">체조
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="E08">파쿠르
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="E09">스케이트보드
-									    </div>
-									<div class="carousel-item" style="text-align:center;">
-								      	<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L00">컴퓨터활용
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="L01">외국어
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L02">수학
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L03">과학
-							 			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L04">국어<br>
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L05">사회
-							  			<input  onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L06">논술
-							  			<input onclick="CountChecked(this)" class="aks checkSelect" type="checkbox"  value="L07">연기
-							  			<input onclick="CountChecked(this)" class="checkSelect" type="checkbox"  value="L08">뮤지컬
-								  		<input onclick="CountChecked(this)" class="checkSelect" type="checkbox" value="L09">마술
-									 </div>
-									</div>
-											  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" >
-											    <span  class="carousel-control-prev-icon" style="height:60px;"></span>
-										    <span  class="sr-only">Previous</span>
-										  </a>
-										  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" >
-										    <span class="carousel-control-next-icon" style="height:60px;" ></span>
-										    <span class="sr-only">Next</span>
-										  </a>
-										</div> -->
 								
 									 <div class="form-group">
 									   	 <label for="ssn" class="cvzQqA">주소</label>
 									   	 								   
 										    <div >
-										      <input type="text" class="aDress" id="postCode" name="postCode" style="float:left" placeholder="우편번호" value="${user.postCode }">
+										      <input type="text" class="aDress" id="postCode" name="postCode" style="float:left" placeholder="우편번호" value="${user.postCode }" autocomplete="off">
 											    <button type="button" class="flMyeK eYKibL kVAMqa" onclick="postcode()" style="width:50%;float:right;margin-top:0px;" color="orange" >
 											    <span class="">우편번호 찾기</span>
 											    </button>
 										    										      	      
-										      <input type="text" class="cNSGNe" id="address" name="address" placeholder="주소" value="${user.address}"><br>
-										      <input type="text" class="cNSGNe" id="detailAddress" name="detailAddress" placeholder="상세주소"  value="${user.detailAddress}">
+										      <input type="text" class="cNSGNe" id="address" name="address" placeholder="주소" value="${user.address}" autocomplete="off"><br>
+										      <input type="text" class="cNSGNe" id="detailAddress" name="detailAddress" placeholder="상세주소"  value="${user.detailAddress}" autocomplete="off">
 										     </div>										      
 										    
 									     		    

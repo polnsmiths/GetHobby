@@ -37,10 +37,6 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
 
 
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
@@ -58,6 +54,11 @@
 
 <!-- include summernote-ko-KR -->
 <script src="/resources/javascript/summernote/lang/summernote-ko-KR.js"></script>
+
+	<!-- header CSS -->
+	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	<!-- header js -->
+	<script src="/resources/javascript/commonHeader.js"></script>
 <style>
 *, body, p, h1, h2, h3, h4, h5, h6, button, a, ul, li, ol, div, span,
 	input, textarea, table, th, tr, td, nav, header, article, footer,

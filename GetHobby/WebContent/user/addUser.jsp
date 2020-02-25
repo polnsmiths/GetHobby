@@ -1132,13 +1132,13 @@ path[Attributes Style] {
 									   	 <label for="ssn" class="cvzQqA">주소</label>
 									   	 								   
 										    <div >
-										      <input type="text" class="aDress" id="postCode" name="postCode" style="float:left" placeholder="우편번호">
+										      <input type="text" class="aDress" id="postCode" name="postCode" style="float:left" placeholder="우편번호" autocomplete="off">
 											    <button type="button" class="flMyeK eYKibL kVAMqa" onclick="postcode()" style="width:50%;float:right;margin-top:0px;" color="orange" >
 											    <span class="">우편번호 찾기</span>
 											    </button>
 										    										      	      
-										      <input type="text" class="cNSGNe" id="address" name="address" placeholder="주소" ><br>
-										      <input type="text" class="cNSGNe" id="detailAddress" name="detailAddress" placeholder="상세주소" >
+										      <input type="text" class="cNSGNe" id="address" name="address" placeholder="주소" autocomplete="off" ><br>
+										      <input type="text" class="cNSGNe" id="detailAddress" name="detailAddress" placeholder="상세주소"  autocomplete="off">
 										     </div>										      
 										    
 									     		    
