@@ -52,10 +52,7 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
+
 
 	<!-- 채널톡 js -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
@@ -65,24 +62,500 @@
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 <script type="text/javascript">
-
+function recap(){
+	
+	$.ajax ({
+		url : "/user/json/reCaptcha",
+		method : "post",
+		dataType : "json",
+		headers : {
+			"Accept" : "application/json",
+			"Content-Type" : "application/json"
+		},
+		success : function(JSONData,status){
+			$("input[name='key']").val(JSONData.key);
+			$("img[name='naverCaptcha']").attr("src","/user/captchaCopy?fileName="+JSONData.image)
+		}
+	
+	})
+}
 
 $(function(){
+	$("#security").hide();
+	var failNo = 0;
+	$("input[name='key']").val("${key}");
+	$("input[name='captchaImage']").val("${image}");
+	//////////////////////////////////////////////////captcha enter 로그인///
+	$("#captcha").on("keydown", function(key) {
+		if (key.keyCode == 13) {
+			var userId = $("#userId").val();
+			var password = $("#password").val();
+			
+			var cap = $("input[name='captcha']").val();
+			var capkey = $("input[name='key']").val();
+			
+			
+			if(userId == "" || userId.length <1 ){
+				Swal.fire({
+					  icon: 'warning',
+					  title: '아이디 입력해주세요',
+					  showConfirmButton: false,
+					  timer: 1000
+					})
+				$("#userId").focus();			
+				return;
+			}else if(password == "" || password == null || password.length < 1){
+				Swal.fire({
+					  icon: 'warning',
+					  title: '패스워드를 입력해 주세요',
+					  showConfirmButton: false,
+					  timer: 1000
+					})
+				$("#password").focus();
+				return;
+			}else if( userId.indexOf('@') < 1 || userId.indexOf('.') == -1){
+				Swal.fire({
+					  icon: 'warning',
+					  title: '이메일 형태로 입력 해주세요',
+					  showConfirmButton: false,
+					  timer: 1000
+					})
+				$("#userId").focus();			
+				return;
+			}	
+			if(failNo < 3){
+				$.ajax ({			
+					url : "/user/json/login",
+					method : "post",
+					dataType : "json",
+					headers : {
+						"Accept" : "application/json",
+						"Content-type" : "application/json"				
+					},
+					data : JSON.stringify({
+						userId : userId,
+						password : password
+					}),
+					success : function(JSONData,status){
+						if(JSONData.result == 'usernull'){
+						
+							failNo += 1;						
+							if(failNo == 3){
+								$("#security").show();
+							}
+							Swal.fire({
+								  icon: 'error',
+								  title: '아이디 정보가 없습니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									return;
+								})
+							
+						}else if(JSONData.result == 'pwfail'){
+							failNo += 1;
+							if(failNo == 3){
+								$("#security").show();
+							}
+							Swal.fire({
+								  icon: 'error',
+								  title: '패스워드 불일치',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									return;
+								})
+						}else if(JSONData.result == 'stopUser'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '정지 된 회원 입니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})							
+						
+						}else if(JSONData.result == 'retireUser'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '탈퇴 된 회원 입니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})							
+						
+						}else if(JSONData.result == 'success'){
+							Swal.fire({
+								  icon: 'success',
+								  title: '로그인 완료',
+								  showConfirmButton: false,
+								  timer: 800
+								}).then((result) =>{
+									self.location = "/user/login";
+								})						
+						}else if(JSONData.result == 'manager'){
+							Swal.fire({
+								  icon: 'success',
+								  title: '로그인 완료',
+								  showConfirmButton: false,
+								  timer: 800
+								}).then((result) =>{
+									self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+								})			
+						}	
+					}
+				})
+			}else{
+	 	$.ajax ({
+				
+				url : "/user/json/naverCaptcha",
+				method : "post",
+				dataType : "json",
+				headers : {
+					"Accept" : "application/json",
+					"Content-type" : "application/json"
+				},
+				data : JSON.stringify({
+					userId : userId,
+					password : password,
+					captcha : cap,
+					key : capkey
+				}),
+				success : function(JSONData, status){
+					if(JSONData.result == 'usernull'){					
+						Swal.fire({
+							  icon: 'error',
+							  title: '아이디 정보가 없습니다',
+							  showConfirmButton: false,
+							  timer: 1000
+							}).then((result) =>{
+								recap();
+							})
+					}else if(JSONData.result == 'fail'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '보안번호가 틀렸습니다',
+							  showConfirmButton: false,
+							}).then((result) =>{
+								
+								recap();
+								
+							})
+					}else if(JSONData.result == 'pwfail'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '패스워드 불일치입니다',
+							  showConfirmButton: false,
+							  timer: 1000
+							}).then((result) =>{
+								recap();
+							})
+					}else if(JSONData.result == 'stopUser'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '정지 된 회원 입니다',
+							  showConfirmButton: false,
+							  timer: 1000
+							}).then((result) =>{
+								recap();
+							})
+					}else if(JSONData.result == 'retireUser'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '탈퇴 된 회원 입니다',
+							  showConfirmButton: false,
+							  timer: 1000
+							}).then((result) =>{
+								recap();
+							})							
+					
+					}else if(JSONData.result == 'success'){
+						Swal.fire({
+							  icon: 'success',
+							  title: '로그인 완료',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								// self.location = "http://127.0.0.1:8080/index.jsp"; // 기존
+								// 수정한 부분 /////////////////////////////
+								var redirectUrl = '';
+								redirectUrl = "${redirectUrl}";
+								if ( redirectUrl != '' ) {
+									self.location = redirectUrl;
+								}
+								else {
+									 self.location = "http://127.0.0.1:8080/index.jsp";
+									
+								}
+								// 수정한 부분 /////////////////////////////
+							})
+						
+					}else if(JSONData.result == 'manager'){
+						Swal.fire({
+							  icon: 'success',
+							  title: '로그인 완료',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+							
+							})
+						
+					}
+				}
+				
+			}) 
+				
+							
+			}	
+		}
+	});
+	
+	
+///////////////////////////////////////////////////////////////////// enter 로그인////
+	 $("#password").on("keydown", function(key) {
+			if (key.keyCode == 13) {
+				var userId = $("#userId").val();
+				var password = $("#password").val();
+				
+				var cap = $("input[name='captcha']").val();
+				var capkey = $("input[name='key']").val();
+				
+				
+				if(userId == "" || userId.length <1 ){
+					Swal.fire({
+						  icon: 'warning',
+						  title: '아이디 입력해주세요',
+						  showConfirmButton: false,
+						  timer: 1000
+						})
+					$("#userId").focus();			
+					return;
+				}else if(password == "" || password == null || password.length < 1){
+					Swal.fire({
+						  icon: 'warning',
+						  title: '패스워드를 입력해 주세요',
+						  showConfirmButton: false,
+						  timer: 1000
+						})
+					$("#password").focus();
+					return;
+				}else if( userId.indexOf('@') < 1 || userId.indexOf('.') == -1){
+					Swal.fire({
+						  icon: 'warning',
+						  title: '이메일 형태로 입력 해주세요',
+						  showConfirmButton: false,
+						  timer: 1000
+						})
+					$("#userId").focus();			
+					return;
+				}	
+				if(failNo < 3){
+					$.ajax ({			
+						url : "/user/json/login",
+						method : "post",
+						dataType : "json",
+						headers : {
+							"Accept" : "application/json",
+							"Content-type" : "application/json"				
+						},
+						data : JSON.stringify({
+							userId : userId,
+							password : password
+						}),
+						success : function(JSONData,status){
+							if(JSONData.result == 'usernull'){
+							
+								failNo += 1;						
+								if(failNo == 3){
+									$("#security").show();
+								}
+								Swal.fire({
+									  icon: 'error',
+									  title: '아이디 정보가 없습니다',
+									  showConfirmButton: false,
+									  timer: 1000
+									}).then((result) =>{
+										return;
+									})
+								
+							}else if(JSONData.result == 'pwfail'){
+								failNo += 1;
+								if(failNo == 3){
+									$("#security").show();
+								}
+								Swal.fire({
+									  icon: 'error',
+									  title: '패스워드 불일치',
+									  showConfirmButton: false,
+									  timer: 1000
+									}).then((result) =>{
+										return;
+									})
+							}else if(JSONData.result == 'stopUser'){
+								Swal.fire({
+									  icon: 'error',
+									  title: '정지 된 회원 입니다',
+									  showConfirmButton: false,
+									  timer: 1000
+									}).then((result) =>{
+										recap();
+									})							
+							
+							}else if(JSONData.result == 'retireUser'){
+								Swal.fire({
+									  icon: 'error',
+									  title: '탈퇴 된 회원 입니다',
+									  showConfirmButton: false,
+									  timer: 1000
+									}).then((result) =>{
+										recap();
+									})							
+							
+							}else if(JSONData.result == 'success'){
+								Swal.fire({
+									  icon: 'success',
+									  title: '로그인 완료',
+									  showConfirmButton: false,
+									  timer: 800
+									}).then((result) =>{
+										self.location = "/user/login";
+									})						
+							}else if(JSONData.result == 'manager'){
+								Swal.fire({
+									  icon: 'success',
+									  title: '로그인 완료',
+									  showConfirmButton: false,
+									  timer: 800
+									}).then((result) =>{
+										self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+									})			
+							}	
+						}
+					})
+				}else{
+		 	$.ajax ({
+					
+					url : "/user/json/naverCaptcha",
+					method : "post",
+					dataType : "json",
+					headers : {
+						"Accept" : "application/json",
+						"Content-type" : "application/json"
+					},
+					data : JSON.stringify({
+						userId : userId,
+						password : password,
+						captcha : cap,
+						key : capkey
+					}),
+					success : function(JSONData, status){
+						if(JSONData.result == 'usernull'){					
+							Swal.fire({
+								  icon: 'error',
+								  title: '아이디 정보가 없습니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})
+						}else if(JSONData.result == 'fail'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '보안번호가 틀렸습니다',
+								  showConfirmButton: false,
+								}).then((result) =>{
+									
+									recap();
+									
+								})
+						}else if(JSONData.result == 'pwfail'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '패스워드 불일치입니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})
+						}else if(JSONData.result == 'stopUser'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '정지 된 회원 입니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})
+						}else if(JSONData.result == 'retireUser'){
+							Swal.fire({
+								  icon: 'error',
+								  title: '탈퇴 된 회원 입니다',
+								  showConfirmButton: false,
+								  timer: 1000
+								}).then((result) =>{
+									recap();
+								})							
+						
+						}else if(JSONData.result == 'success'){
+							Swal.fire({
+								  icon: 'success',
+								  title: '로그인 완료',
+								  showConfirmButton: false,
+								  timer: 800
+								}).then((result) =>{
+									// self.location = "http://127.0.0.1:8080/index.jsp"; // 기존
+									// 수정한 부분 /////////////////////////////
+									var redirectUrl = '';
+									redirectUrl = "${redirectUrl}";
+									if ( redirectUrl != '' ) {
+										self.location = redirectUrl;
+									}
+									else {
+										 self.location = "http://127.0.0.1:8080/index.jsp";
+										
+									}
+									// 수정한 부분 /////////////////////////////
+								})
+							
+						}else if(JSONData.result == 'manager'){
+							Swal.fire({
+								  icon: 'success',
+								  title: '로그인 완료',
+								  showConfirmButton: false,
+								  timer: 800
+								}).then((result) =>{
+									 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+								
+								})
+							
+						}
+					}
+					
+				}) 
+					
+								
+				}	
+			}
+		}); 
+///////////////////////////////////////////////////////////////////// 클릭 로그인////	
 
+	
 	$("button.sc-jTzLTM.flMyeK.eYKibL.eLfQiK").on("click",function(){
 		
 		var userId = $("#userId").val();
 		var password = $("#password").val();
 		
 		var cap = $("input[name='captcha']").val();
-		var capkey = "${key}";
+		var capkey = $("input[name='key']").val();
 		
 		
 		if(userId == "" || userId.length <1 ){
 			Swal.fire({
 				  icon: 'warning',
 				  title: '아이디 입력해주세요',
-				  showConfirmButton: 'ture',
+				  showConfirmButton: false,
 				  timer: 1000
 				})
 			$("#userId").focus();			
@@ -91,7 +564,7 @@ $(function(){
 			Swal.fire({
 				  icon: 'warning',
 				  title: '패스워드를 입력해 주세요',
-				  showConfirmButton: 'ture',
+				  showConfirmButton: false,
 				  timer: 1000
 				})
 			$("#password").focus();
@@ -100,15 +573,97 @@ $(function(){
 			Swal.fire({
 				  icon: 'warning',
 				  title: '이메일 형태로 입력 해주세요',
-				  showConfirmButton: 'ture',
+				  showConfirmButton: false,
 				  timer: 1000
 				})
 			$("#userId").focus();			
 			return;
-		}			
-		
-		
-		$.ajax ({
+		}	
+		if(failNo < 3){
+			$.ajax ({			
+				url : "/user/json/login",
+				method : "post",
+				dataType : "json",
+				headers : {
+					"Accept" : "application/json",
+					"Content-type" : "application/json"				
+				},
+				data : JSON.stringify({
+					userId : userId,
+					password : password
+				}),
+				success : function(JSONData,status){
+					if(JSONData.result == 'usernull'){
+					
+						failNo += 1;						
+						if(failNo == 3){
+							$("#security").show();
+						}
+						Swal.fire({
+							  icon: 'error',
+							  title: '아이디 정보가 없습니다',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								return;
+							})
+						
+					}else if(JSONData.result == 'pwfail'){
+						failNo += 1;
+						if(failNo == 3){
+							$("#security").show();
+						}
+						Swal.fire({
+							  icon: 'error',
+							  title: '패스워드 불일치',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								return;
+							})
+					}else if(JSONData.result == 'stopUser'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '정지 된 회원 입니다',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								recap();
+							})							
+					
+					}else if(JSONData.result == 'retireUser'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '탈퇴 된 회원 입니다',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								recap();
+							})							
+					
+					}else if(JSONData.result == 'success'){
+						Swal.fire({
+							  icon: 'success',
+							  title: '로그인 완료',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								self.location = "/user/login";
+							})						
+					}else if(JSONData.result == 'manager'){
+						Swal.fire({
+							  icon: 'success',
+							  title: '로그인 완료',
+							  showConfirmButton: false,
+							  timer: 800
+							}).then((result) =>{
+								self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+							})			
+					}	
+				}
+			})
+		}else{
+ 	$.ajax ({
 			
 			url : "/user/json/naverCaptcha",
 			method : "post",
@@ -128,29 +683,51 @@ $(function(){
 					Swal.fire({
 						  icon: 'error',
 						  title: '아이디 정보가 없습니다',
-						  showConfirmButton: 'ture',
-						  timer: 1300
+						  showConfirmButton: false,
+						  timer: 800
 						}).then((result) =>{
-							self.location ="http://127.0.0.1:8080/user/captcha";
+							recap();
 						})
-				}if(JSONData.result == 'fail'){
+				}else if(JSONData.result == 'fail'){
 					Swal.fire({
 						  icon: 'error',
 						  title: '보안번호가 틀렸습니다',
-						  showConfirmButton: 'ture',
+						  showConfirmButton: false,
+						  timer: 800
 						}).then((result) =>{
-							self.location ="http://127.0.0.1:8080/user/captcha";
+							
+							recap();
+							
 						})
-				}if(JSONData.result == 'pwfail'){
+				}else if(JSONData.result == 'pwfail'){
 					Swal.fire({
 						  icon: 'error',
 						  title: '패스워드 불일치입니다',
-						  showConfirmButton: 'ture',
-						  timer: 1000
+						  showConfirmButton: false,
+						  timer: 800
 						}).then((result) =>{
-							self.location ="http://127.0.0.1:8080/user/captcha";
+							recap();
 						})
-				}if(JSONData.result == 'success'){
+				}else if(JSONData.result == 'stopUser'){
+					Swal.fire({
+						  icon: 'error',
+						  title: '정지 된 회원 입니다',
+						  showConfirmButton: false,
+						  timer: 800
+						}).then((result) =>{
+							recap();
+						})
+				}else if(JSONData.result == 'retireUser'){
+					Swal.fire({
+						  icon: 'error',
+						  title: '탈퇴 된 회원 입니다',
+						  showConfirmButton: false,
+						  timer: 800
+						}).then((result) =>{
+							recap();
+						})							
+				
+				}else if(JSONData.result == 'success'){
 					Swal.fire({
 						  icon: 'success',
 						  title: '로그인 완료',
@@ -165,41 +742,52 @@ $(function(){
 								self.location = redirectUrl;
 							}
 							else {
-								self.location = "http://127.0.0.1:8080/index.jsp";
+								 self.location = "http://127.0.0.1:8080/index.jsp";
+								
 							}
 							// 수정한 부분 /////////////////////////////
 						})
 					
-				}
-				if(JSONData.result == 'manager'){
+				}else if(JSONData.result == 'manager'){
 					Swal.fire({
 						  icon: 'success',
 						  title: '로그인 완료',
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+							 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+						
 						})
 					
 				}
 			}
 			
-		})		
+		}) 
+			
+						
+		}
+		
+			
 	});
 /////////////////네이버 로그인/////////////
 	$("button.sc-jTzLTM.flMyeK.btEexr.bRQEnB").on("click",function(){
 		
 		window.open("/user/naverOpenWindow.jsp","popWin",
-		"width=537, height=500, left=350, top=90, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
+		"width=537, height=500, left=450, top=90, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
 		
 	});
 /////////////////카카오 로그인/////////////
 	$("button.sc-jTzLTM.flMyeK.btEexr.dPbiof").on("click",function(){
 		
 		window.open("/user/openWindow.jsp","popWin",
-					"width=537, height=500, left=350, top=90, height=500, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
+					"width=537, height=500, left=550, top=90, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
 		
 				
+	});
+	
+	
+	$("#reflashcap").on("click",function(){
+		recap();
 	});
 ///////<h6> 숨기기///////////
 	$(document).ready(function(){			
@@ -720,13 +1308,16 @@ button {
 							</div>							
 						</div>
 						<hr>
-						<div class="gNPcmC">
+						<div class="gNPcmC" id="security">
 							<div class="sc-kIPQKe gNPcmC">
+								<input type="hidden" name="key" value="" />
+								<input type="hidden" name="captchaImage" value="" />
 								<div >
 									<label class="sc-esjQYD cvzQqA">아래의 보안 번호를 입력해 주세요</label>
 									<!-- 외부 경로에 있는 이미지를 읽어오기 위해 /user/getNaverCaptcha Method로 외부 경로의 네이버 캡차 이미지를 복사해서 browser에 출력   -->
 									<img class = "cNN" name="naverCaptcha" src="/user/captchaCopy?fileName=${image}" />
-									<input class = "cN" type="text" name="captcha" id="captcha" autocomplete="off"/>
+									<i class="fas fa-redo" id="reflashcap" style="cursor: pointer;"></i>
+									<input class = "cN" type="text" name="captcha" id="captcha" autocomplete="off" style="padding-left: 10px;padding-right: 10px;width: 142px;"/>
 												 <h6  class="sc-bwCtUz bNBuwd failcaptcha"> 
 													<svg width="16" height="16" viewBox="0 0 24 24">
 														<path fill="#3E4042" fill-rule="evenodd" d="M21.872 19.51A1 1 0 0121 21H3a1 1 0 01-.872-1.49l9-16a1 1 0 011.744 0l9 16zM13 15V9h-2v6h2zm0 3v-2h-2v2h2z"></path>

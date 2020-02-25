@@ -2,14 +2,17 @@ package com.gethobby.web.user;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +113,42 @@ public class UserRestController {
 	public UserRestController() {
 		System.out.println(this.getClass());
 	}
+	@RequestMapping(value="json/login", method = RequestMethod.POST)
+	public Map<String,Object> login(@RequestBody HashMap<String, Object> map, HttpSession session) throws Exception{
+		
+		String userId = (String)map.get("userId");
+		String password = (String)map.get("password");
+		String result = "";
+		
+		User user = new User();
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		userMap = userService.getUser(userId);
+		user = (User)userMap.get("user");		
+		
+		
+		if(user  != null) {				
+				if (user.getPassword().equals(password)) {
+					session.setAttribute("user", user);
+					if(user.getUserId().equals("admin@naver.com")) {
+						map.put("result", "manager");
+					}else if(user.getRole().equals("8") ){
+						map.put("result","stopUser");
+					}else if(user.getRole().equals("9")) {
+						map.put("result","retireUser");
+					}else {
+						map.put("result", "success");
+					}
+				}else {
+					map.put("result", "pwfail");
+				}				
+		}else {				
+			result = "usernull";	
+		}
+		if(result == "usernull") {
+			map.put("result", "usernull");
+		}
+		return map;
+	}
 	
 	@RequestMapping(value ="json/checkDuplication" , method = RequestMethod.POST)
 	public boolean checkDuplication(@RequestBody HashMap<String, String> map)throws Exception{
@@ -165,41 +204,45 @@ public class UserRestController {
 		User user = new User();
 		Map<String,Object> finishResult = new HashMap<String, Object>();
 		
-//		if (resultMap.get("result") == "true") {
-//			Map<String, Object> userMap = new HashMap<String, Object>();
-//			userMap = userService.getUser(userId);
-//			user = (User)userMap.get("user");
-//			if(user != null ) {
-//				if(user.getPassword().equals(password)) {
-//					session.setAttribute("user", user);
-//					if(user.getUserId().equals("admin@naver.com")) {
-//						finishResult.put("result", "manager");
-//					}else {
-//						finishResult.put("result", "success");
-//					}					
-//				}else {
-//					finishResult.put("result", "pwfail");
-//				}
-//			}else {
-//				result = "usernull";				
-//			}
-//		}else {
-//			finishResult.put("result", "fail");
-//		}	
-//		if(result == "usernull") {
-//			finishResult.put("result", "usernull");
-//		}
+		if (resultMap.get("result") == "true") {
+			Map<String, Object> userMap = new HashMap<String, Object>();
+			userMap = userService.getUser(userId);
+			user = (User)userMap.get("user");
+			if(user != null ) {
+				if(user.getPassword().equals(password)) {
+					session.setAttribute("user", user);
+					if(user.getUserId().equals("admin@naver.com")) {
+						finishResult.put("result", "manager");
+					}else if(user.getRole().equals("8") ){
+						finishResult.put("result","stopUser");
+					}else if(user.getRole().equals("9")) {
+						finishResult.put("result","retireUser");
+					}else {
+						finishResult.put("result", "success");
+					}
+				}else {
+					finishResult.put("result", "pwfail");
+				}
+			}else {
+				result = "usernull";				
+			}
+		}else {
+			finishResult.put("result", "fail");
+		}	
+		if(result == "usernull") {
+			finishResult.put("result", "usernull");
+		}
 		
 		/////// 캡차 제외 테스트용/////////
-		Map<String, Object> userMap = new HashMap<String, Object>();
-		userMap = userService.getUser(userId);
-		user = (User)userMap.get("user");
-		session.setAttribute("user", user);
-		if(user.getUserId().equals("admin@naver.com")) {
-			finishResult.put("result", "manager");
-		}else {
-			finishResult.put("result", "success");
-		}					
+//		Map<String, Object> userMap = new HashMap<String, Object>();
+//		userMap = userService.getUser(userId);
+//		user = (User)userMap.get("user");
+//		session.setAttribute("user", user);
+//		if(user.getUserId().equals("admin@naver.com")) {
+//			finishResult.put("result", "manager");
+//		}else {
+//			finishResult.put("result", "success");
+//		}					
 		return finishResult;
 	}
 	
@@ -377,4 +420,81 @@ public class UserRestController {
 		System.out.println("result:::::::::::"+result);
 		return result;
 	}	
+	
+	@RequestMapping(value ="json/reCaptcha")
+	public Map<String, Object> reCaptcha() throws Exception{
+		
+		System.out.println("start!!@!@!@start!!@!@!@start!!@!@!@start!!@!@!@start!!@!@!@start!!@!@!@");
+		String code= "0";
+		String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=" + code;
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		URL url = new URL(apiURL);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("X-naver-Client-Id", captchaClientId);
+		con.setRequestProperty("X-Naver-Client-Secret", captchaClientSecret);
+		int responseCode = con.getResponseCode();
+		BufferedReader br;
+		if(responseCode == 200) {
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));				
+		}else {
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		}
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+		
+		while((inputLine = br.readLine()) != null) {
+			response.append(inputLine);
+		}
+		br.close();
+		
+		System.out.println(response.toString());
+		
+		JSONObject jsonobj = (JSONObject)JSONValue.parse(response.toString());
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, String> map = objectMapper.readValue(jsonobj.toString(), new TypeReference<Map<String, String>>(){});
+		String key = map.get("key");
+		String imageURL= "https://openapi.naver.com/v1/captcha/ncaptcha.bin?key="+key;
+		
+		url = new URL(imageURL);
+		con =(HttpURLConnection)url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("X-naver-Client-Id", captchaClientId);
+		con.setRequestProperty("X-Naver-Client-Secret", captchaClientSecret);
+		
+		responseCode = con.getResponseCode();
+		
+		if(responseCode == 200) {
+			InputStream is = con.getInputStream();
+			int read = 0;
+			byte[] bytes = new byte[1024];
+			
+			String imageName = Long.valueOf(new Date().getTime()).toString();
+//			File file = new File("C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/woo/"+imageName+".jpg");
+			File file = new File("C:/images/woo/"+imageName+".jpg");
+			file.createNewFile();
+			
+			OutputStream outputStream = new FileOutputStream(file);
+			while ((read=is.read(bytes)) != -1) {
+				outputStream.write(bytes,0,read);
+			}
+//			model.addAttribute("key", key);
+//			model.addAttribute("image", imageName);
+			
+			resultMap.put("key", key);
+			resultMap.put("image", imageName);
+			is.close();
+		}else {
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			while((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		}			
+		
+		return resultMap;
+	}
 }

@@ -499,7 +499,7 @@ h1 {
             <div class="manage-menu-div">
             	<!-- 검색창 -->
 	            <div class="manager-title-searchbar" style="margin-left: 800px;height: 40px;width: 250px;border: 1px solid #ced4da;">
-	            	<input type="text" name="searchKeyword" class="manager-title-search-input-box" placeholder="아이디 검색" value="">
+	            	<input type="text" id="searchKeyword" name="searchKeyword" class="manager-title-search-input-box" placeholder="아이디 검색" value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 	            	<svg width="30" height="30" class="SearchBox__SearchIcon-rplyxp-2 beZsar" viewBox="0 0 24 24" style="border-right-width: 20px;margin-right: 0px;width: 30px;height: 30px;">
 		            	<path fill="#3e4042" fill-rule="evenodd" d="M15.593 14.54L20.5 19 19 20.5l-4.46-4.907a6.5 6.5 0 111.054-1.054zM10.5 15a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" />
 	            	</svg>	
@@ -511,12 +511,12 @@ h1 {
 					     <div>					     
 					     <select id="searchCondition" class="form-control cvzQqA" name="searchCondition" style="height: 41px;margin-left: 10px;background-color: #fafafa;">
 						<option  selected disabled>회원자격</option>
-						<option value="3">전체</option>
-						<option  value="0">일반 회원</option>
-						<option  value="1">크리에이터 회원</option>
-						<option  value="2">관리자</option>
-						<option  value="8">정지 회원</option>
-						<option  value="9">탈퇴 회원</option>
+						<option value="3" ${ ! empty search.searchCondition && search.searchCondition eq '3' ? "selected" : "" }>전체</option>
+						<option  value="0" ${ ! empty search.searchCondition && search.searchCondition eq '0' ? "selected" : "" }>일반 회원</option>
+						<option  value="1" ${ ! empty search.searchCondition && search.searchCondition eq '1' ? "selected" : "" }>크리에이터 회원</option>
+						<option  value="2" ${ ! empty search.searchCondition && search.searchCondition eq '2' ? "selected" : "" }>관리자</option>
+						<option  value="8" ${ ! empty search.searchCondition && search.searchCondition eq '8' ? "selected" : "" }>정지 회원</option>
+						<option  value="9" ${ ! empty search.searchCondition && search.searchCondition eq '9' ? "selected" : "" }>탈퇴 회원</option>
 						
 						</select>
 					  </div> 
@@ -612,6 +612,9 @@ h1 {
 </form>
 
     <script type="text/javascript">
+    
+    
+    
    function fncGetBoardArticleList(currentPage) {
 	   $("#currentPage").val(currentPage);
 	   $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
@@ -625,38 +628,22 @@ h1 {
 		   });		  
 		 //////////////////////////////////
 			
-		 	
-		
-		$("#searchKeyword").change("click",function(){
-			var searchKey = $("#searchKeyword").val(); 
+		 $("#searchKeyword").on("keydown", function(key) {
+			if (key.keyCode == 13) {
+				fncGetBoardArticleList(1);
+			}
 		});
 		 	
+		///////////////////////컨디션 검색/////
 		 $("#searchCondition").change("click",function(){
-			 $("#currentPage").val(1);
-			 $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();		
+			 var searchCondition = $("select[name=searchCondition]").val();
+			 fncGetBoardArticleList(1);
 			 
-			/*  $.ajax ({
-				
-				 url : "/admin/json/user/getSearchlistUserAdmin",
-			 	 method : "post",
-			 	 dataType : "json",
-			 	 headers : {
-			 		 "Accept" : "application/json",
-			 		 "content-type" : "application/json"
-			 	 },
-			 	 data : JSON.stringify({
-			 		 searchCondition : searchCon
-			 	 }),
-				 success : function(JSONData,status){
-					self.location="/admin/user/getSearchlistUserAdmin/"+JSONData;
-				 }
-			 
-			 }) */
 		 }); 
-		 
+		 //////////////////////키워드 검색////////
 		 $(".SearchBox__SearchIcon-rplyxp-2.beZsar").on("click",function(){
-			 $("#currentPage").val(1);
-			 $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
+			 var searchKeyword = $("input[name='searchKeyword']").val();
+			 fncGetBoardArticleList(1);
 		 });
 		 
 		 $(document).on("click","#doStopUser",function(){

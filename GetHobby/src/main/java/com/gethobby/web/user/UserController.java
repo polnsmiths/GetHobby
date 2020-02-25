@@ -193,6 +193,12 @@ public class UserController {
 //		
 //		return "forward:/index.jsp";
 //	}
+	@RequestMapping(value ="login", method = RequestMethod.GET)
+	public String login(HttpSession session) throws Exception{
+		
+		session.setAttribute("user", session.getAttribute("user"));
+		return "forward:/index.jsp";
+	}
 	
 	@RequestMapping(value = "logout" , method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
