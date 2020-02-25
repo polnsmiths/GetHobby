@@ -56,18 +56,11 @@ public class OpenHobbyClassRestController {
 	//Method
 	@RequestMapping( value="json/saveHobbyClassInfo", method=RequestMethod.POST )
 	public int saveHobbyClassInfo(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
-		System.out.println();
 		return oepnhobbyClassService.saveHobbyClassInfo(hobbyClass, session);
 	}
 	
 	@RequestMapping( value="json/saveKit", method=RequestMethod.POST )
 	public int saveKit(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
-		System.out.println("시작");
-		System.out.println(hobbyClass.getHobbyClassNo());
-		System.out.println(hobbyClass.getKitImage());
-		System.out.println(hobbyClass.getKitIntro());
-		System.out.println(hobbyClass.getKitName());
-		System.out.println(hobbyClass.getKitPrice());
 		return oepnhobbyClassService.saveKit(hobbyClass);
 	}
 	
@@ -111,9 +104,9 @@ public class OpenHobbyClassRestController {
 		return oepnhobbyClassService.getSaveHobbyClass(hobbyClass.getHobbyClassNo());
 	}
 	
-	@RequestMapping( value="json/temp", method=RequestMethod.GET )
-	public int temp() throws Exception {
-		return 1;
+	@RequestMapping( value="json/getLesson", method=RequestMethod.POST )
+	public Lesson getLesson(@RequestBody Lesson lesson) throws Exception {
+		return oepnhobbyClassService.getLesson(lesson.getLessonNo());
 	}
 
 }

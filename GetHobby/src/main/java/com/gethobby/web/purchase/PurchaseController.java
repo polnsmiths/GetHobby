@@ -40,20 +40,13 @@ public class PurchaseController {
 	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo,
 			@RequestParam("eventDiscount") int eventDiscount, HttpSession session, Model model) throws Exception {
 		model.addAttribute("purchase", purchaseService.getPayment(((User)session.getAttribute("user")).getUserId()));
-		System.out.println("1");
 		model.addAttribute("hobbyClass", purchaseService.getPaymentOption(hobbyClassNo, session));
-		System.out.println("2");
 		model.addAttribute("discountPrice", eventDiscount);
-		System.out.println("3");
-		System.out.println("getSelectOption End");
 		return "/purchase/getSelectOption.jsp";
 	}
 
 	@RequestMapping( value="getPaymentHistoryList", method=RequestMethod.GET )
 	public String getPaymentHistoryList(HttpSession session, Model model) throws Exception {
-		User user = new User();
-		user.setUserId("user01@naver.com");
-		session.setAttribute("user", user);
 		model.addAttribute("purchaseMap", purchaseService.getPaymentHistoryList(((User)session.getAttribute("user")).getUserId(), new Search()));
 		return "/purchase/getPaymentHistory.jsp";
 	}

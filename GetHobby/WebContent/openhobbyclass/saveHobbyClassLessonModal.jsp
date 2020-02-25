@@ -58,7 +58,7 @@
 	</div>
 	
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade shclmob" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -73,6 +73,7 @@
 	        <c:set var="i" value="0" />
 			<c:forEach var="lesson" items="${hobbyClass.lesson}">
 			<c:set var="i" value="${i+1}" />   
+			<input type="hidden" name="lessonContent-modal" value="${lesson.lessonContent}">
 			<input type="hidden" name="lessonNo-modal" value="${lesson.lessonNo}">
 			<input type="hidden" name="lessonVideo-modal" value="${lesson.lessonVideo}">
 			<input type="hidden" name="lessonTitle-modal" value="${lesson.lessonTitle}">
@@ -98,8 +99,72 @@
 
 		$(function(){
 			
+			// 모달창 오픈이벤트 : 현재 강의정보 저장
+			$(document).on('show.bs.modal','.shclmob', function(event) {
+
+				// 강의정보 저장 후
+				$.ajax(
+	    				{
+	    					url: "/hobbyclass/json/saveLesson",
+	    					method: "POST",
+	    					data: JSON.stringify({
+	    							lessonNo: $("input[name='lessonNo']").val(),
+	    							hobbyClass: {hobbyClassNo : $("input[name='hobbyClassNo']").val()},
+	    							lessonVideo: $("input[name='lessonVideo']").val(),
+	    							lessonTitle: $("input[name='lessonTitle']").val(),
+	    							lessonProject: $("input[name='lessonProject']").val(),
+	    							lessonIntro: $("input[name='lessonIntro']").val(),
+	    							lessonImage: $("input[name='lessonImage']").val(),
+	    							lessonContent: $('#summernote2').summernote('code')
+	    					}),
+	    					dataType : "text" ,
+        					headers : {
+        						"Accept" : "application/json" ,
+        						"Content-Type" : "application/json"
+        					} ,
+	    					success : function(JSONData, status) {
+								var currentSpace = $(".lessonIndex:contains('"+$("input[name='lessonNo']").val()+"')");
+								currentSpace.prev().prev().prev().prev().prev().prev().prev("input[name='lessonContent-modal']").val($('#summernote2').summernote('code'));
+								currentSpace.prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val($("input[name='lessonNo']").val());
+								currentSpace.prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val($("input[name='lessonVideo']").val());
+								currentSpace.prev().prev().prev().prev("input[name='lessonTitle-modal']").val($("input[name='lessonTitle']").val());
+								currentSpace.prev().prev().prev("input[name='lessonProject-modal']").val($("input[name='lessonProject']").val());
+								currentSpace.prev().prev("input[name='lessonIntro-modal']").val($("input[name='lessonIntro']").val());
+								currentSpace.prev("input[name='lessonImage-modal']").val($("input[name='lessonImage']").val());
+								currentSpace.html($("input[name='lessonNo']").val()+". "+$("input[name='lessonTitle']").val());
+							}//end of Call Back Function			
+   				});//end of ajax
+			});
+			
 			// 강의 이동하기
 			$(document).on("click", ".lessonIndex", function(){
+					
+					/* 
+		    		$.ajax(
+		    				{
+		    					url: "/hobbyclass/json/getLesson",
+		    					method: "POST",
+		    					data: JSON.stringify({
+		    							lessonNo: $(this).prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val()
+		    						}),
+		    					dataType : "json" ,
+	        					headers : {
+	        						"Accept" : "application/json" ,
+	        						"Content-Type" : "application/json"
+	        					} ,
+		    					success : function(JSONData, status) {
+		    						$(this).prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val(JSONData.lessonNo);
+		    						$(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val(JSONData.lessonVideo);
+		    						$(this).prev().prev().prev().prev("input[name='lessonTitle-modal']").val(JSONData.lessonTitle);
+		    						$(this).prev().prev().prev("input[name='lessonProject-modal']").val(JSONData.lessonProject);
+		    						$(this).prev().prev("input[name='lessonIntro-modal']").val(JSONData.lessonIntro);
+		    						$(this).prev("input[name='lessonImage-modal']").val(JSONData.lessonImage);
+		    						$(this).text( JSONData.lessonNo+'. '+JSONData.lessonTitle );
+		    					}//end of Call Back Function
+	   				});//end of ajax
+	   				*/
+			
+				$("input[name='sumb-lesson']").val( $(this).prev().prev().prev().prev().prev().prev().prev("input[name='lessonContent-modal']").val() );
 				$("input[name='lessonNo']").val( $(this).prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val() );
 				if( $(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val() != null  
 						&& $(this).prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val() != ""	){
@@ -122,13 +187,21 @@
 				$("input[name='lessonTitle']").val( $(this).prev().prev().prev().prev("input[name='lessonTitle-modal']").val() );		
 				$("input[name='lessonProject']").val( $(this).prev().prev().prev("input[name='lessonProject-modal']").val() );
 				$("input[name='lessonIntro']").val( $(this).prev().prev("input[name='lessonIntro-modal']").val() );
+				$("input[name='lessonImage']").val( $(this).prev("input[name='lessonImage-modal']").val() );
 				
 				if( $(this).prev("input[name='lessonImage-modal']").val() != null && $(this).prev("input[name='lessonImage-modal']").val() != "" ){
 					$(".classLesson_image_two").attr("src", "/images/hobbyclass/"+$(this).prev("input[name='lessonImage-modal']").val() );
+					$(".classLesson_file_two").attr("disabled",true);
+					$(".classLesson_file_two").css("cursor","default");
+					$(".shc-lesson-two-ImageDeleteButton").css("display","block");
 				}else{
 					$(".classLesson_image_two").attr("src", "/resources/image/gon/lessonaddimage.jpg" );
+					$(".classLesson_file_two").attr("disabled",false);
+					$(".classLesson_file_two").css("cursor","pointer");
+					$(".shc-lesson-two-ImageDeleteButton").css("display","none");
+					
 				}
-				
+				$('#summernote2').summernote('code',$(this).prev().prev().prev().prev().prev().prev().prev("input[name='lessonContent-modal']").val());
 				return false;
 			});
 			
@@ -150,66 +223,38 @@
 
 			// 강의 추가하기
 			$(".addLesson-Button").off().on("click", function(){
-				
-				// 강의정보 저장 후
-				$.ajax(
+								
+	    		// 새로운 강의 추가
+	    		$.ajax(
 	    				{
-	    					url: "/hobbyclass/json/saveLesson",
+	    					url: "/hobbyclass/json/addLesson",
 	    					method: "POST",
 	    					data: JSON.stringify({
-	    							lessonNo: $("input[name='lessonNo']").val(),
-	    							hobbyClass: {hobbyClassNo : $("input[name='hobbyClassNo']").val()},
-	    							lessonVideo: $("input[name='lessonVideo']").val(),
-	    							lessonTitle: $("input[name='lessonTitle']").val(),
-	    							lessonProject: $("input[name='lessonProject']").val(),
-	    							lessonIntro: $("input[name='lessonIntro']").val(),
-	    							lessonImage: $("input[name='lessonImage']").val(),
-	    							lessonContent: $('#summernote2').summernote('code')
-	    					}),
-	    					dataType : "text" ,
+	    							hobbyClassNo: $("input[name='hobbyClassNo']").val()	
+	    						}),
+	    					dataType : "json" ,
         					headers : {
         						"Accept" : "application/json" ,
         						"Content-Type" : "application/json"
         					} ,
 	    					success : function(JSONData, status) {
-								
-	    						if(JSONData == 1){
-	    							
-	    				    		// 새로운 강의 추가
-	    				    		$.ajax(
-	    				    				{
-	    				    					url: "/hobbyclass/json/addLesson",
-	    				    					method: "POST",
-	    				    					data: JSON.stringify({
-	    				    							hobbyClassNo: $("input[name='hobbyClassNo']").val()	
-	    				    						}),
-	    				    					dataType : "json" ,
-	    			        					headers : {
-	    			        						"Accept" : "application/json" ,
-	    			        						"Content-Type" : "application/json"
-	    			        					} ,
-	    				    					success : function(JSONData, status) {
-	    				    						var displayValue = '<input type="hidden" name="lessonNo-modal" value="">'
-	    				    										+ '<input type="hidden" name="lessonTitle-modal" value="">'
-	    				    										+ '<input type="hidden" name="lessonProject-modal" value="">'
-	    				    										+ '<input type="hidden" name="lessonIntro-modal" value="">'
-	    				    										+ '<input type="hidden" name="lessonImage-modal" value="">'
-	    				    										+ '<div class="alert alert-light lessonIndex" role="alert">';
-	    				    										if( JSONData.lessonTitle != null && JSONData.lessonTitle != "" ){
-	    				    											displayValue += JSONData.lessonNo+". "+JSONData.lessonTitle;
-	    				    										}else{
-	    				    											displayValue += JSONData.lessonNo+". 새로운 강의";
-	    				    										}
-	    				    							displayValue += '</div>';						
-	    											$(".shclm-div").prepend(displayValue);
-	    				    					}
-	    			   				});	
-	    						}		
-								
+	    						var displayValue = '<input type="hidden" name="lessonContent-modal" value="">' 
+	    										+ '<input type="hidden" name="lessonNo-modal" value="'+JSONData.lessonNo+'">'
+	    										+ '<input type="hidden" name="lessonVideo-modal" value="">'
+	    										+ '<input type="hidden" name="lessonTitle-modal" value="">'
+	    										+ '<input type="hidden" name="lessonProject-modal" value="">'
+	    										+ '<input type="hidden" name="lessonIntro-modal" value="">'
+	    										+ '<input type="hidden" name="lessonImage-modal" value="">'
+	    										+ '<div class="alert alert-light lessonIndex" role="alert">';
+	    										if( JSONData.lessonTitle != null && JSONData.lessonTitle != "" ){
+	    											displayValue += JSONData.lessonNo+". "+JSONData.lessonTitle;
+	    										}else{
+	    											displayValue += JSONData.lessonNo+". 새로운 강의";
+	    										}
+	    							displayValue += '</div>';						
+								$(".shclm-div").prepend(displayValue);
 	    					}
-	    				});//end of ajax
-					
-
+   				});	
 			});
 		});
 	</script>

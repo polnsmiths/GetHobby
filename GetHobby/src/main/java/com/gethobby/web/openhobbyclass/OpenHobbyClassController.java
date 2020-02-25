@@ -44,9 +44,15 @@ public class OpenHobbyClassController {
 		
 	@RequestMapping( value="addHobbyClass", method=RequestMethod.GET )
 	public String addHobbyClass(Model model, HttpSession session) throws Exception {
-		model.addAttribute("hobbyClass", oepnhobbyClassService.addHobbyClass( ((User)session.getAttribute("user")).getUserId() ) );
-		return "/openhobbyclass/saveHobbyClass.jsp";
+		oepnhobbyClassService.addHobbyClass(((User)session.getAttribute("user")).getUserId() );
+		return "redirect:/hobbyclass/getHobbyClassInfo";
 	}//end of addHobbyClass
+	
+	@RequestMapping( value="getHobbyClassInfo", method=RequestMethod.GET )
+	public String getHobbyClassInfo(Model model, HttpSession session) throws Exception {
+		model.addAttribute("hobbyClass", oepnhobbyClassService.getHobbyClassInfo( ((User)session.getAttribute("user")).getUserId() ) );
+		return "/openhobbyclass/saveHobbyClass.jsp";
+	}
 		
 	@RequestMapping( value="getSaveHobbyClass", method=RequestMethod.GET )
 	public String getSaveHobbyClass(@RequestParam("hobbyClassNo") int hobbyClassNo, Model model) throws Exception {

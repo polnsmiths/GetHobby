@@ -119,14 +119,15 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		return resultList;
 	}
 
-	public HobbyClass addHobbyClass(String userId) throws Exception {
+	public void addHobbyClass(String userId) throws Exception {
 		openHobbyClassDAO.addMyHobbyClass(userId);
-		
+		openHobbyClassDAO.addLesson(openHobbyClassDAO.getNewHobbyClass(userId).getHobbyClassNo());
+	}
+	
+	public HobbyClass getHobbyClassInfo(String userId) throws Exception {
 		HobbyClass hobbyClass = openHobbyClassDAO.getNewHobbyClass(userId);
 		List lessonList = new ArrayList();
 		Lesson lesson = new Lesson();
-		
-		openHobbyClassDAO.addLesson(hobbyClass.getHobbyClassNo());
 		lesson.setLessonNo(openHobbyClassDAO.getLessonNo(hobbyClass.getHobbyClassNo()));
 		lessonList.add(lesson);
 		hobbyClass.setLesson(lessonList);
@@ -203,6 +204,10 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 			return hobbyClass;
 		}		
 		return hobbyClass;
+	}
+	
+	public Lesson getLesson(int lessonNo) throws Exception {
+		return openHobbyClassDAO.getLesson(lessonNo);
 	}
 
 	public int saveLesson(Lesson lesson, HttpSession session) throws Exception {

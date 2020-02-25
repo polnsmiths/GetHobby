@@ -138,11 +138,11 @@
 					                <a class="header-mynemo-first-a" href="/user/mypageUser">
 						                <span class="header-mynemo-first-span">
 						                	<!-- 프로필 이미지 수정 -->
-						                	<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
+						                	<img src="../resources/image/logo/${!empty sessionScope.user.profileImage ? sessionScope.user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 						                </span>
 						                <div class="header-mynemo-span-next-first-div">
 							                <div class="header-mynemo-span-next-first-div-in-div">
-							                	${user.nickName}
+							                	${sessionScope.user.nickName}
 							                </div>
 							                <span class="header-mynemo-span-next-first-div-in-span">
 								                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
@@ -157,9 +157,9 @@
 			
 					                <div><hr class="header-mynemo-logout-hr">
 						                <div color="#1b1c1d" class="header-mynemo-logout-div">
-						                	<div class="header-mynemo-logout-span">
-						               		 로그아웃
-						               		</div>
+						                	<a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">
+							                	로그아웃
+							                </a>
 						                </div>
 					                </div>
 					                </div>

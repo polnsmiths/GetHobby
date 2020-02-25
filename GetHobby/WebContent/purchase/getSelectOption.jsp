@@ -1664,7 +1664,7 @@ path[Attributes Style] {
 			            <div class="dropdown d-flex justify-content-end">
 			                <div class="dropdown-icon header-mynemo-check-mylist" data-toggle="dropdown" aria-expanded="false" style="justify-content: space-between; display:flex; align-items: center;">
 			                	<span class="header-mynemo-first-span">
-			                    	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
+			                    	<img src="../resources/image/logo/${!empty sessionScope.user.profileImage ? sessionScope.user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 			                    </span>
 			                    
 			                    <div class="header-mynemo-profile-flow-one fa-angle-down">
@@ -1680,7 +1680,7 @@ path[Attributes Style] {
 				                <div class="header-mynemo-out-div">
 					                <a class="header-mynemo-first-a" href="/user/mypageUser" style="text-decoration:none;">
 						                <span class="header-mynemo-first-span">
-						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
+						                	<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 						                </span>
 						                <div class="header-mynemo-span-next-first-div">
 							                <div class="header-mynemo-span-next-first-div-in-div" >

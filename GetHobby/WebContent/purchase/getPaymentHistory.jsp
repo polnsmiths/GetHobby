@@ -324,13 +324,13 @@
 		<div class="paymentHistory-title-div">
 			<div class="paymentHistory-title-title">
 				<div class="title-same">
-					<a class="title-a-same" href="">
+					<a class="title-a-same" href="/user/mypageUser">
 						마이페이지
 					</a>
 					<!-- <img src="/images/ic-chevron-gray.png" class=""> -->
 				</div>
 				<div disabled="" class="title-same title-noSame">
-					<a class="title-a-same" href="">
+					<a class="title-a-same" href="/purchase/getPaymentHistoryList">
 						주문 및 배송
 					</a>
 				</div>
@@ -471,13 +471,13 @@
 			<div class="paymentHistory-title-div">
 			<div class="paymentHistory-title-title">
 				<div class="title-same">
-					<a class="title-a-same" href="">
+					<a class="title-a-same" href="/user/mypageUser">
 						마이페이지
 					</a>
 					<!-- <img src="/images/ic-chevron-gray.png" class=""> -->
 				</div>
 				<div disabled="" class="title-same title-noSame">
-					<a class="title-a-same" href="">
+					<a class="title-a-same" href="/purchase/getPaymentHistoryList">
 						주문 및 배송
 					</a>
 				</div>
