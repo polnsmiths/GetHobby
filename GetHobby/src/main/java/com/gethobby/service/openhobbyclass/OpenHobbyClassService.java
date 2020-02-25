@@ -19,7 +19,9 @@ public interface OpenHobbyClassService {
 	
 	public List changeHobbyClassState(List list) throws Exception;
 	
-	public HobbyClass addHobbyClass(String userId) throws Exception; 
+	public void addHobbyClass(String userId) throws Exception;
+	
+	public HobbyClass getHobbyClassInfo(String userId) throws Exception;
 	
 	public int deleteHobbyClass(int hobbyClassNo) throws Exception;
 	
@@ -32,6 +34,8 @@ public interface OpenHobbyClassService {
 	public int saveKit(HobbyClass hobbyClass) throws Exception;
 	
 	public int saveCheckHobbyClass(int hobbyClassNo) throws Exception; 
+	
+	public Lesson getLesson(int lessonNo) throws Exception;
 	
 	public HobbyClass getPreview(int hobbyClassNo, String what) throws Exception; 
 

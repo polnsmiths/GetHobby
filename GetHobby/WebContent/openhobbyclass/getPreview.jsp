@@ -311,8 +311,12 @@
 								var currentPage = ( i - 1 ) * pageSize + 1;
 								var nowMaxPage = ( i * pageSize );
 			
-								for(var j = currentPage; j <= nowMaxPage; j++ ) {
-									display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+								for(var j = currentPage; j <= nowMaxPage; j++ ) {		
+									if( JSONData.lessonList[j - 1].lessonImage != null ){
+										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+									}else{
+										display += '<div class="item"><img src="/resources/image/gon/ohcbImage.png" /></div>';
+									}
 								}
 								
 								display += '</div>';
@@ -333,11 +337,15 @@
 									display += '</div>';
 									
 									display += '<div class="lesson-content-text-div">';
-									display += JSONData.lessonList[j - 1].lessonTitle;
+									if( JSONData.lessonList[j - 1].lessonTitle != null ){
+										display += JSONData.lessonList[j - 1].lessonTitle;
+									}else {
+										display += '강의 제목';
+									}
 									display += '</div>';
 									display += '</div>';
 									
-									display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + ' "/> ';
+									display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + '" /> ';
 									
 									display += '</a>';
 								}
@@ -361,7 +369,11 @@
 									
 									console.log(currentPage);
 									for(var j = currentPage; j <= JSONData.resultPage.totalCount; j++ ) {
-										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
+										if( JSONData.lessonList[j - 1].lessonImage != null ){
+											display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" 	/></div>';
+										}else{
+											display += '<div class="item"><img src="/resources/image/gon/ohcbImage.png" /></div>';
+										}
 									}
 									
 									display += '</div>';
@@ -386,7 +398,7 @@
 										display += '</div>';
 										display += '</div>';
 										
-										display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + ' "/> ';
+										display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + ' /> ';
 										
 										display += '</a>';
 									}
@@ -1652,7 +1664,7 @@
 				
 				<div class="image-outer-div">
 					<span class="image-outer-span">
-						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro"/>
+						<img src="/images/hobbyclass/${hobbyClass.hobbyClassImage }" class="img-class-intro" onError="this.src='/resources/image/gon/ohcbImage.png'"/>
 					</span>
 				</div>
 				

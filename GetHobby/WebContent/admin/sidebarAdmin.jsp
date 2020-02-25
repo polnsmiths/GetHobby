@@ -89,7 +89,7 @@
                 </li>
                  -->
                 <li>
-                    <a href="/user/listNotice/1">
+                    <a href="/user/listNotice">
            			<div class="sidebar-svg">
 						<svg width="24" height="24" viewBox="0 0 24 24">
 							<path fill="#3E4042" fill-rule="evenodd" d="M17 11a5 5 0 10-10 0v6h10v-6zm-6.5-6.839V3.5a1.5 1.5 0 013 0v.661A7.003 7.003 0 0119 11v5.5l1 .5v2H4v-2l1-.5V11a7.003 7.003 0 015.5-6.839zM10 20h4a2 2 0 11-4 0z">

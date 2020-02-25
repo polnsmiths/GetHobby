@@ -50,10 +50,10 @@
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
 
-<!-- 메인 메뉴 CSS -->
-<link rel="stylesheet" href="/resources/css/header.css">
-<!-- 메인 메뉴 js -->
-<script src="/resources/javascript/header.js"></script>
+<!-- 메인 메뉴 CSS 
+<link rel="stylesheet" href="/resources/css/header.css"> -->
+<!-- 메인 메뉴 js 
+<script src="/resources/javascript/header.js"></script> -->
 
 
 <link rel="shortcut icon" href="/static/pc/images/favicon.ico">
@@ -72,29 +72,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
 
 <style type="text/css">
-	
-.btn-basic {
-        background-color: #F2B33D;
-        color: white;
-    }
 
-    .btn-basic:hover {
-        background-color: #F2D64B;
-        color: white;
-
-    }
-    
-    .btn-outline-basic {
-        border: 1px solid #F2B33D;
-        color: #F2B33D;
-    }
-    
-    .btn-outline-basic:hover {
-        background-color: #F2B33D;
-        color: white;
-    }	
 </style>
 
 <script type="text/javascript">
@@ -102,20 +83,31 @@
 	
 	$(function() {
 		
-		//var articleNo = $('input:hidden[name=articleNo]').val();
-			
-/* 		$(document).on("click", "#deleteArticleButton", function() {
-			
-			alert('정말로 삭제하시겠습니까?');
-			//alert('articleNo---'+articleNo);
-
-		}) */
 		
 		//취소하기 버튼 클릭시
 			$(document).on("click", "#beforeUpdateArticleButton", function() {
 				
-				//alert('뒤로가기 버튼');
-				history.go(-1);
+				var articleNo = $("input[class='hobbyClassNo']").val();
+/* 				swal({
+					title : '취소하시겠습니까?',
+					text : '작성한 내용은 저장되지않습니다',
+					icon : 'info',
+					closeOnClickOutside : false,
+					button : {
+						cancle : {
+							text : '페이지 머물기',
+							value : false,
+							className : 'btn btn-outline-primary'
+						},
+						confirm : {
+							text : '로그인 창으로',
+							value : true,
+							className : 'btn btn-outline-primary'
+						}
+					}
+				}); */
+				
+				self.location = "/community/getCommunity?articleNo="+articleNo;
 			})
 		
 		
@@ -142,12 +134,17 @@
 	<!-- 전체 묶음 -->
 	<div class="container">
 
+	</br></br></br></br>
+	</br></br></br></br>
+	
+	
 	<h1 class="sol-board-header">클래스커뮤니티 게시글 수정</h1>
+	<hr>
 			 
-<form name="updateCommunityArticle" class="form-group my-5 py-5">
+<form name="updateCommunityArticle" class="form-group  py-5">
 
 
-		<input type="hidden" name="HobbyClass.hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
+		<input type="hidden" name="HobbyClass.hobbyClassNo" class="hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
 		<input type="hidden" name="articleNo" value="${article.articleNo}">
 		<!--  <input type="hidden" name="User.userId" value="${article.user.userId}"> -->
 
@@ -208,9 +205,9 @@
     		//placeholder: '글씨를 입력해주세요',
     		lang: 'ko-KR',
     		tabsize: 2,
-    		height: 550,
+    		height: 700,
     		width: 1100,
-    		  toolbar: [
+/*     		  toolbar: [
     		    // [groupName, [list of button]]
     		    ['style', ['bold', 'italic', 'underline', 'clear']],
     		    ['font', ['strikethrough', 'superscript', 'subscript']],
@@ -219,12 +216,17 @@
     		    ['para', ['ul', 'ol', 'paragraph']],
     		    ['height', ['height']],
     		    ['view', ['codeview', 'help']]
-    		  ]
+    		  ], */
     		});
     });
     
     </script>
-  	
+    
+    	</br>
+    	</br>
+    	</br>
+    	</br>
+  	<jsp:include page="/common/footer.jsp" />
 
 </body>
 </html>

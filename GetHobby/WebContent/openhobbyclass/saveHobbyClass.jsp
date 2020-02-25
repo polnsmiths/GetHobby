@@ -1241,6 +1241,12 @@ iframe{
 			});
 			
 			
+			window.onbeforeunload = function(e) {
+				alert("?");
+				  if ($('.form').val()) {
+				    return '작성 중인 글이 있습니다.';
+				  }
+				};
 			
 			// (변화, 입력, 복사, 잘라내기, 붙여넣기) 이벤트 : Next Button 활성화 비활성화 : 작성이 모두 완료된 상태라면 활성화 ==> 사용자가 사용 중일 때
 			$(document).on("change input copy cut paste", function(e){		

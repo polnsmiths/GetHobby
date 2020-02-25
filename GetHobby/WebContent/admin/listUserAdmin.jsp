@@ -469,7 +469,7 @@ h1 {
 </head>
 
 <body>
-<form >
+<form id="userlistSend" >
     <div class="wrapper">
         
         <!-- Sidebar
@@ -487,7 +487,7 @@ h1 {
             <!-- 모듈관리명 -->
 			<div class="manager-title">
             	<h1>회원 관리
-            	<span class="manager-title-state">총 회원 : ${totalCount}명</span>
+            	<span class="manager-title-state">총 회원 : ${allUserCount}명</span>
             	<span class="manager-title-state">총 일반회원 : ${userCount}명</span>
             	<span class="manager-title-state">총 크리에이터 회원 : ${creatorCount}명</span>
             	<span class="manager-title-state">총 정지 회원 : ${stopUserCount}명</span>
@@ -504,7 +504,7 @@ h1 {
 		            	<path fill="#3e4042" fill-rule="evenodd" d="M15.593 14.54L20.5 19 19 20.5l-4.46-4.907a6.5 6.5 0 111.054-1.054zM10.5 15a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" />
 	            	</svg>	
 	            </div>
-	            
+	               <input type="hidden" id="currentPage" name="currentPage" value=""/>
 	            <div class="manage-search-menu-div-left-sort" style="width: 300px;">
 		            <!-- 정렬버튼 -->
 		            <div class="btn-group manage-sort-button-div">
@@ -553,21 +553,21 @@ h1 {
 					
 				    <tr class="bg-basic">
 				    
-				      <input type="hidden" name="userId" value="${user.userId}">
+				      
 				      <!-- 번호 -->
-				      <td scope="row" class="purchaseIdAdmin">${i}</td>
+				      <td scope="row" class="purchaseIdAdmin" style="width: 64px">${i}</td>
 				      
 				      <!-- 유저 아이디 -->				      
-				      <td class="userIdInfo" style="cursor: pointer;">${user.userId}</td> 
+				      <td class="userIdInfo" style="cursor: pointer;" style="width: 274px;"><input type="hidden" name="userId" value="${user.userId}">${user.userId}</td> 
 				      
 				      
 				      <!-- 이름 -->
-				      <td class="userNameInfo">${user.name}</td>
+				      <td class="userNameInfo" style="width: 109px;">${user.name}</td>
 				      
 				      <!-- 생년월일 -->		 
-				      <td class="userBirthInfo">${fn:substring( user.birth,0,4 ) }.${fn:substring( user.birth,4,6 ) }.${fn:substring( user.birth,6,8 ) }</td>
+				      <td class="userBirthInfo" style="width: 104px;">${fn:substring( user.birth,0,4 ) }.${fn:substring( user.birth,4,6 ) }.${fn:substring( user.birth,6,8 ) }</td>
 				       <!-- 회원 자격 -->
-				      <td class="userRoleInfo">
+				      <td class="userRoleInfo" style="width: 154px;">
 				      <c:if test="${user.role == '0'}">일반 회원</c:if>
 				      <c:if test="${user.role == '1'}">크리에이터 회원</c:if>
 				       <c:if test="${user.role == '2'}">관리자</c:if>
@@ -575,17 +575,17 @@ h1 {
 				       <c:if test="${user.role == '9'}">탈퇴 회원</c:if>
 				       </td>
 				      <!-- 가입 날짜 -->
-				      <td class="addUserInfo"><fmt:formatDate value="${user.addDate}" pattern="yyyy-MM-dd"/></td>
+				      <td class="addUserInfo" style="width: 129px;"><fmt:formatDate value="${user.addDate}" pattern="yyyy-MM-dd"/></td>
 				      
 				      <!-- 정지 날짜 -->
-				      <td class="stopUserInfo"><fmt:formatDate value="${user.stopDate}" pattern="yyyy-MM-dd"/></td>
+				      <td class="stopUserInfo" style="width: 129px;"><fmt:formatDate value="${user.stopDate}" pattern="yyyy-MM-dd"/></td>
 				      
 				      <!-- 탈퇴 날짜 -->
-				      <td class="retireUserInfo"><fmt:formatDate value="${user.retireDate}" pattern="yyyy-MM-dd"/></td>
+				      <td class="retireUserInfo" style="width: 129px;"><fmt:formatDate value="${user.retireDate}" pattern="yyyy-MM-dd"/></td>
 				      
 				      <!-- 상태 변경 -->
 				      
-				      <td class="addstopUser" style="font-size: 25px;">
+				      <td class="addstopUser" style="font-size: 25px;width: 234px;">
 				       <input type="hidden" id="secondUserId" value="${user.userId}">
 				      <span id="doStopUser" > <i class="fas fa-user-times" style="cursor: pointer;"></i></span>&nbsp;&nbsp;
 				      <span id="doRemoveStopUser"><i class="fas fa-user" style="cursor: pointer;"></i></span>&nbsp;&nbsp;
@@ -600,7 +600,7 @@ h1 {
 				</table>
 				
 				<!-- Pagination -->
-					<jsp:include page="/admin/paginationAdmin.jsp" />
+					<jsp:include page="/common/pagenation.jsp"/>
 				
 			</div>
 
@@ -612,24 +612,28 @@ h1 {
 </form>
 
     <script type="text/javascript">
-    
+   function fncGetBoardArticleList(currentPage) {
+	   $("#currentPage").val(currentPage);
+	   $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
+   }
 	   $(function(){
 		  /////////// 유저 정보 상세 보기    //////
 		   $(".userIdInfo").on("click", function(){
 			  
-			   self.location="/user/getUser?userId="+$(this).siblings("input[name='userId']").val();	
+			   self.location="/user/getUser?userId="+$(this).children("input[name='userId']").val();	
 			   
 		   });		  
 		 //////////////////////////////////
-		
+			
+		 	
 		
 		$("#searchKeyword").change("click",function(){
 			var searchKey = $("#searchKeyword").val(); 
 		});
 		 	
 		 $("#searchCondition").change("click",function(){
-			 
-			 $("form").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();		
+			 $("#currentPage").val(1);
+			 $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();		
 			 
 			/*  $.ajax ({
 				
@@ -651,7 +655,8 @@ h1 {
 		 }); 
 		 
 		 $(".SearchBox__SearchIcon-rplyxp-2.beZsar").on("click",function(){
-			 $("form").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
+			 $("#currentPage").val(1);
+			 $("form#userlistSend").attr("method","post").attr("action","/admin/user/listUserAdmin").submit();
 		 });
 		 
 		 $(document).on("click","#doStopUser",function(){

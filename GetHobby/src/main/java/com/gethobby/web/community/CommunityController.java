@@ -1,5 +1,6 @@
 package com.gethobby.web.community;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +47,10 @@ public class CommunityController {
 	int pageUnit;
 	
 	@RequestMapping(value = "listCommunity", method = RequestMethod.POST)
-	public String listCommunity(@ModelAttribute("search") Search search, 
-							HttpSession session, Model model)throws Exception{
 	//public String listCommunity(@ModelAttribute("search") Search search, 
-	//			@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model)throws Exception{
+	//						HttpSession session, Model model)throws Exception{
+	public String listCommunity(@ModelAttribute("search") Search search, 
+				@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model)throws Exception{
 		
 		System.out.println("\n\n\n\n\n/listCommunityPOST");
 		
@@ -64,12 +65,12 @@ public class CommunityController {
 		}
 		search.setPageSize(pageSize);
 		
-		//System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+);
+		System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+hobbyClassNo);
 		
 		//////////////////////////////////////
-		HobbyClass hobbyClass = new HobbyClass();
-		int hobbyClassNo = 10000;
-		hobbyClass.setHobbyClassNo(hobbyClassNo);
+		//HobbyClass hobbyClass = new HobbyClass();
+		//int hobbyClassNo = 10000;
+		//hobbyClass.setHobbyClassNo(hobbyClassNo);
 		//////////////////////////////////////
 		
 		
@@ -115,8 +116,8 @@ public class CommunityController {
 	
 	@RequestMapping(value = "listCommunity", method = RequestMethod.GET)
 	public String listCommunityGet(@ModelAttribute("search") Search search, 
-	//				@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
-		 HttpSession session, Model model	)throws Exception{
+					@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
+	//	 HttpSession session, Model model	)throws Exception{
 		
 		System.out.println("\n\n\n\n/listCommunity___GET방식\n\n");
 		
@@ -132,14 +133,13 @@ public class CommunityController {
 		}
 		search.setPageSize(pageSize);
 		
-		System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n");
-		//System.out.println("hobbyClassNo------\n"+hobbyClassNo);
+		System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+hobbyClassNo);
+
 		//구매한 사람만 들어온 상태.
-		
-		//////////////////////////////////////
-		HobbyClass hobbyClass = new HobbyClass();
-		int hobbyClassNo = 10000;
-		hobbyClass.setHobbyClassNo(hobbyClassNo);
+		//////////////////////////////////////실험용
+		//HobbyClass hobbyClass = new HobbyClass();
+		//int hobbyClassNo = 10000;
+		//hobbyClass.setHobbyClassNo(hobbyClassNo);
 		//////////////////////////////////////
 		
 		
@@ -173,7 +173,7 @@ public class CommunityController {
 		System.out.println("/addCommunityArticleView");
 
 		System.out.println("돌려보낼 클래스No:"+hobbyClassNo);
-		//세션 필요 누가 등록했는지 알아야하니까
+		
 		model.addAttribute("hobbyClassNo", hobbyClassNo);
 		return "forward:/community/addCommunityArticle.jsp";
 	}
@@ -182,15 +182,18 @@ public class CommunityController {
 	@RequestMapping(value = "addCommunityArticle", method = RequestMethod.POST )
 	public String addCommunityArticle(@ModelAttribute("article") Article article, HttpSession session, Model model )throws Exception{
 	//public String addCommunityArticle(@ModelAttribute("article") Article article, HttpSession session,
-	//		@RequestParam("hobbyClassNo")int hobbyClassNo		)throws Exception{
+		//	@RequestParam("hobbyClassNo")int hobbyClassNo		)throws Exception{
 		
 		System.out.println("\n\n\n/addCommunityArticle");
 		System.out.println("\n\n\narticle---\n"+article);
+		System.out.println("\n\nhobbyClassNo---"+article.getHobbyClass().getHobbyClassNo());
+		
 		User user = (User)session.getAttribute("user");
 		
 		if(user.getUserId() != null) { //+ 해당 클래스를 구매했는지도 체크해줘야...
 			article.setUser(user);
 		}
+	
 		
 		System.out.println("\n\n\narticle---\n"+article.getUser());
 		communityService.addCommunityArticle(article);
@@ -203,23 +206,36 @@ public class CommunityController {
 	public String getCommunity(@RequestParam("articleNo") int articleNo, 
 									Model model)throws Exception{
 		
-		System.out.println("/getCommunity");
+		System.out.println("\n\n\n\n\n/getCommunity");
 		System.out.println("articleNo:"+articleNo);
 		
 		Map<String, Object> map = communityService.getCommunity(articleNo);
 		Article article = (Article) map.get("article");
 		
-		System.out.println(article.getUser());
+		//글 내용 가독성있게 적당히 띄워쓰기하는 파트
+		article.setArticleContent( article.getArticleContent().replaceAll("\n", "<br>") );
+		
 		List<Reply> list = (List<Reply>)map.get("replyList");
-		for (int i = 0; i < list.size(); i++) {
+
+		//댓글 내용 가독성있게 적당히 띄워쓰기하는 파트
+		for ( int i = 0; i < list.size(); i++ ) {
+			list.get(i).setReplyContent( list.get(i).getReplyContent().replaceAll("\n", "<br>") );
+		}
+		
+		System.out.println(article.getUser());
+		
+//		for (int i = 0; i < list.size(); i++) {
 //			System.out.println("replyList의 ----"+list.get(i).getReplyNo());
 //			System.out.println(list.get(i).getRegDate());
 //			System.out.println(list.get(i).getUser().getName());
-		}
+//		}
 		//System.out.println(map.get("replyList"));
+		
+		int totalCountCommunityReply = (Integer)map.get("totalCountCommunityReply");
 		
 		model.addAttribute("article", map.get("article"));
 		model.addAttribute("replyList", list);
+		model.addAttribute("totalCountCommunityReply", totalCountCommunityReply);
 		return "forward:/community/getCommunity.jsp";
 	}
 	
@@ -251,16 +267,16 @@ public class CommunityController {
 		return "forward:/community/getCommunity?articleNo="+article.getArticleNo();
 	}
 	
-	@RequestMapping(value = "deleteCommunityArticle", method = RequestMethod.POST)
-	public String deleteCommunityArticle(HttpSession session, @ModelAttribute("article") Article article)throws Exception{
+	@RequestMapping(value = "deleteCommunityArticle", method = RequestMethod.GET)
+	public String deleteCommunityArticle(HttpSession session,@RequestParam int articleNo, @RequestParam int hobbyClassNo)throws Exception{
 	
 		System.out.println("\n\n\n\n /deleteCommunityArticle");
-		System.out.println("\n\n\n\narticle--\n"+article.getArticleNo());
-		System.out.println("\n\n\n\nhobbyClassNo--\n"+article.getHobbyClass().getHobbyClassNo());
+		System.out.println("\n\n\n\narticle--\n"+articleNo);
+		System.out.println("\n\n\n\nhobbyClassNo--\n"+hobbyClassNo);
 		
-		communityService.deleteCommunityArticle(article.getArticleNo());
+		communityService.deleteCommunityArticle(articleNo);
 		
-		return "forward:/community/listCommunity?hobbyClassNo="+article.getHobbyClass().getHobbyClassNo();
+		return "forward:/community/listCommunity?hobbyClassNo="+hobbyClassNo;
 	}
 	
 }

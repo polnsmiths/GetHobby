@@ -48,10 +48,10 @@
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
 
-<!-- 메인 메뉴 CSS -->
-<link rel="stylesheet" href="/resources/css/header.css">
-<!-- 메인 메뉴 js -->
-<script src="/resources/javascript/header.js"></script>
+<!-- 메인 메뉴 CSS 
+<link rel="stylesheet" href="/resources/css/header.css">-->
+<!-- 메인 메뉴 js 
+<script src="/resources/javascript/header.js"></script>-->
 
 
 <link rel="shortcut icon" href="/static/pc/images/favicon.ico">
@@ -100,7 +100,7 @@
 		$(function() {
 			
 			///글 등록하기 버튼 클릭시
-			$(document).on("click", "#addArticleButton", function() {
+			$(document).on("click", "#updateArticleContentButton", function() {
 				
 				alert('글 등록 버튼');
 				//로그인 정보는 세션에서 가져가고
@@ -113,15 +113,42 @@
 					alert('글 내용을 입력해주세요.....');
 					return;
 				}
+				
+				wal.fire({
+      			  title: '등록완료!',
+      			  text: 'Get취미IfYouCAN',
+      			  imageUrl: '/resources/image/logo/logo-favicon.png'
+      			});
 				$("form").attr("method", "POST").attr("action", "/community/addCommunityArticle").submit();
 				
 			})
 			
-			///글 등록하기 버튼 클릭시
-			$(document).on("click", "#beforeAddArticleButton", function() {
+			/// 취소 버튼 클릭시
+			$(document).on("click", "#beforeUpdateArticleButton", function() {
 				
-				//alert('뒤로가기 버튼');
-				history.go(-1);
+				var hobbyClassNo = $("input[class='hidden_hobbyClassNo']").val();
+				//alert('hobbyClassNo'+hobbyClassNo);
+/* 				swal({
+					title : '취소하시겠습니까?',
+					text : '작성한 내용은 저장되지않습니다',
+					icon : 'info',
+					closeOnClickOutside : false,
+					button : {
+						cancle : {
+							text : '페이지 머물기',
+							value : false,
+							className : 'btn btn-outline-primary'
+						},
+						confirm : {
+							text : '로그인 창으로',
+							value : true,
+							className : 'btn btn-outline-primary'
+						}
+					}
+				}); */
+				
+				
+				self.location = "/community/listCommunity?hobbyClassNo="+hobbyClassNo;
 			})
 			
 			
@@ -135,8 +162,8 @@
 	    		lang: 'ko-KR',
 	    		tabsize: 2,
 	    		height: 700,
-	    		minHeight : 350,
-	    		maxHeight : 350,
+	    		minHeight : 700,
+	    		maxHeight : 700,
 	    		width: 1024,
 	/*     		  toolbar: [
 	    		    // [groupName, [list of button]]
@@ -203,14 +230,20 @@
 	<jsp:include page="/common/header.jsp" />
 
 	<!-- 전체 묶음 -->
-	<div class="wholeGetEvent container mt-5">
+	<div class="container">
+
+	</br></br></br></br>
+	</br></br></br></br>
+	
+	
+	<h1 class="sol-board-header">클래스커뮤니티 게시글 등록</h1>
+	<hr>
 
 <form name="addCommunityArticle">
 
-<!-- 일단 때려박음 -->
-	<input type="hidden" name="HobbyClass.hobbyClassNo" value="10005">
+		<input type="hidden" name="HobbyClass.hobbyClassNo" class="hidden_hobbyClassNo" value="${hobbyClassNo }">
 	
-  
+<!--   
         <div class="p-3 py-4 mb-2 text-left rounded">
           <svg id="beforeAddArticleButton" class="bi bi-chevron-left" width="4em" height="4em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  		 	<path fill-rule="evenodd" d="M13.354 3.646a.5.5 0 010 .708L7.707 10l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"></path>
@@ -219,22 +252,27 @@
 		   	<button id="addArticleButton" type="button" class="btn btn-basic m-1" >
   				등록
   			</button>
-        </div>
+        </div> -->
   
  	<!-- 이벤트 내용 --> 
- 	<div class="input-group">
-
+ 		</br>
 			<textarea  class="form-control" id="summernote" name="articleContent"  aria-label="With textarea"></textarea>
-	</div>
+			
+ 			<div class="form-row d-flex justify-content-center my-5">
+                <button type="button" class="btn btn-basic m-1" id="updateArticleContentButton">등록</button>
+                <button type="button" class="btn btn-outline-basic m-1" id="beforeUpdateArticleButton">취소</button>
+            </div>
 	
   	
   </form>
-  
-  <p>footer</p>	
-
-
 
 </div>
+
+		</br>
+    	</br>
+    	</br>
+    	</br>
+  	<jsp:include page="/common/footer.jsp" />
 
 </body>
 </html>

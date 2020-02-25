@@ -463,7 +463,8 @@ h1 {
 </head>
 <body>
 <div class="wrapper">
-        
+    	<form id="searchSubmit">
+    	<input type="hidden" id="currentPage" name="currentPage" value=""/>
         <!-- Sidebar
         <jsp:include page="sidebarAdmin.jsp" /> -->
 		<jsp:include page="/admin/sidebarAdmin.jsp" />
@@ -499,16 +500,16 @@ h1 {
 				    <tr class="bg-basic">
 				    
 				      <!-- 번호 -->
-				      <td scope="row" class="purchaseIdAdmin">${i}</td>
+				      <td scope="row" class="purchaseIdAdmin" style="width: 74px;">${i}</td>
 				      
 				      <!-- 글 제목 -->				      
-				      <td class="articleInfo" id="bcc" style="cursor: pointer;"><input type="hidden" id="articleNo" value="${article.articleNo}">${article.articleTitle}</td> 
+				      <td class="articleInfo" id="bcc" style="cursor: pointer;height: 49px;width: 674px;"><input type="hidden" id="articleNo" value="${article.articleNo}">${article.articleTitle}</td> 
 				      
 				      <!-- 작성날짜 -->
-				      <td class="articleRegDate">${article.regDate}</td>
+				      <td class="articleRegDate"  style="width: 254px;">${article.regDate}</td>
 				      
 				      <!-- 조회수 -->		 
-				      <td class="articleView">${article.totalView}</td>
+				      <td class="articleView" style="width: 224px;">${article.totalView}</td>
 				       
 				  
 				    </tr>	
@@ -517,16 +518,21 @@ h1 {
 				  </tbody>
 				</table>
 				<div class="row d-flex justify-content-end">
-           				 <button type="button" class="btn btn-basic btn-sm" style="padding-right: 100px;font-size: 1.3rem; "> <i class="fas fa-pencil-alt"></i> 작성</button>
+           				 <button type="button" class="btn btn-basic btn-sm" style="padding-right: 200px;font-size: 1.3rem; "> <i class="fas fa-pencil-alt"></i> 작성</button>
       				</div>
 				<!-- Pagination -->
-					<jsp:include page="/admin/paginationAdmin.jsp" />
+					<jsp:include page="/common/pagenation.jsp"/>
 				
 			</div>            
         </div>
+        </form>
     </div>
-<script >
-	
+    
+<script>
+	function fncGetBoardArticleList(currentPage) {
+		$("#currentPage").val(currentPage);
+		$("form#searchSubmit").attr("method","post").attr("action","/user/listNotice").submit();
+	}
 	$(function(){
 		/* $("#bcc").on("click",function(){ */
 		$(document).on("click",'#bcc',function(){
