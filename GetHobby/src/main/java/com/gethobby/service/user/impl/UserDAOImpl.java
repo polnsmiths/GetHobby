@@ -73,13 +73,14 @@ public class UserDAOImpl implements UserDAO {
 	public Map<String,Object> getUserListAdmin(Search search) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<String> list = new ArrayList<String>();
-		int totalCount = sqlSession.selectOne("UserMapper.getUserTotalCount",search);
+		int allUserCount = sqlSession.selectOne("UserMapper.getUserAllCount",search);
 		int userCount = sqlSession.selectOne("UserMapper.getUserCount",search);
 		int creatorCount = sqlSession.selectOne("UserMapper.getCreatorCount",search);
 		int stopUserCount = sqlSession.selectOne("UserMapper.getStopUserCount",search);
 		int retireUserCount = sqlSession.selectOne("UserMapper.getRetireUserCount",search);
 		list = sqlSession.selectList("UserMapper.getUserList",search);
-		map.put("totalCount", totalCount);
+		map.put("totalCount", sqlSession.selectOne("UserMapper.getUserTotalCount", search));
+		map.put("allUserCount", allUserCount);
 		map.put("userCount", userCount);
 		map.put("creatorCount", creatorCount);
 		map.put("stopUserCount", stopUserCount);
@@ -132,8 +133,12 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<Article> getNoticeList(Search search) throws Exception {
-		return sqlSession.selectList("NoticeMapper.getNoticeList",search);
+	public Map<String, Object> getNoticeList(Search search) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Article> list = new ArrayList<Article>();
+		map.put("list", sqlSession.selectList("NoticeMapper.getNoticeList",search));
+		map.put("totalCount", sqlSession.selectOne("NoticeMapper.getTotalCount", search));
+		return map;
 	}
 
 	@Override

@@ -47,16 +47,24 @@
  		</set>
  		WHERE article_no = #{articleNo}
  	</update>
+ 	<select id="getTotalCount" parameterType="search" resultType="int">
+	 	SELECT COUNT(*)
+	 	FROM( SELECT * FROM article 
+	 	<where>
+	 	 board_code = '4'
+	 	</where> 	
+	 	)countTable 	
+ 	</select>
  	
  	<select id="getNoticeList" parameterType="search" resultMap="noticeSelectMap">
- 		<!-- SELECT *
+ 		 SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		( -->	
+	  					FROM		( 
 	  	SELECT article_no,article_title, reg_date, total_view
  		FROM article
- 		ORDER BY reg_date 	<!--  ) inner_table
+ 		ORDER BY reg_date  ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}  -->
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}  
  	
  	</select>
  	<delete id="deleteNotice" parameterType="int">
