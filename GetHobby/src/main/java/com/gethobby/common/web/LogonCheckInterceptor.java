@@ -65,7 +65,9 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 					
 					throw new ModelAndViewDefiningException(mav);
 				}
-				
+				else if ( uri.indexOf("") != -1 ) {
+					
+				}
 			}
 		}
 		return true;
