@@ -2,6 +2,9 @@
 var steamFlag;
 
 $(function(){	
+	// 로그인 상태를 확인하기 위한 변수 
+	var userId = $('.user-hidden-value').val();
+	
 	// 부엉이 본체 
 	var steamOwl = $("#owl-steam");
 	
@@ -205,6 +208,11 @@ $(function(){
   	
   	// 찜하기 이벤트 시작 
   	$(document).on('click', 'button[name="steamSteam"]', function(){
+  		if ( userId == null || userId == '' ) {
+  			self.location = '/user/noLogonUser?type=steam';	
+  			return false;
+  		}
+  		
   		var steamButton = $(this);
   		var hobbyClassInput = $(this).parents('.item').find('input[name="steamHobbyClassNo"]');
   		var steamCountInput = $(this).parents('.item').find('input[name="steamSteamCount"]');
@@ -241,6 +249,12 @@ $(function(){
   						steamCount : steamCountInput.val()
   					}),
   					success : function(JSONData, status) {
+  						if ( JSONData.result == 'error' ) {
+  							self.location = '/user/noLogonUser?type=mypageSteam';	
+  				  			return false;
+  						}
+  						
+  						
   						var deleteSteamTargetList = $('#owl-steam').find('input[name="steamHobbyClassNo"]');
   						
   						var index; 

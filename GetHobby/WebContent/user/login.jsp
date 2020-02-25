@@ -197,7 +197,7 @@ $(function(){
 	$("button.sc-jTzLTM.flMyeK.btEexr.dPbiof").on("click",function(){
 		
 		window.open("/user/openWindow.jsp","popWin",
-					"width=537, height=500, left=350, top=90, height=500, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
+					250);
 		
 				
 	});

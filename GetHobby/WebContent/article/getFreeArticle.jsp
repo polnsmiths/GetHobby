@@ -69,7 +69,6 @@
 
 <script>
 
-
 </script>
 
 
@@ -123,6 +122,153 @@
 			<button type="button" class="btn btn-basic btn-sm col-lg-1 col-md-3 mx-1" onclick="location.href='javascript:history.back()'">이전</button>
 			<button type="button" class="btn btn-basic btn-sm col-lg-1 col-md-3 mx-1" onclick="location.href='/article/getBoardArticleList?boardCode=0'">목록</button>
 		</div>
+		
+		<!-- 신고 모달창 시작 -->
+		<div class="modal fade report-madal-total" tabindex="-1" role="dialog" aria-labelledby="report-modal-label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="report-modal-label">신고하기</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container report-container">
+							<input type="hidden" class="report-reply-number-hidden" />
+							<input type="hidden" class="report-hidden-input-value" value="0" />
+							<input type="hidden" class="report-reply-hidden-content" />
+							<div class="row report-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-select"></div>
+									<div color="#3e4042" class="report-div report-text-select">
+										부적절한 내용
+									</div>
+									<input type="hidden" class="report-hidde-value" value="0" />
+								</div>
+							</div>
+							<br/>
+							<div class="row report-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
+									<div color="#3e4042" class="report-div report-text-non-select">
+										광고
+									</div>
+									<input type="hidden" class="report-hidde-value" value="1" />
+								</div>
+							</div>
+							<br/>
+							<div class="row report-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
+									<div color="#3e4042" class="report-div report-text-non-select">
+										욕설
+									</div>
+									<input type="hidden" class="report-hidde-value" value="2" />
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-sm-12">
+									<span class="report-reply-content-check">
+										
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary modal-to-report-process-button">신고</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 신고 모달창 끝 -->
+		
+		<!-- 신고처리 완료 모달창 시작 -->
+		<div class="modal fade report-result-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="report-result-modal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title report-result-modal" id="report-result-modal">신고 결과 확인</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<span class="report-navi-span-text">신고가 정상적으로 접수되었습니다.</span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary report-result-modal-close-button" data-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 신고처리 완료 모달창 끝 -->
+		
+		<!-- 신고 모달창 시작 -->
+		<div class="modal fade report-article-madal-total" tabindex="-1" role="dialog" aria-labelledby="report-modal-label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="report-modal-label">신고하기</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container report-article-container">
+							<input type="hidden" class="report-article-number-hidden" />
+							<input type="hidden" class="report-article-hidden-input-value" value="0" />
+							<input type="hidden" class="report-article-hidden-content" />
+							<div class="row report-article-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-select"></div>
+									<div color="#3e4042" class="report-div report-text-select">
+										부적절한 내용
+									</div>
+									<input type="hidden" class="report-hidde-value" value="0" />
+								</div>
+							</div>
+							<br/>
+							<div class="row report-article-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
+									<div color="#3e4042" class="report-div report-text-non-select">
+										광고
+									</div>
+									<input type="hidden" class="report-hidde-value" value="1" />
+								</div>
+							</div>
+							<br/>
+							<div class="row report-article-row-div">
+								<div class="col-sm-12 report-col">
+									<div color="#3e4042" class="report-cirlce report-cirlce-non-select"></div>
+									<div color="#3e4042" class="report-div report-text-non-select">
+										욕설
+									</div>
+									<input type="hidden" class="report-hidde-value" value="2" />
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-sm-12">
+									<span class="report-article-reply-content-check">
+										
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary modal-to-report-article-process-button">신고</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 신고 모달창 끝 -->
 		
 <%-- <jsp:include page="/common/footer.jsp"/> --%>		
 </body>

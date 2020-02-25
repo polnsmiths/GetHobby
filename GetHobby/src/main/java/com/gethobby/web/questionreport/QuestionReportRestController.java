@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gethobby.common.Page;
 import com.gethobby.common.Search;
+import com.gethobby.service.domain.Reply;
 import com.gethobby.service.domain.Report;
 import com.gethobby.service.domain.User;
 import com.gethobby.service.questionreport.QuestionReportService;
@@ -100,6 +101,7 @@ public class QuestionReportRestController {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("reportList", resultMap.get("list"));
 		returnMap.put("resultPage", resultPage);
+		returnMap.put("count", questionReportService.getTotalReportCount());
 		return returnMap;
 	}
 	
@@ -156,5 +158,18 @@ public class QuestionReportRestController {
 		returnMap.put("resultPage", resultPage);
 		
 		return returnMap;
+	}
+	
+	@RequestMapping( value = "json/getBoardReply" )
+	public Map<String, Object> getReportTargetBoardReply(@RequestBody Map<String, String> jsonMap) throws Exception {
+		String replyNo = jsonMap.get("replyNo");
+		
+		Reply reply = questionReportService.getReportTargetBoardReply(replyNo);
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("reply", reply);
+		
+		return returnMap;
+		
 	}
 }

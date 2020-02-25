@@ -95,12 +95,17 @@ public class MyHobbyClassRestController {
 	public Map<String, Object> deleteSteamHobbyClass( @RequestBody Map<String, String> jsonMap, HttpSession session ) throws Exception {
 		User user = (User)session.getAttribute("user");
 		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
 		String userId = null;
 		
-		if ( user != null ) {
+		try {
 			userId = user.getUserId();
+		} catch (Exception e) {
+			returnMap.put("result", "error");
+			return returnMap;
 		}
-
+		
 		int steamCount = Integer.parseInt(jsonMap.get("steamCount")) + - 1;
 		
 		Map<String, Object> inputData = new HashMap<String, Object>();
@@ -112,7 +117,6 @@ public class MyHobbyClassRestController {
 		
 		HobbyClass hobbyClass = searchHobbyClassService.getHobbyClass(inputData);
 		
-		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("hobbyClass", hobbyClass);
 		returnMap.put("result", "ok");
 		
@@ -667,6 +671,16 @@ public class MyHobbyClassRestController {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("recommendHobbyClassList", map.get("list"));
 		System.out.println("----------------totalCount ? : " + map.get("total"));
+		return returnMap;
+	}
+	
+	@RequestMapping( value = "json/getListenHobbyClassList" )
+	public Map<String, Object> getListenHobbyClassList(HttpSession session) throws Exception {
+		User user = (User)session.getAttribute("user");
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("listenHobbyClassList", myHobbyClassService.getListenHobbyClassList(user.getUserId()));
+		
 		return returnMap;
 	}
 }

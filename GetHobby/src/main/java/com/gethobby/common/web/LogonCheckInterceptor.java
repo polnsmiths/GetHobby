@@ -53,6 +53,13 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 						
 						throw new ModelAndViewDefiningException(mav);
 					}
+					else if ( queryString.split("&")[0].split("=")[1].equals("freeArticle") ) {
+						// 자유게시판 좋아요에서 오류가 난 경우 
+						
+						mav.addObject("redirectUrl", "http://127.0.0.1:8080/article/getBoardArticle?boardCode=0&" + queryString.split("&")[1]);
+						
+						throw new ModelAndViewDefiningException(mav);
+					}
 				}
 				
 				if ( uri.indexOf("getLesson") != -1 || uri.indexOf("getArrowLesson") != -1 ) {
@@ -65,8 +72,10 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 					
 					throw new ModelAndViewDefiningException(mav);
 				}
-				else if ( uri.indexOf("") != -1 ) {
+				else if ( uri.indexOf("getPurchaseHobbyClassSchedule") != -1 ) {
+					mav.addObject("redirectUrl", "http://127.0.0.1:8080/myHobbyClass/getPurchaseHobbyClassSchedule");
 					
+					throw new ModelAndViewDefiningException(mav);
 				}
 			}
 		}

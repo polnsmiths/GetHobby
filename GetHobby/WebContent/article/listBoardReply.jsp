@@ -19,7 +19,7 @@
 	                	</c:if>
 	                	<span> ${ article.totalFavor } </span> 
 	                </button>
-	                <span> 신고 </span>
+	                <span class="article-report-span"> 신고 </span>
             	</c:if>
             	<c:if test="${ sessionScope.user.userId eq article.user.userId }">
             		<c:if test="${ param.boardCode eq '0' }">

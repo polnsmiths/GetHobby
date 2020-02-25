@@ -68,8 +68,10 @@
         				            display += '<span><strong>' + JSONData.list[i].user.nickName + '</strong> <small class="text-muted"> ' + JSONData.list[i].regDate + '</small></span>';
         				            display += '<span><small class="text-muted"> 신고 </small></span>';
         				            display += '</h6>';
-        				            display += '<p>' + JSONData.list[i].replyContent + '</p>';            
-        				            display += '</div>';            
+        				            display += '<p class="reply-content-p-tag">' + JSONData.list[i].replyContent + '</p>';            
+        				            display += '</div>';   
+        				            display += '<input type="hidden" class="community-reply-number-hidden" value="' + JSONData.list[i].replyNo  + '"/>';
+        				            display += '<input type="hidden" class="community-reply-content-hidden-value" value="' + JSONData.list[i].replyContent + '" />';
         				            display += '</li>';        
         			            
         						} else if(JSONData.list[i].user.userId == userId) {
@@ -88,7 +90,7 @@
         							display += '<span><strong>' + JSONData.list[i].user.nickName + '</strong> <small class="text-muted"> ' + JSONData.list[i].regDate + '</small></span>';
         							display += '<span><small class="text-muted"> 수정 </small> <small class="text-muted"> 삭제 </small></span>';
         							display += '</h6>';
-        							display += '<p class="mb-0 text-primary">' + JSONData.list[i].replyContent + '</p>';
+        							display += '<p class="mb-0 text-primary class="reply-content-p-tag">' + JSONData.list[i].replyContent + '</p>';
         							display += '</div>';            
         				            
         							display += '<div class="media-body my-reply-update">';
@@ -101,7 +103,8 @@
         							display += '<span class="m-1"><strong class="text-danger">0</strong> / 500자</span>';
         							display += '</div>';
         							
-        							
+        							display += '<input type="hidden" class="community-reply-number-hidden" value="' + JSONData.list[i].replyNo  + '"/>';
+        							display += '<input type="hidden" class="community-reply-content-hidden-value" value="' + JSONData.list[i].replyContent + '" />';
         							display += '</li>';       
         				            
         				            
@@ -133,6 +136,8 @@
         	$(".sol-reply-container button:contains('등록')").on("click", function(){
         		//alert(articleNo);
         		var userId = $('input[name="sessionUserId"]').val();
+        		
+        		/*
         		if(userId == null || userId.length < 1) {
         			var result = confirm("로그인이 필요한 서비스 입니다. 로그인하시겠습니까?");
         			if(result) {
@@ -142,6 +147,13 @@
         				return false;
         			}
         		}	
+        		*/
+        		
+        		if ( userId == '' || userId == null || userId.length < 1 ) {
+        			self.location = '/user/noLogonUser?type=freeArticle&articleNo=' + $('input[name="articleNo').val();	
+        			return false;
+        		}
+        		
         		var reply = new Object();
         		reply.replyContent = $('textarea[name="replyContent"]').val();
         		
@@ -373,7 +385,12 @@
               });
 
         	
-        	$(document).on("click", ".sol-article-etc button:has(i.far)", function(event){
+        	$(document).on("click", ".sol-article-etc button:has(i.far)", function(event){	
+        		if ( userId == '' || userId == null || userId.length < 1 ) {
+        			self.location = '/user/noLogonUser?type=freeArticle&articleNo=' + $('input[name="articleNo').val();	
+        			return false;
+        		}
+        		
         		var favor = new Object();
                 favor.article = {
                 		articleNo : articleNo
@@ -417,6 +434,11 @@
         	
         	
         	$(document).on("click", ".sol-article-etc button:has(i.fas)", function(event){
+        		if ( userId == '' || userId == null || userId.length < 1 ) {
+        			self.location = '/user/noLogonUser?type=freeArticle&articleNo=' + $('input[name="articleNo').val();	
+        			return false;
+        		}
+        		
         		var favor = new Object();
                 favor.article = {
                 		articleNo : articleNo
@@ -471,12 +493,232 @@
         });
 
         $(function() {
+        	var userId = $('input[name="sessionUserId"]').val();
+        	
               $('#reply-textarea').keyup(function (e){
                   var content = $(this).val();
                   $('#counter').text(content.length);
               });
               $('#reply-textarea').keyup();
               
+              $(document).on('click', '.text-muted:contains("신고")', function(){
+            	  var userId = $('input[name="sessionUserId"]').val();
+	            	  if ( userId == '' || userId == null || userId.length < 1 ) {
+	          			self.location = '/user/noLogonUser?type=freeArticle&articleNo=' + $('input[name="articleNo').val();	
+	          			return false;
+	          		}
+            	  
+            	  	var checkTarget = $(this).find('.community-reply-content-hidden').val();
+	  				var replyNo = $(this).parents('.media.my-4').find('.community-reply-number-hidden').val();
+	  				var articleNo = $('.class-community-number').val();
+	  				
+	  				var userId = $('input[name="sessionUserId"]').val();
+	  				
+	  				var thisButtonParent = $(this).parents('.media.my-4');
+	  				var thisButtoncommunityContentBundle = $(this).parents('.media.my-4').find('.here-is-change-update-div');
+	  				var newRightButtonSpan = $(this).parents('.media.my-4').find('.community-reply-reset-button-span');
+	  				
+	  				var reply = new Object();
+	  				
+	  				reply.replyNo = replyNo;
+	  				reply.article = {
+	  						articleNo : articleNo 
+	  				}
+					
+					var replyText = $(this).parents('.media.my-4').find('.community-reply-content-hidden-value').val();
+					console.log('abc' + replyText);
+					if ( replyText.length <= 10 ) {
+						replyText = '(' + replyText + ')';
+					}
+					else {
+						replyText = '(' + replyText.substr(0, 10) + '...)'
+					}
+					
+					$('.report-reply-hidden-content').val( replyText );
+					
+					replyText = $('.report-reply-hidden-content').val();
+					
+					console.log('replyText ? : ' + replyText);
+					
+					$('.report-reply-number-hidden').val(replyNo);
+					
+					var display = '';
+					display += '<div class="report-check-reason-text"><h6>해당 댓글' + replyText + '을 <span class="text-danger">부적절한 내용</span> 사유<br/>로 신고하시겠습니까?</h6></div>';
+					
+					$('.report-reply-content-check').html(display);
+					
+					$('.report-madal-total').modal('show');
+              })
+              
+              // 신고 모달창 클릭시 이벤트 -------------------------------------------------------
+				$('.report-row-div').on('click', function(){
+					$('.report-container').find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-non-select');
+					$('.report-container').find('.report-div').attr('class', 'report-div report-text-non-select');
+					
+					$(this).find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-select');
+					$(this).find('.report-div').attr('class', 'report-div report-text-select');
+					
+					var stateValue = $(this).find('.report-hidde-value').val();
+					
+					var buttonText = $(this).find('.report-div').text().trim();
+					
+					var replyContent = $('.report-reply-hidden-content').val();
+					
+					$('.report-hidden-input-value').val(stateValue);
+					console.log( $('.report-hidden-input-value').val() + ' / ' + buttonText );
+					
+					var display = '';
+					display += '<div class="report-check-reason-text">해당 댓글' + replyContent + '을 <span class="text-danger">' + buttonText + '</span> 사유로 <br/>신고하시겠습니까?</div>';
+					$('.report-reply-content-check').html(display);
+				});
+				// 신고 모달창 클릭시 이벤트 -------------------------------------------------------
+				
+				// 신고 모달창 그냥 닫혔을때 초기화 이벤트 -----------------------------------------------
+				$('.report-madal-total').on('hidden.bs.modal', function(){
+					$('.report-container').find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-non-select');
+					$('.report-container').find('.report-div').attr('class', 'report-div report-text-non-select');
+					
+					$('.report-container').find('.report-cirlce').eq(0).attr('class', 'report-cirlce report-cirlce-select');
+					$('.report-container').find('.report-div').eq(0).attr('class', 'report-div report-text-select');
+					
+					console.log('modal이 닫히긴 했다');
+				})
+				// 신고 모달창 그냥 닫혔을때 초기화 이벤트 -----------------------------------------------
+				
+				$('.modal-to-report-process-button').on('click', function(){
+					var reportCode = $('.report-hidden-input-value').val();
+					var replyNo = $('.report-reply-number-hidden').val();
+					var report = new Object();
+					report.replyNo = replyNo;
+					report.reportCode = reportCode;
+					
+					$.ajax(
+							{
+								url : "/questionReport/json/addReport",
+								method : "post",
+								dataType : "json",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								data : JSON.stringify(
+									report		
+								),
+								success : function(JSONData, status) {
+									console.log('JSONData.result ? : ' + JSONData.result);
+									
+									if (JSONData.result == 'true') {
+										$('.report-madal-total').modal('hide');
+										$('.report-navi-span-text').text('신고가 정상적으로 접수되었습니다.');
+										$('.report-result-modal').modal('show');
+									}
+									else {
+										$('.report-madal-total').modal('hide');
+										$('.report-navi-span-text').text('이미 신고한 상태입니다.');
+										$('.report-result-modal').modal('show');
+									}
+								}
+							}
+					)
+				})
+				
+				$('.report-result-modal-close-button').on('click', function(){
+					$('.modal-backdrop').remove();
+				})
+				
+				$(document).on('click', '.article-report-span', function(){
+					var userId = $('input[name="sessionUserId"]').val();
+					
+					if ( userId == '' || userId == null || userId.length < 1 ) {
+	        			self.location = '/user/noLogonUser?type=freeArticle&articleNo=' + $('input[name="articleNo').val();	
+	        			return false;
+	        		}
+					
+					// var articleNo = $('.class-community-number').val();
+					var articleNo = $('input[name="articleNo"]').val();
+					$('.report-article-number-hidden').val(articleNo);
+					
+					var display = '';
+					display += '<div class="report-article-reply-content-check"><h6>해당 게시글을 <span class="text-danger">부적절한 내용</span> 사유로<br/> 신고하시겠습니까?</h6></div>';
+					
+					$('.report-article-reply-content-check').html(display);
+					
+					$('.report-article-madal-total').modal('show');
+				})
+				
+				// 신고 모달창 클릭시 이벤트 -------------------------------------------------------
+				$('.report-article-row-div').on('click', function(){
+					$('.report-article-container').find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-non-select');
+					$('.report-article-container').find('.report-div').attr('class', 'report-div report-text-non-select');
+					
+					$(this).find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-select');
+					$(this).find('.report-div').attr('class', 'report-div report-text-select');
+					
+					var stateValue = $(this).find('.report-hidde-value').val();
+					
+					var buttonText = $(this).find('.report-div').text().trim();
+					
+					$('.report-article-hidden-input-value').val(stateValue);
+					
+					var display = '';
+					display += '<div class="report-article-check-reason-text">해당 게시글을 <span class="text-danger">' + buttonText + '</span> 사유로 <br/>신고하시겠습니까?</div>';
+					$('.report-article-reply-content-check').html(display);
+				});
+				// 신고 모달창 클릭시 이벤트 -------------------------------------------------------
+				
+				// 신고 모달창 그냥 닫혔을때 초기화 이벤트 -----------------------------------------------
+				$('.report-article-madal-total').on('hidden.bs.modal', function(){
+					$('.report-article-container').find('.report-cirlce').attr('class', 'report-cirlce report-cirlce-non-select');
+					$('.report-article-container').find('.report-div').attr('class', 'report-div report-text-non-select');
+					
+					$('.report-article-container').find('.report-cirlce').eq(0).attr('class', 'report-cirlce report-cirlce-select');
+					$('.report-article-container').find('.report-div').eq(0).attr('class', 'report-div report-text-select');
+				})
+				// 신고 모달창 그냥 닫혔을때 초기화 이벤트 -----------------------------------------------
+				
+				$(document).on('click', '.modal-to-report-article-process-button', function(){
+					var reportCode = $('.report-article-hidden-input-value').val();
+					var articleNo = $('.report-article-number-hidden').val();
+					
+					var report = new Object();
+					report.articleNo = articleNo;
+					report.reportCode = reportCode;
+					
+					$.ajax(
+							{
+								url : "/questionReport/json/addReport",
+								method : "post",
+								dataType : "json",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								data : JSON.stringify(
+									report		
+								),
+								success : function(JSONData, status) {
+									console.log('JSONData.result ? : ' + JSONData.result);
+									
+									if (JSONData.result == 'true') {
+										$('.report-article-madal-total').modal('hide');
+										$('.report-navi-span-text').text('신고가 정상적으로 접수되었습니다.');
+										$('.report-result-modal').modal('show');
+									}
+									else {
+										$('.report-article-madal-total').modal('hide');
+										$('.report-navi-span-text').text('이미 신고한 상태입니다.');
+										$('.report-result-modal').modal('show');
+									}
+								}
+							}
+					)
+	
+				})
+				
+				$('.report-result-modal-close-button').on('click', function(){
+					$('.modal-backdrop').remove();
+				})
+				
         });
 
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.Question;
+import com.gethobby.service.domain.Reply;
 import com.gethobby.service.domain.Report;
 import com.gethobby.service.questionreport.QuestionReportDAO;
 
@@ -111,7 +112,13 @@ public class QuestionReportDAOImpl implements QuestionReportDAO {
 
 	@Override
 	public Article getReportTargetArticle(int articleNo) throws Exception {
-		return sqlSession.selectOne("QuestionReportMapper.getTotalReportListAdminTotalCount", articleNo);
+		return sqlSession.selectOne("QuestionReportMapper.getReportTargetBoard", articleNo);
+	}
+
+	@Override
+	public Reply getReportTargetBoardReply(String replyNo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("QuestionReportMapper.getReportTargetBoardReply", replyNo);
 	}
 
 }

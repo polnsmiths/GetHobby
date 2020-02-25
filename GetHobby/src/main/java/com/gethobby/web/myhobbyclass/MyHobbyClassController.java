@@ -76,4 +76,10 @@ public class MyHobbyClassController {
 		model.addAttribute("resultPage", resultPage);
 		return "forward:/myhobbyclass/listSteamHobbyClass.jsp";    
 	}
+	
+	@RequestMapping( value = "getPurchaseHobbyClassSchedule" ) 
+	public String getPurchaseHobbyClassSchedule(HttpSession session) throws Exception {	
+		return "forward:/myhobbyclass/getPurchaseHobbyClassSchedule.jsp";
+	}
+	
 }

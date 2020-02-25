@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -37,15 +37,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
-    <!-- 공통 CSS -->
-    <link rel="stylesheet" href="/resources/css/common.css">
-
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-	
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
 	
@@ -53,7 +44,10 @@
 	<link rel="stylesheet" href="../resources/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="../resources/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
 	<script src="../resources/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-
+	
+	<!-- 공통 CSS -->
+    <link rel="stylesheet" href="/resources/css/common.css">
+	
 	<style>
 		/*
     DEMO STYLE
@@ -652,6 +646,18 @@ h1 {
 									display += '</tr>';
 								}
 								
+								var countDisplay = '';
+								
+								countDisplay += '<h1>';
+								countDisplay += '신고관리';
+								countDisplay += '<span class="manager-title-state">신고 총합 : ' + JSONData.count.all + ' 개 </span>';
+								countDisplay += '<span class="manager-title-state">신고 처리 : ' + JSONData.count.approval + ' 개 </span>';
+								countDisplay += '<span class="manager-title-state">신고 반려 : ' + JSONData.count.refusal + ' 개</span>';
+								countDisplay += '<span class="manager-title-state">신고 대기 : ' + JSONData.count.atomosphere + ' 개</span>';
+								countDisplay += '</h1>';
+								
+								$('.manager-title').html(countDisplay);
+								
 								var paginationDisplayValue = '';
 								
 								paginationDisplayValue = '<li class="page-item">';
@@ -756,7 +762,7 @@ h1 {
 								for(var i = 0; i < JSONData.reportList.length; i++) {
 									display += '<tr class="report-admin-content">';	
 									display += '<td scope="row" class="report-number">' + JSONData.reportList[i].reportNo + '</td>';
-									display += '<td class="report-user-id">' + JSONData.reportList[i].user.userId + '</td>';
+									display += '<td class="report-user-id"`' + JSONData.reportList[i].user.userId + '</td>';
 									display += '<td class="report-target-type">';
 									
 									
@@ -853,11 +859,10 @@ h1 {
 			
 			$(document).on('click', '.report-target-number', function(){
 				console.log('click');
-				var reportTargetNo = $(this).text().trim();
+				var reportTargetNo = $(this).text().trim() * 1;
 				console.log('reportTargetNo ? : ' + reportTargetNo);
 				var reportTargetType = $(this).find('.report-target-type').val();
 				console.log('reportTargetType ? : ' + reportTargetType);
-				
 				if ( reportTargetType == 'reply' && reportTargetNo >= 10000 ) {
 					$.ajax(
 							{
@@ -890,9 +895,10 @@ h1 {
 					var popupX = (document.body.offsetWidth / 2) - (200 / 2);
 					var popupY= (document.body.offsetHeight / 2) - (300 / 2);
 					
-					var reportTargetArticle = window.open('/article/getBoardArticle?articleNo=' + reportTargetNo , 'reportTarget', '_blank', 'width=400, height=500, left=10, top=500');
+					// var reportTargetArticle = window.open('/article/getBoardArticle?boardCode=0&articleNo=' + reportTargetNo , 'reportTarget', '_blank', 'width=40, height=50, left=10, top=50');
+					window.open('/questionReport/getReportTargetArticle?articleNo=' + reportTargetNo , 'reportTarget', 'width=800, height=500, left=350, top=150');
 				}
-				else if ( reportTargetType == 'reply' && 1000 <= reportTargetType < 10000 ) {
+				else if ( reportTargetType == 'reply' && 1000 <= reportTargetNo && reportTargetNo < 10000 ) {
 					$.ajax(
 							{
 								url : "/searchHobbyClass/json/getReportTagetCommunityReply",
@@ -924,9 +930,37 @@ h1 {
 					var popupX = (document.body.offsetWidth / 2) - (200 / 2);
 					var popupY= (document.body.offsetHeight / 2) - (300 / 2);
 					
-					var reportTargetArticle = window.open('/searchHobbyClass/getCommunity?articleNo=' + reportTargetNo , 'reportTarget', 'width=700,height=600,left=350,top=150');
-
+					// var reportTargetArticle = window.open('/searchHobbyClass/getCommunity?articleNo=' + reportTargetNo , 'reportTarget', 'width=700,height=600,left=350,top=150');
+					window.open('/searchHobbyClass/getCommunity?articleNo=' + reportTargetNo , 'reportTarget', 'width=700,height=600,left=350,top=150');
 						
+				}
+				else if ( reportTargetType == 'reply' && 1 <= reportTargetNo && reportTargetNo < 1000 ) {
+					$.ajax(
+							{
+								url : "/questionReport/json/getBoardReply",
+								method : "post", 
+								dataType : "json",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								data : JSON.stringify({
+									replyNo : reportTargetNo
+								}),
+								success : function(JSONData, status) {
+									var replyContent = JSONData.reply.replyContent;
+									Swal.fire({
+										icon : 'info',
+										title : '신고 댓글 내용 확인',
+										text : replyContent, 
+										showConfirmButton : true, 
+										confirmButtonText : '확인', 
+										allowOutsideClick : true
+									})
+									
+								}
+							}
+					)
 				}
 			})
 			
@@ -1053,8 +1087,6 @@ h1 {
 					</c:forEach>
 				  </tbody>
 				</table>
-				
-				<!-- Pagination -->
 					<jsp:include page="/admin/paginationAdmin.jsp" />
 			</div>
 

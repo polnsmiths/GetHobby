@@ -163,10 +163,13 @@ public class QuestionReportController {
 		Article article = questionReportService.getReportTargetArticle(articleNo);
 		model.addAttribute("article", article);
 		
+		System.out.println("-----artice boardcode ? : " + article.getBoardCode());
 		if ( article.getBoardCode().equals("0") ) {
-			return "forward:/article/getFreeArticle.jsp";
+			return "forward:/questionreport/getFreeArticleReportTarget.jsp";
 		}
-		// 사진게시판은 어디로 보내야할까요 
-		return "forward:/article/getFreeArticle.jsp";
+		else {
+			return "forward:/questionreport/getPhotoArticleReportTarget.jsp";
+		}
 	}
+
 }

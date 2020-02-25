@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.Question;
+import com.gethobby.service.domain.Reply;
 import com.gethobby.service.domain.Report;
 
 public interface QuestionReportService {
@@ -31,4 +32,6 @@ public interface QuestionReportService {
 	public Map<String, Object> getTotalReportCount() throws Exception;
 	
 	public Article getReportTargetArticle(int articleNo) throws Exception;
+	
+	public Reply getReportTargetBoardReply(String replyNo) throws Exception;
 }

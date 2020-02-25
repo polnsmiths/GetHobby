@@ -159,4 +159,10 @@ public class QuestionReportServiceImpl implements QuestionReportService {
 		return questionReportDAO.getReportTargetArticle(articleNo);
 	}
 
+	@Override
+	public Reply getReportTargetBoardReply(String replyNo) throws Exception {
+		// TODO Auto-generated method stub
+		return questionReportDAO.getReportTargetBoardReply(replyNo);
+	}
+
 }

@@ -390,6 +390,7 @@ public class SearchHobbyClassController {
 		hobbyClass.setHobbyClassNo(10012);
 		hobbyClass.setHobbyClassIntro("<h5><b>사랑스러운 강아지 얼굴을 만들고 싶다면, 누구든</b></h5><h6><img src=\"/images/hobbyclass/ssal-1.jpg\" style=\"width: 633px;\"></h6><p>펠트가 처음이신 분들도, 만들기가 서툰 분들도 괜찮아요.</p><p>우리 집 작은 가족을 사랑하는 <b>따뜻한 마음</b>을 담아 만들다 보면, 조금 서툴더라도 하나뿐인&nbsp;</p><p>나만의 강아지 얼굴을 만드실 수 있을 거예요.</p><h5><span style=\"font-weight: bolder;\">서툴어도 괜찮아요. 차근차근 완성해요.</span></h5><h5><img src=\"/images/hobbyclass/ssal-2.jpg\" style=\"width: 630px;\"><span style=\"font-weight: bolder;\"><br></span></h5><p><img src=\"/images/hobbyclass/ssal-3.jpg\" style=\"width: 618px;\"><br></p><p>우리 집 강아지를 만들어 낼 수 있도록, 저와 함께 <b>몇 가지 대표 견종</b>을 만들며 연습을&nbsp;</p><p>해보실 거예요.</p><p>다양한 친구들의 얼굴을 만들며 <b>여러 가지 팁</b>들을 알려드릴게요!</p><p><b>가지각색</b>의 모색, 모질, 귀모양, 표정의 강아지들을 만들며, 기초부터 탄탄히 노하우를 익혀요!</p><p>결국엔 <b>여러분이 키우고 계신 사랑스러운 강아지</b>의 미니미를 만들 수 있는 실력을</p><p>갖추게 되실 거예요!</p><p><br></p><p><img src=\"/images/hobbyclass/ssal-4.jpg\" style=\"width: 632px;\"></p><p>우리 집 강아지 얼굴을 들여다보며, 사랑하는 마음을 담아 미니미를 만드는 건 누구나 분명&nbsp;</p><p><b>즐겁고 행복한 일</b>일 거예요.&nbsp;&nbsp;</p><p>그렇게 만들어진 미니미를<b> 키 링이나 액자로 만들어 매일 함께한다면 더욱 좋겠죠?</b></p><p>이번 클래스는 단순히 강아지 얼굴만을 만드는 것이 아닌, 키 링과 액자 등의 소품으로&nbsp;</p><p>완성하도록 구성됩니다.</p><p>키 링으로 일상생활에서 늘 함께 지니고 다니거나, 액자로 오래도록 예쁜 얼굴 그대로&nbsp;</p><p>간직하실 수 있어요.</p>");
 		
+		
 		searchHobbyClassService.addDummyData(hobbyClass);
 		
 		return null;
