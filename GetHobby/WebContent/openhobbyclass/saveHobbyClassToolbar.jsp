@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
 	<div class="d-none d-lg-block">
 		<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="width:100%; padding-left:24px;">
 			<a class="navbar-brand" href="/index.jsp"><img src="/resources/image/logo/logo-favicon.png" width="36px" height="36px"></a>

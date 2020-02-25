@@ -124,7 +124,7 @@ public class UserController {
 		
 	System.out.println("addUser() POST  ::::::::::::::::::::"+user);		
 	
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/woo/";
+		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
 		String fileName = "";
 		System.out.println("file::::::::::::::::"+file);
 	
@@ -430,7 +430,7 @@ public class UserController {
 	public String addUserSNSInfo(@ModelAttribute("user")User user, @RequestParam("file") List<MultipartFile> file,HttpSession session )throws Exception{
 		
 		
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/woo/";
+		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
 		String fileName = "";
 	
 		if(file.get(0).getSize() !=0) {
@@ -692,7 +692,7 @@ public class UserController {
 	@RequestMapping(value="updateUser", method = RequestMethod.POST)
 	public String updateUser(@ModelAttribute("user") User user, @RequestParam("file") List<MultipartFile> file , HttpSession session,@RequestParam("beforefile") String beforeName) throws Exception{
 		System.out.println("updateUser::::::::::::::::::::::::::"+user);
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/woo/";
+		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
 		String fileName = "";
 		
 		if(file.get(0).getSize() !=0) {

@@ -19,7 +19,7 @@ import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @RestController
 @RequestMapping("/purchase/*")
 public class PurchaseRestController {

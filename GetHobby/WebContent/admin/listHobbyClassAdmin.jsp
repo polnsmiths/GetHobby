@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -573,8 +573,22 @@ h1 {
 				      </td>		
 				      
 				      <!-- 진행률 -->
-				      <td class="hobbyClassProgressAdmin">45명/500명</td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
-				      
+				      <!-- 수요조사 중 or 수요조사 완료 -->
+				      <c:if test="${hobbyClass.hobbyClassState == '3' || hobbyClass.hobbyClassState == '4'}">
+				      	<td class="hobbyClassProgressAdmin">${hobbyClass.hobbyClassPersonnel}/30명</td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
+				      </c:if>
+				      <!-- 심사 중 or 심사 완료 -->
+				      <c:if test="${hobbyClass.hobbyClassState == '1' || hobbyClass.hobbyClassState == '2'}">
+				      	<td class="hobbyClassProgressAdmin">총 ${hobbyClass.lessonTotalCount}강</td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
+				      </c:if>
+				      <!-- 종강 or 폐강 -->
+				      <c:if test="${hobbyClass.hobbyClassState == '6' || hobbyClass.hobbyClassState == '7'}">
+				      	<td class="hobbyClassProgressAdmin"></td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
+				      </c:if>
+				      <!-- 개강 중 -->
+				      <c:if test="${hobbyClass.hobbyClassState == '5'}">
+				      	<td class="hobbyClassProgressAdmin">총 ${hobbyClass.lessonTotalCount}강</td> <!-- 0강/45강 , 수요조사 중이면 몇명 신청했는지 등등 -->
+				      </c:if>
 				      <!-- 커버 이미지 -->		 
 				      <td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="width:134px; height:100.5px;"></td>
 				    
@@ -651,27 +665,33 @@ h1 {
         	
         	// 심사 버튼 이벤트
         	$(document).on("click", "button div:contains('심사')", function(){
-				alert("\n\n\n\n\n심사");
-			        		/*
-			        		$.ajax(
-				    				{
-				    					url: "/admin/json/hobbyClass/심사",
-				    					method: "POST",
-				    					data: JSON.stringify({
-											hobbyClassNo: 
-				    					}),
-				    					dataType : "json" ,
-			        					headers : {
-			        						"Accept" : "application/json" ,
-			        						"Content-Type" : "application/json"
-			        					} ,
-				    					success : function(JSONData, status) {
-											
+					var yes = confirm("정말로 심사를 허가하시겠어요?");
+					if( yes ){
+		        		$.ajax(
+			    				{
+			    					url: "/admin/json/hobbyClass/saveCheckHobbyClassAdmin",
+			    					method: "POST",
+			    					data: JSON.stringify({
+										hobbyClassNo: $(this).parent().parent().parent().children("input[name='hobbyClassNoAdmin']").val()
+			    					}),
+			    					dataType : "json" ,
+		        					headers : {
+		        						"Accept" : "application/json" ,
+		        						"Content-Type" : "application/json"
+		        					} ,
+			    					success : function(JSONData, status) {
+										if( JSONData == 1 ){
+											$("#hobbyClassForm").children("input[name='currentPage']").val(1);
+			    							$("#hobbyClassForm").children("input[name='searchCondition']").val('');
+			    							$("#hobbyClassForm").children("input[name='searchKeyword']").val('');
+			    							$("#hobbyClassForm").children("input[name='category']").val('');
+											hobbyClassAdminAjax();
+										}
 	
-				    					}
-			        					
-			   				});//end of ajax
- 							*/
+			    					}
+		        					
+		   				});//end of ajax
+					}
         	});
         	
         	// 페이지네이션 이벤트
@@ -843,9 +863,18 @@ h1 {
 												}
 												
 												
-									displayValue +=	'</td>' +
-												'<td class="hobbyClassProgressAdmin">0강/45강</td>' +
-												'<td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="width:134px; height:100.5px;"></td>' +
+									displayValue +=	'</td>';
+												  
+												  if( JSONData.hobbyClass[i].hobbyClassState == '3' || JSONData.hobbyClass[i].hobbyClassState == '4' ){
+													  displayValue += '<td class="hobbyClassProgressAdmin">'+JSONData.hobbyClass[i].hobbyClassPersonnel+'/30명</td>';
+												  }else if( JSONData.hobbyClass[i].hobbyClassState == '1' || JSONData.hobbyClass[i].hobbyClassState == '2' ){
+													  displayValue += '<td class="hobbyClassProgressAdmin">총 '+JSONData.hobbyClass[i].lessonTotalCount+'강</td>';
+												  }else if( JSONData.hobbyClass[i].hobbyClassState == '6' || JSONData.hobbyClass[i].hobbyClassState == '7' ){
+													  displayValue += '<td class="hobbyClassProgressAdmin"></td>';
+												  }else if( JSONData.hobbyClass[i].hobbyClassState == '5' ){
+													  displayValue += '<td class="hobbyClassProgressAdmin">총 '+JSONData.hobbyClass[i].lessonTotalCount+'강</td>';
+												  }									
+									displayValue += '<td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="width:134px; height:100.5px;"></td>' +
 												'<td class="hobbyClassNameAdmin">'+JSONData.hobbyClass[i].hobbyClassName;
 									displayValue +=	'</td>' +
 												'<td class="userIdAdmin">'+JSONData.hobbyClass[i].user.nickName+"/"+JSONData.hobbyClass[i].user.userId+'</td>' +

@@ -397,26 +397,21 @@ public class SearchHobbyClassController {
 	
 	@RequestMapping( value = "getCommunityContent" )
 	public String getCommunityContent(@RequestParam("articleNo") int articleNo, Model model) throws Exception {
-		System.out.println("/getCommunity");
-		System.out.println("articleNo:"+articleNo);
-		
 		Map<String, Object> map = communityService.getCommunity(articleNo);
 		Article article = (Article) map.get("article");
 		
-		System.out.println(article.getUser());
-		List<Reply> list = (List<Reply>)map.get("replyList");
-		for (int i = 0; i < list.size(); i++) {
-//			System.out.println("replyList의 ----"+list.get(i).getReplyNo());
-//			System.out.println(list.get(i).getRegDate());
-//			System.out.println(list.get(i).getUser().getName());
-		}
-		//System.out.println(map.get("replyList"));
+		article.setArticleContent( article.getArticleContent().replaceAll("\n", "<br>") );
 		
+		List<Reply> list = (List<Reply>)map.get("replyList");
+
 		model.addAttribute("article", map.get("article"));
 		model.addAttribute("replyList", list);
-//		return "forward:/community/getCommunity.jsp";
 		
-		return "forward:/searchhobbyclass/getCommunityTest.jsp";
+		for ( int i = 0; i < list.size(); i++ ) {
+			list.get(i).setReplyContent( list.get(i).getReplyContent().replaceAll("\n", "<br>") );
+		}
+		
+		return "forward:/searchhobbyclass/getCommunityTest2.jsp";
 	}
 	
 	@RequestMapping(value = "getCommunity") //==> method = RequestMethod.GET으로 설정하면 안됨

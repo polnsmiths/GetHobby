@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- //2020-02-21 Git Commit -->
+<!-- //2020-02-24 Git Commit -->
 <mapper namespace="PurchaseMapper">
  	
 	<resultMap id="purchaseSelectMap" type="purchase">
@@ -101,9 +101,8 @@
 			SELECT PURCHASE_ID, USER_ID, CLASS_NO, RECEIVER_NAME, PHONE, ADDRESS, DETAIL_ADDRESS, POSTCODE
 			FROM PURCHASE
 			WHERE USER_ID = #{userId}
-			
+			AND COMPONENT_OPTION = '1' ) search_data
 		WHERE ROWNUM = 1
-		AND search_data.COMPONENT_OPTION = '1' // 이거 고쳐야 함
 	</select>
 
 	<update id="requestRefund" parameterType="string">

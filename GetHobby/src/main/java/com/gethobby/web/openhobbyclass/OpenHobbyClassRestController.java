@@ -34,7 +34,7 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @RestController
 @RequestMapping("/hobbyclass/*")
 public class OpenHobbyClassRestController {
@@ -56,6 +56,7 @@ public class OpenHobbyClassRestController {
 	//Method
 	@RequestMapping( value="json/saveHobbyClassInfo", method=RequestMethod.POST )
 	public int saveHobbyClassInfo(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
+		System.out.println();
 		return oepnhobbyClassService.saveHobbyClassInfo(hobbyClass, session);
 	}
 	

@@ -68,7 +68,7 @@
 //=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 function fncGetBoardArticleList(currentPage) {
 	$("#currentPage").val(currentPage);
-	alert($("#currentPage").val());
+	//alert($("#currentPage").val());
 	//console.log(boardCode);
 	//var boardCode = $("input[name='boardCode']").val();
 	$("#search").attr("method" , "POST").attr("action" , "/article/getBoardArticleList").submit();
@@ -282,7 +282,7 @@ $(function() {
 
 <jsp:include page="/common/pagenation.jsp"/>
     </div>
-<%-- <jsp:include page="/common/footer.jsp"/> --%>
+<jsp:include page="/common/footer.jsp"/>
 </body>
 
 </html>
