@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Article> getNoticeList(Search search) throws Exception {
+	public Map<String, Object> getNoticeList(Search search) throws Exception {
 		return userDAO.getNoticeList(search);
 	}
 
