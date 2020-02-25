@@ -25,4 +25,6 @@ public interface MyHobbyClassService {
 	public void deleteSteamHobbyClass(Map<String, Object> inputData) throws Exception;
 	
 	public Map<String, Object> getRecommendHobbyClassList(Map<String, Object> inputData) throws Exception;
+	
+	public List<HobbyClass> getListenHobbyClassList(String userId) throws Exception;
 }
