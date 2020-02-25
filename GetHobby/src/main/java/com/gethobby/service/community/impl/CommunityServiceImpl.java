@@ -80,23 +80,30 @@ public class CommunityServiceImpl implements CommunityService {
 		System.out.println("가져올 articleNo:"+articleNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Article article = communityDAO.getCommunityArticle(articleNo);
+		
 		List<Reply>replyList = communityDAO.getReplyListUnderArticle(articleNo);
 		for (int i = 0; i < replyList.size(); i++) {
-			System.out.println(replyList.get(i).getRegDate());
-			System.out.println(replyList.get(i).getUser().getName());
+			//System.out.println(replyList.get(i).getRegDate());
+			//System.out.println(replyList.get(i).getUser().getName());
 		}
+		int totalCountCommunityReply = communityDAO.getTotalCountCommunityReply(articleNo);
 		
 		map.put("article", article);
 		map.put("replyList", replyList);
+		map.put("totalCountCommunityReply", totalCountCommunityReply);
 		return map;
 	}
 	
 	@Override
-	public List<Reply> getReplyListUnderArticle(int articleNo) throws Exception {
+	public Map<String, Object> getReplyListUnderArticle(int articleNo) throws Exception {
 
 		List<Reply>replyList = communityDAO.getReplyListUnderArticle(articleNo);
-
-		return replyList;
+		int totalCountCommunityReply = communityDAO.getTotalCountCommunityReply(articleNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("replyList", replyList);
+		map.put("totalCountCommunityReply", totalCountCommunityReply);
+		return map;
 	}
 	
 	@Override
@@ -115,8 +122,30 @@ public class CommunityServiceImpl implements CommunityService {
 		//댓글 List
 		List<Reply>replylistUnderOneArticle = new ArrayList<Reply>();
 		List<List<Reply>> array = new ArrayList<List<Reply>>();
+		
 		for (int i = 0; i < articlelist.size(); i++) {
+			
+			//글 내용 가독성있게 적당히 띄워쓰기하는 파트
+			articlelist.get(i).setArticleContent( articlelist.get(i).getArticleContent().replace("\n", "<br>"));
+			
 			replylistUnderOneArticle = communityDAO.getReplyListUnderArticle(articlelist.get(i).getArticleNo());
+			
+			//댓글 갯수
+			int total = communityDAO.getTotalCountCommunityReply(articlelist.get(i).getArticleNo());
+			System.out.println("\n\n\ntotal----"+total);
+			articlelist.get(i).setTotalReport( total );
+			
+			if( !replylistUnderOneArticle.isEmpty() ) {
+				for(int j = 0; j <replylistUnderOneArticle.size(); j++) {
+					//댓글 내용 가독성있게 적당히 띄워쓰기하는 파트
+					replylistUnderOneArticle.get(j).setReplyContent( replylistUnderOneArticle.get(j).getReplyContent().replace("\n", "<br>"));
+					//System.out.println("확인--\n"+replylistUnderOneArticle.get(j).getReplyContent());
+
+					//replylistUnderOneArticle.get(j).setTotalReport( communityDAO.getTotalCountCommunityReply(articlelist.get(i).getArticleNo()));
+				
+				}
+			}
+			
 			array.add(i, replylistUnderOneArticle);
 		}
 		
@@ -124,7 +153,7 @@ public class CommunityServiceImpl implements CommunityService {
 		int totalCountCommunityArticle =communityDAO.getTotalCountCommunityArticle((Integer)serviceMap.get("hobbyClassNo"));
 		//System.out.println("totalCountCommunityArticle확인:"+totalCountCommunityArticle);
 		
-		map.put("totalCountCommunityArticle", totalCountCommunityArticle);
+		map.put("totalCountCommunityArticle", totalCountCommunityArticle );
 		map.put("articleList", articlelist);
 		map.put("array", array);
 		return map;

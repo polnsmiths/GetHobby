@@ -35,6 +35,6 @@ public interface CommunityService {
 	
 	public Map<String, Object> getCommunityList(Map<String, Object> serviceMap)throws Exception;
 	
-	public List<Reply> getReplyListUnderArticle(int articleNo)throws Exception;
+	public Map<String, Object> getReplyListUnderArticle(int articleNo)throws Exception;
 
 }
