@@ -60,6 +60,9 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			// spinner 가리기
+			$('.spinner-border').hide();
+		
 			var hobbyClassNo = $('.hidden-hobby-class-number').val();	
 			
 			// 클래스 한줄평인데 일단 다 가리고 보자
@@ -322,36 +325,49 @@
 								steamCount : steamCount
 							}),
 							success : function(JSONData, status) {
-								$('.steam-check').val(JSONData.hobbyClass.steamCheck);
-								$('.steam-count').val(JSONData.hobbyClass.steamCount);
-								
-								var display = '';
-								
-								
-								if ( JSONData.hobbyClass.steamCheck == '0' ) {
-									display += '<i class="far fa-heart"></i>';
-//									$('.steam-button').html('<i class="far fa-heart"></i>');
+								if ( JSONData.result == 'error' ) {
+									$('.spinner-border').show();								
+									self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
 								}
-								else if ( JSONData.hobbyClass.steamCheck == '1' ) {
-									display += '<i class="fas fa-heart"></i>';
-//									$('.steam-button').html('<i class="fas fa-heart"></i>');
-								}
-								display += '&nbsp;&nbsp;';
-								display += '<span class="steam-inner">';
-								display += JSONData.hobbyClass.steamCount;
-								display += '</span>';
+								else if ( JSONData.result == 'ok' ) {
+									$('.steam-check').val(JSONData.hobbyClass.steamCheck);
+									$('.steam-count').val(JSONData.hobbyClass.steamCount);
+									
+									var display = '';
+									
+									
+									if ( JSONData.hobbyClass.steamCheck == '0' ) {
+										display += '<i class="far fa-heart"></i>';
+//										$('.steam-button').html('<i class="far fa-heart"></i>');
+									}
+									else if ( JSONData.hobbyClass.steamCheck == '1' ) {
+										display += '<i class="fas fa-heart"></i>';
+//										$('.steam-button').html('<i class="fas fa-heart"></i>');
+									}
+									display += '&nbsp;&nbsp;';
+									display += '<span class="steam-inner">';
+									display += JSONData.hobbyClass.steamCount;
+									display += '</span>';
+									
+									$('.steam-button').html(display);
+									/* 하트가 제대로 안바뀜...
+									if ( JSONData.hobbyClass.steamCheck == '0' ) {
+										$('.steam-heart-font').html('<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3e4042" fill-rule="evenodd" d="M17.586 15.086c2.07-2.07 2.914-3.572 2.914-5.586A3.5 3.5 0 0017 6c-1.074 0-1.92.392-2.829 1.19a14.88 14.88 0 00-.757.724L12 9.328l-1.414-1.414a14.88 14.88 0 00-.757-.724C8.919 6.392 8.074 6 7 6a3.5 3.5 0 00-3.5 3.5c0 2.014.844 3.516 2.914 5.586 1.038 1.037 2.91 2.277 5.586 3.67 2.677-1.393 4.548-2.633 5.586-3.67zM5 16.5c-1.911-1.911-3.5-3.962-3.5-7A5.5 5.5 0 017 4c2.5 0 4 1.5 5 2.5 1-1 2.5-2.5 5-2.5a5.5 5.5 0 015.5 5.5c0 3.038-1.589 5.089-3.5 7-1.333 1.333-3.667 2.833-7 4.5-3.333-1.667-5.667-3.167-7-4.5z"></path></svg>');
+									}
+									else if ( JSONData.hobbyClass.steamCheck == '1' ) {
+										$('.steam-heart-font').html('<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3e4042" fill-rule="evenodd" d="M5 16.5c-1.911-1.911-3.5-3.962-3.5-7A5.5 5.5 0 017 4c2.5 0 4 1.5 5 2.5 1-1 2.5-2.5 5-2.5a5.5 5.5 0 015.5 5.5c0 3.038-1.589 5.089-3.5 7-1.333 1.333-3.667 2.833-7 4.5-3.333-1.667-5.667-3.167-7-4.5z"></path></svg>');
+									}
+									*/ 
 								
-								$('.steam-button').html(display);
-								/* 하트가 제대로 안바뀜...
-								if ( JSONData.hobbyClass.steamCheck == '0' ) {
-									$('.steam-heart-font').html('<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3e4042" fill-rule="evenodd" d="M17.586 15.086c2.07-2.07 2.914-3.572 2.914-5.586A3.5 3.5 0 0017 6c-1.074 0-1.92.392-2.829 1.19a14.88 14.88 0 00-.757.724L12 9.328l-1.414-1.414a14.88 14.88 0 00-.757-.724C8.919 6.392 8.074 6 7 6a3.5 3.5 0 00-3.5 3.5c0 2.014.844 3.516 2.914 5.586 1.038 1.037 2.91 2.277 5.586 3.67 2.677-1.393 4.548-2.633 5.586-3.67zM5 16.5c-1.911-1.911-3.5-3.962-3.5-7A5.5 5.5 0 017 4c2.5 0 4 1.5 5 2.5 1-1 2.5-2.5 5-2.5a5.5 5.5 0 015.5 5.5c0 3.038-1.589 5.089-3.5 7-1.333 1.333-3.667 2.833-7 4.5-3.333-1.667-5.667-3.167-7-4.5z"></path></svg>');
+//									$('.steam-inner-count').text(JSONData.hobbyClass.steamCount);
+									$('.spinner-border').hide();
 								}
-								else if ( JSONData.hobbyClass.steamCheck == '1' ) {
-									$('.steam-heart-font').html('<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3e4042" fill-rule="evenodd" d="M5 16.5c-1.911-1.911-3.5-3.962-3.5-7A5.5 5.5 0 017 4c2.5 0 4 1.5 5 2.5 1-1 2.5-2.5 5-2.5a5.5 5.5 0 015.5 5.5c0 3.038-1.589 5.089-3.5 7-1.333 1.333-3.667 2.833-7 4.5-3.333-1.667-5.667-3.167-7-4.5z"></path></svg>');
-								}
-								*/ 
-							
-//								$('.steam-inner-count').text(JSONData.hobbyClass.steamCount);
+							},
+							beforeSend : function() {
+							//	$('.spinner-border').show();
+							}, 
+							complete : function() {
+							//	$('.spinner-border').hide();
 							}
 						}
 				)
@@ -491,6 +507,13 @@
 				}
 				
 				if ( index == 4 ) {
+					var userId = $('.user-hidden-class-intro-value').val();
+					
+					if ( !userId ) { 
+						self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
+						return false;
+					}
+					
 					if ( purchaseCheck == '0' ) {
 						Swal.fire({
 							icon : 'error',
@@ -546,7 +569,16 @@
 									display += '<div size="24" class="profile-outer-div">';
 									display += '<span class="profile-outer-span1 profile-outer-span2">';
 									// 나중에 회원 프로필 사진으로 대체하기 
-									display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
+									// display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
+									
+									var profileImage = 'unnamed.jpg';
+							
+									if (JSONData.assessContentList[i].user.profileImage != null) {
+										profileImage = JSONData.assessContentList[i].user.profileImage; 
+									}
+									
+									display += '<img src="/resources/image/logo/' + profileImage + '" class="class-assess-img-tag" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									
 									display += '</span>';
 									display += '</div>';
 									display += '<div class="name-outer-div">';
@@ -571,6 +603,7 @@
 									display += '</div>';
 									display += '</div>';
 									display += '</div>';
+									display += '<hr/>';
 								}
 								
 								display += '<span class="class-assess-scroll"></span>';
@@ -2254,6 +2287,20 @@
 		.btn.btn-light.steam-button {
 			background-color : #FFFFFF;
 		}
+		
+		.spinner-outer-div {
+			width : 100%;
+			position : relative;
+			z-index : 1;
+			height : 100%;
+		}
+		
+		.spinner-border {
+			display : block;
+			position : fixed;
+			top : calc(50% - (58px / 2));
+			right : calc(50% - (58px / 2));
+		}
 	</style>
 
 </head>
@@ -2275,10 +2322,16 @@
 	
 	<br/><br/><br/><br/>
 	
+	<div class="spinner-outer-div">
+		<div class="spinner-border text-warning" role="status">
+	  		<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-white class-intro-nav-bar">
 					<span class="navbar-brand">클래스 메뉴</span>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -2642,7 +2695,8 @@
 									<div size="24" class="profile-outer-div">
 										<span class="profile-outer-span1 profile-outer-span2">
 											<!-- 나중에 프로필 사진으로 대체하기 -->
-											<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>
+											<!-- <img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/> -->
+												<img src="/resources/image/logo/${!empty reply.user.profileImage ? reply.user.profileImage : 'unnamed.jpg'}" class="class-assess-img-tag" onError="this.src='/resources/image/logo/unnamed.jpg'">
 										</span>
 									</div>
 									
@@ -2659,7 +2713,7 @@
 										${assessContent.assessContent }
 									</div>
 								</div>
-								
+								<hr/>
 							</div>
 							<!-- 나중에 그거 forEach문 돌릴 구간 -->
 						</c:forEach>

@@ -18,14 +18,11 @@
     <!-- 웹 폰트 (나눔고딕) -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
-
     <!--부트스트랩 CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-
 
     <!-- jQuery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -45,34 +42,79 @@
 	<!-- Header -->
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css">
-	<link rel="stylesheet" href="/resources/css/min/listCommunity.css">
+	<link rel="stylesheet" href="/resources/css/min/getCommunity.css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
+	
+	<script type="text/javascript">
+		$(function(){
+			// 클래스 소개 > 커뮤니티 이거 클릭 시 
+			$('.community-select-top-span-tag').on('click', function(){
+				var checkNavigation = $(this).find('.community-top-hidden-value').val();
+				var hobbyClassNo = $('.hidden-hobby-class-number').val();
+				console.log(checkNavigation);
+				console.log(hobbyClassNo);
+				if( checkNavigation == '0' ) {
+					// 클래스 소개로 navigation
+					self.location = "/searchHobbyClass/getSearchHobbyClassIntro?hobbyClassNo=" + hobbyClassNo;
+				}
+				else if ( checkNavigation == '1' ) {
+					// 해당 클래스 번호의 클래스 커뮤니티로 navigation 
+				}
+			})
+			
+			$(document).on('click', '.report-update-and-so-on-inner-span', function(){
+				var checkNavigation = $(this).find('.right-report-update-delete-hidden-input-tag').val();
+				var articleNo = $('.hidden-article-number').val();
+				
+				console.log(checkNavigation);
+				
+				if ( checkNavigation == '0' ) {
+					//  해당 글 수정 
+				}
+				else if ( checkNavigation == '1' ) {
+					// 해당 글 삭제 
+				}
+			})
+			
+		})
+	</script>
+	
 	</head>
 	<!-- ////////////////////////////////////////////////////////========HEAD 끝==========/////////////////////////////////////////////////////////// -->
 	<body class="listcommunity-body-class">
 	
 		<!-- toolbar -->
 		<jsp:include page="/common/header.jsp"/>
+			
+	
+			<!-- ////// INPUT HIDDEN /////////// -->	
+			<input type="hidden" class="hidden-hobby-class-number"  value="${article.hobbyClass.hobbyClassNo}">	
+			<input type="hidden" class="hidden-article-number" value="${article.articleNo }" />
 				
 	<div class="container mt-5">
-	
-		<div class="lcmnt-top-out-div">
-			<h3 class="lcmnt-top-h3">커뮤니티 </h3>
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-tag">
+				클래스 소개
+				<input type="hidden" class="community-top-hidden-value" value="0" />
+			</span>
+			<img src="/resources/image/min/small-right-arrow.jpg" class="a-tag-right-arrow-img">
 		</div>
-			
-			
-			<!-- ////// INPUT HIDDEN /////////// -->	
-			<input type="hidden" name="hidden_hobbyClassNo" id="hidden_hobbyClassNo" value="${hobbyClassNo}">	
-			<input type="hidden" name="hidden_totalCount" id="hidden_totalCount" value="${resultPage.totalCount}">	
-			<input type="hidden" name="hidden_session_userId" id="hidden_session_userId" class="hidden_session_userId" value="${sessionUser.userId}">
-			<input type="hidden" name="hidden_session_name" id=hidden_session_name class="hidden_session_name" value="${sessionUser.name}">
-			<input type="hidden" name="hidden_session_profileImage" id="hidden_session_profileImage" class="hidden_session_profileImage" value="${sessionUser.profileImage}">
-			<input type="hidden" name="hidden_session_nickName" id="hidden_session_nickName" class="hidden_session_nickName" value="${sessionUser.nickName}">
-			<input type="hidden" class="hidden_articleNo" id="hidden_articleNo" value="${article.articleNo }" />
-
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-tag">
+				커뮤니티
+				<input type="hidden" class="community-top-hidden-value" value="1" />
+			</span>
+			<img src="/resources/image/min/small-right-arrow.jpg" class="a-tag-right-arrow-img">
+		</div>
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-last-tag">
+				${ !empty article.user.nickName ? article.user.nickName : article.user.name } 님의 글
+			</span>
+		</div>
+		
+		
 			<div class="outer_div">
 				<div class="article_div">
 					<div class="lcmnt-winf">
@@ -109,40 +151,42 @@
 							<c:if test="${sessionScope.user.userId == article.user.userId }">
 								<span class="report-update-and-so-on-inner-span mr-2">
 									수정
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="0" />
 								</span>
 								<span class="report-update-and-so-on-inner-span mr-2">
 									삭제
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="1" />
 								</span>
 							</c:if>
+							<!-- 
 							<c:if test="${sessionScope.user.userId != article.user.userId }">
 								<span class="report-update-and-so-on-inner-span mr-2">
 									신고
 								</span>
 							</c:if>
+							-->
 						</div>
 						<br/><hr/>
 				</div>
 					
+					<h1 class="reply-count-h1-tag mb-2">
+						댓글
+						<small class="reply-count-real-text-small-tag">
+							<!-- 실제 reply totalCount로 변경할 것 -->
+							11개
+						</small>
+					</h1>
+					
 					<div class="outer_reply_div" >
 					<div class="reply_div" >
 
-					
-						<!-- ////// INPUT HIDDEN /////////// -->	
-						<input type="hidden" class="hidden_replyNo" id="hidden_replyNo" value="${array.replyNo}" />
-						<input type="hidden" class="hidden_replyContent" id="hidden_replyContent" value="${array.replyContent}" />
-						<input type="hidden" class="hidden_reply_userprofileImage" id="hidden_reply_userprofileImage" value="${array.user.profileImage}" />
-						<input type="hidden" class="hidden_reply_username" id="hidden_reply_username" value="${array.user.name}" />
-						<input type="hidden" class="hidden_reply_userId" id="hidden_reply_userId" value="${array.user.userId}" />
-						<input type="hidden" class="hidden_reply_usernickName" id="hidden_reply_usernickName" value="${array.user.nickName}" />
-						<input type="hidden" class="hidden_reply_regDate" id="hidden_reply_regDate" value="${array.regDate}" />
-						
 					<c:forEach var="reply" items="${replyList }">
 					<!-- 작성 정보 -->
 					<div class="lcmnt-winf mt-3">	
 						<!-- 프로필 사진 -->
 						<span class="lcmnt-fpiod-reply">
 						<c:if test="${reply.user.profileImage == null }">
-							<img src="/resources/image/min/default-profile.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
+							<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
 						</c:if>
 						<c:if test="${reply.user.profileImage != null }">
 							${reply.user.profileImage }
@@ -173,14 +217,9 @@
 				</div>
 				
 			</div><!-- outer_div 끝 -->
-			
-			<hr/>
-			
-			
 			</div>
-	
-	
 	</div> 
-
+	<br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

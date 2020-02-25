@@ -215,6 +215,7 @@ $(function(){
 				return false;
 			});
   			*/
+  			$('.spinner-border').show();		
   			self.location = '/user/noLogonUser?type=steam';	
   			return false;
   		}
@@ -252,23 +253,30 @@ $(function(){
   						steamCount : steamCountInput.val()
   					}),
   					success : function(JSONData, status) {
+  						if ( JSONData.result == 'error' ) {
+  							$('.spinner-border').show();								
+							self.location = '/user/noLogonUser?type=steam';	
+  						}
+  						else if ( JSONData.result == 'ok' ) {
   						
-  						var display = "";
-  						display += "<button type='button' class='btn btn-light' name='registerSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
-  						
-  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
-							display += "<i class='far fa-heart'></i>";
-						}
-						else if ( JSONData.hobbyClass.steamCheck == '1' ) {
-							display += "<i class='fas fa-heart'></i>";
-						}
-  						
-  						display += "<span name='registerSteamCount'>";
-  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
-  						display += "</button>";
-  						
-  						steamCountInput.val(JSONData.hobbyClass.steamCount);
-						steamButton.parent().html(display);
+	  						var display = "";
+	  						display += "<button type='button' class='btn btn-light' name='registerSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
+	  						
+	  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
+								display += "<i class='far fa-heart'></i>";
+							}
+							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
+								display += "<i class='fas fa-heart'></i>";
+							}
+	  						
+	  						display += "<span name='registerSteamCount'>";
+	  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
+	  						display += "</button>";
+	  						
+	  						steamCountInput.val(JSONData.hobbyClass.steamCount);
+							steamButton.parent().html(display);
+							
+  						}
   					}
   				}
   		)

@@ -13,6 +13,9 @@
 		var delta = 50;
 		var timer = null;
 		
+		// 스피너 무조건 감추기
+		$('.spinner-outer-div').hide();
+		
 		// 시작하자마자 창 크기 재서 뭘 숨기고 뭘 감추고 하기 
 		var onloadWidth = $(window).width();
 		

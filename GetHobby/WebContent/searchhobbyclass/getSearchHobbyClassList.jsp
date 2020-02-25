@@ -76,6 +76,10 @@
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	
+	<!-- jquery mobile cdn -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	
 </head>
 <body>
 	<input type="hidden" class="user-hidden-value" value="${sessionScope.user.userId }"/>
@@ -86,6 +90,12 @@
 	</div>
 	
 	<br/><br/><br/><br/>
+	
+	<div class="spinner-outer-div">
+		<div class="spinner-border text-warning" role="status">
+	  		<span class="sr-only">Loading...</span>
+		</div>
+	</div>
 	
 	<!-- navbar 시작 -->
 	<div class="container">

@@ -719,3 +719,23 @@ ul {
 .card-footer {
 	background-color : #FFFFFF;	
 }
+
+.lesson-reply-profile-image {
+	width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+}
+
+.lesson-reply-profile-image-outer-span {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    border-width: 1px;
+    border-style: none;
+    border-color: rgb(248, 248, 249);
+    border-image: initial;
+    display: block;
+    position: relative;
+    font-size: 0px;
+    overflow: hidden;
+}
