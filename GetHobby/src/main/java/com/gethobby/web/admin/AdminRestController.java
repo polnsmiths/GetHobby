@@ -20,11 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gethobby.common.Search;
-<<<<<<< HEAD
 import com.gethobby.service.domain.HobbyClass;
-=======
 import com.gethobby.service.delivery.DeliveryService;
->>>>>>> refs/remotes/origin/master
 import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
