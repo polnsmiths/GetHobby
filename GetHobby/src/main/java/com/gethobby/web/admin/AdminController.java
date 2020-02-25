@@ -119,6 +119,7 @@ public class AdminController {
 		
 		
 		model.addAttribute("companyListMap", companyListMap);
+		model.addAttribute("jsonString", json);
 		System.out.println(companyListMap.get(0).get("Code"));
 		////////////////////운송장 입력 ////////////////////
 		
