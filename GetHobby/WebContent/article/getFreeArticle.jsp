@@ -98,12 +98,12 @@
          
         <div class="row d-flex justify-content-between px-3 mb-5">
             <div class="sol-user mr-auto">
-            	<c:if test="${ !empty article.user.profileImage }">
-            		<img src="/resources/image/min/default-profile.jpg" class="" alt="...">
-            	</c:if>
+            	<%-- <c:if test="${ !empty article.user.profileImage }"> --%>
+            		<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="" alt="...">
+            	<%-- </c:if>
             	<c:if test="${ empty article.user.profileImage }">        	
-	                <img src="/resources/image/min/default-profile.jpg" class="" alt="...">
-            	</c:if>
+	                <img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="" alt="...">
+            	</c:if> --%>
                 <span class="m-auto px-2">${ article.user.nickName }</span>
             </div>
             <div class="my-auto sol-article-regdate pr-2">

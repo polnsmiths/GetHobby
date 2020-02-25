@@ -64,8 +64,21 @@
 	<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 	<script type="text/javascript">
 	$(function(){
-		opener.parent.location="/index.jsp";
+		// opener.parent.location="/index.jsp"; // 기존
+		
+		// 수정된 부분 ------------------------------------------------------------------------------------------
+		var redirectUrl = '';
+		redirectUrl = $(opener.document).find('.login-redirect-url').val(); 
+		
+		if ( redirectUrl == '' ) {
+			opener.parent.location = "/index.jsp";
+		}
+		else {
+			opener.parent.location = redirectUrl;
+		}
+		
 		window.open("about:blank","_self").close();
+		// 수정된 부분 ------------------------------------------------------------------------------------------
 	})
 		
 	</script>

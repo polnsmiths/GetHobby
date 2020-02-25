@@ -228,7 +228,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -555,7 +555,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -840,7 +840,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1068,7 +1068,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1317,7 +1317,7 @@
 										display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 										display += "<div id='cardImage'>";
 										display += "<span>";
-										display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+										display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 										
 										if ( JSONData.hobbyClassList[i].event != null ) { 
 											if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
@@ -1432,11 +1432,12 @@
 			   var windowHeight = $(this).height();
 			   
 			   if ( windowWidth <= 980 ) {
+				   
 				   $('.outer-event-carousel-div').hide();
-				   $('.mini-size-category-total-outer-container-div').show();
 				   $('#search-alignment-button-div').hide();
 				   $('#search-form-group').hide();
 				   
+				   $('.mini-size-category-total-outer-container-div').show();
 			   }
 			   else if ( windowWidth > 980 ) {
 				   $('.mini-size-category-total-outer-container-div').hide();
@@ -1446,6 +1447,7 @@
 					   $('.outer-event-carousel-div').hide();
 					   $('#search-form-group').show();
 					   $('#search-alignment-button-div').show();
+					   $('.input-search-form-but-not-button-outer-div').show();
 				   }
 				   else {
 					   $('.outer-event-carousel-div').show();
@@ -1456,13 +1458,18 @@
 			   }
 		});
 		
-		$('.mini-size-category-li').on('click', function(){
+		$(document).on('click', '.mini-size-category-li', function(){
+//		$('.mini-size-category-li').on('click', function(){
+			
 			$('.include-for-popular-hobby-class').hide();
 			$('.include-for-register-hobby-class').hide();
 			$('.include-for-recommend-hobby-class').hide();
 			$('.outer-event-carousel-div').hide();
 			
+			$('.input-search-form-but-not-button-outer-div').hide();
+			
 			categoryValue = $(this).find('.mini-category-value').val();
+			console.log(categoryValue);
 			categoryName = $(this).text().trim();
 			
 			$('.search-button-but-form').val('');
@@ -1544,7 +1551,7 @@
 								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
 								display += "<div id='cardImage'>";
 								display += "<span>";
-								display += "<img name='cardImage' src='/images/min/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
 								
 								if ( JSONData.hobbyClassList[i].event != null ) { 
 									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {

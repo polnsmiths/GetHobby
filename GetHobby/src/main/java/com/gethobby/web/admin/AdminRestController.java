@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gethobby.common.Search;
+<<<<<<< HEAD
 import com.gethobby.service.domain.HobbyClass;
+=======
+import com.gethobby.service.delivery.DeliveryService;
+>>>>>>> refs/remotes/origin/master
 import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
@@ -43,6 +47,15 @@ public class AdminRestController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	
+	@Autowired
+	@Qualifier("deliveryServiceImpl")
+	private DeliveryService deliveryService;
+	
+	
+	
+	
 
 	//Constructor
 	public AdminRestController() {
@@ -53,6 +66,16 @@ public class AdminRestController {
 	public Map getPaymentHistoryListAdmin(@RequestBody Search search) throws Exception {
 		return purchaseService.getPaymentHistoryListAdmin(search);
 	}
+	
+	
+	@RequestMapping( value="json/purchase/addDeliveryInfo", method=RequestMethod.POST )
+	public Purchase getPaymentHistoryAdmin(@RequestBody Purchase purchase) throws Exception {
+		//return purchaseService.getPaymentHistoryListAdmin(search);
+		deliveryService.addDeliveryInfo(purchase);
+		
+		return purchaseService.getPurchase(purchase.getPurchaseId());
+	}
+	
 	
 	@RequestMapping( value="json/purchase/updateRefund", method=RequestMethod.POST )
 	public Purchase updateRefund(@RequestBody Purchase purchase) throws Exception {

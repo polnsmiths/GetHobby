@@ -1,5 +1,9 @@
 package com.gethobby.web.admin;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gethobby.common.Search;
+import com.gethobby.service.delivery.DeliveryService;
+import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
@@ -49,6 +55,18 @@ public class AdminController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
+	
+	
+	@Autowired
+	@Qualifier("deliveryServiceImpl")
+	private DeliveryService deliveryService;
+	
+	@Value("#{apiKeyProperties['smartTracking']}")
+	private String apiKey;
+	
+	
+	
+	
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
 	
@@ -67,8 +85,59 @@ public class AdminController {
 		Map purchaseMap = purchaseService.getPaymentHistoryListAdmin(new Search());
 		model.addAttribute("purchaseMap", purchaseMap);
 		model.addAttribute("resultPage", purchaseMap.get("resultPage"));
+		
+		
+		
+		//////////////////// 운송장 입력 ////////////////////
+		String reqUrl = "https://info.sweettracker.co.kr/api/v1/companylist?t_key=" + apiKey;
+		
+		URL url = new URL(reqUrl);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("accept", "application/json");
+		con.connect();
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+		String result = "";
+		String line = "";
+		
+		while((line = br.readLine()) != null) {
+			result += line;
+		}
+		System.out.println("response result:::::::::::" + result);
+		br.close();
+		
+		JSONObject json = (JSONObject) JSONValue.parse(result);
+		
+		System.out.println("json:::::::::: " + json);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<Map<String, Object>> companyListMap = objectMapper.readValue(json.get("Company").toString(), new TypeReference<List<Map<String, Object>>>(){});
+		
+		System.out.println("map 안에 들어있는 것들::::::::::" + companyListMap);
+		
+		
+		model.addAttribute("companyListMap", companyListMap);
+		System.out.println(companyListMap.get(0).get("Code"));
+		////////////////////운송장 입력 ////////////////////
+		
+		
 		return "/admin/getPaymentHistoryListAdmin.jsp";
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping( value="hobbyClass/getHobbyClassListAdmin", method=RequestMethod.GET )
 	public String getHobbyClassListAdmin(Model model) throws Exception {

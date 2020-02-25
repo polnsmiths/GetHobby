@@ -172,26 +172,26 @@ ul li a:hover{
 
 #container div#red{
 	/* background-image: url('https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'); */
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url('/resources/image/logo/red.jpeg') fixed;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)), url('/images/red.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#green{
-	background-image: url('/resources/image/logo/green.jpeg');
+	background-image: url('/images/green.jpeg');
 	background-size: cover  ;
 }
 #container div#blue{
 	/* background-image: url('https://images.unsplash.com/photo-1541443517255-9e9aa2962f14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'); */
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/blue.jpeg') fixed;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/blue.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#yellow{
 	/* background-image: url('https://images.unsplash.com/photo-1449247666642-264389f5f5b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1649&q=80'); */
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/yellow.jpeg') fixed;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/yellow.jpeg') fixed;
 	background-size: cover  ;
 }
 #container div#magenta{
 	/* background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80'); */
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/resources/image/logo/magenta.jpeg') fixed;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/magenta.jpeg') fixed;
 	background-size: cover  ;
 }
 .circle-span {
@@ -206,7 +206,12 @@ ul li a:hover{
 	display: none;
 }
 
+@media (max-width: 767px) {
 
+    h3 {
+        display: none;
+    }
+}
 </style>
 
 </head>
