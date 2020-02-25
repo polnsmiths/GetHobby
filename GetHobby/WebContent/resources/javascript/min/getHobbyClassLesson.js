@@ -1,4 +1,39 @@
 $(function(){
+	// 시작하자마자 화면 컨트롤 하기 
+	var onloadWidth = $(window).width();
+	
+	   if ( onloadWidth <= 1090 ) {
+		   $('.lesson-project-content-outer-div').hide();
+		   $('.lesson-reply-content-total-outer-div').hide();
+		   $('.col-lg-4.fixed-right-tool-bar').hide();
+		   $('.small-width-row').show();
+		   $('.lesson-header-total-arrow').hide();
+	   }
+	   else {
+		   $('.lesson-project-content-outer-div').show();
+		   $('.lesson-reply-content-total-outer-div').show();
+		   $('.col-lg-4.fixed-right-tool-bar').show();
+		   $('.small-width-row').hide();
+		   $('.lesson-header-total-arrow').show();
+	   }
+	   
+	   if ( onloadWidth >= 600 ) { // max-height: 500px;
+		   $('.lesson-project-content-outer-div').css('max-height', '500px');				   
+	   }
+	   else if ( onloadWidth >= 500 ) {
+		   $('.lesson-project-content-outer-div').css('max-height', '400px');	
+	   }
+	   else if ( onloadWidth >= 400 ) {
+		   $('.lesson-project-content-outer-div').css('max-height', '300px');	
+	   }
+	   else if ( onloadWidth >= 300 ) {
+		   $('.lesson-project-content-outer-div').css('max-height', '200px');	
+	   }
+	   else if ( onloadWidth >= 200 ) {
+		   $('.lesson-project-content-outer-div').css('max-height', '100px');	
+	   }
+	
+	
 	// 화면 작아지면 띄울 맨밑에 그거 숨기기
 	$('.small-width-row').hide();
 
@@ -243,13 +278,25 @@ $(function(){
 							// 나중에 프로필 사진 바꾸기 
 							// display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
 							
-							var profileImage = 'default-profile.jpg';
+							/*
+							var profileImage = 'unnamed.jpg';
 							
 							if (JSONData.replyList[i].user.profileImage != null) {
 								profileImage = JSONData.replyList[i].user.profileImage; 
 							}
 							
-							display += '<img src="/images/woo/' + profileImage + '" class="mr-3 rounded-circle" onError="this.src="/resources/image/min/default-profile.jpg"">';
+							display += '<span class="lesson-reply-profile-image-outer-span">';
+							display += '<img src="/resources/image/logo/' + profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+							display += '</span>';
+							*/
+							console.log('JSONData profileImage ? : ' + JSONData.replyList[i].user.profileImage);
+							if ( JSONData.replyList[i].user.profileImage != null ) {
+								display += '<img src="/resources/image/woo/' + JSONData.replyList[i].user.profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+							}
+							
+							if ( JSONData.replyList[i].user.profileImage == null ) {
+								display += '<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+							}
 							
 							display += '<div class="media-body">';
 							display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
@@ -294,6 +341,7 @@ $(function(){
 							display += '</div>';
 							display += '</div>';
 							display += '</li>';
+							display += '<hr/>';
 						}
 						display += '</ul>';
 						display += '<span class="scroll-page"></span>';
@@ -471,7 +519,27 @@ $(function(){
 								display += '<input type="hidden" class="lesson-reply-content-hidden-value" value="' + JSONData.replyList[i].replyContent + '" />';
 								display += '<input type="hidden" class="lesson-reply-user-userId-hidden-value" value="' + JSONData.replyList[i].user.userId + '" />';
 								// 나중에 프로필 사진 바꾸기 
-								display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+								// display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+								
+								/*
+								var profileImage = 'unnamed.jpg';
+								
+								if (JSONData.replyList[i].user.profileImage != null) {
+									profileImage = JSONData.replyList[i].user.profileImage; 
+								}
+								
+								display += '<span class="lesson-reply-profile-image-outer-span">';
+								display += '<img src="/resources/image/logo/' + profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+								display += '</span>';
+								*/
+								
+								if ( JSONData.replyList[i].user.profileImage != null ) {
+									display += '<img src="/resources/image/woo/' + JSONData.replyList[i].user.profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+								}
+								
+								if ( JSONData.replyList[i].user.profileImage == null ) {
+									display += '<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+								}
 								
 								display += '<div class="media-body">';
 								display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
@@ -515,6 +583,7 @@ $(function(){
 								display += '</div>';
 								display += '</div>';
 								display += '</li>';
+								display += '<hr/>';
 							}
 							display += '</ul>';
 							display += '<span class="scroll-page"></span>';
@@ -668,7 +737,29 @@ $(function(){
 									display += '<input type="hidden" class="lesson-reply-content-hidden-value" value="' + JSONData.replyList[i].replyContent + '" />';
 									display += '<input type="hidden" class="lesson-reply-user-userId-hidden-value" value="' + JSONData.replyList[i].user.userId + '" />';
 									// 나중에 프로필 사진 바꾸기 
-									display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+									// display += '<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">';
+									
+									/*
+									var profileImage = 'unnamed.jpg';
+									
+									if (JSONData.replyList[i].user.profileImage != null) {
+										profileImage = JSONData.replyList[i].user.profileImage; 
+									}
+									
+									display += '<span class="lesson-reply-profile-image-outer-span">';
+									display += '<img src="/resources/image/logo/' + profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									display += '</span>';
+									*/
+									
+									if ( JSONData.replyList[i].user.profileImage != null ) {
+										display += '<img src="/resources/image/woo/' + JSONData.replyList[i].user.profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									}
+									
+									if ( JSONData.replyList[i].user.profileImage == null ) {
+										display += '<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									}
+
+									display += '<hr/>';
 									
 									display += '<div class="media-body">';
 									display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
@@ -712,6 +803,7 @@ $(function(){
 									display += '</div>';
 									display += '</div>';
 									display += '</li>';
+									display += '<hr/>';
 								}
 								display += '</ul>';
 								display += '<span class="scroll-page"></span>';
@@ -812,6 +904,7 @@ $(function(){
 		   $('.lesson-reply-content-total-outer-div').hide();
 		   $('.col-lg-4.fixed-right-tool-bar').hide();
 		   $('.small-width-row').show();
+		   $('.lesson-header-total-arrow').hide();
 //		   $('.col-lg-4.fixed-right-tool-bar').attr('class', 'col-lg-4 fixed-bottom');
 	   }
 	   else {
@@ -819,6 +912,7 @@ $(function(){
 		   $('.lesson-reply-content-total-outer-div').show();
 		   $('.col-lg-4.fixed-right-tool-bar').show();
 		   $('.small-width-row').hide();
+		   $('.lesson-header-total-arrow').show();
 //		   $('.col-lg-4.fixed-bottom').attr('class', 'col-lg-4 fixed-right-tool-bar');
 	   }
 	   

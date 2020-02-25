@@ -57,12 +57,16 @@ public class MyHobbyClassRestController {
 	
 	@RequestMapping( value = "json/addSteamHobbyClass" )
 	public Map<String, Object> addSteamHobbyClass(@RequestBody Map<String, String> jsonMap, HttpSession session) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
 		User user = (User)session.getAttribute("user");
-	
 		String userId = null;
 		
-		if (user != null) {
+		try {
 			userId = user.getUserId();
+		} catch (Exception e) {
+			returnMap.put("result", "error");
+			return returnMap;
 		}
 		
 		Map<String, Object> inputData = new HashMap<String, Object>();
@@ -78,12 +82,12 @@ public class MyHobbyClassRestController {
 		inputData.put("userId", userId);
 		inputData.put("hobbyClassNo", jsonMap.get("hobbyClassNo"));
 		inputData.put("steamCount", steamCount);
+
 		myHobbyClassService.addSteamHobbyClass(inputData);
 		
 		hobbyClass = searchHobbyClassService.getHobbyClass(inputData);
-		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("hobbyClass", hobbyClass);
-		
+		returnMap.put("result", "ok");
 		return returnMap;
 	}
 	
@@ -110,6 +114,7 @@ public class MyHobbyClassRestController {
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("hobbyClass", hobbyClass);
+		returnMap.put("result", "ok");
 		
 		return returnMap;
 	}

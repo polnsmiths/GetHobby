@@ -35,7 +35,7 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 import com.gethobby.service.user.UserService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 
 @Controller
 @RequestMapping("/admin/*")
@@ -125,14 +125,7 @@ public class AdminController {
 		return "/admin/getPaymentHistoryListAdmin.jsp";
 	}
 	
-//	배송 정보 등록
-	@RequestMapping(value="purchase/getPaymentHistoryListAdmin", method=RequestMethod.POST)
-	public String addDeliveryInfo(@ModelAttribute("purchase") Purchase delivery) throws Exception {
-		
-		deliveryService.addDeliveryInfo(delivery);
-		
-		return "redirect:/admin/getPaymentHistoryListAdmin.jsp";
-	}
+
 	
 	
 	

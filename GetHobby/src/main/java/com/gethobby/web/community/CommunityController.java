@@ -51,8 +51,14 @@ public class CommunityController {
 	//public String listCommunity(@ModelAttribute("search") Search search, 
 	//			@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model)throws Exception{
 		
-		System.out.println("/listCommunity");
+		System.out.println("\n\n\n\n\n/listCommunityPOST");
 		
+		System.out.println("/n/n/n/n/n/n/n/n");
+		
+		//세션가져오기
+		User user = (User)session.getAttribute("user");
+		System.out.println("/n/n\n\n session의 user----\n"+user);
+				
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
@@ -60,17 +66,18 @@ public class CommunityController {
 		
 		//System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+);
 		
-		////////////////나중에 없어질것////////////////////
+		//////////////////////////////////////
 		HobbyClass hobbyClass = new HobbyClass();
-		if(hobbyClass == null) {
-		hobbyClass.setHobbyClassNo(10015);
-		}
-		///////////////////////////////
+		int hobbyClassNo = 10000;
+		hobbyClass.setHobbyClassNo(hobbyClassNo);
+		//////////////////////////////////////
+		
 		
 		Map<String, Object> serviceMap = new HashMap<String, Object>();
 		serviceMap.put("search", search);
-		serviceMap.put("hobbyClassNo", hobbyClass.getHobbyClassNo());
+		serviceMap.put("hobbyClassNo", hobbyClassNo);
 		
+		//해당 클래스번호와 일치하는 글, 댓글 리스트 가져오는 service
 		Map<String, Object> map = communityService.getCommunityList(serviceMap);
 		
 		int totalCount = (Integer)map.get("totalCountCommunityArticle");
@@ -79,6 +86,7 @@ public class CommunityController {
 		
 		List<Article> articleList = (List<Article>)map.get("articleList");
 		List<List<Reply>> array = (List<List<Reply>>)map.get("array");
+		
 //		for (int i = 0; i < articleList.size(); i++) {
 //			System.out.println(articleList.get(i).getArticleNo());
 //			System.out.println(articleList.get(i).getRegDate());
@@ -97,6 +105,8 @@ public class CommunityController {
 //				}
 //		}
 		                              
+		model.addAttribute("sessionUser", user);
+		model.addAttribute("hobbyClassNo", hobbyClassNo);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("articleList", (List<Article>)map.get("articleList"));
 		model.addAttribute("array", (List<List<Reply>>)map.get("array"));
@@ -104,13 +114,14 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "listCommunity", method = RequestMethod.GET)
-	public String listCommunity(@ModelAttribute("search") Search search, 
-					@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
+	public String listCommunityGet(@ModelAttribute("search") Search search, 
+	//				@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
+		 HttpSession session, Model model	)throws Exception{
 		
 		System.out.println("\n\n\n\n/listCommunity___GET방식\n\n");
 		
 		System.out.println("/n/n/n/n/n/n/n/n");
-		System.out.println("/n/nhobbyClassNo---\n"+hobbyClassNo+"\n\nsearch----\n"+search);
+		//System.out.println("/n/nhobbyClassNo---\n"+hobbyClassNo+"\n\nsearch----\n"+search);
 		
 		//세션가져오기
 		User user = (User)session.getAttribute("user");
@@ -122,8 +133,15 @@ public class CommunityController {
 		search.setPageSize(pageSize);
 		
 		System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n");
-		System.out.println("hobbyClassNo------\n"+hobbyClassNo);
+		//System.out.println("hobbyClassNo------\n"+hobbyClassNo);
 		//구매한 사람만 들어온 상태.
+		
+		//////////////////////////////////////
+		HobbyClass hobbyClass = new HobbyClass();
+		int hobbyClassNo = 10000;
+		hobbyClass.setHobbyClassNo(hobbyClassNo);
+		//////////////////////////////////////
+		
 		
 		Map<String, Object> serviceMap = new HashMap<String, Object>();
 		serviceMap.put("search", search);

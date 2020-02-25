@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -38,7 +38,7 @@
   		.component-option-div {
 	  		width: 100%;
 	  		height: auto;
-	  		padding: 0px 24px 24px 24px;
+	  		padding: 0px;
 	  		background-color: rgb(255, 255, 255);
 	  		margin: auto;
   		}
@@ -1657,7 +1657,7 @@ path[Attributes Style] {
                    </div>
 					<div style="display: flex; justify-content: right;">
 
-                   <c:if test="${ ! empty user }">
+                   <c:if test="${ ! empty sessionScope.user }">
                    <div style="margin:0px 24px; padding:0px; color:white; font-size:24px; font-weight:bold; line-height:32px; etter-spacing: -0.4px;">
                    		
                    		<!-- 프로필 -->
@@ -1684,7 +1684,7 @@ path[Attributes Style] {
 						                </span>
 						                <div class="header-mynemo-span-next-first-div">
 							                <div class="header-mynemo-span-next-first-div-in-div" >
-							                	${user.nickName}
+							                	${sessionScope.user.nickName}
 							                </div>
 							                <span class="header-mynemo-span-next-first-div-in-span">
 								                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
@@ -2175,8 +2175,6 @@ path[Attributes Style] {
 		        
 		    }
 		    
-		    
-		   
 		    // IamPort API
 		    IMP.init('API Key'); // API Key
 		    function iamport() {
@@ -2197,13 +2195,15 @@ path[Attributes Style] {
 				    }else if( componentOption == '0' ){
 				    	iamportAmount = iamportSingleTotalPrice;
 				    }
-
+				    var buyerEmail = '${sessionScope.user.userId}';
+					
 		    	IMP.request_pay({
 				    pg : 'inicis',
 				    pay_method : payMethod,
 				    merchant_uid : 'merchant_' + new Date().getTime(),
 				    name : name, 
 				    amount :  1000,
+				    buyer_email : buyerEmail,
 				    buyer_tel : buyerTel,
 				}, function(rsp) {
 				    if ( rsp.success ) {

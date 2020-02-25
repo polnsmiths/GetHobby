@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
   <style>
   
   	.shc-saom-mc{
@@ -239,7 +239,7 @@ $(function(){
 		var markupStr1 = $('#summernote1').summernote('code');
 		var markupStr2 = $('#summernote2').summernote('code');
 		var resultList = changeHashtagCode(hashtagList); 
-		
+
 		// 기본정보 저장
 		$.ajax(
 				{
@@ -260,57 +260,55 @@ $(function(){
 						"Content-Type" : "application/json"
 					} ,
 					success : function(JSONData, status) {
+						// 강의정보 저장
+						$.ajax(
+					    				{
+					    					url: "/hobbyclass/json/saveLesson",
+					    					method: "POST",
+					    					data: JSON.stringify({
+					    							lessonNo: $("input[name='lessonNo']").val(),
+					    							hobbyClass: {hobbyClassNo : $("input[name='hobbyClassNo']").val()},
+					    							lessonVideo: $("input[name='lessonVideo']").val(),
+					    							lessonTitle: $("input[name='lessonTitle']").val(),
+					    							lessonProject: $("input[name='lessonProject']").val(),
+					    							lessonIntro: $("input[name='lessonIntro']").val(),
+					    							lessonImage: $("input[name='lessonImage']").val(),
+					    							lessonContent: $('#summernote2').summernote('code')
+					    					}),
+					    					dataType : "text" ,
+				        					headers : {
+				        						"Accept" : "application/json" ,
+				        						"Content-Type" : "application/json"
+				        					} ,
+					    					success : function(JSONData, status) {
+					    						// 준비물 저장
+					    						$.ajax(
+					    					    				{
+					    					    					url: "/hobbyclass/json/saveKit",
+					    					    					method: "POST",
+					    					    					data: JSON.stringify({
+					    					    							hobbyClassNo: $("input[name='hobbyClassNo']").val(),
+					    					    							kitName : $("input[name='kitName']").val(),
+					    					    							kitIntro : $("input[name='kitIntro']").val(),
+					    					    							kitPrice : $("input[name='kitPrice']").val(),
+					    					    							kitImage : $("input[name='kitImage']").val()
+					    					    							
+					    					    						}),
+					    					    					dataType : "json" ,
+					    				        					headers : {
+					    				        						"Accept" : "application/json" ,
+					    				        						"Content-Type" : "application/json"
+					    				        					} ,
+					    					    					success : function(JSONData, status) {
+					    					    						self.location = "/hobbyclass/getMyHobbyClassList";
+					    					    					}//end of Call Back Function
+					    						});//end of ajax
+					    					}
+						});//end of ajax
 					}
 		});//end of ajax
 		
-		// 강의정보 저장
-		$.ajax(
-	    				{
-	    					url: "/hobbyclass/json/saveLesson",
-	    					method: "POST",
-	    					data: JSON.stringify({
-	    							lessonNo: $("input[name='lessonNo']").val(),
-	    							hobbyClass: {hobbyClassNo : $("input[name='hobbyClassNo']").val()},
-	    							lessonVideo: $("input[name='lessonVideo']").val(),
-	    							lessonTitle: $("input[name='lessonTitle']").val(),
-	    							lessonProject: $("input[name='lessonProject']").val(),
-	    							lessonIntro: $("input[name='lessonIntro']").val(),
-	    							lessonImage: $("input[name='lessonImage']").val(),
-	    							lessonContent: $('#summernote2').summernote('code')
-	    					}),
-	    					dataType : "text" ,
-        					headers : {
-        						"Accept" : "application/json" ,
-        						"Content-Type" : "application/json"
-        					} ,
-	    					success : function(JSONData, status) {
-	    					}
-		});//end of ajax
 		
-		// 준비물 저장
-		$.ajax(
-	    				{
-	    					url: "/hobbyclass/json/saveKit",
-	    					method: "POST",
-	    					data: JSON.stringify({
-	    							hobbyClassNo: $("input[name='hobbyClassNo']").val(),
-	    							kitName : $("input[name='kitName']").val(),
-	    							kitIntro : $("input[name='kitIntro']").val(),
-	    							kitPrice : $("input[name='kitPrice']").val(),
-	    							kitImage : $("input[name='kitImage']").val()
-	    							
-	    						}),
-	    					dataType : "json" ,
-        					headers : {
-        						"Accept" : "application/json" ,
-        						"Content-Type" : "application/json"
-        					} ,
-	    					success : function(JSONData, status) {
-	    					}//end of Call Back Function
-		});//end of ajax
-	    		
-		
-		self.location = "/hobbyclass/getMyHobbyClassList";
 	});
 	
 	function changeHashtagCode(hashtagList){

@@ -476,7 +476,7 @@ h1 {
 </head>
 
 <body>
-
+<input type="hidden" name="purchaseId2" value=""/>
     <div class="wrapper">
         
         <!-- Sidebar
@@ -484,7 +484,7 @@ h1 {
 		<jsp:include page="/admin/sidebarAdmin.jsp" />
         <!-- Page Content  -->
         <div id="content">
-
+			
 			<!-- Toolbar
             <jsp:include page="toolbarAdmin.jsp" /> -->
             <jsp:include page="/admin/toolbarAdmin.jsp" />
@@ -615,7 +615,7 @@ h1 {
 				      </td>
 				      
 				      <!-- 배송정보 -->
-				      <td>
+				      <td class="deliveryStateAdmin">
 
 						  <!-- 배송 중, 배송 완료일 경우  / 배송 조회-->
 				      	  <c:if test="${purchase.componentOption == '1' && (purchase.purchaseState == '1' || purchase.purchaseState == '2')}">
@@ -713,7 +713,8 @@ h1 {
     
 	    //////////////////////////////////////// 운송장 입력 ////////////////////////////////////////
 	    function fncAddDeliveryInfo(){
-	    	var purchaseId = $("input[name='purchaseId']").val();
+	    	
+	    	var purchaseId = $("input[name='purchaseId2']").val();
 	    	var dlvyCompany =$("select[name='dlvyCompany']").val();
 	    	var trackingNo = $("input[name='trackingNo']").val();
 	    	
@@ -724,12 +725,99 @@ h1 {
 	    	 if(trackingNo == null || trackingNo == ""){
 	    		alert("운송장번호를 입력해주세요.")
 	    		return false;
-	    	}	
+	    	}
 	    	 
-	    	$("#sol-delivery-info").attr("method","POST").attr("action","/delivery/addDeliveryInfo").submit();
+	    	 
+	    	 //$tr = null;
+	    	 var idx = 0;
+	    	 
+	    	 $( "tr" ).each(function( index ) {
+
+    		  	if( $(this).find("input[name='purchaseId']").val() == purchaseId ) {
+	   	    		 
+    		  		//console.log(">>>>>" + index);
+    		  		$tr = $(this).html()
+    		  		//console.log($tr);
+    		  		//return $tr;
+    		  		//$("tr").eq(index);
+    		  		idx = index;
+    		  		//console.log(">>>>>>" + idx);
+	   	    		 return idx;
+	   	    	 }
+    		 });
+
+/* 
+	    	 console.log(">>>>>>" + $("tr").eq(idx).find(".purchaseStateAdmin").html());
+	    	 $("tr").eq(idx).find(".purchaseStateAdmin").html('<button type="button" class="btn btn-dark" style="background-color:rgb(252, 61, 70); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 중</div></button>');
+	    	 $("tr").eq(idx).find(".deliveryStateAdmin button .font").text('배송 조회');
+ */
+
+	    	 //$('#delivery-modal').modal('hide');
+	    	//alert(dlvyCompany + trackingNo);
+	    	//$("#sol-delivery-info").attr("method","POST").attr("action","/delivery/addDeliveryInfo").submit();
+	    	
+	    	
+	    	
+	    	/////////////////
+/* 	    	var boardCode = $("input[name='boardCode']").val();
+		    var form_data = new FormData();
+		    form_data.append('purchaseId', purchaseId);
+		    form_data.append('boardCode', boardCode);
+		    $.ajax({
+		      data: form_data,
+		      type: "POST",
+		      url: '/article/json/saveImage',
+		      cache: false,
+		      contentType: false,
+		      enctype: 'multipart/form-data',
+		      processData: false,
+		      success: function(form_data) {
+		        $(el).summernote('editor.insertImage', '/images/sol/free_board/' + form_data.fileName);
+		        
+		      }
+		    }); */
+	    	////////////////
+	    	
+	    	
+	    	
+	    	var form_data = new FormData();
+	    	form_data.append('purchaseId', purchaseId);
+		    form_data.append('dlvyCompany', dlvyCompany);
+		    form_data.append('trackingNo', trackingNo);
+		    
+		    
+		    console.log(form_data);
+		    
+	    	$.ajax({
+    					url: "/admin/json/purchase/addDeliveryInfo",
+    					method: "POST",
+    					/* data: JSON.stringify({
+    							purchaseId: purchaseId,
+    							dlvyCompany: dlvyCompany,
+    							trackingNo: trackingNo
+    					}), */
+    					data: form_data,
+    					dataType : "json" ,
+       					headers : {
+       						"Accept" : "application/json" ,
+       						"Content-Type" : "application/json"
+       					} ,
+    					success : function(JSONData, status) {
+							
+    						 $("tr").eq(idx).find(".purchaseStateAdmin").html('<button type="button" class="btn btn-dark" style="background-color:rgb(252, 61, 70); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 중</div></button>');
+    				    	 $("tr").eq(idx).find(".deliveryStateAdmin button .font").text('배송 조회');
+
+
+
+    					}
+			        					
+			});  //end of ajax
+	    	
+	    	$('#delivery-modal').modal('hide');
 	    }
-
-
+	    
+	    
+	    
     	$(function() {
     		
     		$('#delivery-modal').on('hidden.bs.modal', function (e) {
@@ -751,6 +839,12 @@ h1 {
     		});
     		
     		$("button.btn-outline-warning").on("click", function(){
+    			
+    			//var tr = $(this).parents("tr").html();
+    			//console.log(tr);
+    			
+    			
+    			
     			fncAddDeliveryInfo();
     		});
     		
@@ -759,9 +853,15 @@ h1 {
     			
     			//var purchaseId = $(this).parent().prev().has($("input")).text();
     			var purchaseId = $(this).parents('tr').find('input[name="purchaseId"]').val();
-    			console.log(purchaseId);
+    			//console.log(purchaseId);
     			$("#delivery-modal .modal-body input[name='purchaseId']").val(purchaseId);
     			console.log($("#delivery-modal .modal-body input[name='purchaseId']").val());
+    			
+    			$("input[name='purchaseId2']").val(purchaseId);
+    			
+    			/* console.log($(this).parents('tr').html());
+    			$tr = $(this).parents('tr').html();
+    			console.log($tr); */
     		});
     		
     		
@@ -1048,12 +1148,12 @@ h1 {
 																	+ JSONData.purchase[i].refundDate.substring(8,10);
 												}
 									displayValue +=	'</td>' +
-												'<td>';
+												'<td class="deliveryStateAdmin">';
 												if( JSONData.purchase[i].componentOption == '1' ){
 													if( JSONData.purchase[i].purchaseState == '1' || JSONData.purchase[i].purchaseState == '2' ){
 														displayValue += '<button type="button" class="btn btn-dark" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>';
 													}else if( JSONData.purchase[i].purchaseState == '0' ){
-														displayValue += '<button type="button" class="btn btn-dark" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">운송장 입력</div></button>';
+														displayValue += '<button type="button" class="btn btn-dark sol-btn-delivery"  data-toggle="modal" data-target="#delivery-modal" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">운송장 입력</div></button>';
 													}
 												}
 									displayValue += '</td>' +

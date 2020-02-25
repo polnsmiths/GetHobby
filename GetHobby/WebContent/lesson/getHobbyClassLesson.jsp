@@ -42,8 +42,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
 	
 	<!-- video.js CDN -->
-	<link href="http://vjs.zencdn.net/4.6.1/video-js.css" rel="stylesheet">
-  	<script src="http://vjs.zencdn.net/4.6.1/video.js"></script>
+	<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+  	<script src="http://vjs.zencdn.net/7.6.6/video.js"></script>
 	
 	<!-- css import -->
 	<link href="../resources/css/min/getHobbyClassLesson.css" rel="stylesheet" />
@@ -61,7 +61,6 @@
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	
-	
 </head>
 <body>
 	<jsp:include page="/common/header.jsp"/>
@@ -77,7 +76,7 @@
 	<div class="container-fluid">
 		
 		<div class="row mt-5">
-			<div class="col-lg-8 this-is-col-scroll-height">
+			<div class="col-lg-7 this-is-col-scroll-height">
 				
 				<!-- <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-height: 95%;"> -->
 				<div> 
@@ -110,7 +109,7 @@
 					<!-- 비디오 시작 --> 
 
 					<div class="video-div align-self-center">
-						<video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="985px" height="554px" data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'>
+						<video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered">
 						<!-- <video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'> -->
 						 	<!--poster="http://계정명.cache.iwinv.net/thumbnail/Sample.jpg"  -->
 							<source src="http://localhost:3000/video/${lesson.lesson.lessonVideo }" type='video/mp4'>
@@ -172,7 +171,18 @@
 										<input type="hidden" class="lesson-reply-content-hidden-value" value="${reply.replyContent }" />
 										<input type="hidden" class="lesson-reply-user-userId-hidden-value" value="${reply.user.userId }" />
 										
-										<img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="...">
+										<!-- <img src="/resources/image/min/default-profile.jpg" class="mr-3 rounded-circle" alt="..."> -->
+										<!-- <span class="lesson-reply-profile-image-outer-span"> -->
+										<!-- <img src="/resources/image/logo/${!empty reply.user.profileImage ? reply.user.profileImage : 'unnamed.jpg'}" class="mr-3 lesson-reply-profile-image" onError="this.src='/resources/image/logo/unnamed.jpg'"> --%>
+										<!-- </span> -->
+										
+										<c:if test="${!empty reply.user.profileImage }">
+											<img src="/resources/image/woo/${reply.user.profileImage}" class="mr-3 lesson-reply-profile-image" onError="this.src='/resources/image/logo/unnamed.jpg'">
+										</c:if>
+										<c:if test="${empty reply.user.profileImage }">
+											<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src='/resources/image/logo/unnamed.jpg'">
+										</c:if>
+										
 										<div class="media-body">
 											<h6 class="mt-0 mb-1 d-flex justify-content-between">
 												<span>
@@ -201,7 +211,7 @@
 											</div>
 										</div>
 									</li>
-									
+									<hr/>
 								</c:forEach>
 								
 								<!-- 검색결과 출력될 span -->
@@ -214,12 +224,12 @@
 					
 				</div>
 			</div>
-			<div class="col-lg-4 fixed-right-tool-bar">
+			<div class="col-lg-5 fixed-right-tool-bar">
 			<!-- <div class="col-lg-4 fixed-bottom"> -->
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -236,7 +246,7 @@
 					<div class="lesson-project-real-content-outer-div">
 						<span class="lesson-project-outer-div-of-many-p overflow-auto ">
 							<p><strong>[WELCOME]</strong> ${lesson.lesson.lessonTitle }</p>
-							<p><img src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" /></p>
+							<p><img src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" /></p>
 							<p>${lesson.lesson.lessonContent }</p>
 						</span>
 					</div>
@@ -249,7 +259,7 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/min/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -387,7 +397,7 @@
 				controls : true,
 				autoplay : false, 
 				preload : 'auto', 
-				playbackRates: [0.5, 1, 1.5, 2, 2.5] 
+				playbackRates: [0.5, 1, 1.5, 2, 2.5]
 		})
 		
 		// var video = videojs('lesson-video');
@@ -431,7 +441,6 @@
 				console.log('이어보기가 가능합니다. 시작 구간은 : ' + currentTimes);
 				video.currentTime(currentTimes);
 			}
-			
 		}
 		// window.onload 이벤트 -------------------------------------------
 		
@@ -497,6 +506,17 @@
 			)
 		}
 		// window.onbeforeunload 이벤트 -----------------------------------
+		
+		$(function(){
+			$(document).on('click', video, function(){
+				if ( video.paused() ) {
+					$('.vjs-big-play-button').show();
+				}
+				else {
+					$('.vjs-big-play-button').hide();
+				}
+			})
+		})
 	</script>
 
 	

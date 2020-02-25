@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- //2020-02-21 Git Commit --%>
+<%-- //2020-02-24 Git Commit --%>
   <style>
   	.pgkvm-h4{
   		font-size: 18px;
@@ -113,7 +113,7 @@
 	      <div class="pgkvm-img-out-div">
 		      <div class="pgkvm-img-div">
 			      <span class="pgkvm-img-span">
-			      	<img src="/image/hobbyclass/${hobbyClass.kitImage}" alt="소가죽 펜슬 홀더  (2월 말 순차출고 될 예정입니다)" ratio="1" style="width:100%; height:100%;">
+			      	<img src="/images/hobbyclass/${hobbyClass.kitImage}" alt="소가죽 펜슬 홀더  (2월 말 순차출고 될 예정입니다)" ratio="1" style="width:100%; height:100%;">
 			      </span>
 		      </div>
 		      <div class="">

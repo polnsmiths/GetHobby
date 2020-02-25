@@ -208,21 +208,9 @@ $(function(){
   	$(document).on('click', 'button[name="recommendSteam"]', function(){
   		// 로그인 안했으면 하라고 시키기 네비게이션 시키면 될듯 
   		if ( userId == null || userId == '' ) {
-  			
-  			Swal.fire({
-				icon : 'error',
-				title : '로그인이 필요합니다.',
-				showConfirmButton : false, 
-				allowOutsideClick : true,
-				timer : 800
-			}).then((result) => {
-				console.log(result);
-				
-				if ( result.dismiss ) {
-					self.location = "/user/captcha";
-				}
-			});
-  			
+  			$('.spinner-border').show();		
+  			self.location = '/user/noLogonUser?type=steam';	
+  			event.preventDafault();
   		}
   		else {
   			console.log('userId ? : ' + userId);
@@ -258,23 +246,29 @@ $(function(){
   	  						steamCount : steamCountInput.val()
   	  					}),
   	  					success : function(JSONData, status) {
+  	  						if ( JSONData.result == 'error' ) {
+  	  							$('.spinner-border').show();								
+  	  							self.location = '/user/noLogonUser?type=steam';
+  	  						}
+  	  						else if ( JSONData.result == 'ok' ) {
   	  						
-  	  						var display = "";
-  	  						display += "<button type='button' class='btn btn-light' name='recommendSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
-  	  						
-  	  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
-  								display += "<i class='far fa-heart'></i>";
-  							}
-  							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
-  								display += "<i class='fas fa-heart'></i>";
-  							}
-  	  						
-  	  						display += "<span name='recommendSteamCount'>";
-  	  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
-  	  						display += "</button>";
-  	  						
-  	  						steamCountInput.val(JSONData.hobbyClass.steamCount);
-  							steamButton.parent().html(display);
+	  	  						var display = "";
+	  	  						display += "<button type='button' class='btn btn-light' name='recommendSteam' value='" + JSONData.hobbyClass.steamCheck +"'>";
+	  	  						
+	  	  						if ( JSONData.hobbyClass.steamCheck == '0' ) {
+	  								display += "<i class='far fa-heart'></i>";
+	  							}
+	  							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
+	  								display += "<i class='fas fa-heart'></i>";
+	  							}
+	  	  						
+	  	  						display += "<span name='recommendSteamCount'>";
+	  	  						display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
+	  	  						display += "</button>";
+	  	  						
+	  	  						steamCountInput.val(JSONData.hobbyClass.steamCount);
+	  							steamButton.parent().html(display);
+  	  						}
   	  					}
   	  				}
   	  		)

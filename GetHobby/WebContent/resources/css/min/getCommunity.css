@@ -303,11 +303,11 @@
 }
 
 .report-update-and-so-on * {
-	font-size: 14px;
+	font-size: 11px;
     font-weight: normal;
     line-height: 20px;
     letter-spacing: -0.2px;
-    color: rgb(168, 174, 179);
+    color: rgb(62, 64, 66); 
     vertical-align: middle;
     margin: 0px;	
 }
@@ -315,4 +315,56 @@
 .report-update-and-so-on-inner-span {
 	display: inline-block;
 	float : right;
+	cursor : pointer;
+}
+
+.community-select-top-mini-text {
+	margin-bottom: 16px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.community-select-top-inner-div {
+	display: inline-block;
+}
+
+.community-select-top-span-tag {
+	font-size: 11px;
+    font-weight: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    color: rgb(133, 138, 141);
+    margin: 0px;	
+    cursor : pointer;
+}
+
+.a-tag-right-arrow-img {
+    width: 12px;
+    height: 12px;
+}
+
+.community-select-top-span-last-tag {
+	font-size: 11px;
+    font-weight: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    color: rgb(62, 64, 66); 
+    margin: 0px;	
+}
+
+.reply-count-h1-tag {
+	font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: rgb(97, 101, 104);	
+}
+
+.reply-count-real-text-small-tag {
+	font-size: 14px;
+    line-height: 24px;
+    text-align: left;
+    color: rgb(168, 174, 179);
+    margin-left: 8px;	
 }
