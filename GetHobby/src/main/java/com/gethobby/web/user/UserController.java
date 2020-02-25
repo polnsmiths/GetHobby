@@ -54,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.HobbyClass;
@@ -106,9 +107,8 @@ public class UserController {
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
+	@Value("#{commonProperties['articlePageSize']}")
 	int pageSize;
-	
 	
 	@RequestMapping(value="addUser", method = RequestMethod.GET)
 	public String addUser() throws Exception{
@@ -676,18 +676,23 @@ public class UserController {
 		return "forward:/user/listNotice/1";
 	}
 	
-	@RequestMapping(value="listNotice/{currentpage}")
-	public String listNotice(@PathVariable("currentpage") int current, Model model, HttpSession session)throws Exception{
-		Search search = new Search();
-		if(current == 0) {
-			current = 1;
+	@RequestMapping(value="listNotice")
+	public String listNotice(@ModelAttribute("search") Search search, Model model, HttpSession session)throws Exception{
+		if(search.getCurrentPage() == 0) {
+			int current = 1;
+			search.setCurrentPage(current) ;
 		}
-		search.setCurrentPage(current);
 		search.setPageSize(pageSize);
-		List<Article> list = new ArrayList<Article>();
-		list = userService.getNoticeList(search);
+		Map<String, Object> map = new HashMap<String, Object>();		
+		map= userService.getNoticeList(search);
 		
-		model.addAttribute("list", list);
+		Page resultPage = new Page(search.getCurrentPage(),((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("search", search);
 		
 		User user = new User();		
 		user = (User)session.getAttribute("user");

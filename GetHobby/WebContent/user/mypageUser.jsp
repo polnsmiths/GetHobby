@@ -343,7 +343,7 @@ img#imageImage {
 	 <jsp:include page="/common/header.jsp"/>
 	<div class="MyPage__Box-sc-15vbtd3-6 iWyAzq" style="padding-left: 320px;margin-top: 120px;margin-bottom: 50px;">
 			<span class="RatioImage__Container-wwqqoo-0 eAfAEc MyPage__ProfileImg-sc-15vbtd3-11 fNYfEW" id="imageSpan">
-			<img id="imageImage" srcset="" src="../resources/image/woo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu">
+			<img id="imageImage" srcset="" src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu">
 			</span>
 			<div class="MyPage__UserNameContainer-sc-15vbtd3-2 CLMeE">
 				<a class="MyPage__ProfileEditLink-sc-15vbtd3-4 feMNUL" href="/user/getUser?userId=${sessionScope.user.userId}" style="text-decoration: none;">

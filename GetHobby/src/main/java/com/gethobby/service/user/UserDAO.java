@@ -62,7 +62,7 @@ public interface UserDAO {
 	public void updateNotice(Article article) throws Exception;
 	
 	//Select
-	public List<Article> getNoticeList(Search search) throws Exception;
+	public Map<String, Object> getNoticeList(Search search) throws Exception;
 	
 	//Delete
 	public void deleteNotice(int articleNo) throws Exception;

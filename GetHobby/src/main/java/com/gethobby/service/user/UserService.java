@@ -54,7 +54,7 @@ public interface UserService {
 	public void updateNoticeView(Article article) throws Exception;
 	
 	//공지사항 목록 조회
-	public List<Article> getNoticeList(Search search) throws Exception;	
+	public Map<String, Object> getNoticeList(Search search) throws Exception;	
 	
 	//공지사항 삭제
 	public void deleteNotice(int articleNo) throws Exception;
