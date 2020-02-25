@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.delivery.DeliveryService;
 import com.gethobby.service.domain.Purchase;
@@ -70,7 +71,7 @@ public class AdminController {
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
+	@Value("#{commonProperties['articlePageSize']}")
 	int pageSize;
 	
 	
@@ -118,24 +119,13 @@ public class AdminController {
 		
 		
 		model.addAttribute("companyListMap", companyListMap);
+		model.addAttribute("jsonString", json);
 		System.out.println(companyListMap.get(0).get("Code"));
 		////////////////////운송장 입력 ////////////////////
 		
 		
 		return "/admin/getPaymentHistoryListAdmin.jsp";
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -159,20 +149,52 @@ public class AdminController {
 		return "/admin/getHobbyClassUpdateViewAdmin.jsp";
 	}//end of getSaveHobbyClassAdmin
 	
+//	@RequestMapping(value = "user/listUserAdmin", method = RequestMethod.GET)
+//	public String listUserAdmin( Model model) throws Exception{
+//		Search search = new Search();
+//		System.out.println("user/listUserAdmin 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+search);		
+//		int current = 1;
+//		search.setCurrentPage(current);
+//		search.setPageSize(pageSize);
+//		
+//		
+//		Map<String, Object> userlist = new HashMap<String, Object>();
+//		userlist = userService.getUserListAdmin(search);
+//		Page resultPage = new Page(search.getCurrentPage(),((Integer) userlist.get("totalCount")).intValue(), pageUnit,
+//				pageSize);
+//		
+//		model.addAttribute("search", search);
+//		model.addAttribute("resultPage", resultPage);
+//		model.addAttribute("totalCount", userlist.get("totalCount"));
+//		model.addAttribute("userList", userlist.get("userList"));
+//		model.addAttribute("allUserCount", userlist.get("allUserCount"));
+//		model.addAttribute("userCount", userlist.get("userCount"));
+//		model.addAttribute("creatorCount", userlist.get("creatorCount"));
+//		model.addAttribute("stopUserCount", userlist.get("stopUserCount"));
+//		model.addAttribute("retireUserCount", userlist.get("retireUserCount"));		
+//		return "forward:/admin/listUserAdmin.jsp";
+//	}
+	
 	@RequestMapping(value = "user/listUserAdmin")
 	public String listUserAdmin(@ModelAttribute("search") Search search,  Model model) throws Exception{
 		System.out.println("user/listUserAdmin 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+search);		
+		if(search.getCurrentPage() ==0) {
+			int current = 1;
+			search.setCurrentPage(current);
+		}
 		search.setPageSize(pageSize);
-		search.setCurrentPage(1);
-//		if(search.getCurrentPage() ==0) { 
-//			int currentPage = 1; 
-//			search.setCurrentPage(currentPage);
-//		}				
+		
+		
 		Map<String, Object> userlist = new HashMap<String, Object>();
 		userlist = userService.getUserListAdmin(search);
-		System.out.println(userlist.get("userList"));
-		model.addAttribute("userList", userlist.get("userList"));
+		Page resultPage = new Page(search.getCurrentPage(),((Integer) userlist.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
+		model.addAttribute("search", search);
+		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("totalCount", userlist.get("totalCount"));
+		model.addAttribute("userList", userlist.get("userList"));
+		model.addAttribute("allUserCount", userlist.get("allUserCount"));
 		model.addAttribute("userCount", userlist.get("userCount"));
 		model.addAttribute("creatorCount", userlist.get("creatorCount"));
 		model.addAttribute("stopUserCount", userlist.get("stopUserCount"));
@@ -180,11 +202,12 @@ public class AdminController {
 		return "forward:/admin/listUserAdmin.jsp";
 	}
 	
-	@RequestMapping(value="user/doUser" , method = RequestMethod.GET)
+	@RequestMapping(value="user/doUser" , method = RequestMethod.GET )
 	public String doUser(@RequestParam("userId") String userId, @RequestParam("code") int code, Model model) throws Exception{
-		System.out.println("code::::::::::::::::::::::::::::::"+code);
+	
+		
 		Map<String, Object> map	= new HashMap<String, Object>();
-		map = userService.getUser(userId);
+		map = userService.getUser(userId);		
 		User user =new User();
 		user = (User)map.get("user");
 		
@@ -201,6 +224,7 @@ public class AdminController {
 			userService.removeRetireUser(user);
 		}
 		
+		
 		Search search = new Search();
 		search.setPageSize(pageSize);
 		search.setCurrentPage(1);
@@ -208,8 +232,16 @@ public class AdminController {
 		map.clear();
 		map = userService.getUserListAdmin(search);
 		
+		Map<String, Object> userlist = new HashMap<String, Object>();
+		userlist = userService.getUserListAdmin(search);
+		Page resultPage = new Page(search.getCurrentPage(),((Integer) userlist.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
+		model.addAttribute("search", search);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("totalCount", userlist.get("totalCount"));	
 		model.addAttribute("userList", map.get("userList"));
-		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("allUserCount", userlist.get("allUserCount"));
 		model.addAttribute("userCount", map.get("userCount"));
 		model.addAttribute("creatorCount", map.get("creatorCount"));
 		model.addAttribute("stopUserCount", map.get("stopUserCount"));

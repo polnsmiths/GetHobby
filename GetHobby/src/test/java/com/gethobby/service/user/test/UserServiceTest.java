@@ -229,16 +229,16 @@ public class UserServiceTest {
 		Assert.assertEquals("3월이 정점이라는 논문도 있고, 앞으로 1∼2주를 말하는 학자도 있어 상황을 예의주시할 수밖에 없다", article.getArticleContent());
 	}
 	//@Test
-	public void TestGetNoticeList() throws Exception{
-		Search search  = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(4);
-		
-		List<Article>list = new ArrayList<Article>();
-		list = userService.getNoticeList(search);
-		
-		Assert.assertEquals(4,list.size());
-	}
+//	public void TestGetNoticeList() throws Exception{
+//		Search search  = new Search();
+//		search.setCurrentPage(1);
+//		search.setPageSize(4);
+//		
+//		List<Article>list = new ArrayList<Article>();
+//		list = userService.getNoticeList(search);
+//		
+//		Assert.assertEquals(4,list.size());
+//	}
 	
 	//@Test
 	public void TestDeleteNotice() throws Exception{

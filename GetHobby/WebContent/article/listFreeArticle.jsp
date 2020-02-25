@@ -103,7 +103,7 @@ function fncGetBoardArticleList(currentPage) {
 
 $(function() {
 	
-	$(".sol-article-table tbody th").on("click", function() {
+	$(".sol-article-table tbody th,  .s-tip-title").on("click", function() {
 		var articleNo = $(this).find("input[name='articleNo']").val();
 		self.location = "/article/getBoardArticle?boardCode=0&articleNo="+ articleNo;
 		
@@ -127,7 +127,7 @@ $(function() {
 <jsp:include page="/common/header.jsp"/>
 
 		<div class="mt-5">&nbsp;</div>
-	    <div class="container">
+	    <div class="container sol-free-board">
         <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
         <form  id="search" class="form-group search my-5 pt-5 d-flex justify-content-between">
@@ -243,34 +243,103 @@ $(function() {
 	        </div>
 		</c:if>
 
+    </div>
+    
+    
+	<div class="container-fluid sol-free-board-res">
+        <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
+        <div class="row d-flex justify-content-between mx-1">
+            <h4 class="font-weight-bold"><i class="far fa-file-alt"></i>자유게시판</h4>
+            <c:if test="${ ! empty sessionScope.user.userId }">
+            <button type="button" class="btn btn-basic btn-sm"> <i class="fas fa-pencil-alt"></i> 작성</button>
+            </c:if>
+        </div>
+        <div class="s-res-table mt-1">
 
+			<c:set var="i" value="0" />
+			<c:forEach var="list" items="${list}">
+				<c:set var="i" value="${i+1}" />
 
+				<%-- <jsp:useBean id="today" class="java.util.Date" /> --%>
+				<fmt:formatDate var="now" value="${today}" pattern="yyyy-MM-dd" />
+				<fmt:parseDate var="regDate" value="${list.regDate}"
+					pattern="yyyy-MM-dd" />
+				<fmt:formatDate var="regDate" value="${regDate}"
+					pattern="yyyy-MM-dd" />
 
+				<c:if test="${list.user.userId eq sessionScope.user.userId}">
+					<div class="col py-3 bg-basic">
+				</c:if>
 
+				<c:if test="${list.user.userId ne sessionScope.user.userId}">
+					<div class="col py-3">
+				</c:if>
+				
+					<div class="row">
+						<div class="col-12">${list.user.nickName}</div>
+						<div class="col-12 s-tip-title">[
+							<c:if test="${list.articleType eq '001'}">
+								꿀팁
+							</c:if>
+							<c:if test="${list.articleType eq '002'}">
+								잡담
+							</c:if>
+							<c:if test="${list.articleType eq '003'}">
+								질문
+							</c:if>
+							] 
+							<input type="hidden" name="articleNo"value="${ list.articleNo }">${list.articleTitle}
+							<c:if test="${ regDate == now }">
+								<span class="ml-1 badge badge-pill badge-danger" style="color:white"> &nbsp; N &nbsp;</span>
+							</c:if>	
+						</div>
+					</div>
+					<div class="row">
+						<c:set var="length" value="${fn:length(list.regDate)}" />
+						<c:set var="regTime" value="${fn:substring(list.regDate, length-5, length)}" />
+						<div class="col-4">
+						<c:if test="${ regDate == now }">${regTime}</c:if>
+						<c:if test="${ regDate != now }">${regDate}</c:if>
+						</div>
+						<div class="col-3">
+							<i class="far fa-eye"></i>${list.totalView}
+						</div>
+						<div class="col-3">
+							<i class="fas fa-heart"></i> ${list.totalFavor}
+						</div>
+						<div class="col-2">
+							<i class="far fa-comment"></i> ${ list.totalReply }
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+        
+        
+        
 
-        <!--
-        <form class="form-group offset-lg-2 my-5 py-5 search">
-            <input type="hidden" name="boardCode" value="0">
+   
+        <form class="mt-5 form-group search d-flex justify-content-between">
+            <input type="hidden" name="boardCode" value="1">
             <div class="form-row">
-                <div class="input-group col-lg-2">
+                <div class="input-group col-6 pr-0">
                     <select class="form-control" name="articleType">
-                        <option selected disabled>말머리 선택</option>
+                        <option selected disabled>말머리</option>
                         <option value="001">꿀팁</option>
                         <option value="002">잡담</option>
                         <option value="003">질문</option>
                     </select>
                 </div>
-                <div class="input-group col-lg-2">
+                <div class="input-group col-6 pl-0">
                     <select class="form-control" name="searchCondition">
-                        <option selected disabled>검색 범위 선택</option>
+                        <option selected disabled>검색 범위</option>
                         <option value="001">전체</option>
-                        <option value="002">게시글 제목</option>
                         <option value="003">게시글 내용</option>
                         <option value="003">작성자 닉네임</option>
                     </select>
                 </div>
-                <div class="input-group col-lg-5">
+                <div class="input-group col-12">
                     <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
@@ -278,10 +347,11 @@ $(function() {
                 </div>
             </div>
         </form>
--->
 
+
+
+    </div>    
 <jsp:include page="/common/pagenation.jsp"/>
-    </div>
 <jsp:include page="/common/footer.jsp"/>
 </body>
 

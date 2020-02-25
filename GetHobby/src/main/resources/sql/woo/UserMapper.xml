@@ -118,9 +118,9 @@
  		WHERE user_id=#{userId}
  	</update>
  	<select id="getUserList" parameterType="search" resultMap="userSelectMap">
- 	<!-- SELECT *
+ 	 SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		( -->	SELECT user_id , name ,birth_date, add_date, role,retire_date,stop_date
+	  					FROM		( 	SELECT user_id , name ,birth_date, add_date, role,retire_date,stop_date
 											FROM users
 											<if test="searchKeyword == '' and searchCondition != null and searchCondition != 3 ">
 												<where>													
@@ -146,12 +146,39 @@
 											</if>
 											
 																						
-											ORDER BY user_id<!--  ) inner_table
+											ORDER BY user_id ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}  -->
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
  	
  	</select>
  	<select id="getUserTotalCount" parameterType="search" resultType="int">
+ 	SELECT COUNT(*)
+ 	FROM(SELECT * FROM users 
+ 								<if test="searchKeyword == '' and searchCondition != null and searchCondition != 3 ">
+												<where>													
+										 					role = #{searchCondition}										 																
+												</where>
+											</if>
+											<if test="searchKeyword != '' and searchCondition != null">
+												<where>																		
+										 				<if test="searchCondition != 3">
+										 				role = #{searchCondition} AND UPPER(user_id) LIKE '%' || UPPER(#{searchKeyword}) || '%'
+										 				</if>
+										 				<if test="searchCondition == 3">
+										 				 UPPER(user_id) LIKE '%' || UPPER(#{searchKeyword}) || '%'
+										 				</if>
+												</where>											
+											</if>
+											<if test="searchKeyword != null and searchCondition == null">
+												<where>							
+										 				
+										 				 UPPER(user_id) LIKE '%' || UPPER(#{searchKeyword}) || '%'
+										 				
+												</where>											
+											</if>
+											ORDER BY user_id) count_table
+ 	</select>
+ 	<select id="getUserAllCount" parameterType="search" resultType="int">
  	SELECT count(*)
  	FROM users	
  	</select>
