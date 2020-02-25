@@ -75,8 +75,8 @@
 		
 		}
 		.lmhc-alert-div {
-			 max-width: 662px; 
-			 width: 60.18%; 
+			 max-width: 1px; 
+			 width: 1px; 
 			 height:51px; 
 			 z-index:1300; 
 			 top: 15px; 
@@ -99,8 +99,8 @@
 			padding: 0px;		
 		}
 		.lmhc-alert-div {
-			 max-width: 100%; 
-			 width: 100%; 
+			 max-width: 1px; 
+			 width: 1px; 
 			 height:51px; 
 			 z-index:1300; 
 			 top: 15px; 
@@ -214,8 +214,12 @@
 	.listMyHobbyClass-newClass-div {
 		padding-top:10px;
 	}
+	.lmhcMH {
+		cursor: pointer;
+	}
 	.lmhcMH:hover {
 		background-color: rgb(248, 248, 249);
+		font-weight: bold;
 	}
 	.lmhc-logo-a {
 		width:36px;
@@ -290,12 +294,7 @@
 		      	</svg>
 					<font size="3px" color="black">내 클래스</font>
 		      </a> 
-		      <a class="nav-link lmhcMH" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
-		      	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/>
-		      		<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
-		      	</svg>
-					<font size="3px" color="black">임시 버튼</font>
-		      </a> 
+
 	       </div>
 	    </div>
 	    
@@ -304,12 +303,18 @@
 	<div class="row" style="height:auto;">
 	  <div class="col-3 d-none d-lg-block">
 	    <div class="nav flex-column nav-pills list-hobbyclass-side-div" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-	    	<a class="nav-link listMyHobbyClass-button lmhcMH" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home">
+	    	<div class="nav-link listMyHobbyClass-button lmhcMH thisismyclass" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home">
 		      <svg xmlns="http://www.w3.org/2000/svg" width="24" height=24 viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/>
 		      	<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
 		      </svg>
 				<font color="black">내 클래스</font>
-			</a>
+			</div>
+			<div class="nav-link listMyHobbyClass-button lmhcMH thisismyananlysis" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home">
+		      <svg xmlns="http://www.w3.org/2000/svg" width="24" height=24 viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/>
+		      	<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+		      </svg>
+				<font color="black">임시 버튼</font>
+			</div>
 	    </div>
 	  </div> 
 
@@ -705,14 +710,20 @@
 		    						}
 		    					}//end of callBackFunction
 					});//end of ajax
-					setTimeout(function() {  $(".lmhc-da-d").css("display","none"); }, 5000);
+					setTimeout(function() {  
+						$(".lmhc-da-d").css("display","none"); }, 5000);
 			}//end of confirm
 			
 		});
 		
 		
 		// 내 클래스 버튼 이벤트
-		$(document).on("click", ".list-hobbyclass-side-div", function(){
+		$(document).on("click", ".thisismyclass", function(){
+			self.location = "/hobbyclass/getMyHobbyClassList";
+		});
+		
+		//  버튼 이벤트
+		$(document).on("click", ".thisismyananlysis", function(){
 			self.location = "/hobbyclass/getMyHobbyClassList";
 		});
 		

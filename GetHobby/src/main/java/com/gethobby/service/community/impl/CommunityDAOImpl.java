@@ -128,7 +128,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 	
 	@Override
 	public int getTotalCountCommunityReply(int articleNo) throws Exception {  
+		
 		return sqlSession.selectOne("CommuReplyMapper.getTotalCountCommunityReply", articleNo);
+		
 	}
 	
 }

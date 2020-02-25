@@ -91,6 +91,10 @@
 			
 			self.location="/myhobbyclass/getPurchaseHobbyClassSchedule.jsp";
 		});
+		
+		$(".purchaseHistory").on("click", function(){
+			self.location = "/purchase/getPaymentHistoryList";
+		});
 	});
 	
 	
@@ -364,7 +368,7 @@ img#imageImage {
 				</button>
 			</div>
 			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC purchaseHistory" id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
 					<span class="sc-fjdhpX kCztpU">구매내역</span>							
 				</button>
 			</div>

@@ -23,6 +23,8 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 	<!-- 웹 폰트 (나눔고딕) -->
@@ -33,12 +35,12 @@
     <script src="/resources/javascript/commonHeader.js"></script>
     
   <style>
-  	@media (max-width: 640px) {
+  	@media (max-width: 660px) {
   	
   		.component-option-div {
 	  		width: 100%;
 	  		height: auto;
-	  		padding: 0px;
+	  		padding: 0px 24px 24px 24px;
 	  		background-color: rgb(255, 255, 255);
 	  		margin: auto;
   		}
@@ -47,10 +49,14 @@
   			width: 100%;
   			margin-bottom: 24px;
   		}
-  		
-  		
+		footer {
+  			margin-top:20px; 
+  			padding:0px;
+  			width: 100%;
+  		}
   	}
-	@media (min-width: 641px) {
+
+	@media (min-width: 661px) {
 	
 		.component-option-div {
 	  		width: 640px;
@@ -63,6 +69,10 @@
   			position: relative;
   			width: 592px;
   			margin-bottom: 24px;
+  		}
+  		footer {
+  			margin-top:20px; 
+  			padding:0px;
   		}
   		
 	}
@@ -1517,7 +1527,7 @@ path[Attributes Style] {
 			</div>
 			
 			<!-- footer -->
-				<footer style="margin-top:20px;">
+				<footer>
 					<div class="sc-eerKOB zImje Footer__FooterContainer-lv6cz2-3 eHZNoL">
 						<div class="sc-eerKOB inUTcF Footer__StyledGrid-lv6cz2-2 cPBtQc">
 							<div class="sc-eilVRo QtLBl">
@@ -1645,77 +1655,82 @@ path[Attributes Style] {
 			<!------------------------------------------------------ 구성품 선택하기 Start ------------------------------------------------------>
 			<div class="component-option-div">
 
-			<nav class="navbar navbar-expand-lg navbar-light bg-light header-navbar gso-hea-nav">
-               <div class="container-fluid" style="padding:0px 16px; background-color:black; height:100%; width:100%;">
 
-                   <div id="sidebarCollapse" class="test" style="border:0; outline:none; background-color: black; display:flex; justify-content: left;">   
-                   	                    
-					<img src="/resources/image/logo/logo-favicon.png">	
-					<a href="/index.jsp" style="text-decoration:none; float:left; color:white; font-size:22px; font-weight:bold; line-height:32px; margin-left:12px; etter-spacing: -0.4px;">
-                   	  GetHobby
-                   </a>
-                   </div>
-					<div style="display: flex; justify-content: right;">
-
-                   <c:if test="${ ! empty sessionScope.user }">
-                   <div style="margin:0px 24px; padding:0px; color:white; font-size:24px; font-weight:bold; line-height:32px; etter-spacing: -0.4px;">
-                   		
-                   		<!-- 프로필 -->
-			            <div class="dropdown d-flex justify-content-end">
-			                <div class="dropdown-icon header-mynemo-check-mylist" data-toggle="dropdown" aria-expanded="false" style="justify-content: space-between; display:flex; align-items: center;">
-			                	<span class="header-mynemo-first-span">
-			                    	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
-			                    </span>
-			                    
-			                    <div class="header-mynemo-profile-flow-one fa-angle-down">
-									<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-										<path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" fill="#ffffff"/>
-										<path d="M0 0h24v24H0z" fill="none"/>
-									</svg>
-								</div>
-			                </div>
+			<!-------------------- Header Start -------------------->
 			
-							<!-- 마이페이지 미니메뉴 -->
-							<div class="dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0 first-load-div" style="position:absolute; top: -100px;">
-				                <div class="header-mynemo-out-div">
-					                <a class="header-mynemo-first-a" href="/user/mypageUser" style="text-decoration:none;">
-						                <span class="header-mynemo-first-span">
-						                	<img src="/resources/image/gon/0123456789123.jpg" class="header-mynemo-proimage-image">
-						                </span>
-						                <div class="header-mynemo-span-next-first-div">
-							                <div class="header-mynemo-span-next-first-div-in-div" >
-							                	${sessionScope.user.nickName}
-							                </div>
-							                <span class="header-mynemo-span-next-first-div-in-span">
-								                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
-								                	마이페이지
-								                </div>
-								                <svg width="12" height="12" viewBox="0 0 24 24">
-								                	<path fill="#fd7e14" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z" />
-								                </svg>
+	
+				<nav class="navbar navbar-expand-lg navbar-light bg-light header-navbar gso-hea-nav">
+	               <div class="container-fluid" style="padding:0px 16px; background-color:black; height:100%; width:100%;">
+	
+	                   <div id="sidebarCollapse" class="test" style="border:0; outline:none; background-color: black; display:flex; justify-content: left;">   
+	                   	                    
+						<img src="/resources/image/logo/logo-favicon.png">	
+						<a href="/index.jsp" style="text-decoration:none; float:left; color:white; font-size:22px; font-weight:bold; line-height:32px; margin-left:12px; etter-spacing: -0.4px;">
+	                   	  GetHobby
+	                   </a>
+	                   </div>
+						<div style="display: flex; justify-content: right;">
+	
+	                   <c:if test="${ ! empty sessionScope.user }">
+	                   <div style="margin:0px 24px; padding:0px; color:white; font-size:24px; font-weight:bold; line-height:32px; etter-spacing: -0.4px;">
+	                   		
+	                   		<!-- 프로필 -->
+				            <div class="dropdown d-flex justify-content-end">
+				                <div class="dropdown-icon header-mynemo-check-mylist" data-toggle="dropdown" aria-expanded="false" style="justify-content: space-between; display:flex; align-items: center;">
+				                	<span class="header-mynemo-first-span">
+				                    	<img src="../resources/image/logo/${!empty sessionScope.user.profileImage ? sessionScope.user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
+				                    </span>
+				                    
+				                    <div class="header-mynemo-profile-flow-one fa-angle-down">
+										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+											<path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" fill="#ffffff"/>
+											<path d="M0 0h24v24H0z" fill="none"/>
+										</svg>
+									</div>
+				                </div>
+				
+								<!-- 마이페이지 미니메뉴 -->
+								<div class="dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0 first-load-div" style="position:absolute; top: -100px;">
+					                <div class="header-mynemo-out-div">
+						                <a class="header-mynemo-first-a" href="/user/mypageUser" style="text-decoration:none;">
+							                <span class="header-mynemo-first-span">
+							                	<img src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" class="header-mynemo-proimage-image" onError="this.src='/resources/image/min/default-profile.jpg'">
 							                </span>
-						                </div>
-					                </a>
-			
-					                <div><hr class="header-mynemo-logout-hr">
-						                <div color="#1b1c1d" class="header-mynemo-logout-div">
-							                <a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">
-							                	로그아웃
-							                </a>
+							                <div class="header-mynemo-span-next-first-div">
+								                <div class="header-mynemo-span-next-first-div-in-div" >
+								                	${sessionScope.user.nickName}
+								                </div>
+								                <span class="header-mynemo-span-next-first-div-in-span">
+									                <div color="#fd7e14" class="header-mynemo-span-next-first-div-in-mypage-text">
+									                	마이페이지
+									                </div>
+									                <svg width="12" height="12" viewBox="0 0 24 24">
+									                	<path fill="#fd7e14" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z" />
+									                </svg>
+								                </span>
+							                </div>
+						                </a>
+				
+						                <div><hr class="header-mynemo-logout-hr">
+							                <div color="#1b1c1d" class="header-mynemo-logout-div">
+								                <a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">
+								                	로그아웃
+								                </a>
+							                </div>
 						                </div>
 					                </div>
 				                </div>
-			                </div>
-			                
-			            </div>
-			       
-			        </div>
-			        </c:if>
-			        
-                   </div>
-               </div>
-           </nav>
-
+				                
+				            </div>
+				       
+				        </div>
+				        </c:if>
+				        
+	                   </div>
+	               </div>
+	           </nav>
+		
+			<!-------------------- Header End -------------------->
 
 				<h1 class="select-page-title">
 					구성품 선택하기
@@ -1742,7 +1757,7 @@ path[Attributes Style] {
 						</div>
 					</div>
 					<h4 class="set-select-title">
-						${hobbyClass.kitName}
+						<div class="kitNameClass">${hobbyClass.kitName}</div>
 						<svg width="24" height="24" viewBox="0 0 24 24">
 							<path fill="#cdd1d4" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z">
 							</path>
@@ -2188,7 +2203,11 @@ path[Attributes Style] {
 				    	payMethod = 'phone';
 				    }
 				    
-				    var name = $("input[name='receiverName']").val();
+				    var name = '15주 수강권';
+				    alert( componentOption );
+				    if( componentOption == '1' ){
+				    	name = $(".kitNameClass").text().trim();
+				    }
 				    var buyerTel = $("input[name='receiverPhone']").val();
 				    if( componentOption == '1' ){
 				    	iamportAmount = iamportSetTotalPrice;
@@ -2202,7 +2221,7 @@ path[Attributes Style] {
 				    pay_method : payMethod,
 				    merchant_uid : 'merchant_' + new Date().getTime(),
 				    name : name, 
-				    amount :  1000,
+				    amount :  10,
 				    buyer_email : buyerEmail,
 				    buyer_tel : buyerTel,
 				}, function(rsp) {

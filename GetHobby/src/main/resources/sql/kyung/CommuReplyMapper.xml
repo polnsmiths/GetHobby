@@ -70,7 +70,7 @@
 	
 	
 	<select id="getTotalCountCommunityReply" parameterType="int" resultType="int"> 
-	    select count(*)
+	    select NVL(count(*), 0)
     	from ( 
     			select *
     			from community

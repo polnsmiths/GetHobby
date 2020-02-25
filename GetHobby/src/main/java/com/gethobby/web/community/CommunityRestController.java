@@ -115,19 +115,26 @@ public class CommunityRestController {
 	}
 	
 	@RequestMapping(value = "json/getReplyListUnderArticle/{articleNo}", method = RequestMethod.GET)
-	public List<Reply> getReplyListUnderArticle(@PathVariable int articleNo)throws Exception{
+	public Map<String, Object> getReplyListUnderArticle(@PathVariable int articleNo)throws Exception{
 		
 		System.out.println("\n\n/getReplyListUnderArticle");
 		System.out.println("articleNo확인:"+articleNo);
 
-		List<Reply> replyList = communityService.getReplyListUnderArticle(articleNo);
+		Map<String, Object> map = communityService.getReplyListUnderArticle(articleNo);
+		List<Reply> replyList = (List<Reply>)map.get("replyList");
+		int totalCountCommunityReply = (Integer)map.get("totalCountCommunityReply");
+		
 		for (int i = 0; i < replyList.size(); i++) {
 			System.out.println("댓글이 참고하는 articleNo: "+replyList.get(i).getArticle().getArticleNo());
 		}
 		
 		System.out.println("확인:"+replyList);
 		System.out.println("댓글 갯수:"+replyList.size());
-		return replyList;
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list", replyList);
+		resultMap.put("totalCountCommunityReply", totalCountCommunityReply);
+		return resultMap;
 		
 	}
 	
@@ -175,7 +182,9 @@ public class CommunityRestController {
 		Map<String , Object> map = communityService.getCommunityList(serviceMap);
 		List<Article> articleList = (List<Article>)map.get("articleList");
 		List<List<Reply>> array = (List<List<Reply>>)map.get("array");
+		//int totalReplyCount = articleList.get(0).getTotalReport();
 
+		
 		//array.get(0).get(0).getUser().
 		
 		map.put("articleList", articleList);

@@ -669,4 +669,14 @@ public class MyHobbyClassRestController {
 		System.out.println("----------------totalCount ? : " + map.get("total"));
 		return returnMap;
 	}
+	
+	@RequestMapping( value = "json/getListenHobbyClassList" )
+	public Map<String, Object> getListenHobbyClassList(HttpSession session) throws Exception {
+		User user = (User)session.getAttribute("user");
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("listenHobbyClassList", myHobbyClassService.getListenHobbyClassList(user.getUserId()));
+		
+		return returnMap;
+	}
 }

@@ -81,5 +81,11 @@ public class MyHobbyClassDAOImpl implements MyHobbyClassDAO {
 	public int getRecommendHobbyClassListTotalCount(Map<String, Object> inputData) throws Exception {
 		return sqlSession.selectOne("HobbyClassMapper.getRecommendHobbyClassListTotalCount", inputData);
 	}
+	
+	@Override
+	public List<HobbyClass> getListenHobbyClass(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("HobbyClassMapper.getListenHobbyClassList", userId);
+	}
 
 }

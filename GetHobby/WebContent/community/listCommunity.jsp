@@ -56,7 +56,6 @@
 	var currentPage = 1;
 
 	
-	
 	$(function() {
 	
 	/////더보기버튼 클릭시 BUTTON1
@@ -127,7 +126,7 @@
 	    					///<!-- 프로필 사진 -->
 	    					if(data.articleList[i].user.profileImage == null){
 	    				moreCommunity +=	"<span class='lcmnt-fpiod'>";
-	    				moreCommunity +=	"<img src='/resources/image/min/default-profile.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi' style='size: 40px; width: 40px;'>";
+	    				moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi' style='size: 40px; width: 40px;'>";
 	    	  				 }else if(data.articleList[i].user.profileImage != null){
 	    	  			moreCommunity +=	data.articleList[i].user.profileImage;	    	  			
 	    				//moreCommunity +=	"<img src='/resources/image/min/"+data.articleList[i].user.profileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi' style='size: 40px; width: 40px;'>";
@@ -153,6 +152,11 @@
 	    								+"	<span class='article_Content lcmnt-span'>"+data.articleList[i].articleContent+"</span>"
 	    	
 	    								+"</div>";//<!-- article_div 끝 -->
+	    								
+	    			moreCommunity += "</br>"
+	    						   +"<div class='reply_totalReport_div lcmnt-ah4_totalReport'>"
+	    						   +data.articleList[i].totalReport+"개의 댓글"
+	    						   +"</div>";
 	    				
 	    			moreCommunity +=	"<div class='outer_reply_div'>";
 	    						for(var j=0; j<data.array[i].length; j++){
@@ -182,7 +186,7 @@
 	    								//<!-- 프로필 사진 -->
 	    			   				+"<span class='lcmnt-fpiod-reply'>";
 	    								if(data.array[i][j].user.profileImage == null){
-	    			   moreCommunity +=	"<img src='/resources/image/min/default-profile.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
+	    			   moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
 	    			    	  			}else if(data.array[i][j].user.profileImage != null){
 	    			   moreCommunity +=	data.array[i][j].user.profileImage;	    	  			
 	    			    	  			}	
@@ -231,7 +235,7 @@
 										+"<div class='lcmnt-form-fid'>"
 										+"<span class='lcmnt-form-fis'>";
     									if(data.articleList[i].user.profileImage == null){
-    					moreCommunity +=	"<img src='/resources/image/min/default-profile.jpg' class='lcmnt-form-fi'>";
+    					moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='lcmnt-form-fi'>";
     	  				 				}else if(data.articleList[i].user.profileImage != null){
     	  				moreCommunity +=	data.articleList[i].user.profileImage;	  
 				    	  				}	
@@ -281,9 +285,15 @@
 	$(document).on("click", "#WriteArticleButton", function() {
 		
 		//alert('글작성하기버튼');
-		//로그인 정보는 세션에서 가져가고
-		//클래스No는 input으로 Form전송으로 변경할 것
-		self.location = "/community/addCommunityArticle.jsp";
+		var hobbyClassNo =$('#hidden_hobbyClassNo').val();
+		var sessionUserId = $("input[class='hidden_session_userId']").val();
+		//alert('글작성하기의 sessionUserId-'+sessionUserId);
+		if(sessionUserId == ''){
+			alert('로그인후 이용해주세요.');
+			//return;
+		}
+		self.location = "/community/addCommunityArticleView?hobbyClassNo="+hobbyClassNo;
+		
 	})//글작성하기 function
 	
 	
@@ -311,8 +321,9 @@
 		var sessionUserId =$('.hidden_session_userId').val();
 		
 		var replyContent = $(this).parents('.reply_div').find('.hidden_replyContent').val();
-		console.log('hidden_replyContent ? :' + replyContent);
-		
+		///<br> ==> \n으로 바꾸는 정규표현식
+		resultReplyContent = replyContent.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+		console.log(resultReplyContent);
 		
 		var reply_userprofileImag = $(this).parents('.reply_div').find('.hidden_reply_userprofileImage').val();
 		console.log('hidden_reply_userprofileImage ? :' + reply_userprofileImag);
@@ -358,7 +369,7 @@
 				//<!-- 프로필 사진 -->
 			  	+"<span class='lcmnt-fpiod-reply'>";
  				//if(forUserProfileImage== null){
- 					displayReply +=	"<img src='/resources/image/min/default-profile.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
+ 					displayReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
 	  			//}else if(forUserProfileImage != null){
 	  			//	displayReply += forUserProfileImage;
 	  				//displayReply +=	"<img src='"+forUserProfileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
@@ -406,7 +417,7 @@
 				//<!-- 프로필 사진 -->
 		  				+"<span class='lcmnt-fpiod-reply'>";
  				//if(reply_userprofileImag == null){
-					updateReply +=	"<img src='/resources/image/min/default-profile.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
+					updateReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
 				//}else if(reply_userprofileImag != null){
 				//	updateReply +=	reply_userprofileImag;	    	  			
 					//updateReply +=	"<img src='"+reply_userprofileImag+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
@@ -414,6 +425,7 @@
 					
  					updateReply +="</span>";
 							
+ 				//var content =  replyContent.replace('<br>','\n');
 			
 				//<!-- default가 닉네임 => 없으면 이름으로 표시 -->
 					updateReply += "<div class='lcmnet-ah34-od'>"
@@ -435,7 +447,8 @@
 		 					
  		 			+"<div class='reply_write_div lcmnt-form-od'>"	
 						+"  <textarea class='replyInput lcmnt-tf-textarea' id='replyInput' name='replyInput' placeholder='댓글을 입력하세요'>"
-						+ replyContent
+						//+ replyContent
+						+ resultReplyContent
 						+ "</textarea>"
      		//<!-- 등록버튼 등록버튼 -->                                                                                                                                                                                                                     <br>
 						 +" <div class='lcmnt-bs-d'>"
@@ -521,7 +534,9 @@
 		console.log('articleNo ? :' + articleNo);
 	
 		var replyContent = $(this).parents('.reply_write_div').find('textarea').val();
-		console.log('replyContent ? :' + replyContent);
+		// \n ==> <br> 로 바꾸는 정규표현식
+		var result_replyContent = replyContent.replace(/(\n|\r\n)/g, '<br>');
+		console.log('replyContent ? :' + result_replyContent);
 		
 		var thisOuterDiv = $(this).parents('.outer_div');
 		
@@ -532,7 +547,7 @@
 		
 		$(this).parents('.reply_write_div').find('textarea').val("");
 		
-		fn_addReply(articleNo, replyContent, thisOuterDiv);
+		fn_addReply(articleNo, result_replyContent, thisOuterDiv);
 	})
 	
 	
@@ -626,12 +641,13 @@
 						success : function(data){
 				        	if(data.success=="200"){
 				        		
+					        		fn_getCommunityReplyList(articleNo, thisOuterDiv);
+					        		
 					        		swal.fire({
 					        			  title: '삭제완료!',
 					        			  text: 'Get취미IfYouCAN',
 					        			  imageUrl: '/resources/image/logo/logo-favicon.png'
 					        			});
-					        		fn_getCommunityReplyList(articleNo, thisOuterDiv);
 				        	}//if
 				        },//success
 				        error:function(request,status,error){
@@ -640,6 +656,7 @@
 						
 					});//ajax
 	};//function fn_deleteReply
+	
 	
 	
 	/*
@@ -705,31 +722,32 @@
 		        	
 		        	var displayReply = "";
 		            var count = data.length; 
+		            var totalReplyCount = data.totalCountCommunityReply+"개의 댓글";
 		            
 		            	console.log('run');
 		            	
-		            	for(var i=0; i<data.length; i++){
+		            	for(var i=0; i<data.list.length; i++){
 
 		            		
 		            		displayReply +=	"<div class='reply_div'>"
-    							+  "<input type='hidden' class='hidden_replyNo' id='hidden_replyNo' value='"+data[i].replyNo+"'/>"
-    							+  "<input type='hidden' class='hidden_replyContent' id='hidden_replyContent' value='"+data[i].replyContent+"'/>"
-    							+  "<input type='hidden' class='hidden_reply_userprofileImage' id='hidden_reply_userprofileImage' value='"+data[i].user.profileImage+"'/>"
-    							+  "<input type='hidden' class='hidden_reply_username' id='hidden_reply_username' value='"+data[i].user.name+"'/>"
-    							+  "<input type='hidden' class='hidden_reply_usernickName' id='hidden_reply_usernickName' value='"+data[i].user.nickName+"'/>"
-    							+  "<input type='hidden' class='hidden_reply_regDate' id='hidden_reply_regDate' value='"+data[i].regDate+"'/>"
-    							+ "<input type='hidden' class='hidden_reply_userId' id='hidden_reply_userId' value='"+data[i].user.userId+"' />";
+    							+  "<input type='hidden' class='hidden_replyNo' id='hidden_replyNo' value='"+data.list[i].replyNo+"'/>"
+    							+  "<input type='hidden' class='hidden_replyContent' id='hidden_replyContent' value='"+data.list[i].replyContent+"'/>"
+    							+  "<input type='hidden' class='hidden_reply_userprofileImage' id='hidden_reply_userprofileImage' value='"+data.list[i].user.profileImage+"'/>"
+    							+  "<input type='hidden' class='hidden_reply_username' id='hidden_reply_username' value='"+data.list[i].user.name+"'/>"
+    							+  "<input type='hidden' class='hidden_reply_usernickName' id='hidden_reply_usernickName' value='"+data.list[i].user.nickName+"'/>"
+    							+  "<input type='hidden' class='hidden_reply_regDate' id='hidden_reply_regDate' value='"+data.list[i].regDate+"'/>"
+    							+ "<input type='hidden' class='hidden_reply_userId' id='hidden_reply_userId' value='"+data.list[i].user.userId+"' />";
 
     								//+"==>"+(i+1)+"번째 댓글 No: "+data[i].replyNo;
     					
     							//<!-- 작성 정보 -->	
     							displayReply +=	"<div class='lcmnt-winf'>";
     								//<!-- 프로필 사진 -->
-    								if(data[i].user.profileImage == null){
+    								if(data.list[i].user.profileImage == null){
     							displayReply +=	"<span class='lcmnt-fpiod-reply'>";	
-    									displayReply +=	"<img src='/resources/image/min/default-profile.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
-    			    	  			}else if(data[i].user.profileImage != null){
-    			    	  				displayReply +=	data[i].user.profileImage;	    	  			
+    									displayReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
+    			    	  			}else if(data.list[i].user.profileImage != null){
+    			    	  				displayReply +=	data.list[i].user.profileImage;	    	  			
     			    	  			}	
     							displayReply += "</span>";
     						
@@ -737,20 +755,20 @@
     							//<!-- default가 닉네임 => 없으면 이름으로 표시 -->
     							displayReply +=	"<div class='lcmnet-ah34-od'>"
     								 		+ "<h6 class='replyUserName lcmnt-ah3'>";
-    			    				 if(data[i].user.nickName == null){
-    			    					 displayReply +=	data[i].user.name;
-    			    				 }else if(data[i].user.nickName != null){
-    			    					 displayReply +=	data[i].user.nickName;
+    			    				 if(data.list[i].user.nickName == null){
+    			    					 displayReply +=	data.list[i].user.name;
+    			    				 }else if(data.list[i].user.nickName != null){
+    			    					 displayReply +=	data.list[i].user.nickName;
     			     				 }
     			    				 displayReply +="</h6>"
     			     				 
     					
     						
-    									+"<h6 class='replyRegDate lcmnt-ah4'>"+data[i].regDate+"</h6>"
+    									+"<h6 class='replyRegDate lcmnt-ah4'>"+data.list[i].regDate+"</h6>"
     									+"</div>";
     								
 
-									if(sessionUserId  == data[i].user.userId){
+									if(sessionUserId  == data.list[i].user.userId){
 										displayReply	+="<div class='button-reply-wrapper'>";
 										displayReply	+="<button class='replyDelete_Button btn btn-outline-basic m-1  button-reply' id='replyDelete_Button'>삭제</button>";
 										displayReply	+="<button class='replyUpdate_Button btn btn-basic m-1 button-reply' id='replyUpdate_Button'>수정</button>";
@@ -758,7 +776,7 @@
 									}	    						
     					
     								displayReply	+="</div>"	
-    									+"<div class='reply_Content lcmnt-span'>"+data[i].replyContent+"</div>";
+    									+"<div class='reply_Content lcmnt-span'>"+data.list[i].replyContent+"</div>";
 									displayReply	+="</div>";//<!-- reply_div 끝 -->
 		            		
 		            		
@@ -767,7 +785,7 @@
 		            	//$("."+articleNo+"").html(displayReply);
 		            	
 		            	thisOuterDiv.find('.outer_reply_div').html(displayReply);
-		            	
+		            	thisOuterDiv.find('.reply_totalReport_div').html(totalReplyCount);
 		
 		        
 		        },//success
@@ -836,7 +854,7 @@
 						<!-- 프로필 사진 -->
 						<span class="lcmnt-fpiod">
 							<c:if test="${articleList.user.profileImage == null }">
-								<img src="/resources/image/min/default-profile.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
+								<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
 							</c:if>
 							<c:if test="${articleList.user.profileImage != null }">
 								<img src="${articleList.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
@@ -866,6 +884,12 @@
 				</div><!-- article_div 끝 -->
 				
 				
+				<!-- 댓글 갯수 div -->
+				</br>
+				<div class="reply_totalReport_div lcmnt-ah4_totalReport">
+					${articleList.totalReport }개의 댓글 
+				</div>
+				
 				
 				<c:set var="j" value="1"/>
 				<div class="outer_reply_div" >
@@ -882,14 +906,16 @@
 						<input type="hidden" class="hidden_reply_userId" id="hidden_reply_userId" value="${array.user.userId}" />
 						<input type="hidden" class="hidden_reply_usernickName" id="hidden_reply_usernickName" value="${array.user.nickName}" />
 						<input type="hidden" class="hidden_reply_regDate" id="hidden_reply_regDate" value="${array.regDate}" />
-						
+						<input type="hidden" class="hidden_reply_totalReport" id="hidden_reply_totalReport" value="${array.totalReport }">
+
 					  <!-- 작성 정보 -->
 					 <div class="lcmnt-winf">	
+					   
 						
 						<!-- 프로필 사진 -->
 						<span class="lcmnt-fpiod-reply">
 						<c:if test="${array.user.profileImage == null }">
-							<img src="/resources/image/min/default-profile.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
+							<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
 						</c:if>
 						<c:if test="${array.user.profileImage != null }">
 							${array.user.profileImage }
@@ -942,7 +968,7 @@
 								<div class="lcmnt-form-fid">
 									<span class="lcmnt-form-fis">
 										<c:if test="${articleList.user.profileImage == null }">
-										<img class="lcmnt-form-fi" src="/resources/image/min/default-profile.jpg">
+										<img class="lcmnt-form-fi" src="/resources/image/logo/unnamed.jpg">
 										</c:if>
 										<c:if test="${articleList.user.profileImage != null }">
 										<img class="lcmnt-form-fi" src="/resources/image/min/${articleList.user.profileImage}">
@@ -985,6 +1011,13 @@
 			
 	
 	</div> 
+	
+	   	</br>
+    	</br>
+    	</br>
+    	</br>
+  	<jsp:include page="/common/footer.jsp" />
+	
 
 </body>
 </html>

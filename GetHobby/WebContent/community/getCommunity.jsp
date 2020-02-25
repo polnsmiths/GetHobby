@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -18,14 +18,11 @@
     <!-- 웹 폰트 (나눔고딕) -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
-
     <!--부트스트랩 CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-
 
     <!-- jQuery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -38,177 +35,226 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 	<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Header js & css -->
-<script src="/resources/javascript/commonHeader.js"></script>
-<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- Header -->
+	<script src="/resources/javascript/commonHeader.js"></script>
+	<link rel="stylesheet" href="/resources/css/commonHeader.css">
+	<link rel="stylesheet" href="/resources/css/kyung/listCommunity.css">
+	<link rel="stylesheet" href="/resources/css/min/getCommunity.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
-
-	<style type="text/css">
-	
-    .btn-basic {
-        background-color: #F2B33D;
-        color: white;
-    }
-
-    .btn-basic:hover {
-        background-color: #F2D64B;
-        color: white;
-
-    }
-    
-    .btn-outline-basic {
-        border: 1px solid #F2B33D;
-        color: #F2B33D;
-    }
-    
-    .btn-outline-basic:hover {
-        background-color: #F2B33D;
-        color: white;
-    }
-	
-    </style>
-
-<script type="text/javascript">
-	////////////////////////////////////////////////////////////////////////////////////
-	
-	$(function() {
-		
-		var articleNo = $('#articleNo_hidden').val();
+	<script type="text/javascript">
+		$(function(){
+			// 클래스 소개 > 커뮤니티 이거 클릭 시 
+			$('.community-select-top-span-tag').on('click', function(){
+				var checkNavigation = $(this).find('.community-top-hidden-value').val();
+				var hobbyClassNo = $('.hidden-hobby-class-number').val();
+				console.log(checkNavigation);
+				console.log(hobbyClassNo);
+				if( checkNavigation == '0' ) {
+					// 클래스 소개로 navigation
+					self.location = "/searchHobbyClass/getSearchHobbyClassIntro?hobbyClassNo=" + hobbyClassNo;
+				}
+				else if ( checkNavigation == '1' ) {
+					self.location = "/community/listCommunity?hobbyClassNo=" + hobbyClassNo;
+				}
+			})
 			
-		$(document).on("click", "#deleteArticleButton", function() {
-			
-			alert('정말로 삭제하시겠습니까?');
-			//alert('articleNo---'+articleNo);
-			$("form").attr("method", "POST").attr("action", "/community/deleteCommunityArticle").submit();
-
-		})
-		
-		
-		$(document).on("click", "#updateArticleButton", function() {
-			
-			//alert('수정버튼');
-			//alert('articleNo---'+articleNo);
-			
-			self.location = "/community/getCommunityArticleUpdateView?articleNo="+articleNo;
-			
-		})
+			/* $(document).on('click', '.report-update-and-so-on-inner-span', function(){
+				var checkNavigation = $(this).find('.right-report-update-delete-hidden-input-tag').val();
+				var articleNo = $('.hidden-article-number').val();
+				var hobbyClassNo = $('.hidden-hobby-class-number').val();
 				
-	});
-
-
-</script>
-</head>
-
-<body>
-
-			<!-- toolbar -->
-			<jsp:include page="/common/header.jsp"/>
+				console.log(checkNavigation);
+				
+				if ( checkNavigation == '0' ) {
+					self.location = "/community/getCommunityArticleUpdateView?articleNo="+articleNo;
+				}
+				else if ( checkNavigation == '1' ) {
+					// 해당 글 삭제 
+					self.location = "/community/getCommunityArticleUpdateView?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
+				}
+			}) */
 			
-	<!-- 전체 묶음 -->
+			$(document).on('click', '.button-reply', function(){
+			var checkNavigation = $(this).find('.right-report-update-delete-hidden-input-tag').val();
+			var articleNo = $('.hidden-article-number').val();
+			var hobbyClassNo = $('.hidden-hobby-class-number').val();
+			alert('checkNavigation-'+checkNavigation);
+			
+			console.log(checkNavigation);
+			
+			if ( checkNavigation == '0' ) {
+				self.location = "/community/getCommunityArticleUpdateView?articleNo="+articleNo;
+			}
+			else if ( checkNavigation == '1' ) {
+				alert('삭제');
+				// 해당 글 삭제 
+				self.location = "/community/deleteCommunityArticle?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
+			}
+		})
+			
+	})//function
+	</script>
+	
+	</head>
+	<!-- ////////////////////////////////////////////////////////========HEAD 끝==========/////////////////////////////////////////////////////////// -->
+	<body class="listcommunity-body-class">
+	
+		<!-- toolbar -->
+		<jsp:include page="/common/header.jsp"/>
+			
+	
+			<!-- ////// INPUT HIDDEN /////////// -->	
+			<input type="hidden" class="hidden-hobby-class-number"  value="${article.hobbyClass.hobbyClassNo}">	
+			<input type="hidden" class="hidden-article-number" value="${article.articleNo }" />
+				
 	<div class="container mt-5">
-	
-	<form name="getCommunity">
-	
-	
-  		<input type="hidden" id="articleNo_hidden" name="articleNo" value="${article.articleNo}">
-  		<input type="hidden" id="hobbyClassNo" name="HobbyClass.hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
-  					
-	    <div class="p-3 py-4 mb-2 text-left rounded">
-          <svg id="beforeAddArticleButton" class="bi bi-chevron-left" width="4em" height="4em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
- 		 	<path fill-rule="evenodd" d="M13.354 3.646a.5.5 0 010 .708L7.707 10l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"></path>
-		 </svg>
-		<c:if test="${article.user.nickName == null}">
-		${article.user.name }
-		</c:if>
-		${article.user.nickName } 님의 발자취
-		
-  		<!-- Default dropright button -->
-			<div class="btn-group dropright">
- 	 			<button type="button" class="btn btn btn-basic s-1 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    	---
-  				</button>
-  				<div class="dropdown-menu">
-    		    		<button id="deleteArticleButton" class="btn btn btn-outline-basic s-1">삭제</button>
-    					<button id="updateArticleButton" class="btn btn btn-basic s-1">수정</button>
- 				</div>
-			</div>
-		<!-- Default dropright button -->
-  			
-    </div>
-	
-	
-
-	
-
-	
-	<!-- 글 -->
-	
-	<div class="card">
-	<!-- 
- 		 <div class="card-header d-flex justify-content-center" > -->
- 		 <div class="card-header" style="size: 40px;"  >
- 			<img alt="" src="/resources/image/min/default-profile.jpg">
-			
-			<span style="width: 50px;">
-				<c:if test="${article.user.nickName == null}">
-				${article.user.name }
-				</c:if>
-				${article.user.nickName }
-				
-				<br>${article.regDate}
-				<!-- 
-				<h5 class="articleUserName">글작성자 : ${article.user.name}</h5>
-				<h5 class="articleRegDate">글작성일 : ${article.regDate}</h5>     -->
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-tag">
+				클래스 소개 
+				<input type="hidden" class="community-top-hidden-value" value="0" />
 			</span>
- 		</div>
-  		<div class="card-body" style="width: 700px;"> <!-- 자동개행되게 할것 -->
-			<span class="articleContentSpan" ><h5>${article.articleContent}</h5></span>
-		 		<img alt="" src="/resources/image/kyung/Music_1.jpeg"> 
-  		</div>
-  		
-	</div>
-
-
-	<hr class="PostView__Divider-sc-10vzch8-1 dqoMju">
-	<!-- 댓글 -->
-	<h4>${article.user.name}님의 글에 달린 댓글</h4>
- <c:set var="i" value="0"/>
- <c:forEach var="replyList" items="${replyList}"> <!-- items를 var라는 이름으로 저장 -->
+			<img src="/resources/image/min/small-right-arrow.jpg" class="a-tag-right-arrow-img">
+		</div>
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-tag">
+				커뮤니티
+				<input type="hidden" class="community-top-hidden-value" value="1" />
+			</span>
+			<img src="/resources/image/min/small-right-arrow.jpg" class="a-tag-right-arrow-img">
+		</div>
+		<div class="community-select-top-inner-div mb-5">
+			<span class="community-select-top-span-last-tag">
+				${ !empty article.user.nickName ? article.user.nickName : article.user.name } 님의 글
+			</span>
+		</div>
 		
-	<div class="card">
- 		 <div class="card-header" style="size: 40px;">
-
-			 <img alt="" src="/resources/image/min/default-profile.jpg"> 
-				${article.user.name}
-				<br>${article.regDate}
- 		 <!--  
-				<h5 class="articleUserName">${replyList.user.name}</h5>
-				<h5 class="articleRegDate">${replyList.regDate}</h5>    -->
- 		 </div>
-  		<div class="card-body">
-		<span class="articleContentSpan"><h5>${replyList.replyContent}</h5></span>
-
-  		</div>
-	</div>
-
-	<hr class="PostView__Divider-sc-10vzch8-1 dqoMju">	
 		
+			<div class="outer_div">
+				<div class="article_div">
+				
+					<div class="lcmnt-winf">
+					
+						<span class="lcmnt-fpiod">
+							<c:if test="${article.user.profileImage == null }">
+								<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
+							</c:if>
+							<c:if test="${atricle.user.profileImage != null }">
+								<img src="/resources/image/min/${article.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
+							</c:if>
+						</span>
+						
+						<div class="lcmnet-ah34-od">
+							<!-- default가 닉네임 => 없으면 이름으로 표시 -->
+							<h3 class="lcmnt-ah3">
+							<c:if test="${article.user.nickName == null}">
+								${article.user.name}
+							</c:if>
+							<c:if test="${article.user.nickName != null}">
+								${article.user.nickName}
+							</c:if>
+							</h3>
+							
+							<h4 class="articleRegDate lcmnt-ah4">${article.regDate}</h4>
+						</div>
+						
+						
+							<c:if test="${sessionScope.user.userId == article.user.userId }">
+							<div class="button-reply-wrapper"> <!-- 사망각 -->
+								<button class="replyUpdate_Button btn btn-basic m-1  button-reply ">수정
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="0" />
+								</button>
+								<button class="replyDelete_Button btn btn-outline-basic m-1  button-reply">삭제
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="1" />
+								</button>	
+							</div> <!-- 사망각 -->
+							</c:if>
+					</div>	
+					
+						<div class="article_Content lcmnt-span">${article.articleContent}</div>
 
-		<c:set var="i" value="${i+1}"/><!-- 초기값0에서 1씩 증가 -->
-</c:forEach>
+							<br/><hr/>
+						<!--  <div class="report-update-and-so-on">    lcmnt-ah4--> 
+							
+<!-- 							<span class="report-update-and-so-on-inner-span mr-2">
+									수정
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="0" />
+								</span>
+								<span class="report-update-and-so-on-inner-span mr-2">
+									삭제
+									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="1" />
+								</span> -->
+							
+							<!-- 
+							<c:if test="${sessionScope.user.userId != article.user.userId }">
+								<span class="report-update-and-so-on-inner-span mr-2">
+									신고
+								</span>
+							</c:if>
+							-->
+						<!--  </div>-->
+						
+					</div>	
+				</div>
+					
+					
+					<h1 class="reply-count-h1-tag mb-2">
+						댓글
+						<small class="reply-count-real-text-small-tag">
+							<!-- 실제 reply totalCount로 변경할 것 -->
+							${totalCountCommunityReply}개
+						</small>
+					</h1>
+					
+					<div class="outer_reply_div" >
+					<div class="reply_div" >
 
-		</form>
-	</div>
-	<!-- 전체 묶음 끝 -->
-	
+					<c:forEach var="reply" items="${replyList }">
+					<!-- 작성 정보 -->
+					<div class="lcmnt-winf mt-3">	
+						<!-- 프로필 사진 -->
+						<span class="lcmnt-fpiod">
+						<c:if test="${reply.user.profileImage == null }">
+							<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 40px; width: 40px;">
+						</c:if>
+						<c:if test="${reply.user.profileImage != null }">
+							${reply.user.profileImage }
+						</c:if>
+						</span>
+						
+						<!-- default가 닉네임 => 없으면 이름으로 표시 -->
+						<div class="lcmnet-ah34-od">	
+							<h6 class="replyUserName lcmnt-ah3">
+							<c:if test="${reply.user.nickName == null}">
+							${reply.user.name }
+							</c:if>
+							<c:if test="${reply.user.nickName != null}">
+							${reply.user.nickName }
+							</c:if>
+							</h6>
+							
+							<h6 class="replyRegDate lcmnt-ah4  mb-1">${reply.regDate}</h6>						
+						</div>
+					</div>
+						<span class="reply_Content lcmnt-span">${reply.replyContent}</span>
+						<hr/>
+					</c:forEach>	
+
+						
+					</div><!-- reply_div 끝 -->
+
+				</div><!-- article_div -->
+				
+			</div><!-- outer_div 끝 -->
+			</div>
+	</div> 
+	<br/><br/><br/>
+	<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

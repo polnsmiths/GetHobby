@@ -95,9 +95,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Map<String, Object> getNoticeList(Search search) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = userDAO.getNoticeList(search);
-		return map ;
+		return userDAO.getNoticeList(search);
 	}
 
 	@Override
