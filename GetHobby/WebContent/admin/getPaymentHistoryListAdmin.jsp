@@ -619,7 +619,7 @@ h1 {
 
 						  <!-- 배송 중, 배송 완료일 경우  / 배송 조회-->
 				      	  <c:if test="${purchase.componentOption == '1' && (purchase.purchaseState == '1' || purchase.purchaseState == '2')}">
-					      <button type="button" class="btn btn-dark" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>
+					      <button type="button" class="btn btn-dark"  data-toggle="modal" data-target="#delivery-info-modal" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>
 					      </c:if>
 					      
 					      <!-- 구매 완료일 경우 / 운송장 입력 -->
@@ -688,6 +688,106 @@ h1 {
 					</div>
 				</div>
 				<!-- end Modal -->
+				
+				
+				<!-- Modal -->
+				<div class="modal fade" id="delivery-info-modal" tabindex="-1" role="dialog">
+			        <div class="modal-dialog" role="document">
+			            <div class="modal-content">
+			                <div class="modal-header">
+			                    <h5 class="modal-title">배송정보 조회</h5>
+			                    <button type="button" class="close" data-dismiss="modal">
+			                        <span>&times;</span>
+			                    </button>
+			                </div>
+			                <div class="modal-body my-3">
+			                   <div class="row border-bottom mx-1 mb-4">
+			                        <small class="text-muted col-3 text-left">배송물품</small>
+			                        <div class="col-9" id="sol-delivery-kit"></div>                   
+			                   </div>
+			                    <table class="table table-borderless table-sm ">
+			                        <thead>
+			                            <tr>
+			                                <td scope="col" style="width: 30%">현재위치</td>
+			                                <th scope="col" style="width: 70%">경기군포부곡</th>
+			                            </tr>
+			                        </thead>
+			                        <tbody>
+			                            <tr>
+			                                <td>운송장번호</td>
+			                                <th scope="row" id="sol-trackingNo" ></th>
+			                            </tr>
+			                            <tr>
+			                                <td>배송업체</td>
+			                                <th scope="row" id="sol-dlvyCompany"></th>
+			                            </tr>
+			                            <tr>
+			                                <td>배송기사</td>
+			                                <th scope="row"></th>
+			                            </tr>
+			                            <tr>
+			                                <td>받는 사람</td>
+			                                <th scope="row" id="sol-receiverName"></th>
+			                            </tr>
+			                            <tr>
+			                                <td>보낸 사람</td>
+			                                <th scope="row">Get취미</th>
+			                            </tr>
+			                            <tr>
+			                                <td>우편주소</td>
+			                                <th scope="row" id="sol-postcode"></th>
+			                            </tr>
+			                            <tr>
+			                                <td>수령 주소</td>
+			                                <th scope="row" id="sol-address"></th>
+			                            </tr>
+			                        </tbody>
+			                    </table>
+			
+			
+			
+			
+			                    <table class="table table-striped">
+			                        <thead>
+			                            <tr class="border-bottom border-top">
+			                                <th scope="col">시간</th>
+			                                <th scope="col">현재위치</th>
+			                                <th scope="col">배송 상태</th>
+			                            </tr>
+			                        </thead>
+			                        <tbody>
+			                            <tr>
+			                                <th scope="row">1</th>
+			                                <td>Mark</td>
+			                                <td>Otto</td>
+			                            </tr>
+			                            <tr>
+			                                <th scope="row">2</th>
+			                                <td>Jacob</td>
+			                                <td>Thornton</td>
+			                            </tr>
+			                            <tr>
+			                                <th scope="row">3</th>
+			                                <td>Larry</td>
+			                                <td>the Bird</td>
+			                            </tr>
+			                        </tbody>
+			                    </table>
+			                </div>
+			                <div class="modal-footer">
+			                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+			                    <button type="button" class="btn btn-basic">등록</button>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+				<!-- end Modal -->
+				
+				
+				
+				
+				
+				
 
 
 				<!-- Pagination -->
@@ -780,23 +880,25 @@ h1 {
 	    	
 	    	
 	    	
-	    	var form_data = new FormData();
+/* 	    	var form_data = new FormData();
 	    	form_data.append('purchaseId', purchaseId);
 		    form_data.append('dlvyCompany', dlvyCompany);
 		    form_data.append('trackingNo', trackingNo);
+		     */
 		    
-		    
-		    console.log(form_data);
+		    console.log(purchaseId);
+		    console.log(dlvyCompany);
+		    console.log(trackingNo);
 		    
 	    	$.ajax({
     					url: "/admin/json/purchase/addDeliveryInfo",
     					method: "POST",
-    					/* data: JSON.stringify({
+    					data: JSON.stringify({
     							purchaseId: purchaseId,
     							dlvyCompany: dlvyCompany,
     							trackingNo: trackingNo
-    					}), */
-    					data: form_data,
+    					}),
+    					/* data: form_data, */
     					dataType : "json" ,
        					headers : {
        						"Accept" : "application/json" ,
@@ -805,7 +907,7 @@ h1 {
     					success : function(JSONData, status) {
 							
     						 $("tr").eq(idx).find(".purchaseStateAdmin").html('<button type="button" class="btn btn-dark" style="background-color:rgb(252, 61, 70); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 중</div></button>');
-    				    	 $("tr").eq(idx).find(".deliveryStateAdmin button .font").text('배송 조회');
+    				    	 $("tr").eq(idx).find(".deliveryStateAdmin").html('<button type="button" class="btn btn-dark" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>');
 
 
 
@@ -839,18 +941,12 @@ h1 {
     		});
     		
     		$("button.btn-outline-warning").on("click", function(){
-    			
-    			//var tr = $(this).parents("tr").html();
-    			//console.log(tr);
-    			
-    			
-    			
+
     			fncAddDeliveryInfo();
     		});
-    		
-//    		$(".sol-btn-delivery").on("click", function() {
+
+
     		$(document).on("click", ".sol-btn-delivery", function(){
-    			
     			//var purchaseId = $(this).parent().prev().has($("input")).text();
     			var purchaseId = $(this).parents('tr').find('input[name="purchaseId"]').val();
     			//console.log(purchaseId);
@@ -862,6 +958,104 @@ h1 {
     			/* console.log($(this).parents('tr').html());
     			$tr = $(this).parents('tr').html();
     			console.log($tr); */
+    		});
+    		
+    		
+    		
+    		
+    		$(document).on("click", "button div:contains('배송 조회')", function(){
+    			var purchaseId = $(this).parents('tr').find('input[name="purchaseId"]').val();
+    			console.log(purchaseId);
+    			
+    			var dlvyCompany = null;
+    	    	var trackingNo = null; 
+    	    	
+    	    	
+    	    	/* <c:set var="i" value="0" />
+				<c:forEach var="list" items="${companyListMap}">
+					<c:set var="i" value="${i+1}" />
+					<option value="${ list.Code }">${ list.Name }</option>
+				</c:forEach> */
+				
+				
+				var companyList = "${companyListMap}";
+				
+				//var jsonString = companyList.replace(/\\/g, "").replace(/"\[/g,"\[").replace(/\]"/g,"\]");
+	            /* $.each(companyList, function(index, item) {
+	            	
+	            	console.log(index + " : " + item + "\n");
+
+	            }); */
+	            var jsonString = "";
+	            //console.log(companyList.length);
+	            for(var i = 0; i < companyList.length; i++){
+	            	if(companyList[i] == '=') {	            		
+		            	companyList[i].replace('=', ':');
+	            	}
+	            	jsonString += companyList[i];
+	            	//console.log(companyList[i]);
+	            }
+	            
+	            console.log(jsonString);
+				console.log(">>>>>>>>>>");
+				/* var obj = []; 
+					obj = companyList; */
+				//var obj = (companyList);
+				//console.log($companyList);
+				console.log(">>>>>>>>>>");
+    			
+    			$.ajax({
+							url: "/admin/json/purchase/getDeliveryInfo/" + purchaseId,
+							method: "GET",
+							/* data: JSON.stringify({
+									purchaseId: purchaseId,
+									dlvyCompany: dlvyCompany,
+									trackingNo: trackingNo
+							}), */
+							dataType : "json" ,
+							async : false, 
+		   					headers : {
+		   						"Accept" : "application/json" ,
+		   						"Content-Type" : "application/json"
+		   					} ,
+							success : function(JSONData, status) {
+								
+								console.log(JSONData);
+								dlvyCompany = JSONData.dlvyCompany;
+								trackingNo = JSONData.trackingNo;
+								 
+								console.log(dlvyCompany);
+								console.log(trackingNo);
+								
+								
+								
+								
+								
+								$("#sol-delivery-kit").text(JSONData.hobbyClass.kitName);
+								
+		
+							}
+				        					
+				});  //end of ajax
+	    		console.log("첫번째 ajax 끝");
+
+	    		$.ajax({
+							url: "/admin/json/purchase/getDeliveryInfoDetail/" + dlvyCompany + "/" + trackingNo,
+							method: "GET",
+							dataType : "json" ,
+							async : false, 
+		   					headers : {
+		   						"Accept" : "application/json" ,
+		   						"Content-Type" : "application/json"
+		   					} ,
+							success : function(JSONData, status) {
+								
+								console.log(JSONData);
+							}
+				        					
+				});  //end of ajax
+				
+				
     		});
     		
     		
@@ -1151,7 +1345,7 @@ h1 {
 												'<td class="deliveryStateAdmin">';
 												if( JSONData.purchase[i].componentOption == '1' ){
 													if( JSONData.purchase[i].purchaseState == '1' || JSONData.purchase[i].purchaseState == '2' ){
-														displayValue += '<button type="button" class="btn btn-dark" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>';
+														displayValue += '<button type="button" class="btn btn-dark"  data-toggle="modal" data-target="#delivery-info-modal" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">배송 조회</div></button>';
 													}else if( JSONData.purchase[i].purchaseState == '0' ){
 														displayValue += '<button type="button" class="btn btn-dark sol-btn-delivery"  data-toggle="modal" data-target="#delivery-modal" style="background-color:rgb(42, 143, 180); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">운송장 입력</div></button>';
 													}
