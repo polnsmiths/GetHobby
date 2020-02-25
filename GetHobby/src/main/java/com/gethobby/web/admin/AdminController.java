@@ -125,14 +125,7 @@ public class AdminController {
 		return "/admin/getPaymentHistoryListAdmin.jsp";
 	}
 	
-//	배송 정보 등록
-	@RequestMapping(value="purchase/getPaymentHistoryListAdmin", method=RequestMethod.POST)
-	public String addDeliveryInfo(@ModelAttribute("purchase") Purchase delivery) throws Exception {
-		
-		deliveryService.addDeliveryInfo(delivery);
-		
-		return "redirect:/admin/getPaymentHistoryListAdmin.jsp";
-	}
+
 	
 	
 	

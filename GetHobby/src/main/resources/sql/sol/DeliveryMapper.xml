@@ -42,7 +42,8 @@
  	<update id="addDeliveryInfo" parameterType="purchase" >
  		UPDATE purchase
 		SET dlvy_company = #{dlvyCompany},
-		    tracking_no = #{trackingNo}
+		    tracking_no = #{trackingNo},
+		    purchase_code = '1'
 		WHERE purchase_id = #{purchaseId}
  	</update>
  	
