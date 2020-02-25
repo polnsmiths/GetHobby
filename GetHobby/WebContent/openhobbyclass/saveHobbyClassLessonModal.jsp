@@ -149,36 +149,66 @@
 			});
 
 			// 강의 추가하기
-			$(".addLesson-Button").off().on("click", "",function(){
+			$(".addLesson-Button").off().on("click", function(){
 				
-					$.ajax(
-		    				{
-		    					url: "/hobbyclass/json/addLesson",
-		    					method: "POST",
-		    					data: JSON.stringify({
-		    							hobbyClassNo: $("input[name='hobbyClassNo']").val()	
-		    						}),
-		    					dataType : "json" ,
-	        					headers : {
-	        						"Accept" : "application/json" ,
-	        						"Content-Type" : "application/json"
-	        					} ,
-		    					success : function(JSONData, status) {
-		    						var displayValue = '<input type="hidden" name="lessonNo-modal" value="">'
-		    										+ '<input type="hidden" name="lessonTitle-modal" value="">'
-		    										+ '<input type="hidden" name="lessonProject-modal" value="">'
-		    										+ '<input type="hidden" name="lessonIntro-modal" value="">'
-		    										+ '<input type="hidden" name="lessonImage-modal" value="">'
-		    										+ '<div class="alert alert-light lessonIndex" role="alert">';
-		    										if( JSONData.lessonTitle != null && JSONData.lessonTitle != "" ){
-		    											displayValue += JSONData.lessonNo+". "+JSONData.lessonTitle;
-		    										}else{
-		    											displayValue += JSONData.lessonNo+". 새로운 강의";
-		    										}
-		    							displayValue += '</div>';						
-									$(".shclm-div").prepend(displayValue);
-		    					}
-	   				});	
+				// 강의정보 저장 후
+				$.ajax(
+	    				{
+	    					url: "/hobbyclass/json/saveLesson",
+	    					method: "POST",
+	    					data: JSON.stringify({
+	    							lessonNo: $("input[name='lessonNo']").val(),
+	    							hobbyClass: {hobbyClassNo : $("input[name='hobbyClassNo']").val()},
+	    							lessonVideo: $("input[name='lessonVideo']").val(),
+	    							lessonTitle: $("input[name='lessonTitle']").val(),
+	    							lessonProject: $("input[name='lessonProject']").val(),
+	    							lessonIntro: $("input[name='lessonIntro']").val(),
+	    							lessonImage: $("input[name='lessonImage']").val(),
+	    							lessonContent: $('#summernote2').summernote('code')
+	    					}),
+	    					dataType : "text" ,
+        					headers : {
+        						"Accept" : "application/json" ,
+        						"Content-Type" : "application/json"
+        					} ,
+	    					success : function(JSONData, status) {
+								
+	    						if(JSONData == 1){
+	    							
+	    				    		// 새로운 강의 추가
+	    				    		$.ajax(
+	    				    				{
+	    				    					url: "/hobbyclass/json/addLesson",
+	    				    					method: "POST",
+	    				    					data: JSON.stringify({
+	    				    							hobbyClassNo: $("input[name='hobbyClassNo']").val()	
+	    				    						}),
+	    				    					dataType : "json" ,
+	    			        					headers : {
+	    			        						"Accept" : "application/json" ,
+	    			        						"Content-Type" : "application/json"
+	    			        					} ,
+	    				    					success : function(JSONData, status) {
+	    				    						var displayValue = '<input type="hidden" name="lessonNo-modal" value="">'
+	    				    										+ '<input type="hidden" name="lessonTitle-modal" value="">'
+	    				    										+ '<input type="hidden" name="lessonProject-modal" value="">'
+	    				    										+ '<input type="hidden" name="lessonIntro-modal" value="">'
+	    				    										+ '<input type="hidden" name="lessonImage-modal" value="">'
+	    				    										+ '<div class="alert alert-light lessonIndex" role="alert">';
+	    				    										if( JSONData.lessonTitle != null && JSONData.lessonTitle != "" ){
+	    				    											displayValue += JSONData.lessonNo+". "+JSONData.lessonTitle;
+	    				    										}else{
+	    				    											displayValue += JSONData.lessonNo+". 새로운 강의";
+	    				    										}
+	    				    							displayValue += '</div>';						
+	    											$(".shclm-div").prepend(displayValue);
+	    				    					}
+	    			   				});	
+	    						}		
+								
+	    					}
+	    				});//end of ajax
+					
 
 			});
 		});
