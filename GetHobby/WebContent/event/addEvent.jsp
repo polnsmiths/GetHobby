@@ -48,6 +48,8 @@
 
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
+<!-- 공통 CSS 관리자 -->
+  <link rel="stylesheet" href="../resources/css/commonAdmin.css">
 
 <!-- 메인 메뉴 CSS 
 <link rel="stylesheet" href="/resources/css/header.css">-->
@@ -62,9 +64,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 <!-- jQuery Custom Scroller CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Header js & css -->
+<!-- Header js & css 충돌
 <script src="/resources/javascript/commonHeader.js"></script>
-<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+<link rel="stylesheet" href="/resources/css/commonHeader.css" /> -->
 
 
 
@@ -328,15 +330,20 @@
 </head>
 
 <body>
-	<!-- toolbar -->
-	<jsp:include page="/common/header.jsp" />
+    <div class="wrapper">
+        
+        <!-- Sidebar -->
+        <jsp:include page="/admin/sidebarAdmin.jsp" />
 
-	<!-- 전체 묶음 -->
-	<div class="wholeGetEvent container mt-5">
+        <!-- Page Content  -->
+        <div id="content">
+
+			<!-- Toolbar -->
+            <jsp:include page="/admin/toolbarAdmin.jsp" />
 	
-<form name="addEvent" class="form-group my-5 py-5">
+<form name="addEvent" class="form-group">
   	
-        <div class="p-3 py-4 mb-2 text-left rounded">
+<!--         <div class="p-3 py-4 mb-2 text-left rounded">
           <svg class="bi bi-chevron-left" width="4em" height="4em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  		 	<path fill-rule="evenodd" d="M13.354 3.646a.5.5 0 010 .708L7.707 10l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"></path>
 		 </svg>
@@ -344,7 +351,16 @@
 		   	<button id="addEventButton" type="button" class="btn btn-basic m-1" >
   				등록
   			</button>
+        </div> -->
+        
+         <!-- 모듈관리명 -->
+		<div class="manager-title">
+           	<button class="manager-title-state" style="border: 0; background-color: white;"><h1>이벤트 등록</h1>  </button>   
+           	<button id="addEventButton" type="button" class="btn btn-basic m-1" >
+  				등록
+  			</button>     	
         </div>
+        
   
   <!-- 이벤트 이름 -->
 	<div class="input-group mb-3">
@@ -514,8 +530,8 @@
   
   
   
+   </div>
 </div>
 
-	<jsp:include page="/common/footer.jsp" />
 </body>
 </html>

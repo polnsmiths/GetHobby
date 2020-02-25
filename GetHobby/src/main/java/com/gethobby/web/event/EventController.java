@@ -16,10 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gethobby.common.Page;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.Event;
 import com.gethobby.service.domain.User;
@@ -58,23 +60,28 @@ public class EventController {
 		System.out.println("\n\nsearchCondition--\n"+search.getSearchCondition());
 		
 		
-		search.setPageSize(pageSize); 
 		
-		if(user != null) {
+		search.setPageSize(pageSize);
+		 
+		if(user != null) { 
 			if(user.getUserId().equals("admin@naver.com")) {
-			search.setPageSize(pageSize*3); 
+				search.setPageSize(pageSize*3); 
 			}
 		}
 		
-//		if(user.getUserId().equals("admin@naver.com") ) {
-//			search.setPageSize(pageSize*3);
-//		}
+		
+		
+		
+		
+		if(user.getUserId().equals("admin@naver.com") ) {
+			search.setPageSize(pageSize*3);
+		}
 		search.setCurrentPage(1);
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
-			search.setSearchCondition("진행중"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
+		}else if(search.getSearchCondition().equals("1")) {
+			search.setSearchCondition("진행중"); //==>얘가 기본
 		}else if(search.getSearchCondition().equals("2")) {
 			search.setSearchCondition("종료"); //==>얘가 기본
 
@@ -100,21 +107,21 @@ public class EventController {
 		System.out.println("\n\n\n\n\n\nsize--"+((List<Event>)(map.get("list") )) .size());
 		model.addAttribute("list", (List<Event>)map.get("list"));
 		model.addAttribute("total", map.get("total"));
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize);
+
 		
-		if(user != null) {
-			if(user.getUserId().equals("admin@naver.com")) {
-			return "forward:/event/listEventAdmin.jsp";
-			
-			}else {
-				
-				return "forward:/event/listEvent.jsp";
-			}
-		}else {
-		
-		return "forward:/event/listEvent.jsp";
-		
-		}
-		
+	
+		  if(user != null) { if(user.getUserId().equals("admin@naver.com")) { return
+		  "forward:/event/listEventAdmin.jsp";
+		  
+		  }else {
+		  
+		  return "forward:/event/listEvent.jsp"; } }else {
+		  
+		  return "forward:/event/listEvent.jsp";
+		  
+		  }
+		 
 	}
 	
 	@RequestMapping(value = "getEvent")
@@ -214,12 +221,12 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "updateOneEventViewAdmin", method = RequestMethod.POST)
-	public String updateOneEventViewAdmin(@RequestParam int eventId, Model model)throws Exception{
+	public String updateOneEventViewAdmin(@RequestBody Event inevent, Model model)throws Exception{
 		
-		System.out.println("\n\n\n/updateOneEvent");
-		System.out.println("들어온 eventId확인View:\n"+eventId);
+		System.out.println("\n\n\n/updateOneEventViewAdmin");
+		System.out.println("들어온 eventId확인View:\n"+inevent);
 		
-		Event event = eventService.getEvent(eventId);
+		Event event = eventService.getEvent(inevent.getEventId());
 		System.out.println("가져온 Event----\n"+event);
 		model.addAttribute("event", event);
 		return "forward:/event/updateEventView.jsp";
@@ -250,8 +257,8 @@ public class EventController {
 		
 		System.out.println("Controller확인---\n\nevent:"+event);
 		
-		//return "forward:/event/getEvent";
-		return null;
+		return "forward:/event/getEvent?eventId="+event.getEventId();
+		//return null;
 	}
 	
 

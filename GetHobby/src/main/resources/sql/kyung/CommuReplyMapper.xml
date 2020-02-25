@@ -65,7 +65,7 @@
 		FROM community c, users u
 		WHERE c.user_id = u.user_id
 		AND ref_no = #{articleNo}
-		ORDER BY reg_date DESC
+		ORDER BY reg_date
 	</select>
 	
 	
