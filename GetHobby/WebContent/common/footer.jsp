@@ -691,7 +691,7 @@ path[Attributes Style] {
 			<div color="#FFF" font-weight="bold" class="sc-bdVaJa fORXCH Footer__Title-lv6cz2-4 lhJaDk">크리에이터
 			</div>
 			<c:if test="${sessionScope.user.role == '1' || sessionScope.user.role == '2' }">
-			<a href="/user/listNotice/1" target="" rel="" class="Footer__ExternalLink-lv6cz2-8 etHvQm">
+			<a href="/user/listNotice" target="" rel="" class="Footer__ExternalLink-lv6cz2-8 etHvQm">
 			<div class="sc-bdVaJa hBKkTB Footer__LinkTitle-lv6cz2-9 liAQRm">공지사항
 			</div>
 			</a>
