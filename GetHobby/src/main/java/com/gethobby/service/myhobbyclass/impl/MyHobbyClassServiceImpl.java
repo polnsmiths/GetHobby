@@ -259,4 +259,26 @@ public class MyHobbyClassServiceImpl implements MyHobbyClassService {
 		returnMap.put("total", totalCount);
 		return returnMap;
 	}
+
+	@Override
+	public List<HobbyClass> getListenHobbyClassList(String userId) throws Exception {
+		List<HobbyClass> hobbyClassList = myHobbyClassDAO.getListenHobbyClass(userId);
+		
+		for ( int i = 0; i < hobbyClassList.size(); i++ ) {
+			HobbyClass hobbyClass = hobbyClassList.get(i);
+			
+			List<String> hashtagList = searchHobbyClassDAO.getHobbyClassHashtag(hobbyClass.getHobbyClassNo());
+			
+			List<String> setHashtagList = new ArrayList<String>();
+			
+			for (int j = 0; j < hashtagList.size(); j++) {
+				String hashtagString = new String(hashtag.getProperty(hashtagList.get(j)).getBytes("ISO-8859-1"), "utf-8");
+				setHashtagList.add(hashtagString);
+			}
+			
+			hobbyClass.setHashtag(setHashtagList);
+		}
+		
+		return hobbyClassList;
+	}
 }

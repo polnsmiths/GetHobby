@@ -28,4 +28,6 @@ public interface MyHobbyClassDAO {
 	public int getSteamHobbyClassListTotalCount(Map<String, Object> inputData) throws Exception;
 	
 	public int getRecommendHobbyClassListTotalCount(Map<String, Object> inputData) throws Exception;
+	
+	public List<HobbyClass> getListenHobbyClass(String userId) throws Exception;
 }
