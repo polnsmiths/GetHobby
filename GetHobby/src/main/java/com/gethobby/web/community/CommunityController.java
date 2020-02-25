@@ -116,8 +116,8 @@ public class CommunityController {
 	
 	@RequestMapping(value = "listCommunity", method = RequestMethod.GET)
 	public String listCommunityGet(@ModelAttribute("search") Search search, 
-	//				@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
-		 HttpSession session, Model model	)throws Exception{
+					@RequestParam("hobbyClassNo")int hobbyClassNo, HttpSession session, Model model	)throws Exception{
+	//	 HttpSession session, Model model	)throws Exception{
 		
 		System.out.println("\n\n\n\n/listCommunity___GET방식\n\n");
 		
@@ -133,13 +133,13 @@ public class CommunityController {
 		}
 		search.setPageSize(pageSize);
 		
-		//System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+hobbyClassNo);
+		System.out.println("////////////n/n/n/n/n/n/n/nhobbyClassNo--\n\n"+hobbyClassNo);
 
 		//구매한 사람만 들어온 상태.
 		//////////////////////////////////////실험용
-		HobbyClass hobbyClass = new HobbyClass();
-		int hobbyClassNo = 10000;
-		hobbyClass.setHobbyClassNo(hobbyClassNo);
+		//HobbyClass hobbyClass = new HobbyClass();
+		//int hobbyClassNo = 10000;
+		//hobbyClass.setHobbyClassNo(hobbyClassNo);
 		//////////////////////////////////////
 		
 		
