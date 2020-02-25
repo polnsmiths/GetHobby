@@ -80,7 +80,8 @@
 	//console.log(boardCode);
 	//var boardCode = $("input[name='boardCode']").val();
 	$("form").attr("method" , "POST").attr("action" , "/article/getBoardArticleList").submit();
-} */
+} 
+*/
 
 
 //============= "검색"  Event  처리 =============	
@@ -195,7 +196,7 @@ $(function() {
 										&nbsp;</span> <i class="fas fa-heart my-auto mx-1"></i>${ list.totalFavor }
 								</span>
 							</div>
-							<h4 class="mt-1">${ list.user.nickName }${ list.articleNo }</h4>
+							<h4 class="mt-1">${ list.user.nickName }</h4>
 							<%-- <h4 class="mt-1">${ list.articleNo }</h4> --%>
 						</div>
 					</div>
@@ -236,7 +237,7 @@ $(function() {
 							</button>
 						</div>
 						<div class="modal-body my-3">
-							<form>
+							<form id="sol-add-photo">
 								<input type="hidden" name="boardCode" value="1">
 								<input type="hidden" name="articleImage" value="">
 								<div id="sol-image-drag-and-drop">드래그하거나 클릭하여 업로드</div>

@@ -124,13 +124,18 @@ public class EventRestController {
 		System.out.println("\n\nsearchCondition--\n"+search);
 		
 		
-		search.setPageSize(pageSize); 
 		
-//		if(user != null) {
-//			if(user.getUserId().equals("admin@naver.com")) {
-//			search.setPageSize(pageSize*3); 
-//			}
-//		}
+		search.setPageSize(pageSize);
+		  
+		if(user != null) { 
+			if(user.getUserId().equals("admin@naver.com")) {
+				search.setPageSize(pageSize*3);
+			} 
+		}
+		 
+		
+		//search.setPageSize(pageSize*3);
+
 		
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {

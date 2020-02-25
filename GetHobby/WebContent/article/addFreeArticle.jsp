@@ -96,7 +96,7 @@ function fncAddBoardArticle(){
 		return false;
 	}
 	 
-	$("form").attr("method","POST").attr("action","/article/addBoardArticle").submit();
+	$("#sol-add-free").attr("method","POST").attr("action","/article/addBoardArticle").submit();
 }
 
 
@@ -155,7 +155,7 @@ function fncAddBoardArticle(){
 	<div class="mt-5">&nbsp;</div>
 	<div class="container">
     <h1 class="sol-board-header">자유게시판 게시글 작성</h1>
-        <form class="form-group my-5 py-5">
+        <form id="sol-add-free" class="form-group my-5 py-5">
             <input type="hidden" name="boardCode" value="0">
             <div class="form-row my-3">
                 <div class="input-group col-lg-3">

@@ -36,7 +36,7 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassDAO;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseDAO;
 import com.gethobby.service.purchase.PurchaseService;
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @Service("openHobbyClassServiceImpl")
 public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		
@@ -177,6 +177,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		
 		addHashtag(hobbyClass);
 		hobbyClass.setCategory(this.changeCategory(hobbyClass));
+		System.out.println(hobbyClass.toString());
 		return openHobbyClassDAO.saveHobbyClassInfo(hobbyClass);
 	}
 
@@ -280,12 +281,10 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		String fileName = System.currentTimeMillis() + fileExtension;
 		System.out.println(fileExtension);
 		try {
-			if(fileExtension.equals(".jpg") || fileExtension.equals(".png")) {
-				System.out.println("이미지");
+			if(fileExtension.equals(".jpg") || fileExtension.equals(".png") || fileExtension.equals(".jpeg")) {
 				file.transferTo(new File(temDir, fileName));
 				
 			}else {
-				System.out.println("비디오");
 				file.transferTo(new File(videoTemDir, fileName));
 			}
 			tempFileList.add(fileName);

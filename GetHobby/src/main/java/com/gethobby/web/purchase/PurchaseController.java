@@ -16,7 +16,7 @@ import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 @Controller
 @RequestMapping("/purchase/*")
 public class PurchaseController {
@@ -39,9 +39,6 @@ public class PurchaseController {
 	@RequestMapping( value="getSelectOption", method=RequestMethod.GET )
 	public String getSelectOption(@RequestParam("hobbyClassNo") int hobbyClassNo,
 			@RequestParam("eventDiscount") int eventDiscount, HttpSession session, Model model) throws Exception {
-		System.out.println(hobbyClassNo);
-		System.out.println(eventDiscount);
-		System.out.println(session.getAttribute("user").toString());
 		model.addAttribute("purchase", purchaseService.getPayment(((User)session.getAttribute("user")).getUserId()));
 		System.out.println("1");
 		model.addAttribute("hobbyClass", purchaseService.getPaymentOption(hobbyClassNo, session));

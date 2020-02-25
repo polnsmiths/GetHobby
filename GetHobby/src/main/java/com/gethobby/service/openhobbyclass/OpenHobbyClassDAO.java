@@ -6,7 +6,7 @@ import java.util.Map;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Lesson;
-//2020-02-21 Git Commit
+//2020-02-24 Git Commit
 public interface OpenHobbyClassDAO {
 	
 	public List getHobbyClassList(Search search) throws Exception;  

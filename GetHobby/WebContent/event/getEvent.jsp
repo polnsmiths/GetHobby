@@ -53,16 +53,21 @@
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resources/css/common.css">
 
-<!-- 메인 메뉴 CSS -->
-<link rel="stylesheet" href="/resources/css/header.css">
-<!-- 메인 메뉴 js -->
-<script src="/resources/javascript/header.js"></script>
 
 
 <link rel="shortcut icon" href="/static/pc/images/favicon.ico">
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- Scrollbar Custom CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Header js & css -->
+<script src="/resources/javascript/commonHeader.js"></script>
+<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+
 
 <style type="text/css">
  .wholeGetEvent{
@@ -92,14 +97,14 @@ $(function() {
 		
 		//alert('eventId-'+eventId);
 		//self.location = "/event/updateOneEventView?eventId="+eventId;
-		$("form").attr("method", "POST").attr("action", "/event/updateOneEventViewAdmin").submit();
+		$("#getEventForm").attr("method", "POST").attr("action", "/event/updateOneEventViewAdmin").submit();
 		
 	});
 	
 	$("#deleteEvent").on("click", function() {
 		
 		//alert('eventId-'+eventId);
-		$("form").attr("method", "POST").attr("action", "/event/deleteOneEventAdmin").submit();
+		$("#getEventForm").attr("method", "POST").attr("action", "/event/deleteOneEventAdmin").submit();
 		
 	});
 	
@@ -115,20 +120,32 @@ $(function() {
 
 </head>
 <body>
-
+<!--  
+	<c:if test="${user.userId eq 'admin@naver.com'}">
+	<jsp:include page="/admin/sidebarAdmin.jsp" />
+	</c:if> -->
+	
 	<!-- toolbar -->
 	<jsp:include page="/common/header.jsp" />
+<!-- 
+	<c:if test="${user.userId eq 'admin@naver.com'}">
+	<div id="content">
+	</c:if>  -->
 
 	<!-- 전체 묶음 -->
 	<div class="wholeGetEvent container mt-5">
 	
-	<form name="getEventForm">
+	<form name="getEventForm" id="getEventForm">
 	<input type="hidden" id="eventId" name="eventId" value="${event.eventId }">
 	
 	<div id="contents" class="">
 	
 		<!-- event-detail -->
 		<div class="event-detail">
+		
+		</br>
+		</br>
+		</br>
 			<h2 class="tit">${event.eventTitle }</h2>
 			
 	<c:if test="${user.userId eq 'admin@naver.com'}">
@@ -167,9 +184,6 @@ $(function() {
 			-->
 				
 					<div class="event-html">
-					<!-- 나중에는 eventContent에 다 포함되어있을예정 -->
-					<p><img src="/images/kyung/${event.eventImage}" ></p>
-						여기까지는 Eventimage	
 						<p>${event.eventContent }</p>
 					</div>
 
@@ -183,6 +197,7 @@ $(function() {
 </form>
 
 </div>
+<jsp:include page="/common/footer.jsp" />
 
 </body>
 

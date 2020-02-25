@@ -99,7 +99,7 @@ function fncAddBoardArticle(){
 		return false;
 	}
 	 
-	$("form").attr("method","POST").attr("action","/article/updateBoardArticle").submit();
+	$("#sol-update-article").attr("method","POST").attr("action","/article/updateBoardArticle").submit();
 }
 
 
@@ -158,7 +158,7 @@ $(function() {
 	<div class="mt-5">&nbsp;</div>	
 	<div class="container">
     <h1 class="sol-board-header">자유게시판 게시글 작성</h1>
-        <form class="form-group my-5 py-5">
+        <form id="sol-update-article" class="form-group my-5 py-5">
         	<input type="hidden" name="articleNo" value="${ article.articleNo }">
             <input type="hidden" name="boardCode" value="0">
             <div class="form-row my-3">
