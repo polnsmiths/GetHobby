@@ -31,10 +31,7 @@ import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Lesson;
 import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
-import com.gethobby.service.purchase.PurchaseService;
 
-
-//2020-02-24 Git Commit
 @RestController
 @RequestMapping("/hobbyclass/*")
 public class OpenHobbyClassRestController {
@@ -43,10 +40,6 @@ public class OpenHobbyClassRestController {
 	@Autowired
 	@Qualifier("openHobbyClassServiceImpl")
 	private OpenHobbyClassService oepnhobbyClassService;
-	
-	@Autowired
-	@Qualifier("purchaseServiceImpl")
-	private PurchaseService purchaseService;
 
 	//Constructor
 	public OpenHobbyClassRestController() {
@@ -57,56 +50,56 @@ public class OpenHobbyClassRestController {
 	@RequestMapping( value="json/saveHobbyClassInfo", method=RequestMethod.POST )
 	public int saveHobbyClassInfo(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
 		return oepnhobbyClassService.saveHobbyClassInfo(hobbyClass, session);
-	}
+	}//end of saveHobbyClassInfo
 	
 	@RequestMapping( value="json/saveKit", method=RequestMethod.POST )
 	public int saveKit(@RequestBody HobbyClass hobbyClass, HttpSession session) throws Exception {
 		return oepnhobbyClassService.saveKit(hobbyClass);
-	}
+	}//end of saveKit
 	
 	@RequestMapping( value="json/saveFile", method=RequestMethod.POST )
 	public List saveFile(MultipartFile file, HttpSession session) throws Exception {		
 		return oepnhobbyClassService.getFileName(file, session);
-	}
+	}//end of saveFile
 	
 	@RequestMapping( value="json/saveVideoFile", method=RequestMethod.POST )
 	public String saveVideoFile(MultipartFile file, HttpSession session) throws Exception {	
 		return (String)oepnhobbyClassService.getFileName(file, session).get(0);
-	}
+	}//end of saveVideoFile
 	
 	@RequestMapping( value="json/deleteHobbyClass", method=RequestMethod.POST )
 	public int deleteHobbyClass(@RequestBody HobbyClass hobbyClass) throws Exception {
 		return oepnhobbyClassService.deleteHobbyClass(hobbyClass.getHobbyClassNo());
-	}
+	}//end of deleteHobbyClass
 
 	@RequestMapping( value="json/saveLesson", method=RequestMethod.POST )
 	public int saveLesson(@RequestBody Lesson lesson, HttpSession session) throws Exception {
 		return oepnhobbyClassService.saveLesson(lesson, session);
-	}
+	}//end of saveLesson
 	
 	@RequestMapping( value="json/addLesson", method=RequestMethod.POST )
 	public Lesson addLesson(@RequestBody HobbyClass hobbyClass) throws Exception {
 		return oepnhobbyClassService.addLesson(hobbyClass.getHobbyClassNo());
-	}
+	}//end of addLesson
 	
 	@RequestMapping( value="json/saveCheckHobbyClass", method=RequestMethod.POST )
 	public int saveCheckHobbyClass(@RequestBody HobbyClass hobbyClass) throws Exception {
 		return oepnhobbyClassService.saveCheckHobbyClass(hobbyClass.getHobbyClassNo());
-	}
+	}//end of saveCheckHobbyClass
 	
 	@RequestMapping( value="json/getMyHobbyClassList", method=RequestMethod.POST )
 	public Map getMyHobbyClassList(@RequestBody Search search, HttpSession session) throws Exception {
 		return oepnhobbyClassService.getHobbyClassList(search, session);
-	}
+	}//end of getMyHobbyClassList
 	
 	@RequestMapping( value="json/getSaveHobbyClass", method=RequestMethod.POST )
 	public HobbyClass getSaveHobbyClass(@RequestBody HobbyClass hobbyClass) throws Exception {
 		return oepnhobbyClassService.getSaveHobbyClass(hobbyClass.getHobbyClassNo());
-	}
+	}//end of getSaveHobbyClass
 	
 	@RequestMapping( value="json/getLesson", method=RequestMethod.POST )
 	public Lesson getLesson(@RequestBody Lesson lesson) throws Exception {
 		return oepnhobbyClassService.getLesson(lesson.getLessonNo());
-	}
+	}//end of getLesson
 
 }

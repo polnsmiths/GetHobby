@@ -52,8 +52,12 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-
-
+	<!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
+	
 	<!-- 채널톡 js -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
 	<!-- header CSS -->
@@ -186,13 +190,28 @@ $(function(){
 								})							
 						
 						}else if(JSONData.result == 'success'){
+							alert('success');
 							Swal.fire({
 								  icon: 'success',
 								  title: '로그인 완료',
 								  showConfirmButton: false,
 								  timer: 800
 								}).then((result) =>{
-									self.location = "/user/login";
+									alert("${redirectUrl}");
+									// self.location = "/user/login"; 기존
+									// 인터셉터 수정한부분 -------------------------------
+									var redirectUrl = '';
+									redirectUrl = "${redirectUrl}";
+									alret(redirectUrl);
+									if ( redirectUrl != '' ) {
+										self.location = redirectUrl;
+									}
+									else {
+										 self.location = "/user/login";
+										
+										}
+									
+									// 인터셉터 수정한부분 -------------------------------
 								})						
 						}else if(JSONData.result == 'manager'){
 							Swal.fire({
@@ -201,7 +220,7 @@ $(function(){
 								  showConfirmButton: false,
 								  timer: 800
 								}).then((result) =>{
-									self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+									self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 								})			
 						}	
 					}
@@ -281,11 +300,12 @@ $(function(){
 								// 수정한 부분 /////////////////////////////
 								var redirectUrl = '';
 								redirectUrl = "${redirectUrl}";
+								alret(redirectUrl);
 								if ( redirectUrl != '' ) {
 									self.location = redirectUrl;
 								}
 								else {
-									 self.location = "http://127.0.0.1:8080/index.jsp";
+									self.location = "/user/login";
 									
 								}
 								// 수정한 부분 /////////////////////////////
@@ -298,7 +318,7 @@ $(function(){
 							  showConfirmButton: false,
 							  timer: 800
 							}).then((result) =>{
-								 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+								 self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 							
 							})
 						
@@ -429,7 +449,7 @@ $(function(){
 									  showConfirmButton: false,
 									  timer: 800
 									}).then((result) =>{
-										self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+										self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 									})			
 							}	
 						}
@@ -513,7 +533,7 @@ $(function(){
 										self.location = redirectUrl;
 									}
 									else {
-										 self.location = "http://127.0.0.1:8080/index.jsp";
+										 self.location = "http://192.168.0.144:8080/index.jsp";
 										
 									}
 									// 수정한 부분 /////////////////////////////
@@ -526,7 +546,7 @@ $(function(){
 								  showConfirmButton: false,
 								  timer: 800
 								}).then((result) =>{
-									 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+									 self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 								
 								})
 							
@@ -648,7 +668,18 @@ $(function(){
 							  showConfirmButton: false,
 							  timer: 800
 							}).then((result) =>{
-								self.location = "/user/login";
+								// self.location = "/user/login"; 기존
+								// 수정한 부분 /////////////////////////////
+								var redirectUrl = '';
+								redirectUrl = "${redirectUrl}";
+								if ( redirectUrl != '' ) {
+									self.location = redirectUrl;
+								}
+								else {
+									 self.location = "http://192.168.0.144:8080/index.jsp";
+									
+								}
+								// 수정한 부분 /////////////////////////////
 							})						
 					}else if(JSONData.result == 'manager'){
 						Swal.fire({
@@ -657,7 +688,7 @@ $(function(){
 							  showConfirmButton: false,
 							  timer: 800
 							}).then((result) =>{
-								self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+								self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 							})			
 					}	
 				}
@@ -734,7 +765,7 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							// self.location = "http://127.0.0.1:8080/index.jsp"; // 기존
+							// self.location = "http://192.168.0.144:8080/index.jsp"; // 기존
 							// 수정한 부분 /////////////////////////////
 							var redirectUrl = '';
 							redirectUrl = "${redirectUrl}";
@@ -742,7 +773,7 @@ $(function(){
 								self.location = redirectUrl;
 							}
 							else {
-								 self.location = "http://127.0.0.1:8080/index.jsp";
+								 self.location = "http://192.168.0.144:8080/index.jsp";
 								
 							}
 							// 수정한 부분 /////////////////////////////
@@ -755,7 +786,7 @@ $(function(){
 						  showConfirmButton: false,
 						  timer: 800
 						}).then((result) =>{
-							 self.location = "http://127.0.0.1:8080/admin/user/listUserAdmin";
+							 self.location = "http://192.168.0.144:8080/admin/user/listUserAdmin";
 						
 						})
 					

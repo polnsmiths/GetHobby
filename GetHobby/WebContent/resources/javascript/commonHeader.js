@@ -31,9 +31,22 @@ $(document).ready(function () {
         		self.location = "/user/changeUserCreator";
         	});
         	
+        	$(document).on("click", ".header-mynemo-span:contains('크리에이터 지원')", function(){
+        		self.location = "/user/changeUserCreator";
+        	});
+        	
         	// 크리에이터 센터 이동
         	$(document).on("click", ".header-title-box-single:contains('크리에이터 센터')", function(){
         		self.location = "/hobbyclass/getMyHobbyClassList";
+        	});
+        	
+        	$(document).on("click", ".header-mynemo-span:contains('크리에이터 센터')", function(){
+        		self.location = "/hobbyclass/getMyHobbyClassList";
+        	});
+        	
+        	// 구매 내역 이동
+        	$(document).on("click", ".header-mynemo-span:contains('구매 내역')", function(){
+        		self.location = "/purchase/getPaymentHistoryList";
         	});
         	
         	// 이벤트 이동
@@ -69,7 +82,7 @@ $(document).ready(function () {
         	$(document).on("click", ".jauNaviClass", function(){
         		self.location = "/article/getBoardArticleList?boardCode=0";
         	});
-        	$(document).on("click", ".side-title-box-single:contains('자유 게시판')", function(){
+        	$(document).on("click", ".side-title-box-single:contains('아무말대잔치')", function(){
         		self.location = "/article/getBoardArticleList?boardCode=0";
         	});
         	
@@ -77,7 +90,7 @@ $(document).ready(function () {
         	$(document).on("click", ".sajinNaviClass", function(){
         		self.location = "/article/getBoardArticleList?boardCode=1";
         	});
-        	$(document).on("click", ".side-title-box-single:contains('사진 게시판')", function(){
+        	$(document).on("click", ".side-title-box-single:contains('하루 한 장')", function(){
         		self.location = "/article/getBoardArticleList?boardCode=1";
         	});
         	
@@ -93,8 +106,9 @@ $(document).ready(function () {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+           
             });
-            
+    
             
             $('.side-img-header').on('click', function () {
             	$('#sidebarCollapse').click();

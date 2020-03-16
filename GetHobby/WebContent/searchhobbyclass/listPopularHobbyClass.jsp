@@ -10,7 +10,7 @@
 	<div class="row">
 	
 		<div class="col-1 nav">
-			<button type="button" class="btn btn-light" id="popularPrev"><i class="fas fa-chevron-left" style="font-size:48px"></i></button>
+			<button type="button" class="btn btn-white" id="popularPrev"><i class="fas fa-chevron-left" style="font-size:48px"></i></button>
 		</div>
 		
 		<div class="col-10">
@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="col-1 nav">
-			<button type="button" class="btn btn-light" id="popularNext"><i class="fas fa-chevron-right" style="font-size:48px"></i></button>
+			<button type="button" class="btn btn-white" id="popularNext"><i class="fas fa-chevron-right" style="font-size:48px"></i></button>
 		</div>
 		
 	</div>

@@ -410,4 +410,9 @@ public class SearchHobbyClassServiceImpl implements SearchHobbyClassService {
 	public List<Reply> getClassCommunityReplyContent(String communityNo) throws Exception {
 		return searchHobbyClassDAO.getClassCommunityReplyContent(communityNo);
 	}
+
+	@Override
+	public List<LessonTimes> getHobbyClassEncodingLessonList(int hobbyClassNo) throws Exception {
+		return searchHobbyClassDAO.getHobbyClassEncodingLessonList(hobbyClassNo);
+	}
 }

@@ -42,7 +42,7 @@
  	
  	<select id="getUser"   parameterType="String" resultMap="userSelectMap">
  		SELECT
- 		user_id,name,nickname,password,birth_date,phone,sex,address,detail_address,postcode,role,profile_image,add_date
+ 		user_id,name,nickname,password,birth_date,phone,sex,address,detail_address,postcode,role,profile_image,add_date, total_report 
  		FROM users
  		WHERE user_id = #{value}
  	</select>

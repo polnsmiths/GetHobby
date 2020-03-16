@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
+<title>GetHobby</title>
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
 <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -58,7 +58,7 @@
 
 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
     
     <!-- Scrollbar Custom CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -110,6 +110,11 @@
 </style>
 <script type="text/javascript">
 	
+	//ready되자마자 sezrchCondition을 "전체"로 설정
+	$(document).ready(function() {
+		$("#listEventAdmin").children("input[name='searchCondition']").val(0);
+	});//ready
+	
 $(function() {
 	
 	//이벤트이름 클릭시
@@ -123,11 +128,11 @@ $(function() {
 		var eventNo = afterSplit[1];
 		console.log('eventNo--'+eventNo+'--');
 		alert(eventNo); */
-		alert('선택');
+		//alert('선택');
  		//var eventId = $(this).parents('.kyung-card').find('.eventId_hidden').val();
  		
 		//var eventTitle = $(this).text(); 
-		var eventId = $(this).children('input:hidden[name=eventId]').val();
+		var eventId = $(this).parents('tr').find("input:hidden[name='eventId']").val();
 		
 		//alert('eventId-'+eventId);
  		//console.log('eventId ? : ' + eventId);
@@ -136,7 +141,7 @@ $(function() {
 		
 	});
 	
-/* 	$("#onGoing").on("click", function() {
+/*  	$("#onGoing").on("click", function() {
 		
 		//alert('진행중');
 		fnGetListEvent('0');
@@ -155,7 +160,7 @@ $(function() {
 		
 		//alert('종료');
 		fnGetListEvent('2');
-	}) */
+	}) */ 
 	
 	$("#addNewEventButton").on("click", function() {
 		
@@ -255,7 +260,14 @@ $(function() {
 			alert("삭제할 이벤트를 선택해주세요");
 			return;
 		}
-		self.location = "/event/deleteSelectedEvent?eventIds="+eventIds;
+ 		swal.fire({
+		  		title: '삭제되었습니다!',
+		  		text: 'Get취미IfYouCAN',
+		  		imageUrl: '/resources/image/logo/logo-favicon.png',
+		  		timer : 800
+			}).then((result)=>{
+				self.location = "/event/deleteSelectedEvent?eventIds="+eventIds;
+			}) 
 		
 	});//deleteButton
 	
@@ -270,12 +282,13 @@ $(function() {
 
     	
    			if( $(this).text().trim() == '전체' ){
-        		$("#listEventAdmin").children("input[name='searchCondition']").val("0");
+        		$("#listEventAdmin").children("input[name='searchCondition']").val(0);
         	}else if( $(this).text().trim() == '진행중' ){
-        		$("#listEventAdmin").children("input[name='searchCondition']").val("1");
+        		$("#listEventAdmin").children("input[name='searchCondition']").val(1);
         	}else if( $(this).text().trim() == '종료' ){
-        		$("#listEventAdmin").children("input[name='searchCondition']").val("2");
+        		$("#listEventAdmin").children("input[name='searchCondition']").val(2);
         	}
+   				//alert('aaa-'+$("#listEventAdmin").children("input[name='searchCondition']").val());
        
    		 //}
 
@@ -372,7 +385,7 @@ $(function() {
 		var search = {
 				"currentPage" : currentPage,
 				"searchCondition" : searchCondition
-		}
+		};
 		
 		$.ajax(
 				{
@@ -545,8 +558,8 @@ $(function() {
 					    	</svg>
 					  </button>
 					  <div class="dropdown-menu">
-					    <a class="dropdown-item" href="#" id="onGoing">진행중</a>
 					    <a class="dropdown-item" href="#" id="entireEvent">전체</a>
+					    <a class="dropdown-item" href="#" id="onGoing">진행중</a>
 					    <a class="dropdown-item" href="#" id="ended">종료</a>
 					  </div>
 					</div>

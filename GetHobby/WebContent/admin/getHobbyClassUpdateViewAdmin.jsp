@@ -518,7 +518,7 @@
 				    <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">클래스 소개하기</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb" value='${hobbyClass.hobbyClassIntro}'>
+							<div style="display:none;" id="sumb">${hobbyClass.hobbyClassIntro}</div>
 						    <form method="post">
 						      
 							  <textarea id="summernote1" name="editordata1"></textarea>
@@ -600,7 +600,7 @@
 									<input type="image" src="/resources/image/gon/addVideo.png" class="file_input_test lessonInput classLesson_image_one">
 								</c:if>
 								<c:if test="${!empty hobbyClass.lesson[0].lessonVideo}">
-									<input type="image" src="/video/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one">
+									<iframe src="/video/${hobbyClass.lesson[0].lessonVideo}" class="file_input_test lessonInput classLesson_image_one"></iframe>
 								</c:if>
 								<button type="button" class="shc-lesson-one-ImageDeleteButton">
 									<svg width="24" height="24" viewBox="0 2 24 24">
@@ -667,7 +667,7 @@
 								<div class="file_input_lesson" style="float:left;">
 									<input type="hidden" name="lessonImage" value="${hobbyClass.lesson[0].lessonImage}">
 									<c:if test="${empty hobbyClass.lesson[0].lessonImage}">
-									<input type="image" src="/resources/image/gon/lessonaddimage.jpg" class="file_input_test_lesson lessonInput classLesson_image_two">
+										<input type="image" src="/resources/image/gon/lessonaddimage.jpg" class="file_input_test_lesson lessonInput classLesson_image_two">
 									</c:if>
 									<c:if test="${!empty hobbyClass.lesson[0].lessonImage}">
 										<input type="image" src="/images/hobbyclass/${hobbyClass.lesson[0].lessonImage}" class="file_input_test_lesson lessonInput classLesson_image_two">
@@ -686,7 +686,7 @@
 				     <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">수업 노트</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb-lesson" value='${hobbyClass.lesson[0].lessonIntro}'>
+							<div style="display:none;" id="sumb-lesson">${hobbyClass.lesson[0].lessonContent}</div>
 						    <form method="post">
 						      
 							  <textarea id="summernote2" name="editordata2"></textarea>
@@ -1004,9 +1004,9 @@
 
 	    	});
 	    	// Summernote Date Write
-			var summ1 = $("input[name='sumb']").val();
+			var summ1 = $("#sumb").html();
     		$('#summernote1').summernote('code', summ1);	
-    		var summ2 = $("input[name='sumb-lesson']").val();
+    		var summ2 = $("#sumb-lesson").html();
     		$('#summernote2').summernote('code', summ2);	
     		
     		// Summernote imageUpload

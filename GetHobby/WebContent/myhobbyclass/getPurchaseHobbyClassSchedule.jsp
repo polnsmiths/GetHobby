@@ -7,7 +7,7 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -77,6 +77,7 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData) {
+						console.log(JSONData);
 						eventRegisterArray = JSONData.eventRegister;
 						eventStartArray = JSONData.eventStart;
 						
@@ -123,6 +124,10 @@
 										endDateDays = '01';
 										endDateMonths += 1;
 									}
+								}
+								
+								if ( endDateMonths <= 9 ) {
+									endDateMonths = '0' + endDateMonths; 
 								}
 								
 								endDate = endDateYears + '-' + endDateMonths + '-' + endDateDays; 
@@ -533,13 +538,13 @@
 				<br/>
 				<button type="button" id="stay-button" class="select-schedule-button schedule-non-selected-button1 schedule-non-selected-button2">
 					<span class="schedule-button-text">
-						수요조사 중
+						게깅
 					</span>
 				</button>
 				<br/>
 				<button type="button" id="open-button" class="select-schedule-button schedule-non-selected-button1 schedule-non-selected-button2">
 					<span class="schedule-button-text">
-						개강
+						수요조사 중
 					</span>
 				</button>				
 			</div>		

@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<meta name="viewport"content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<!-- 웹사이트 파비콘 -->
@@ -73,6 +76,9 @@
 	<input type="hidden" class="update-textarea-check" value="0" />
 	<input type="hidden" class="lesson-reply-list-max-page" value="${resultPage.maxPage }"/>
 	<input type="hidden" class="lesson-reply-list-current-page" />
+	<input type="hidden" class="lesson-user-report-count" value="${sessionScope.user.totalReport }" />
+	<input type="hidden" class="lesson-video-name" value="${lesson.lesson.lessonVideo }" />
+	
 	<div class="container-fluid">
 		
 		<div class="row mt-5">
@@ -107,12 +113,9 @@
 					</div>
 					
 					<!-- 비디오 시작 --> 
-
 					<div class="video-div align-self-center">
-						<video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered">
-						<!-- <video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'> -->
-						 	<!--poster="http://계정명.cache.iwinv.net/thumbnail/Sample.jpg"  -->
-							<source src="http://localhost:3000/video/${lesson.lesson.lessonVideo }" type='video/mp4'>
+						<video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered">	
+							<source id="video-source" src="http://192.168.0.144:3000/video/${lesson.lesson.lessonVideo }" type="application/x-mpegURL">
 						</video>
 					</div> 
 
@@ -361,8 +364,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary modal-to-report-process-button">신고</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-basic modal-to-report-process-button">신고</button>
+					<button type="button" class="btn btn-basic" data-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>
@@ -383,7 +386,7 @@
 					<span class="report-navi-span-text">신고가 정상적으로 접수되었습니다.</span>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary report-result-modal-close-button" data-dismiss="modal">확인</button>
+					<button type="button" class="btn btn-basic report-result-modal-close-button" data-dismiss="modal">확인</button>
 				</div>
 			</div>
 		</div>
@@ -485,8 +488,7 @@
 			$.ajax(
 					{
 						url : "/lesson/json/updateLessonTimes", 
-						method : "post", 
-						async : false, 
+						method : "post",  
 						dataType : "json", 
 						headers : {
 							"Accept" : "application/json",

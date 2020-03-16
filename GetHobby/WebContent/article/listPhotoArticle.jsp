@@ -7,6 +7,7 @@
 <html lang="ko">
 
 <head>
+	<title>GetHobby</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
@@ -71,6 +72,26 @@
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 	<script type="text/javascript" src="/resources/javascript/sol/photo-article-list.js"></script>
 <style>
+	.inUTcF {
+	    margin-left: 4px !important;
+	    margin-right: 4px !important;
+	}
+	footer {
+		margin-top: 80px;
+		z-index: -99999999;
+	}
+	.eHZNoL {
+		z-index: -99999999;
+	}
+	@media( min-width: 991px ){
+		.QtLBl {
+			margin: 0px 24px !important;
+			
+		}
+	}
+	.container {
+		margin-bottom: 80px;	
+	}
 </style>
 
 <script>
@@ -136,7 +157,7 @@ $(function() {
     <div class="container">
         <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
-        <h4 class="font-weight-bold"><i class="far fa-file-image mx-3 mb-5"></i>사진게시판</h4>
+        <h4 class="font-weight-bold"><i class="far fa-file-image mx-3 mb-5"></i>하루 한 장</h4>
         <%-- <form class="form-group search my-5 pt-5 d-flex justify-content-between">
             <input type="hidden" name="boardCode" value="1">
             <div class="form-row">
@@ -270,9 +291,16 @@ $(function() {
 
 
     </div>	
+		<div class="footerDiv">
+		<div style="width:100%; height:100px;">&nbsp;</div>
+    	<jsp:include page="/common/footer.jsp"></jsp:include>
+    	</div>
 
-    
-
+	<script type="text/javascript">
+		$(function(){
+			
+		});
+	</script>
 </body>
 
 </html>

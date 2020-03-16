@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>GetHobby</title>
 <%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,9 +84,16 @@
 			 position:fixed;
 			 text-align: center;
 		}
+		.lmhc-da-cs {
+			min-width:280px;
+			}
+	
 	}
 
 	@media (max-width: 991px) {
+		.lmhc-da-cs {
+			min-width:90%;
+		}
 		body {
 			padding: 24px;
 		}
@@ -233,7 +241,7 @@
 	}
 	
 	.lmhc-da-cs {
-		min-width:280px; 
+		 
 		max-width:612px; 
 		font-size:14px; 
 		line-height:20px; 
@@ -268,6 +276,11 @@
     	cursor: default;
     	top:10px;
     	position:relative;
+	}
+	
+	.btn-dark:focus {
+		background: black;
+
 	}
 
    </style>
@@ -308,12 +321,6 @@
 		      	<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
 		      </svg>
 				<font color="black">내 클래스</font>
-			</div>
-			<div class="nav-link listMyHobbyClass-button lmhcMH thisismyananlysis" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home">
-		      <svg xmlns="http://www.w3.org/2000/svg" width="24" height=24 viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/>
-		      	<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
-		      </svg>
-				<font color="black">임시 버튼</font>
 			</div>
 	    </div>
 	  </div> 
@@ -389,10 +396,10 @@
 			  <div class="row no-gutters" style="padding: 0px;">
 			    <div style="width:238px; height:178.5px; margin-right:24px;">	
 			      <c:if test="${!empty hobbyClass.hobbyClassImage}">	    
-			      <img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	  
+			      <img src="/images/hobbyclass/${hobbyClass.hobbyClassImage}" style="width:100%; height:100%;" class="card-img" alt="...">	  
 			      </c:if>
 			      <c:if test="${empty hobbyClass.hobbyClassImage}">	
-			      <img src="/resources/image/gon/ohcbImage.png" style="min-width:238px; min-height:178.5px;" class="card-img" alt="...">	   
+			      <img src="/resources/image/gon/ohcbImage.png" style="width:100%; min-height:100%;" class="card-img" alt="...">	   
 			      </c:if>
 			    </div>
 			    
@@ -434,9 +441,13 @@
 					        	<c:if test="${hobbyClass.hobbyClassState == '클래스 작성 중'}">		
 					        		<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>
 					        	</c:if>
-					        	<c:if test="${hobbyClass.hobbyClassState != '클래스 작성 중'}">		
+					        	<c:if test="${hobbyClass.hobbyClassState == '심사 중' || hobbyClass.hobbyClassState == '심사완료' || hobbyClass.hobbyClassState == '종강'}">					        	
 					        		<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>
 					        	</c:if>
+					        	<c:if test="${hobbyClass.hobbyClassState == '수요조사 중' || hobbyClass.hobbyClassState == '수요조사완료' || hobbyClass.hobbyClassState == '개강 중' }">
+					        		<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>
+					        	</c:if>
+					        	
 					        </p>
 				       </div>
 			        <!-- ---------------------------------------------------------------------------------------------------------- -->
@@ -498,10 +509,13 @@
 			        <!-- Card Text -->
 			        <p class="card-text bottom_button" style="width:100%;">
 			        	<c:if test="${hobbyClass.hobbyClassState == '클래스 작성 중'}">	
-			        	<button type="button" class="btn btn-dark" style="width:100%; font-size: 14px;">계속 작성하기</button>
+			        		<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>
 			        	</c:if>
-			        	<c:if test="${hobbyClass.hobbyClassState != '클래스 작성 중'}">		
+			        	<c:if test="${hobbyClass.hobbyClassState == '심사 중' || hobbyClass.hobbyClassState == '심사완료' || hobbyClass.hobbyClassState == '종강'}">					        	
 			        		<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>
+			        	</c:if>
+			        	<c:if test="${hobbyClass.hobbyClassState == '수요조사 중' || hobbyClass.hobbyClassState == '수요조사완료' || hobbyClass.hobbyClassState == '개강 중' }">
+			        		<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>
 			        	</c:if>
 			        </p>
 				  </div>
@@ -543,27 +557,31 @@
 
 		// 카드에서 삭제하기 영역을 제외한 나머지 영역을 클릭할 경우
 		$(document).on("click", ".listMyHobbyClass-card-div", function(e){
-			
-			if( $(this).find("input[name='classState-web']").val() == '클래스 작성 중' ) {
+			var state = $(this).find("input[name='classState-web']").val();
+			if( state == '클래스 작성 중' ) {
 				if(!$(e.target).hasClass("delete_div") && !$(e.target).hasClass("delete-button") && !$(e.target).hasClass("delete_image")){
 					self.location = "/hobbyclass/getSaveHobbyClass?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
 				}
-			}else{
+			}else if( state == '심사 중' || state == '심사완료' || state == '종강' ){
 				self.location = "/hobbyclass/getDetailView?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
+			}else if( state == '수요조사 중' || state == '수요조사완료' || state == '개강 중'){
+				self.location = "/myHobbyClass/getHobbyClassBuyerStats?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
 			}
 
 		});
 		
 		// 안드로이드 카드에서 삭제하기 영역을 제외한 나머지 영역을 클릭할 경우
 		$(document).on("click", ".lmhc-adr-div-in", function(e){
-
-			if( $(this).find("input[name='classState-andr']").val() == '클래스 작성 중' ) {
+			var state = $(this).find("input[name='classState-andr']").val();
+			if( state == '클래스 작성 중' ) {
 				if(!$(e.target).hasClass("delete_div") && !$(e.target).hasClass("delete-button") && !$(e.target).hasClass("delete_image")){
 					
 					self.location = "/hobbyclass/getSaveHobbyClass?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
 				}
-			}else{
+			}else if( state == '심사 중' || state == '심사완료' || state == '종강' ){
 				self.location = "/hobbyclass/getDetailView?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
+			}else if( state == '수요조사 중' || state == '수요조사완료' || state == '개강 중'){
+				self.location = "/myHobbyClass/getHobbyClassBuyerStats?hobbyClassNo="+$(this).children().find(".delete_div input[name='hobbyClassNo']").val();
 			}
 
 		});
@@ -658,9 +676,15 @@
 			    				    										+ '<p class="card-text" style="margin-top: 8px; margin-bottom: 10px;">'
 			    				    										+ '<button type="button" class="btn btn-dark list-hobbyState-button" style="width:92px; height:20px; padding: 0px;"><div class="font">'+JSONData.hobbyClass[9].hobbyClassState+'</div></button>'
 			    				    										+ '</p>'
-			    				    										+ '<p class="card-text bottom_button" style="width:100%;">'
-			    				    										+ '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>'
-			    				    										+ '</p>'
+			    				    										+ '<p class="card-text bottom_button" style="width:100%;">';
+			    				    										if( JSONData.hobbyClass[9].hobbyClassState == '클래스 작성 중' ){
+			    				    											displayValue += '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>';
+			    				    										}else if( JSONData.hobbyClass[9].hobbyClassState == '클래스 심사 중' || JSONData.hobbyClass[9].hobbyClassState == '심사완료' || JSONData.hobbyClass[9].hobbyClassState == '종강' ){
+			    				    											displayValue += '<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>';
+			    				    										}else if( JSONData.hobbyClass[9].hobbyClassState == '수요조사 중' || JSONData.hobbyClass[9].hobbyClassState == '수요조사완료' || JSONData.hobbyClass[9].hobbyClassState == '개강 중' ){
+			    				    											displayValue += '<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>';
+			    				    										}
+			    				    							displayValue += '</p>'
 			    				    										+ '</div>'
 			    				    										+ '</div>'
 			    				    										+ '</div>'
@@ -691,9 +715,15 @@
 								    				    						+ '<p class="card-text" style="margin-top: 8px; margin-bottom: 10px;">'
 								    				    						+ '<button type="button" class="btn btn-dark" style="width:92px; height:20px; padding: 0px;"><div class="font">'+JSONData.hobbyClass[9].hobbyClassState+'</div></button>'
 								    				    						+ '</p>'
-								    				    						+ '<p class="card-text bottom_button" style="width:100%;">'
-								    				    						+ '<button type="button" class="btn btn-dark" style="width:100%; font-size: 14px;">계속 작성하기</button>'
-								    				    						+ '</p>'
+								    				    						+ '<p class="card-text bottom_button" style="width:100%;">';
+												    				    		if( JSONData.hobbyClass[9].hobbyClassState == '클래스 작성 중' ){
+												    				    			anrdDisplayValue += '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>';
+				    				    										}else if( JSONData.hobbyClass[9].hobbyClassState == '클래스 심사 중' || JSONData.hobbyClass[9].hobbyClassState == '심사완료' || JSONData.hobbyClass[9].hobbyClassState == '종강' ){
+				    				    											anrdDisplayValue += '<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>';
+				    				    										}else if( JSONData.hobbyClass[9].hobbyClassState == '수요조사 중' || JSONData.hobbyClass[9].hobbyClassState == '수요조사완료' || JSONData.hobbyClass[9].hobbyClassState == '개강 중' ){
+				    				    											anrdDisplayValue += '<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>';
+				    				    										}			
+												    			anrdDisplayValue += '</p>'
 								    				    						+ '</div>'
 								    				    						+ '</div>'
 								    				    						+ '</div>'
@@ -810,9 +840,15 @@ $(function(){
 	    										+ '<p class="card-text" style="margin-top: 8px; margin-bottom: 10px;">'
 	    										+ '<button type="button" class="btn btn-dark list-hobbyState-button" style="width:92px; height:20px; padding: 0px;"><div class="font">'+JSONData.hobbyClass[i].hobbyClassState+'</div></button>'
 	    										+ '</p>'
-	    										+ '<p class="card-text bottom_button" style="width:100%;">'
-	    										+ '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>'
-	    										+ '</p>'
+	    										+ '<p class="card-text bottom_button" style="width:100%;">';
+				    							if( JSONData.hobbyClass[i].hobbyClassState == '클래스 작성 중' ){
+				    								displayValue += '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>';
+												}else if( JSONData.hobbyClass[i].hobbyClassState == '클래스 심사 중' || JSONData.hobbyClass[i].hobbyClassState == '심사완료' || JSONData.hobbyClass[i].hobbyClassState == '종강' ){
+													displayValue += '<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>';
+												}else if( JSONData.hobbyClass[i].hobbyClassState == '수요조사 중' || JSONData.hobbyClass[i].hobbyClassState == '수요조사완료' || JSONData.hobbyClass[i].hobbyClassState == '개강 중' ){
+													displayValue += '<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>';
+												}	
+	    							displayValue += '</p>'
 	    										+ '</div>'
 	    										+ '</div>'
 	    										+ '</div>'
@@ -843,9 +879,15 @@ $(function(){
 	    				    						+ '<p class="card-text" style="margin-top: 8px; margin-bottom: 10px;">'
 	    				    						+ '<button type="button" class="btn btn-dark" style="width:92px; height:20px; padding: 0px;"><div class="font">'+JSONData.hobbyClass[i].hobbyClassState+'</div></button>'
 	    				    						+ '</p>'
-	    				    						+ '<p class="card-text bottom_button" style="width:100%;">'
-	    				    						+ '<button type="button" class="btn btn-dark" style="width:100%; font-size: 14px;">계속 작성하기</button>'
-	    				    						+ '</p>'
+	    				    						+ '<p class="card-text bottom_button" style="width:100%;">';
+					    				    		if( JSONData.hobbyClass[i].hobbyClassState == '클래스 작성 중' ){
+					    				    			anrdDisplayValue += '<button type="button" class="btn btn-dark list-continue-button" style="width:100%;">계속 작성하기</button>';
+													}else if( JSONData.hobbyClass[i].hobbyClassState == '클래스 심사 중' || JSONData.hobbyClass[i].hobbyClassState == '심사완료' || JSONData.hobbyClass[i].hobbyClassState == '종강' ){
+														anrdDisplayValue += '<button type="button" class="btn btn-dark list-review-button" style="width:100%;">클래스 상세보기</button>';
+													}else if( JSONData.hobbyClass[i].hobbyClassState == '수요조사 중' || JSONData.hobbyClass[i].hobbyClassState == '수요조사완료' || JSONData.hobbyClass[i].hobbyClassState == '개강 중' ){
+														anrdDisplayValue += '<button type="button" class="btn btn-dark list-ananlysis-button" style="width:100%;">클래스 통계보기</button>';
+													}	
+	    				    		anrdDisplayValue += '</p>'
 	    				    						+ '</div>'
 	    				    						+ '</div>'
 	    				    						+ '</div>'

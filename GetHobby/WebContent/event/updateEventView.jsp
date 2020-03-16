@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
+<title>GetHobby</title>
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
 <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -76,7 +76,8 @@
  <!-- datepicker --> 
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+ 
 <!--  
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
@@ -84,6 +85,8 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
  
 <style type="text/css">
 	 .btn-basic {
@@ -131,8 +134,15 @@
 				
 				//alert('이벤트 수정 버튼');
 				//alert('이벤트 eventUpdatecount-'+eventUpdatecount);
-				fnUpdateOneEvent(eventUpdatecount);
-
+				 swal.fire({
+		        			  title: '수정되었습니다!',
+		        			  text: 'Get취미IfYouCAN',
+		        			  imageUrl: '/resources/image/logo/logo-favicon.png',
+		        			  timer : 800
+		        			}).then((result)=>{
+								fnUpdateOneEvent(eventUpdatecount);
+		        			})  
+				//fnUpdateOneEvent(eventUpdatecount);
 			})
 			
 		});
@@ -238,6 +248,7 @@
     		 ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
     		 ,yearSuffix: "년"
     		 ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+    		 ,monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
     		 ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
     		 //,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
     		 ,changeMonth: true //콤보박스에서 월 선택 가능
@@ -246,8 +257,27 @@
                 //,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
     	 });
     	
-    	$("#eventStartDate").datepicker();
-		$("#eventEndDate").datepicker();
+/*     	$("#eventStartDate").datepicker();
+		$("#eventEndDate").datepicker(); */
+		
+    	 $("#eventStartDate").datepicker({
+    		 minDate: 0,   //선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)        
+    		 onClose: function( selectedDate ) {    
+                 // 시작일(eventStartDate) datepicker가 닫힐때
+                 // 종료일(eventEndDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                 $("#eventEndDate").datepicker( "option", "minDate", selectedDate );
+             }                
+    	 });
+		
+		$("#eventEndDate").datepicker({
+			minDate: 0,
+			onClose: function( selectedDate ) {
+                // 종료일(eventEndDate) datepicker가 닫힐때
+                // 시작일(eventStartDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+                $("#fromDate").datepicker( "option", "maxDate", selectedDate );
+            }     
+		});
+		
 		
     });
     
@@ -399,7 +429,6 @@
     	}
     	
     	
-        alert('접근__접근');
 		$("form[name='updateOneEvent']").attr("method", "POST").attr("action", "/event/updateOneEventAdmin").submit();
     
 	}
@@ -568,10 +597,8 @@
    	
  	<!-- 이벤트 내용 --> 
 
-  		<!--  
-			<textarea  class="form-control" id="summernote"  name="eventContent"  aria-label="With textarea">${event.eventContent}</textarea> -->
 	<div class="input-group mb-3">
-			<textarea  class="form-control  col-lg-12" id="summernote"  name="eventContent"  aria-label="With textarea"><img src="/images/kyung/${event.eventImage}" ></textarea>
+			<textarea  class="form-control  col-lg-12" id="summernote"  name="eventContent"  aria-label="With textarea">${event.eventContent}</textarea>
 	</div>		
 	
   	

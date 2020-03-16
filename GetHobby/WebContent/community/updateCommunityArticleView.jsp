@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
+<title>GetHobby</title>
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
 <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -87,34 +87,26 @@
 		//취소하기 버튼 클릭시
 			$(document).on("click", "#beforeUpdateArticleButton", function() {
 				
-				var articleNo = $("input[class='hobbyClassNo']").val();
-/* 				swal({
-					title : '취소하시겠습니까?',
-					text : '작성한 내용은 저장되지않습니다',
-					icon : 'info',
-					closeOnClickOutside : false,
-					button : {
-						cancle : {
-							text : '페이지 머물기',
-							value : false,
-							className : 'btn btn-outline-primary'
-						},
-						confirm : {
-							text : '로그인 창으로',
-							value : true,
-							className : 'btn btn-outline-primary'
-						}
-					}
-				}); */
+				var articleNo = $("input[name=articleNo]").val();
+				//alert('articleNo--'+articleNo);
+				var hobbyClassNo = $("input[class=hobbyClassNo]").val();
 				
-				self.location = "/community/getCommunity?articleNo="+articleNo;
+				self.location = "/community/getCommunity?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
 			})
 		
 		
 		$(document).on("click", "#updateArticleContentButton", function() {
 			
 			//alert('수정버튼');
-			$("form").attr("method", "POST").attr("action", "/community/updateCommunityArticle").submit();
+			var articleNo = $("input[name=articleNo]").val();
+			var hobbyClassNo = $("input[class=hobbyClassNo]").val();
+			var articleContent = $('textarea').val();
+			//alert(articleContent);
+			//alert(articleNo);
+			//alert('articleNo-'+articleNo);
+			
+			$("form#updateArticleContentForm").attr("method", "POST").attr("action", "/community/updateCommunityArticle").submit();
+			//self.location = "/community/updateCommunityArticle?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo+"&articleContent="+articleContent;
 
 		})
 				
@@ -141,59 +133,22 @@
 	<h1 class="sol-board-header">클래스커뮤니티 게시글 수정</h1>
 	<hr>
 			 
-<form name="updateCommunityArticle" class="form-group  py-5">
 
-
-		<input type="hidden" name="HobbyClass.hobbyClassNo" class="hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
+	<form id="updateArticleContentForm">
+		<input type="hidden" name="hobbyClass.hobbyClassNo" class="hobbyClassNo" value="${article.hobbyClass.hobbyClassNo}">
 		<input type="hidden" name="articleNo" value="${article.articleNo}">
 		<!--  <input type="hidden" name="User.userId" value="${article.user.userId}"> -->
 
-<!--
-  <nav class="Navigation-sc-17umbag-0 kqGpgu">
-  	<div class="Navigation__NavigationContainer-sc-17umbag-1 hfOPGX">
-  			<h3>
-  			<button type="button" class="sc-jTzLTM flMyeK sc-kkGfuU hjumiI  btn btn-basic s-1" color="white">
-  				<span class="sc-fjdhpX kCztpU">
-  				<svg width="24" height="24" fill="none" viewBox="0 0 24 24"> 
-  					<path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 5.5l-6 6.5 6 6.5L14 20l-7.5-8L14 4l1.5 1.5z" fill="#3e4042"></path>
-  				</svg>
-  				</span>
-  			</button>
-  				<span class="Navigation__NavigationHeader-sc-17umbag-2 eMcHAM"><b>글 수정하기</b></span>
-  				
-  			<button id="updateArticleContentButton" type="button" class="sc-jTzLTM flMyeK sc-iAyFgw gTFMnn btn btn-basic s-1" color="red">
-  			수정
-  			</button>
-  			</h3>
-  	</div>
-  </nav>
 
-
-<div class="PostFormContainer__Content-sc-1dbr3fx-1 jIIgxK">
- 	<div class="PostForm__PostFormContainer-scsgdl-0 heHYdN">
-		
-		<div class="PostForm__FormHeader-scsgdl-1 gCJWVj">
-			<div class="PostForm__ProfileContainer-scsgdl-5 pXRTy">
-				<div size="28" class="ProfileImage__Container-sc-1h9kedz-0 hdmaQX">
-					<span class="RatioImage__Container-wwqqoo-0 eAfAEc ProfileImage__UserProfileImage-sc-1h9kedz-1 bKTweb">
-					</span>
-				</div>
-						<div class="sc-bdVaJa hBKkTB PostForm__ProfileText-scsgdl-6 hVkmYW">
-						</div>
-			</div>
-		</div>
-	</div>
-</div>
-  -->
 
 	
   			<textarea id="summernote" name="articleContent">${article.articleContent}</textarea>
+	</form>
   			
   			<div class="form-row d-flex justify-content-center my-5">
                 <button type="button" class="btn btn-outline-basic m-1" id="beforeUpdateArticleButton">취소</button>
-                <button type="button" class="btn btn-basic m-1" id="updateArticleContentButton">등록</button>
+                <button type="button" class="btn btn-basic m-1" id="updateArticleContentButton">수정</button>
             </div>
-  	</form>
 
 </div>
 <!-- 전체 묶음 -->

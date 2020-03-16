@@ -575,7 +575,7 @@ h1 {
 				      	<button type="button" class="btn btn-success" style="border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">발송 완료</div></button>
 				      </c:if>
 				      <c:if test="${purchase.purchaseState == '2' }">
-				      	<button type="button" class="btn btn-dark" style="width:92px; height:20px; padding: 0px;"><div class="font">배송 완료</div></button>
+				      	<button type="button" class="btn btn-success" style="border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">발송 완료</div></button>
 				      </c:if>
 				      <c:if test="${purchase.purchaseState == '3' }">
 				      	<button type="button" class="btn btn-dark" style="background-color:rgb(253, 126, 20); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">환불 대기</div></button>
@@ -585,8 +585,13 @@ h1 {
 				      </c:if>
 				      </td>		
 				      
-				      <!-- 구매상품 -->
-				      <td class="componentOptionAdmin">자청 클래스 코칭 패키지</td>
+				      <!-- 구매상품 --> 
+				      <c:if test="${purchase.componentOption == '1'}">
+				      	<td class="componentOptionAdmin">${purchase.hobbyClass.kitName}</td>
+				      </c:if>
+				      <c:if test="${purchase.componentOption == '0'}">
+				      	<td class="componentOptionAdmin">15주 수강권</td>
+				      </c:if>
 				      
 				      <!-- 결제금액 -->		 
 				      <td class="priceAdmin"><fmt:formatNumber value="${purchase.purchasePrice}" pattern="#,###" />원</td>
@@ -1136,7 +1141,7 @@ h1 {
        				&& $("#purchaseForm").children("input[name='searchKeyword']").val() != null){
        	
             	}else if( $(this).text().trim() == '전체' ){
-            		
+            		$("#purchaseForm").children("input[name='searchCondition']").val("all");
             	}else{
             		$("#purchaseForm").children("input[name='searchCondition']").val("purchaseState");
             	}
@@ -1241,15 +1246,20 @@ h1 {
 												}else if( JSONData.purchase[i].purchaseState == '1' ){
 													displayValue += '<button type="button" class="btn btn-success" style="border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">발송 완료</div></button>';
 												}else if( JSONData.purchase[i].purchaseState == '2' ){
-													displayValue += '<button type="button" class="btn btn-dark" style="width:92px; height:20px; padding: 0px;"><div class="font">배송 완료</div></button>';
+													displayValue += '<button type="button" class="btn btn-success" style="border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">발송 완료</div></button>';
 												}else if( JSONData.purchase[i].purchaseState == '3' ){
 													displayValue += '<button type="button" class="btn btn-dark" style="background-color:rgb(253, 126, 20); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">환불 대기</div></button>';
 												}else if( JSONData.purchase[i].purchaseState == '4' ){
 													displayValue += '<button type="button" class="btn btn-dark" style="color:rgb(62, 64, 66);; background-color:rgb(168, 174, 179); border:0; outline: none; width:92px; height:20px; padding: 0px;"><div class="font">환불 완료</div></button>';
 												}
-									displayValue +=	'</td>' +
-												'<td class="componentOptionAdmin">자청 클래스 코칭 패키지</td>' +
-												'<td class="priceAdmin">'+numberFormat(JSONData.purchase[i].purchasePrice)+'원</td>' +
+									displayValue +=	'</td>';
+												if( JSONData.purchase[i].componentOption == '1' ){
+													displayValue += '<td class="componentOptionAdmin">'+JSONData.purchase[i].hobbyClass.kitName+'</td>';
+												}else if( JSONData.purchase[i].componentOption == '0') {
+														displayValue += '<td class="componentOptionAdmin">15주 수강권</td>';
+												}
+												
+									displayValue +=	'<td class="priceAdmin">'+numberFormat(JSONData.purchase[i].purchasePrice)+'원</td>' +
 												'<td class="payMethodAdmin">';
 												if( JSONData.purchase[i].payMethod == '0' ){
 													displayValue += '카드';

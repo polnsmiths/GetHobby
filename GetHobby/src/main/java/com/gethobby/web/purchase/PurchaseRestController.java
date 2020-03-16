@@ -19,16 +19,11 @@ import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
-//2020-02-24 Git Commit
 @RestController
 @RequestMapping("/purchase/*")
 public class PurchaseRestController {
 	
 	//Field
-	@Autowired
-	@Qualifier("openHobbyClassServiceImpl")
-	private OpenHobbyClassService oepnhobbyClassService;
-	
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService purchaseService;
@@ -42,21 +37,21 @@ public class PurchaseRestController {
 	@RequestMapping( value="json/complete", method=RequestMethod.POST )
 	public boolean paymentComplete (@RequestBody Purchase purchase, HttpSession session) throws Exception {
 		return purchaseService.paymentComplete(purchase, session);
-	}
+	}//end of paymentComplete
 
 	@RequestMapping( value="json/getPaymentHistory", method=RequestMethod.POST )
 	public Purchase getPaymentHistory(@RequestBody Purchase purchase) throws Exception {
 		return purchaseService.getPurchase(purchase.getPurchaseId());
-	}
+	}//end of getPaymentHistory
 	
 	@RequestMapping( value="json/getPaymentHistoryList", method=RequestMethod.POST )
 	public Map getPaymentHistoryList(@RequestBody Search search, HttpSession session) throws Exception {
 		return purchaseService.getPaymentHistoryList( ((User)session.getAttribute("user")).getUserId(), search );
-	}
+	}//end of getPaymentHistoryList
 	
 	@RequestMapping( value="json/requestRefund", method=RequestMethod.POST )
 	public Purchase requestRefund(@RequestBody Purchase purchase) throws Exception {
 		return purchaseService.requestRefund(purchase.getPurchaseId());
-	}
+	}//end of requestRefund
 
 }

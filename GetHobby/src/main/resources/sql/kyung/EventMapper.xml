@@ -164,8 +164,8 @@
  					#{event.eventId},
  					#{event.eventTitle:VARCHAR},
  					#{event.eventContent},
- 					#{event.eventEndDate},
  					#{event.eventStartDate},
+ 					#{event.eventEndDate},
  					#{sendCategory},
  					#{event.eventDiscount:INTEGER},
  					#{event.eventImage}      )

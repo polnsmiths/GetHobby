@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    
+    <title>GetHobby</title>
     <!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -85,7 +85,7 @@
 			var checkNavigation = $(this).find('.right-report-update-delete-hidden-input-tag').val();
 			var articleNo = $('.hidden-article-number').val();
 			var hobbyClassNo = $('.hidden-hobby-class-number').val();
-			alert('checkNavigation-'+checkNavigation);
+			//alert('checkNavigation-'+checkNavigation);
 			
 			console.log(checkNavigation);
 			
@@ -93,8 +93,13 @@
 				self.location = "/community/getCommunityArticleUpdateView?articleNo="+articleNo;
 			}
 			else if ( checkNavigation == '1' ) {
-				alert('삭제');
+				//alert('삭제');
 				// 해당 글 삭제 
+				swal.fire({
+      			  title: '삭제완료!',
+      			  text: 'Get취미IfYouCAN',
+      			  imageUrl: '/resources/image/logo/logo-favicon.png'
+      			});
 				self.location = "/community/deleteCommunityArticle?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
 			}
 		})
@@ -146,7 +151,7 @@
 								<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
 							</c:if>
 							<c:if test="${atricle.user.profileImage != null }">
-								<img src="/resources/image/min/${article.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
+								<img src="/resources/image/logo/${article.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
 							</c:if>
 						</span>
 						
@@ -165,7 +170,7 @@
 						</div>
 						
 						
-							<c:if test="${sessionScope.user.userId == article.user.userId }">
+							<c:if test="${sessionScope.user.userId == article.user.userId &&purchaseCheck == '1'}">
 							<div class="button-reply-wrapper"> <!-- 사망각 -->
 								<button class="replyUpdate_Button btn btn-basic m-1  button-reply ">수정
 									<input type="hidden" class="right-report-update-delete-hidden-input-tag" value="0" />
@@ -224,7 +229,8 @@
 							<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 40px; width: 40px;">
 						</c:if>
 						<c:if test="${reply.user.profileImage != null }">
-							${reply.user.profileImage }
+							
+							<img src="/resources/image/logo/${reply.user.profileImage }" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 40px; width: 40px;">
 						</c:if>
 						</span>
 						

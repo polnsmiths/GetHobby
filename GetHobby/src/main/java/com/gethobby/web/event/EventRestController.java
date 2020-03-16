@@ -120,7 +120,7 @@ public class EventRestController {
 		System.out.println("\n\n\n\n\n\n===============================\n\n\n\n");
 		System.out.println("\n\n\n\n\n\njson/eventList\n\n\n\n");
 		User user = (User)session.getAttribute("user");
-		System.out.println("세션의 User--\n"+user);
+		System.out.println("세션의 User--"+user);
 		System.out.println("\n\nsearchCondition--\n"+search);
 		
 		
@@ -133,16 +133,13 @@ public class EventRestController {
 			} 
 		}
 		 
-		
-		//search.setPageSize(pageSize*3);
-
-		
+		System.out.println("\n\n\n\n\n searchCondition__"+search.getSearchCondition()+"__\n\n");
 		
 		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("1")) {
+		}else if(search.getSearchCondition().equals("1") || search.getSearchCondition().equals("진행중")) {
 			search.setSearchCondition("진행중"); //==>얘가 기본
-		}else if(search.getSearchCondition().equals("2")) {
+		}else if(search.getSearchCondition().equals("2") || search.getSearchCondition().equals("종료")) {
 			search.setSearchCondition("종료"); //==>얘가 기본
 
 		}
@@ -155,7 +152,17 @@ public class EventRestController {
 		System.out.println(map.get("list")+"\n"+map.get("total"));
 		System.out.println("size--"+((List<Event>)(map.get("list") )) .size());
 		
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, search.getPageSize());
+		
+//		if(user != null) {
+//			if(user.getUserId().equals("admin@naver.com")) {
+//				
+//				 resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize*3);
+//			}
+//		}
+		
+		System.out.println("\n\nresultPage==\n"+resultPage);
 		
 		map.put("list", (List<Event>)map.get("list"));
 		map.put("total", map.get("total"));

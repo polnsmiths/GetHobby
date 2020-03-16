@@ -56,12 +56,11 @@ public class EventController {
 		
 		System.out.println("\n\n\n\n\\n\n\n/eventList\n");
 		User user = (User)session.getAttribute("user");
-		System.out.println("세션의 User--\n"+user);
-		System.out.println("\n\nsearchCondition--\n"+search.getSearchCondition());
-		
-		
+		System.out.println("세션의 User--"+user);
+		//System.out.println("\n\nsearchCondition--\n"+search.getSearchCondition());
 		
 		search.setPageSize(pageSize);
+		search.setCurrentPage(1);
 		 
 		if(user != null) { 
 			if(user.getUserId().equals("admin@naver.com")) {
@@ -70,15 +69,7 @@ public class EventController {
 		}
 		
 		
-		
-		
-		
-		if(user.getUserId().equals("admin@naver.com") ) {
-			search.setPageSize(pageSize*3);
-		}
-		search.setCurrentPage(1);
-		
-		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0")) {
+		if(search.getSearchCondition()==null || search.getSearchCondition().equals("0") || search.getSearchCondition().equals("")) {
 			search.setSearchCondition("전체"); //==>얘가 기본
 		}else if(search.getSearchCondition().equals("1")) {
 			search.setSearchCondition("진행중"); //==>얘가 기본
@@ -105,22 +96,34 @@ public class EventController {
 		Map<String, Object>map = eventService.getEventListGroupBYId(search);
 		System.out.println("\n\n\n\n\n\n\n"+map.get("list")+"\n"+map.get("total"));
 		System.out.println("\n\n\n\n\n\nsize--"+((List<Event>)(map.get("list") )) .size());
-		model.addAttribute("list", (List<Event>)map.get("list"));
-		model.addAttribute("total", map.get("total"));
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize);
-
+		List<Event> list = (List<Event>)map.get("list");
 		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, search.getPageSize());
+		
+//		if(user != null) {
+//			if(user.getUserId().equals("admin@naver.com")) {
+//				
+//				 resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("total")).intValue(), pageUnit, pageSize*3);
+//			}
+//		}
+		
+		System.out.println("\n\n\nresultPage=====\n"+resultPage);
+		model.addAttribute("list", list);
+		model.addAttribute("total", map.get("total"));
+		model.addAttribute("resultPage", resultPage);
+
 	
-		  if(user != null) { if(user.getUserId().equals("admin@naver.com")) { return
-		  "forward:/event/listEventAdmin.jsp";
+		  if(user != null) { 
+			  if(user.getUserId().equals("admin@naver.com")) {
+				  return  "forward:/event/listEventAdmin.jsp";
 		  
-		  }else {
+			  }else {
 		  
-		  return "forward:/event/listEvent.jsp"; } }else {
-		  
-		  return "forward:/event/listEvent.jsp";
-		  
+				  return "forward:/event/listEvent.jsp"; }
 		  }
+		  
+		  	return "forward:/event/listEvent.jsp";
+		  
 		 
 	}
 	
@@ -206,7 +209,7 @@ public class EventController {
 		
 	}
 	
-	@RequestMapping(value = "deleteOneEventAdmin", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteOneEventAdmin", method = RequestMethod.GET)
 	public String deleteOneEventAdmin(@RequestParam int eventId)throws Exception{
 		
 		System.out.println("/deleteOneEvent");
@@ -220,13 +223,13 @@ public class EventController {
 		
 	}
 	
-	@RequestMapping(value = "updateOneEventViewAdmin", method = RequestMethod.POST)
-	public String updateOneEventViewAdmin(@RequestBody Event inevent, Model model)throws Exception{
+	@RequestMapping(value = "updateOneEventViewAdmin", method = RequestMethod.GET)
+	public String updateOneEventViewAdmin(@RequestParam int eventId, Model model)throws Exception{
 		
 		System.out.println("\n\n\n/updateOneEventViewAdmin");
-		System.out.println("들어온 eventId확인View:\n"+inevent);
+		System.out.println("들어온 eventId확인View:\n"+eventId);
 		
-		Event event = eventService.getEvent(inevent.getEventId());
+		Event event = eventService.getEvent(eventId);
 		System.out.println("가져온 Event----\n"+event);
 		model.addAttribute("event", event);
 		return "forward:/event/updateEventView.jsp";

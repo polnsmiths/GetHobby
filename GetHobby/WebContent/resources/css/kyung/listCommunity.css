@@ -18,11 +18,21 @@
     background-color: #F2B33D;
     color: white;
 }
-.container.mt-5 {
-	margin: auto;
-	bottom: 0px;
-	width: 750px;
+@media (min-width: 992px){
+	.container.mt-5 {
+		margin: auto;
+		bottom: 0px;
+		width: 750px;
+	}
 }
+@media (max-width: 991px){
+	.container.mt-5 {
+		margin: auto;
+		bottom: 0px;
+		width: 100%;
+	}
+}
+
 .listcommunity-body-class {
 	padding-top: 68px;
 }
@@ -159,6 +169,7 @@
     -webkit-box-pack: justify;
     /* justify-content: left; */
     olor: rgb(62, 64, 66);
+    
 }
 .lcmnt-fpiod{
 	width: 100%;
@@ -326,3 +337,24 @@
     padding: 8px 16px;
     
 }
+
+/* 게시글 상세보기 탑버튼 */
+.sol-to-the-top {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
+    border: 0;
+    border-radius: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+}
+
+.sol-to-the-top:hover {
+    cursor: pointer;
+}
+

@@ -30,4 +30,6 @@ public interface MyHobbyClassDAO {
 	public int getRecommendHobbyClassListTotalCount(Map<String, Object> inputData) throws Exception;
 	
 	public List<HobbyClass> getListenHobbyClass(String userId) throws Exception;
+	
+	public HobbyClass getHobbyClassStateStartDate(String hobbyClassNo) throws Exception;
 }

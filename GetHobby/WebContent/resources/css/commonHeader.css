@@ -170,16 +170,28 @@ a.download {
 	.header-title-menu-div{
 		display:block;
 	}
+	.header-mynemo-div {
+		display: none;
+	}
+	.header-mynemo-hr {
+		display: none;
+	}
 }
 
 @media (max-width: 991px) {
+	.header-mynemo-div {
+		display: block;
+	}
+	.header-mynemo-hr {
+		display: block;
+	}
     #sidebar {
     	width: 240px;
 	    position: fixed;
 	    top: 0;
 	    left: 0;
 	    height: 100vh;
-	    z-index: 1999;
+	    z-index: 4999;
 	    background: white;
 	    color: rgb(97, 101, 104);
 	    transition: all 0.3s;
@@ -266,6 +278,13 @@ a.download {
     align-items: center;
     margin-bottom: 24px;
     text-decoration: none;
+    outline: 0 none;
+    border: 0;
+}
+.header-mynemo-first-a:hover {
+	text-decoration: none;
+    outline: 0 none;
+    border: 0;
 }
 .header-mynemo-first-span {
 	width: 36px;
@@ -285,8 +304,18 @@ a.download {
 }
 .header-mynemo-span-next-first-div {
 	margin-left: 8px;
-	
+	border:0;
+	outline: 0 none;
+	text-decoration: none;
 }
+.header-mynemo-span-next-first-div:hover {
+	margin-left: 8px;
+	border:0;
+	outline: 0 none;
+	text-decoration: none;
+}
+
+
 .header-mynemo-span-next-first-div-in-div{
 	cursor: pointer;
     margin-bottom: 2px;
@@ -297,7 +326,17 @@ a.download {
     letter-spacing: -0.2px;
     text-align: left;
     text-decoration: none;
+    border:0;
+    outline: 0 none;
 }
+.header-mynemo-span-next-first-div-in-div:hover {
+	border: 0;
+	outline: 0 none;
+	text-decoration: none;
+}
+
+
+
 .header-mynemo-span-next-first-div-in-span {
 	font-size: 11px;
     font-weight: normal;
@@ -320,6 +359,7 @@ a.download {
     margin: 0px;
     text-decoration: none;
 }
+
 .header-mynemo-logout-span {
 	cursor: pointer;
 	font-size: 14px;
@@ -327,9 +367,27 @@ a.download {
     color: rgb(27, 28, 29);
     line-height: 20px;
     letter-spacing: -0.2px;
+    color: rgb(27, 28, 29);
 }
-.header-mynemo-logout-span{
-	color: rgb(27, 28, 29);
+.header-mynemo-span {
+	cursor: pointer;
+	font-size: 14px;
+    font-weight: normal;
+    color: rgb(27, 28, 29);
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    color: rgb(27, 28, 29);
+    box-shadow: none;
+}
+
+.header-mynemo-do{
+	cursor: pointer;
+	font-size: 14px;
+    font-weight: normal;
+    color: rgb(27, 28, 29);
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    color: rgb(27, 28, 29);
 }
 .header-mynemo-logout-div {
 	margin-bottom: 0px;
@@ -339,6 +397,19 @@ a.download {
     line-height: 20px;
     letter-spacing: -0.2px;
     margin: 0px;
+    border: 0;
+    outline: 0 none;
+}
+.header-mynemo-div {
+	margin-bottom: 0px;
+	font-size: 14px;
+    font-weight: normal;
+    color: rgb(27, 28, 29);
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    margin: 0px;
+    border: 0;
+    outline: 0 none;
 }
 .header-mynemo-logout-hr {
 	width: 100%;
@@ -346,11 +417,20 @@ a.download {
     height: 1px;
     margin-bottom: 16px;
     background-color: rgb(237, 239, 240);
-    border-width: initial;
-    border-style: none;
-    border-color: initial;
-    border-image: initial;
+    border: 0;
+    outline: 0 none;
 }
+
+.header-mynemo-hr {
+	width: 100%;
+    margin-top: 0px;
+    height: 1px;
+    margin-bottom: 16px;
+    background-color: white;
+    border: 0;
+    outline: 0 none;
+}
+
 .header-title-box-single {
 	margin:0px 24px; 
 	color:white; 
@@ -459,4 +539,41 @@ div.header-mynemo-profile-flow-one.fa-angle-downa::before {
 }
 .sajinNaviClass:hover {
 	font-weight: bold;
+}
+
+
+
+
+
+
+
+/*//////////////////√§≥Œ≈Â//////////////////*/
+
+
+@media (max-width: 576px) {
+    .gspOzr {
+        width: 31px !important;
+        height: 31px !important;
+    }
+    
+    .gspOzr::before {
+        width: 17px !important;
+        height: 17px !important;
+    }
+}
+
+.jauNaviClass, .sajinNaviClass { 
+	animation-duration: 3s; 
+	animation-name: rainbowLink; 
+	animation-iteration-count: infinite; 
+} 
+@keyframes rainbowLink {     
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; } 
+ 100% { color: #e82aff; }
 }

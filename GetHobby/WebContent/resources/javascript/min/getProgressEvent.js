@@ -18,66 +18,69 @@ $(function(){
 				}, 
 				async : false,
 				success : function(JSONData, status) {
-					console.log(JSONData);
-					var display = '';
-					for ( var i = 0; i < JSONData.eventList.length; i++) {
-						display += '<div class="event-owl-img-outer-div">';
-						display += '<div class="item event-img-carousel-tag">';
-						display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '" id="event-image-id">';
-						display += '</div>';
-						display += '<input type="hidden" class="hidden-event-img-event-id" value="' + JSONData.eventList[i].eventId + '" />';
-						display += '</div>';
+					if ( JSONData.eventList.length > 0 ) {
+						console.log(JSONData);
+						var display = '';
+						for ( var i = 0; i < JSONData.eventList.length; i++) {
+							display += '<div class="event-owl-img-outer-div">';
+							display += '<div class="item event-img-carousel-tag">';
+							display += '<img src="/images/kyung/' + JSONData.eventList[i].eventImage + '" id="event-image-id">';
+							display += '</div>';
+							display += '<input type="hidden" class="hidden-event-img-event-id" value="' + JSONData.eventList[i].eventId + '" />';
+							display += '</div>';
+							
+							eventStartDateArray.push(JSONData.eventList[i].eventStartDate);
+					    	eventEndDateArray.push(JSONData.eventList[i].eventEndDate); 
+					    	eventTitleArray.push(JSONData.eventList[i].eventTitle);
+					    	eventDiscountArray.push(JSONData.eventList[i].eventDiscount); 
+					    	eventCategoryArray.push(JSONData.eventList[i].hobbyClass.category);
+						}
 						
-						eventStartDateArray.push(JSONData.eventList[i].eventStartDate);
-				    	eventEndDateArray.push(JSONData.eventList[i].eventEndDate); 
-				    	eventTitleArray.push(JSONData.eventList[i].eventTitle);
-				    	eventDiscountArray.push(JSONData.eventList[i].eventDiscount); 
-				    	eventCategoryArray.push(JSONData.eventList[i].hobbyClass.category);
+						var miniText = '';
+						
+						miniText += JSONData.eventList[0].eventStartDate + ' 부터 ~ ' + JSONData.eventList[0].eventEndDate + ' 까지';
+						miniText += '<br/>';
+						miniText += JSONData.eventList[0].eventDiscount + ' % 할인';
+						miniText += '<br/>';
+						
+						var splitCategory = JSONData.eventList[0].hobbyClass.category.split(',');
+						
+						for( var i = 0; i < splitCategory.length; i++ ) {
+							var category = '';
+							
+							if ( splitCategory[i] == 'E' ) {
+								category = "운동";
+							}
+							else if ( splitCategory[i] == 'A' ) {
+								category = "미술";
+							}
+							else if ( splitCategory[i] == 'M' ) {
+								category = "음악";
+							}
+							else if ( splitCategory[i] == 'L' ) {
+								category = "라이프스타일";
+							}
+							else if ( splitCategory[i] == 'C' ) {
+								category = "요리";
+							}
+							else if ( splitCategory[i] == 'H' ) {
+								category = "공예";
+							}
+							
+							miniText += '<span class="badge wrapper-basic-event text-wrap"><i class="fas fa-list"></i>&nbsp;' + category + '</span>';
+							miniText += '&nbsp;&nbsp;';
+							if ( i == 3 ) {
+								miniText += '<br/>';
+							}
+						}
+						console.log(miniText);
+						$('.p-small-text').html(miniText);
+						$('.p-big-text').text(JSONData.eventList[0].eventTitle);
+						$('#event-owl-carousel').html(display);
+						$('.total-current-output').text(eventStartDateArray.length);
 					}
-					
-					var miniText = '';
-					
-					miniText += JSONData.eventList[0].eventStartDate + ' 부터 ~ ' + JSONData.eventList[0].eventEndDate + ' 까지';
-					miniText += '<br/>';
-					miniText += JSONData.eventList[0].eventDiscount + ' % 할인';
-					miniText += '<br/>';
-					
-					var splitCategory = JSONData.eventList[0].hobbyClass.category.split(',');
-					
-					for( var i = 0; i < splitCategory.length; i++ ) {
-						var category = '';
-						
-						if ( splitCategory[i] == 'E' ) {
-							category = "운동";
-						}
-						else if ( splitCategory[i] == 'A' ) {
-							category = "미술";
-						}
-						else if ( splitCategory[i] == 'M' ) {
-							category = "음악";
-						}
-						else if ( splitCategory[i] == 'L' ) {
-							category = "라이프스타일";
-						}
-						else if ( splitCategory[i] == 'C' ) {
-							category = "요리";
-						}
-						else if ( splitCategory[i] == 'H' ) {
-							category = "공예";
-						}
-						
-						miniText += '<span class="badge wrapper-basic-event text-wrap"><i class="fas fa-list"></i>&nbsp;' + category + '</span>';
-						miniText += '&nbsp;&nbsp;';
-						if ( i == 3 ) {
-							miniText += '<br/>';
-						}
-					}
-					console.log(miniText);
-					$('.p-small-text').html(miniText);
-					$('.p-big-text').text(JSONData.eventList[0].eventTitle);
-					$('#event-owl-carousel').html(display);
-					$('.total-current-output').text(eventStartDateArray.length);
 				}
+				
 			}
 	)
 	

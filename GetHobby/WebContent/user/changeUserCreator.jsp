@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>GetHobby</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,7 +42,7 @@
 			}
 		});
 		///////////////////////인증번호 닫기//////////////////////////////
-		$("#closebtn").on("click",function(){	
+		$("#closebtnnn").on("click",function(){	
 			var resultData = $("#resultData").val();
 			var ranData = $("#random").val(); 
 			
@@ -69,7 +69,7 @@
 						  timer: 800
 						})
 				$("#resultconfirm").val("success");
-				$(".Dialog__Overlay-r2swbb-0.hupVkE").attr("style","display : none");
+				$(".Dialog__Overlay-r2swbb-0.hupVkE.abc").attr("style","display : none");
 			}
 			
 			
@@ -129,8 +129,8 @@
 							  showConfirmButton: false,
 							  timer: 800
 							})
-						$(".Dialog__Overlay-r2swbb-0.hupVkE").attr("style","block");
-						$(".Dialog__DialogContainer-r2swbb-1.jOWGnl").attr("style","block");
+						$(".Dialog__Overlay-r2swbb-0.hupVkE.abc").attr("style","block");
+						$(".Dialog__DialogContainer-r2swbb-1.jOWGnl.abc").attr("style","block");
 						$("#random").val(JSONData.ran);
 					}				
 				})
@@ -138,7 +138,7 @@
 		});
 	
 		 $("#exit").on("click",function(){	
-			 $(".Dialog__Overlay-r2swbb-0.hupVkE").attr("style","display : none");
+			 $(".Dialog__Overlay-r2swbb-0.hupVkE.abc").attr("style","display : none");
 			});
 	
 	
@@ -223,15 +223,64 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 .inUTcFFF {
     max-width: 960px;
 }
-.lagYPo {
-    min-height: calc(100vh);
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    justify-content: center;
-    padding: 32px 0px;
+.jjHero {
+	width: 100%;
 }
-.QtLBl {
+@media (min-width: 992px){
+	.hFRTPZ {
+	    height: 100%;
+	}
+	.bsyJGp {
+		margin-left: 50%;
+	}
+	.jjHero {
+	    margin-top: 32px;   
+	}
+	.fIJpfC {
+    	width: 100%;
+    }
+	.lagYPo {
+	    min-height: calc(100vh);
+	    display: flex;
+	    flex-direction: column;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+	    padding: 32px 0px;
+	}
+	.hbnXrv {
+	    width: 50%;
+	}
+}
+@media (max-width: 991px){
+	.hFRTPZ {
+	    min-height: calc(100vh - 112px);
+	    display: flex;
+    	flex-direction: column;
+	}
+	.bsyJGp {
+		margin-left: 0%;
+	}
+	.jjHero {
+	    margin-top: auto;   
+	}
+	.fIJpfC {
+    	width: 100%;
+    }
+	.hbnXrv {
+	    width: 100%;
+	}
+	.lagYPo {
+	    min-height: calc(100vh - 112px);
+	    display: flex;
+	    flex-direction: column;
+	    -webkit-box-pack: center;
+	    justify-content: auto;
+	    padding: 72px 0px 32px 0px;
+	    
+	}
+}
+
+.temscy {
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: start;
@@ -240,12 +289,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
     margin-right: -12px;
     margin-left: -12px;
 }
-.hFRTPZ {
-    height: 100%;
-}
+
 .gNXHJx {
     position: relative;
-    min-height: 1px;
+    height: 20px;
     padding-right: 12px;
     padding-left: 12px;
     box-sizing: border-box;
@@ -261,16 +308,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
     letter-spacing: -0.2px;
     margin: 0px;
 }
-.hbnXrv {
-    position: relative;
-    min-height: 1px;
-    padding-right: 12px;
-    padding-left: 12px;
-    box-sizing: border-box;
-}
-.hbnXrv {
-    width: 50%;
-}
+
 h2 {
     display: block;
     font-size: 1.5em;
@@ -305,7 +343,7 @@ h2 {
     color: rgb(62, 64, 66);
     line-height: 24px;
     letter-spacing: -0.2px;
-    margin: 0px;
+    margin: 0px 0px 24px 0px;
 }
 .gNPcmC {
     display: flex;
@@ -436,21 +474,8 @@ path[Attributes Style] {
 * + .bgbHMA {
     margin-left: 2px;
 }
-.bsyJGp {
-    position: relative;
-    min-height: 1px;
-    padding-right: 12px;
-    padding-left: 12px;
-    box-sizing: border-box;
-}
-.bsyJGp {
-    width: 50%;
-    margin-left: 50%;
-}
-.jjHero {
-    width: 100%;
-    margin-top: 32px;
-}
+
+
 button, select {
     text-transform: none;
 }
@@ -472,7 +497,6 @@ button, select {
     flex: initial;
 }
 .fIJpfC {
-    width: 100%;
     display: flex;
     vertical-align: middle;
     color: rgb(255, 255, 255);
@@ -519,7 +543,7 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     opacity: 1.1;
     animation: 0.25s ease 0s 1 normal none running openOverlay;
 }
-.jOWGnl {
+.jOWGnlll {
     position: fixed;
     overflow-y: auto;
     z-index: 3001;
@@ -527,10 +551,10 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     padding: 24px;
     background: rgb(255, 255, 255);
 }
-.jOWGnl {
+.jOWGnlll {
     top: 50%;
     left: 50%;
-    width: 270px;
+    width: 310px;
     transform: translate(-50%, -50%);
     max-height: 95%;
     animation: 0.25s ease 0s 1 normal none running openModal;
@@ -776,9 +800,7 @@ div {
     padding-left: 12px;
     box-sizing: border-box;
 }
-.hbnXrv {
-    width: 50%;
-}
+
 *, ::before, ::after {
     box-sizing: border-box;
 }
@@ -922,14 +944,7 @@ path[Attributes Style] {
     padding-left: 12px;
     box-sizing: border-box;
 }
-.bsyJGp {
-    width: 50%;
-    margin-left: 50%;
-}
-.jjHero {
-    width: 100%;
-    margin-top: 32px;
-}
+
 button, input, optgroup, select, textarea {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     line-height: inherit;
@@ -955,21 +970,7 @@ button, select {
     padding: 0px;
     flex: initial;
 }
-.fIJpfC {
-    width: 100%;
-    display: flex;
-    vertical-align: middle;
-    color: rgb(255, 255, 255);
-    background-color: rgb(255, 146, 43);
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: -0.2px;
-    height: 40px;
-    text-decoration-line: none;
-    border-radius: 3px;
-    padding: 0px 16px;
-    transition: background-color 0.1s ease 0s;
-}
+
 button, html [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: button;
 }
@@ -1010,7 +1011,7 @@ background-color: sandybrown;
 			<main class="pages__Main-sc-1xw23vo-1 gulakV">
 				<div class="CreatorProfilePage__Container-sc-174yg5t-0 gOdssr">
 					<div class="sc-eerKOB inUTcFFF CreatorProfilePage__StyledGrid-sc-174yg5t-1 lagYPo">
-						<div class="sc-eilVRo QtLBl CreatorProfilePage__StyledRow-sc-174yg5t-2 hFRTPZ">
+						<div class="sc-eilVRo CreatorProfilePage__StyledRow-sc-174yg5t-2 hFRTPZ temscy" style="padding: 0px 24px; margin-top:24px;">
 							<div class="sc-gHboQg gNXHJx">
 								<div color="#fd7e14" font-weight="bold" class="sc-bdVaJa diAPvf">Welcome
 								</div>
@@ -1032,7 +1033,7 @@ background-color: sandybrown;
 										</div>
 									</div>
 									<div class="sc-kIPQKe gNPcmC">
-										<label class="sc-esjQYD cvzQqA" style="float: left">휴대폰번호<span style="float:  right;"><strong style="color: red" id="phoneconfirm">번호인증</strong></span>
+										<label class="sc-esjQYD cvzQqA" style="float: left">휴대폰번호<span style="float:  right;"><strong style="color: red;cursor:pointer;" id="phoneconfirm">번호인증</strong></span>
 										</label>																			
 										<div class="sc-iQNlJl bdbgMM">
 										<input class="sc-epnACN cNSGNe " type="text" id="phone" name="phone" placeholder="-를 제외한 휴대폰 번호를 입력해주세요" autocomplete="off" value="">
@@ -1063,8 +1064,8 @@ background-color: sandybrown;
 					
 							<!-- Modal -->
 <!-- <div id="modalopen"> -->
- <div class="Dialog__Overlay-r2swbb-0 hupVkE" style="display : none;">
-<div class="Dialog__DialogContainer-r2swbb-1 jOWGnl" style="block;padding-right: 50px;padding-left: 40px;" >
+ <div class="Dialog__Overlay-r2swbb-0 hupVkE abc" style="display : none;">
+<div class="Dialog__DialogContainer-r2swbb-1 jOWGnlll abc" style="block;padding-right: 50px;padding-left: 40px;" >
 
 
 <form>
@@ -1083,7 +1084,11 @@ background-color: sandybrown;
 			</use>
 			</svg>
 		</div>
-			<input class="sc-epnACN cNSGNe   " type="text" id="resultData" name="resultData"  placeholder="인증번호를 적어주세요" autocomplete="off" style="float: left;width: 168px;padding-top: 0px;padding-right: 0px;" ><span class="cvzQqA" style="float: left;padding-top: 10px;padding-left: 5px;"><strong id="confirm" style="cursor: pointer;">재전송</strong></span>
+		<div style="width:100%; display:flex;">
+			<input class="sc-epnACN cNSGNe   " type="text" id="resultData" name="resultData"  placeholder="인증번호를 적어주세요" autocomplete="off" style="float: left;width: 168px;padding-top: 0px;padding-right: 0px;" >
+			
+			<span class="cvzQqA" style="float:right; padding-top: 10px;padding-left: 5px;"><strong id="confirm" style="cursor: pointer;">재전송</strong></span>
+			</div>
 				<br><br>
 				<h6 class="sc-bwCtUz bNBuwd noconfirm">
 				<svg width="16" height="16" viewBox="0 0 24 24">
@@ -1110,7 +1115,7 @@ background-color: sandybrown;
 		</div>
 </form>
 <div class="sc-gHboQg bsyJGp CreatorProfileForm__ButtonWrapper-sc-1ldhjv-0 jjHero" style="margin-left: 80px;padding-right: 0px;padding-left: 0px;">
-	<button type="button"  class="btn ccc" id="closebtn"  fill="true" >
+	<button type="button"  class="btn ccc" id="closebtnnn"  fill="true" >
 	<span class="sc-fjdhpX kCztpU" >닫 기</span>
 	</button>
 	</div>

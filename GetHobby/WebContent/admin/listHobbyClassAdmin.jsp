@@ -30,7 +30,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+	
+	<!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
 	<style>
 		/*
     DEMO STYLE
@@ -596,7 +598,7 @@ h1 {
 				      <td class="hobbyClassNameAdmin">${hobbyClass.hobbyClassName}</td>
 				      
 				      <!-- 닉네임(이메일) -->
-				      <td class="userIdAdmin">${hobbyClass.user.nickName}(${hobbyClass.user.userId})</td>
+				      <td class="userIdAdmin">${hobbyClass.user.userId}</td>
 				      
 				      <!-- 시작날짜 -->
 				      <td class="hobbyClassStartDateAdmin">${fn:substring( hobbyClass.startDate,0,4 ) }.${fn:substring( hobbyClass.startDate,5,7 ) }.${fn:substring( hobbyClass.startDate,8,10 ) }</td>
@@ -664,6 +666,7 @@ h1 {
         $(function () {
         	
         	// 심사 버튼 이벤트
+			/*
         	$(document).on("click", "button div:contains('심사')", function(){
 					var yes = confirm("정말로 심사를 허가하시겠어요?");
 					if( yes ){
@@ -693,6 +696,49 @@ h1 {
 		   				});//end of ajax
 					}
         	});
+        	*/
+        	$(document).on("click", "button div:contains('심사')", function(){
+        		var hobbyClassNo = $(this).parent().parent().parent().children("input[name='hobbyClassNoAdmin']").val();
+        		
+        		Swal.mixin({
+        			icon : 'question', 
+        			showCancelButton : false, 
+        			showConfirmButton : false, 
+        			allowOutsideClick : true, 
+        			progressSteps : ['1', '2']
+        		}).queue([
+        			{
+        				title : '<span class="first-title">클래스 심사</span>',
+        				html : '<br/><br/>' + 
+        				'<span class="first-queue-test">해당 클래스 심사를 허가하시겠어요?</span>' + 
+        				'<br/><br/>' + 
+        				'<button type="button" class="btn btn-secondary swal-first-next-button mr-5">다음</button>' + 
+        				'<button type="button" class="btn btn-secondary swal-first-cancel-button">취소</button>'
+        			},
+        			{
+        				icon : 'info', 
+        				title : '<span class="second-title">동영상 인코딩</span>',
+        				html : 	'<br/><br/>' + 
+        						'<span class="second-queue-test">동영상 인코딩 중입니다...</span>' + 
+        						'<br/>' + 
+        						'<span class="second-queue-test">잠시만 기다려 주세요.</span>',
+						showLoaderOnConfirm : true, 
+						preConfirm : () => {
+							
+						}
+        			}
+        		])
+        		
+        	});
+        	
+        	$(document).on('click', '.swal-first-next-button', function(){
+    			Swal.clickConfirm();
+    		})
+    		
+    		$(document).on('click', '.swal-first-cancel-button', function(){
+    			Swal.clickCancel();
+    		})
+        	
         	
         	// 페이지네이션 이벤트
             $(document).on("click", ".manage-pagination", function(){
@@ -877,7 +923,7 @@ h1 {
 									displayValue += '<td class="hobbyClassImageAdmin"><img src="/images/hobbyclass/'+JSONData.hobbyClass[i].hobbyClassImage+'" style="width:134px; height:100.5px;"></td>' +
 												'<td class="hobbyClassNameAdmin">'+JSONData.hobbyClass[i].hobbyClassName;
 									displayValue +=	'</td>' +
-												'<td class="userIdAdmin">'+JSONData.hobbyClass[i].user.nickName+"/"+JSONData.hobbyClass[i].user.userId+'</td>' +
+												'<td class="userIdAdmin">'+JSONData.hobbyClass[i].user.userId+'</td>' +
 												'<td class="hobbyClassStartDateAdmin">'+JSONData.hobbyClass[i].startDate.substring(0,4) + '.'
 																				+JSONData.hobbyClass[i].startDate.substring(5,7) + '.'
 																				+JSONData.hobbyClass[i].startDate.substring(8,10) +

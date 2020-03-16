@@ -7,7 +7,7 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -46,13 +46,11 @@
 	<!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
     
-    <!-- 헤더 -->
-	<script src="/resources/javascript/commonHeader.js"></script>
-	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
-    
 	<script type="text/javascript">
 		var startDate = []; 
 		var disabledButtonIndexArray = [];
+		
+		var hobbyClassNo = "${hobbyClassNo}";
 		
 		$(function(){
 			// 바로 collapse를 표시하기 위해 document.ready시 ajax로 날짜 가져옴 -----------------------
@@ -67,7 +65,7 @@
 							"Content-Type" : "application/json"
 						}, 
 						data : JSON.stringify({
-							hobbyClassNo : $('.hidden-class-number').val() 
+							hobbyClassNo : hobbyClassNo 
 						}), 
 						success : function(JSONData, status) {
 							
@@ -153,7 +151,7 @@
 								"Content-Type" : "application/json"
 							}, 
 							data : JSON.stringify({
-								hobbyClassNo : $('.hidden-class-number').val(),  
+								hobbyClassNo : hobbyClassNo,  
 								dateTarget : selectDateButton.val() 
 							}), 
 							success : function(JSONData, status) {
@@ -309,7 +307,7 @@
 							}, 
 							data : JSON.stringify({
 								// hobbyClassNo 그냥 10000이라고 침 
-								hobbyClassNo : $('.hidden-class-number').val(), 
+								hobbyClassNo : hobbyClassNo, 
 								dateTarget : selectDateButtonValue 
 							}), 
 							success : function(JSONData, status) {
@@ -434,7 +432,7 @@
 							}, 
 							data : JSON.stringify({
 								// hobbyClassNo 그냥 10000이라고 침 
-								hobbyClassNo : $('.hidden-class-number').val(),  
+								hobbyClassNo : hobbyClassNo, 
 								dateTarget : selectDateButtonValue 
 							}), 
 							success : function(JSONData, status) {
@@ -520,7 +518,7 @@
 							"Content-Type" : "application/json"
 						}, 
 						data : JSON.stringify({
-							hobbyClassNo : $('.hidden-class-number').val() 
+							hobbyClassNo : hobbyClassNo 
 						}),
 						success : function(JSONData, status) {
 							
@@ -668,7 +666,7 @@
 							"Content-Type" : "application/json"
 						}, 
 						data : JSON.stringify({
-							hobbyClassNo : $('.hidden-class-number').val(),  
+							hobbyClassNo : hobbyClassNo, 
 							dateTarget : "all" 
 						}), 
 						success : function(JSONData, status) {
@@ -732,7 +730,17 @@
 						}
 					}
 			)
-		})
+			
+			// CREATER CENTER Click Event
+			$(document).on("click", "span:contains('CREATOR CENTER')", function(){
+				self.location = "/hobbyclass/getMyHobbyClassList";	
+			});
+			
+			// 내 클래스 Click Event
+			$(document).on("click", ".thisismyclass", function(){
+				self.location = "/hobbyclass/getMyHobbyClassList";	
+			});
+		});
 	</script>
 	
 	<style>
@@ -761,6 +769,10 @@
 		#external-events .fc-event {
 		  margin: 1em 0;
 		  cursor: move;
+		}
+		
+		.container {
+			margin-top:50px;
 		}
 		
 		#calendar-container {
@@ -1026,14 +1038,286 @@
 		    flex: initial;
 		    cursor : not-allowed !important;
 		}
+		
+		/* 추가된 구간 */
+		
+		.delete-button {
+		color: rgb(243, 51, 64);
+		box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px; font-size: 14px;
+		font-weight: normal;
+		line-height: 20px;
+		letter-spacing: -0.2px;
+		background-color: white;
+		padding: 10px 14px;
+		width:84px;
+		hegiht:60px;
+		border:0; 
+		outline:none;
+		position: relative;
+		top:-65px;
+		left: -25px;
+		display: none;
+	}
+	.delete-button:focus {		
+		color: rgb(243, 51, 64);
+		box-shadow: rgba(41, 42, 43, 0.2) 0px 8px 10px -4px; font-size: 14px;
+		font-weight: normal;
+		line-height: 20px;
+		letter-spacing: -0.2px;
+		background-color: white;
+		padding: 10px 14px;
+		width:84px;
+		hegiht:60px;
+		border:0; 
+		outline:none;
+		position: relative;
+		top:-65px;
+		left: -25px;
+		display: none;
+
+	}
+	
+	@media (min-width: 992px) {
+		body {
+			padding-top : 62px;
+		}
+		
+		.main_section {
+			max-width: 662px;
+			width: 60.18%;
+			height: 100%;	
+			margin-top: 40px;
+			margin-left: 30px;
+			padding: 0px 12px;		
+		}
+		.lmhc-da {
+		margin-right: 4px;
+		position:relative;
+		top: -2px;
+		
+		}
+		.lmhc-alert-div {
+			 max-width: 1px; 
+			 width: 1px; 
+			 height:51px; 
+			 z-index:1300; 
+			 top: 15px; 
+			 position:fixed;
+			 text-align: center;
+		}
+	}
+
+	@media (max-width: 991px) {
+		body {
+			padding: 24px;
+		}
+		
+		.main_section {
+			max-width: 100%;
+			width: 100%;
+			height: 100%;	
+			margin-top: 60px;
+		
+			padding: 0px;		
+		}
+		.lmhc-alert-div {
+			 max-width: 1px; 
+			 width: 1px; 
+			 height:51px; 
+			 z-index:1300; 
+			 top: 15px; 
+			 position:fixed;
+		}
+		
+	}
+
+	.flex-column {
+		width: 240px;
+		height: calc(100vh - 72px);
+		overflow-y: scroll;
+	}
+	
+	.section {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.font {
+	    font-size: 9px;
+	    letter-spacing: normal;
+	    display: flex;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    font-weight: bold;
+	    line-height: 1;
+	    color: rgb(237, 239, 240);
+	    margin: 0px;
+	}
+	
+	.bottom_button_parent {
+		position: relative;
+		width: 100%;
+	}
+	
+	.bottom_button {
+		position: absolute;
+		bottom: 0px;
+	}
+	
+	.card-body_outdiv {
+    height: 178px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex: 1 1 0%;
+	}
+	
+	.listMyHobbyClass-header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	    background-color: rgb(248, 248, 249);
+	    border: 0;
+	    outline: 0 none;
+	    font-weight: bold; 
+	} 
+	  
+	.android-listMyHobbyClass-button {
+		border: 0;
+		outline: 0 none;
+		font-size: 14px;
+	}
+	.android-listMyHobbyClass-button:focus {
+		border: 0;
+		outline: 0 none;
+		box-shadow: none;
+	}
+	.list-hobbyState-button:focus {
+		background-color: #343a40;
+	}
+	.list-continue-button:focus {
+		background-color: #343a40;
+	}
+	.listMyHobbyClass-button {
+		margin-top: 12px;		
+		padding: 6px 12px;
+	}
+	.list-hobbyclass-side-div {
+		padding-left: 12px;
+	}
+	.listMyHobbyClass-card-div {
+		box-shadow: rgba(41, 42, 43, 0.08) 0px 4px 8px, rgba(41, 42, 43, 0.12) 0px 12px 16px;
+		margin-top: 16px; 
+		width: 100%; 
+		border: 0;
+		height: 226.5px; 
+		padding: 24px;
+	}
+	.addHobbyClass-button {
+		padding: 0px;
+		color: rgb(95, 174, 201);
+		background-color:white;
+		box-shadow: none;
+		border: 0;
+		outline: 0 none;
+		font-size: 14px;
+	}
+	.addHobbyClass-button:focus {
+		background-color:white;
+		box-shadow: none;
+		border: 0;
+		outline: 0 none;
+	}
+	.listMyHobbyClass-newClass-div {
+		padding-top:10px;
+	}
+	.lmhcMH {
+		cursor: pointer;
+	}
+	.lmhcMH:hover {
+		background-color: rgb(248, 248, 249);
+		font-weight: bold;
+	}
+	.lmhc-logo-a {
+		width:36px;
+		height:36px;
+	}
+	
+	.lmhc-da {
+		margin-right: 4px;
+		position:relative;
+		top: -2px;
+	}
+	
+	.lmhc-da-cs {
+		min-width:280px; 
+		max-width:612px; 
+		font-size:14px; 
+		line-height:20px; 
+		display: flex;
+		-webkit-box-align: center; 
+		flex-direction: column;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+	    align-items: center;
+		background-color: rgb(0, 183, 157);  
+		color:white; 
+		position:fixed; 
+		z-index:1500; 
+		margin-top: auto;  
+		margin-right: auto; 
+		margin-left: auto; 
+		margin-bottom: 0px;
+		box-shadow: rgba(41, 42, 43, 0.08) 0px 1px 3px, rgba(0, 0, 0, 0.04) 0px 1px 0px;
+		padding: 14px 16px;
+		border-radius: 3px;
+		left: 50%;
+    	transform: translate(-50%, 0);
+    	display: none;	 
+	}
+	.delete-button:hover {
+		color: rgb(243, 121, 64);
+	}
+	.lmhc-cc-text {
+		font-weight: bold !important;
+    	font-size: 1.1rem;
+    	color: rgb(62, 64, 66);
+    	cursor: default;
+    	top:10px;
+    	position:relative;
+    	font-family:none !important;
+    	font-size:17.6px !important;
+	}
+		
 	</style>
  
 </head>
 <body>
-	<!-- 나중에 번호 바꾸기 -->
-	<input type="hidden" class="hidden-class-number" value="10000" />
-	<jsp:include page="/common/header.jsp"/>
-	<br/><br/><br/><br/><br/>
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+	  <a class="navbar-brand lmhc-logo-a" href="/hobbyclass/getMyHobbyClassList"><img src="/resources/image/logo/logo-favicon.png" width="36px" height="36px"></a>
+	  <span class="lmhc-cc-text">CREATOR CENTER</span>
+	  	<button class="navbar-toggler android-listMyHobbyClass-button" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	   		<span class="navbar-toggler-icon"></span>
+	 	</button>
+	  	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	  	<div class="navbar-nav d-block d-lg-none d-none list-hobbyclass-side-div">
+			  <a class="nav-link lmhcMH thisismyclass" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+		      	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/>
+		      		<path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+		      	</svg>
+					<font size="3px" color="black">내 클래스</font>
+		      </a> 
+
+	       </div>
+	    </div>
+	    
+	</nav><hr style="padding:0px; margin:0px; margin-bottom:8px;" />
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">
@@ -1045,7 +1329,7 @@
 			<div class="col-lg-4 fixed-right-tool-bar">
 				<h3 class="schedule-text-normal-span1 schedule-text-normal-span2">
 					<span class="schedule-text-strong-span">
-						${sessionScope.user.userId }
+						${ !empty sessionScope.user.nickName ? sessionScope.user.nickName : sessionScope.user.name }
 					</span>
 					<br/>
 					님이 

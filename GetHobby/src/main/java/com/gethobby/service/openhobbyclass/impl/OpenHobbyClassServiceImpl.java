@@ -36,17 +36,11 @@ import com.gethobby.service.openhobbyclass.OpenHobbyClassDAO;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseDAO;
 import com.gethobby.service.purchase.PurchaseService;
-//2020-02-24 Git Commit
+
 @Service("openHobbyClassServiceImpl")
 public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		
 	//Field
-	@Autowired
-	@Qualifier("purchaseDAOImpl")
-	private PurchaseDAO purchaseDAO;
-	public void setPurchaseDAO(PurchaseDAO purchaseDAO) {
-		this.purchaseDAO = purchaseDAO;
-	}
 	@Autowired
 	@Qualifier("openHobbyClassDAOImpl")
 	private OpenHobbyClassDAO openHobbyClassDAO;
@@ -97,6 +91,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		for(int i=0; i<list.size(); i++) {
 			HobbyClass hobbyClass = (HobbyClass)list.get(i);
 			String state = hobbyClass.getHobbyClassState();
+			
 			if( state.equals("0") ){
 				hobbyClass.setHobbyClassState("클래스 작성 중");
 			}else if( state.equals("1") ) {
@@ -121,7 +116,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 
 	public void addHobbyClass(String userId) throws Exception {
 		openHobbyClassDAO.addMyHobbyClass(userId);
-		openHobbyClassDAO.addLesson(openHobbyClassDAO.getNewHobbyClass(userId).getHobbyClassNo());
+		this.addLesson(openHobbyClassDAO.getNewHobbyClass(userId).getHobbyClassNo());
 	}
 	
 	public HobbyClass getHobbyClassInfo(String userId) throws Exception {
@@ -135,7 +130,7 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 	}
 
 	public int deleteHobbyClass(int hobbyClassNo) throws Exception {
-		openHobbyClassDAO.deleteLesson(hobbyClassNo);
+		this.deleteLesson(hobbyClassNo);
 		return openHobbyClassDAO.deleteHobbyClass(hobbyClassNo);
 	}
 	
@@ -219,12 +214,14 @@ public class OpenHobbyClassServiceImpl implements OpenHobbyClassService{
 		return openHobbyClassDAO.saveLesson(lesson);
 	}
 
-	public Lesson addLesson(int hobbyClassNo) throws Exception {
+	public Lesson addLesson(int hobbyClassNo) throws Exception {		
+		this.updateTotalLesson(hobbyClassNo, 1, "1");
 		openHobbyClassDAO.addLesson(hobbyClassNo);	
 		return openHobbyClassDAO.getLesson(openHobbyClassDAO.getLessonNo(hobbyClassNo));
 	}
 
 	public int deleteLesson(int hobbyClassNo) throws Exception {
+		this.updateTotalLesson(hobbyClassNo, 1, "0");
 		return openHobbyClassDAO.deleteLesson(hobbyClassNo);
 	}
 

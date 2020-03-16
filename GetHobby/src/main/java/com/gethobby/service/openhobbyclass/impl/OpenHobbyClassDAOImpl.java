@@ -13,7 +13,6 @@ import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Lesson;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassDAO;
 
-//2020-02-24 Git Commit
 @Repository("openHobbyClassDAOImpl")
 public class OpenHobbyClassDAOImpl implements OpenHobbyClassDAO{
 	
@@ -149,10 +148,6 @@ public class OpenHobbyClassDAOImpl implements OpenHobbyClassDAO{
 
 	public int saveCheckHobbyClassAdmin(int hobbyClassNo) throws Exception {
 		return sqlSession.update("HobbyClassMapper.saveCheckHobbyClassAdmin", hobbyClassNo);
-	}
-
-	public int updateHobbyClassAdmin(HobbyClass hobbyClass) throws Exception {
-		return sqlSession.update("HobbyClassMapper.updateHobbyClassAdmin", hobbyClass);
 	}
 		
 }//end of DAOImpl

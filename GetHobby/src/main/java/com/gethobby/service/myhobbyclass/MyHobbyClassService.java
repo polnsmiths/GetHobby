@@ -27,4 +27,6 @@ public interface MyHobbyClassService {
 	public Map<String, Object> getRecommendHobbyClassList(Map<String, Object> inputData) throws Exception;
 	
 	public List<HobbyClass> getListenHobbyClassList(String userId) throws Exception;
+	
+	public HobbyClass getHobbyClassStateStartDate(String hobbyClassNo) throws Exception;
 }

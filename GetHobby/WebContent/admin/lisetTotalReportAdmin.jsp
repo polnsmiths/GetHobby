@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -619,10 +619,14 @@ h1 {
 									display += '<td scope="row" class="report-target-number">';
 									
 									if ( JSONData.reportList[i].replyNo == 0 ) {
-										display += JSONData.reportList[i].articleNo + '</td>';
+										display += JSONData.reportList[i].articleNo;
+										display += '<input type="hidden" class="report-target-type" value="article" />';
+										display += '</td>';
 									}
 									else if ( JSONData.reportList[i].replyNo != 0 ) {
-										display += JSONData.reportList[i].replyNo + '</td>';
+										display += JSONData.reportList[i].replyNo;
+										display += '<input type="hidden" class="report-target-type" value="reply" />';
+										display += '</td>';
 									}	
 									
 									display += '<td class="report-add-date">' + JSONData.reportList[i].regDate + '</td>';
@@ -770,11 +774,17 @@ h1 {
 									display += '<td scope="row" class="report-target-number">';
 									
 									if ( JSONData.reportList[i].replyNo == 0 ) {
-										display += JSONData.reportList[i].articleNo + '</td>';
+										display += JSONData.reportList[i].articleNo;
+										display += '<input type="hidden" class="report-target-type" value="article" />';
+										display += '</td>';
 									}
 									else if ( JSONData.reportList[i].replyNo != 0 ) {
-										display += JSONData.reportList[i].replyNo + '</td>';
+										display += JSONData.reportList[i].replyNo;
+										display += '<input type="hidden" class="report-target-type" value="reply" />';
+										display += '</td>';
 									}	
+									
+									
 									
 									display += '<td class="report-add-date">' + JSONData.reportList[i].regDate + '</td>';
 									display += '<td class="report-state-button">';
@@ -887,11 +897,9 @@ h1 {
 					)
 				}
 				else if ( reportTargetType == 'article' && reportTargetNo < 1000 ) {
-					var popupX = (document.body.offsetWidth / 2) - (200 / 2);
-					var popupY= (document.body.offsetHeight / 2) - (300 / 2);
-					
-					var reportTargetArticle = window.open('/article/getBoardArticle?articleNo=' + reportTargetNo , 'reportTarget', '_blank', 'width=400, height=500, left=10, top=500');
+					var reportTargetArticle = window.open('/admin/getReportTargetArticle?boardCode=1&articleNo=' + reportTargetNo , 'reportTarget', '_blank', "width=537, height=500, left=450, top=90, height=500, marginwidth=0, marginheight=0, fullscreen=no, scrollbars=yes, scrolling=yes, menubar=no, resizable=no");
 				}
+				/*
 				else if ( reportTargetType == 'reply' && 1000 <= reportTargetType < 10000 ) {
 					$.ajax(
 							{
@@ -928,6 +936,7 @@ h1 {
 
 						
 				}
+				*/
 			})
 			
 			

@@ -31,6 +31,9 @@ $(function(){
 					if ( JSONData.recentlyHobbyClassList.length > 3 ) {
 						recentlyFlag = true; // 4개 초과면 무한루프
 						
+						$('#recentlyNext').show();
+						$('#recentlyPrev').show();
+						
 						// 버튼 활성화
 						
 						$('#recentlyNext').attr('disabled', false);
@@ -38,6 +41,9 @@ $(function(){
 					}
 					else if ( JSONData.recentlyHobbyClassList.length <= 3) {
 						recentlyFlag = false; // 3개 이하면 그런거 없음 
+						
+						$('#recentlyNext').hide();
+						$('#recentlyPrev').hide();
 						
 						// 버튼 비활성화
 						$('#recentlyNext').attr('disabled', true);

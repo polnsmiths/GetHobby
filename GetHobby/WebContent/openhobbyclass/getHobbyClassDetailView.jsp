@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>GetHobby</title>
 <%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -163,7 +164,18 @@
 		cursor: default;
 	}
 
+	@media (max-width: 416px){
+	.shc-shclm-di {
+		 position: relative !important;
+		 top: 115px !important;
+	}
+}
+	
 @media (min-width: 992px) {
+	.shc-shclm-di {
+		 position:relative; 
+		 top: -65px;
+	}
 	.summernote_div {
 		width:567.98px;
 	}
@@ -288,6 +300,10 @@
 	}
 }
 @media (max-width: 991px) {
+.shc-shclm-di {
+		 position:relative; 
+		 top: 35px;
+	}
 	.progress-bar {
 		width: 100%;
 	}
@@ -498,7 +514,7 @@
 				      	</path>
 			      	</svg>
 		      	</div>
-		      </a>  
+		      </a> 
 		    </div>
 		  </div>
 		</div>
@@ -562,7 +578,7 @@
 				    <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">클래스 소개하기</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb" value='${hobbyClass.hobbyClassIntro}'>				      
+							<div style="display: none;" id="sumb">${hobbyClass.hobbyClassIntro}</div>				      
 							  <textarea id="summernote1" name="editordata1"></textarea>
 						</div>
 					</div>
@@ -589,20 +605,18 @@
 		  		<div class="d-none d-lg-block" style="margin-bottom: 32px;">
 		  		<div class="lesson_title_div">
 		  		<div style="font-color: rgb(62, 64, 66);font-size: 24px; font-weight: bold; float:left;">02 클래스 강의정보</div>		  		
-			  		<div style="float:right;">
-			  			<jsp:include page="/openhobbyclass/saveHobbyClassLessonModal.jsp" />
-			  		</div>
+			  		
 		  		</div>
 		  		</div>
-		  		
+		  		<div class="shc-shclm-di" style="float:right;">
+		  			<jsp:include page="/openhobbyclass/saveHobbyClassLessonModal.jsp" />
+		  		</div>
 		  		
 		  		<div class="d-block d-lg-none">
 			  		<div class="header_title_div">
 				  		<div style="border:0; outline:0; width: 100%; height:54px;" class="nav flex-column nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 							<div style="width:100%; height:54px;"><div style="float:left;">02 클래스 강의정보</div> 
-								<div style="float:right;">
-						  			<jsp:include page="/openhobbyclass/saveHobbyClassLessonModal.jsp" />
-						  		</div>
+								
 								<button type="button" style="background-color:white; float:left; margin-left: 4px; padding: 0px; width:24px; height:24px;" class="nav-link" id="hobbyClassLessonAndroidMenu-tab" data-toggle="tab" href="#hobbyClassLessonAndroidMenu" aria-controls="v-pills-hobbyClassLessonAndroidMenu" aria-selected="false">
 									<svg width="24" height="24" class="FormTitle__StyledIconChevronDown-td4kks-5 jUkHLk" viewBox="0 0 24 24">
 								  		<path fill="#3e4042" fill-rule="evenodd" d="M5.5 8.5l6.5 6 6.5-6L20 10l-8 7.5L4 10z">
@@ -657,7 +671,7 @@
 				     <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">수업 노트</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb-lesson" value='${hobbyClass.lesson[0].lessonIntro}'>
+							<div style="display:none;" id="sumb-lesson">${hobbyClass.lesson[0].lessonContent}</div>
 							  <textarea id="summernote2" name="editordata2"></textarea>					
 						</div>
 					</div>
@@ -735,9 +749,6 @@
 		  <!-- Start of Android Menu -->
 		  
 		  <div class="tab-pane" id="hobbyClassInfoAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassInfoAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
 			<div class="start_hobbyclassInfo">
 			<div class="d-block d-lg-none">
 		  		<div class="header_title_div">
@@ -790,11 +801,6 @@
 		  
 		  
 		  <div class="tab-pane" id="hobbyClassLessonAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassLessonAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-			
-			
 			<div class="start_hobbyclassInfo">
 			
 			<div class="d-block d-lg-none">
@@ -831,9 +837,7 @@
 		  
 		  
 		  <div class="tab-pane" id="hobbyClassKitAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassKitAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
+
 			<div class="start_hobbyclassInfo">
 			<div class="d-block d-lg-none">
 		  		<div class="header_title_div">
@@ -879,6 +883,10 @@
 
 		$(function(){
 
+			$(document).on("click", ".thisisbuyerstats", function(){
+				self.location = "/myHobbyClass/method?hobbyClassNo="+$("input[name='hobbyClassno']").val();
+			});
+			
     		// summernote onload Setting
 	    	$('#summernote1').summernote({
 	    		lang: 'ko-KR',
@@ -908,11 +916,11 @@
 	    	});
 	    	
 	    	// Summernote Date Write
-			var summ1 = $("input[name='sumb']").val();
+			var summ1 = $("#sumb").html();
     		$('#summernote1').summernote('code', summ1);	
     		$('#summernote1').summernote('disable');	
 
-    		var summ2 = $("input[name='sumb-lesson']").val();
+    		var summ2 = $("#sumb-lesson").html();
     		$('#summernote2').summernote('code', summ2);	
     		$('#summernote2').summernote('disable');	
  

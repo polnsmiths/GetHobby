@@ -100,19 +100,8 @@
 .cPBtQc {
     padding: 8px 0px 32px;
 }
-.QtLBl {
-    display: flex;
-    flex-wrap: wrap;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    align-content: stretch;
-    margin-right: -12px;
-    margin-left: -12px;
-}
-.QtLBl {
-    margin-right: -4px;
-    margin-left: -4px;
-}
+
+
 .bXMAOt {
     position: relative;
     min-height: 1px;
@@ -152,7 +141,7 @@ a {
 .hBKkTB {
     font-size: 14px;
     font-weight: normal;
-    color: rgb(62, 64, 66);
+    color: rgb(133, 138, 141);
     line-height: 20px;
     letter-spacing: -0.2px;
     margin: 0px;
@@ -174,9 +163,7 @@ a {
     padding-left: 12px;
     box-sizing: border-box;
 }
-.bXMAOt {
-    width: 33.3333%;
-}
+
 .fORXCH {
     font-size: 14px;
     font-weight: bold;
@@ -193,14 +180,6 @@ a {
 }
 .hGKcXL:hover {
     text-decoration: none;
-}
-.hBKkTB {
-    font-size: 14px;
-    font-weight: normal;
-    color: rgb(62, 64, 66);
-    line-height: 20px;
-    letter-spacing: -0.2px;
-    margin: 0px;
 }
 .liAQRm {
     color: rgb(133, 138, 141);
@@ -568,14 +547,6 @@ button, input, optgroup, select, textarea {
     margin-top: 16px;
     flex: 1 1 0%;
 }
-.hBKkTB {
-    font-size: 14px;
-    font-weight: normal;
-    color: rgb(62, 64, 66);
-    line-height: 20px;
-    letter-spacing: -0.2px;
-    margin: 0px;
-}
 .kdHuLt {
     display: flex;
     flex-direction: row;
@@ -657,6 +628,40 @@ path[Attributes Style] {
 .nono{
 	background-color: #f3b368;
 }
+@media (max-width:992px){
+	.QtLBl {
+		display: block;
+	    flex-wrap: wrap;
+	    -webkit-box-pack: start;
+	    justify-content: flex-start;
+	    align-content: stretch;
+	    margin-left: auto;
+	    margin-right: auto;
+	    padding: 0px 0px;
+	    max-width: 1040px;
+	}
+	.bXMAOt {
+	    width: 100%;
+	}
+}
+@media (min-width:991px){
+	.QtLBl {
+	    display: flex;
+	    flex-wrap: wrap;
+	    -webkit-box-pack: start;
+	    justify-content: flex-start;
+	    align-content: stretch;
+	    margin-left: auto;
+	    margin-right: auto;
+	    padding: 0px 42px;
+	    max-width: 1040px;
+	}
+	.bXMAOt {
+	    width: 33.3%;
+	}
+}
+
+
 </style>
 <script type="text/javascript">
 </script>
@@ -723,10 +728,10 @@ path[Attributes Style] {
 						
 			</div>
 		<div class="Footer__InfoContainer-lv6cz2-10 jmEzjg">
-		<div class="sc-eilVRo QtLBl">		
-		<div class="sc-gHboQg gPalxu">
-		<div class="sc-fcdeBU hMCBZf">
-		<div class="sc-bdVaJa dVjooD Footer__Description-lv6cz2-5 iIxncl" style="width: 650px;">(주)GET취미 | 대표 감자면 | 개인정보보호 책임자 감자면 | 서울 강남구 테헤란로5길 11 YBM빌딩 2층 | 사업자등록번호 : 000-55-88771 | (주)GET취미는 상품,거래정보 및 거래에 대하여 책임을 지지 않습니다.
+		<div class="sc-eilVRo QtLBl" style="width: 100%;">		
+		<div class="sc-gHboQg gPalxu" style="width: 100%;">
+		<div class="sc-fcdeBU hMCBZf" style="width: 100%;">
+		<div class="sc-bdVaJa dVjooD Footer__Description-lv6cz2-5 iIxncl" style="width: 100%;">(주)GET취미 | 대표 감자면 | 개인정보보호 책임자 감자면 | 서울 강남구 테헤란로5길 11 YBM빌딩 2층 | 사업자등록번호 : 000-55-88771 | <br/>(주)GET취미는 상품,거래정보 및 거래에 대하여 책임을 지지 않습니다.
 		</div>
 		</div>
 		</div>

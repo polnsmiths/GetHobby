@@ -27,6 +27,12 @@
 	</resultMap>
 	
 	
+	<select id="getCreatorAtHobbyClass" parameterType="int" resultType="String">
+		SELECT  user_id 
+		FROM  hobbyClass
+		WHERE class_no = #{hobbyClassNo}
+	</select>
+	
 	
 	<insert id="addCommunityArticle" parameterType="article">
 		INSERT 

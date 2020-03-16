@@ -180,7 +180,7 @@ $(function(){
 		loop : steamFlag,
 	    margin : 20,
 	    itemsScaleUp :true,
-	    dots : false, 
+	    dots : true, 
 	    responsive:{
 	        0 : {
 	            items : 1

@@ -60,8 +60,11 @@
  		 SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		( 
-	  	SELECT article_no,article_title, reg_date, total_view
+	  	SELECT article_no,article_title, board_code, reg_date, total_view
  		FROM article
+ 		<where>
+ 		BOARD_CODE = '4'
+ 		</where>
  		ORDER BY reg_date  ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}  

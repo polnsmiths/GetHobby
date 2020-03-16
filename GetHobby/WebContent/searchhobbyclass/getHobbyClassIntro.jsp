@@ -11,7 +11,7 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
     <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -43,10 +43,7 @@
 	<link rel="stylesheet" href="../resources/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="../resources/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
 	<script src="../resources/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-	
-	<!-- channelTalk -->
-	<script src="/resources/javascript/min/channelTalk.js"></script>
-	
+
 	<!-- fontawesome cdn(웹 아이콘 라이브러리) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	
@@ -57,6 +54,8 @@
 	<!-- Header js & css -->
 	<script src="/resources/javascript/commonHeader.js"></script>
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
+	
+	<link rel="stylesheet" href="/resources/css/min/getHobbyClassLesson.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -197,6 +196,9 @@
 			
 			// 밑바닥 고정 가리기 
 			$('.small-width-bottom-fixed').hide();
+			
+			// 작은버전 메뉴바 가리기
+			$('.container-small-nav-menu').hide();
 			
 			// 찜하기 체크 추가로 이미 구매한 클래스도 로직 처리해야함 -> hobbyClass 도메인이 구매여부도 판단하는 그 무엇이 필요해졌다 -> 그냥 model 두 개 담아서 전달
 			$('.steam-count').val('${hobbyClass.steamCount}');
@@ -381,11 +383,17 @@
 				$('.small-width-bottom-fixed').show();
 				$('.fixed-right-tool-bar').hide();
 				$('.navbar-brand').show();
+				$('.container-big-nav-menu').hide();
+				$('.container-small-nav-menu').show();
+				$('.hide-dt-tag').hide();
 			}
 			else if ( onloadWidth > 980 ) {
 				$('.small-width-bottom-fixed').hide();
 				$('.fixed-right-tool-bar').show();
 				$('.navbar-brand').hide();
+				$('.container-big-nav-menu').show();
+				$('.container-small-nav-menu').hide();
+				$('.hide-dt-tag').show();
 			}
 			// 키자마자 화면 크기 따라서 뭐 보여주고 뭐 감추고 해버리기 ---------------------
 			
@@ -397,11 +405,17 @@
 					$('.small-width-bottom-fixed').show();
 					$('.fixed-right-tool-bar').hide();
 					$('.navbar-brand').show();
+					$('.container-big-nav-menu').hide();
+					$('.container-small-nav-menu').show();
+					$('.hide-dt-tag').hide();
 				}
 				else {
 					$('.small-width-bottom-fixed').hide();
 					$('.fixed-right-tool-bar').show();
 					$('.navbar-brand').hide();
+					$('.container-big-nav-menu').show();
+					$('.container-small-nav-menu').hide();
+					$('.hide-dt-tag').show();
 				}
 			})
 			// 크기에 따라서 하단에 툴바 띄울건지 우측에 툴바 띄울건지 ---------------------
@@ -509,26 +523,8 @@
 				if ( index == 4 ) {
 					var userId = $('.user-hidden-class-intro-value').val();
 					
-					if ( !userId ) { 
-						self.location = '/user/noLogonUser?type=intro&hobbyClassNo=' + '${hobbyClass.hobbyClassNo}';
-						return false;
-					}
+					self.location = "/community/listCommunity?hobbyClassNo=" + $('.hidden-hobby-class-number').val();
 					
-					if ( purchaseCheck == '0' ) {
-						Swal.fire({
-							icon : 'error',
-							title : '구매시에만 사용 가능합니다.',
-							showConfirmButton : false, 
-							allowOutsideClick : true,
-							timer : 800
-						})
-						return;
-					}
-					else if ( purchaseCheck == '1' ) {
-						// 클래스 커뮤니티 클커 보내버리기 	
-					
-						self.location = "/community/listCommunity?hobbyClassNo=" + $('.hidden-hobby-class-number').val();
-					}
 				}
 				
 			})
@@ -556,58 +552,52 @@
 							}), 
 							success : function(JSONData, status) {
 								var display = '';
-								var logonUserId = "${sessionScope.user.userId}";
+								
 								for ( var i = 0; i < JSONData.assessContentList.length; i++ ) {
-									if ( JSONData.assessContentList[i].user.userId == logonUserId ) {
-										display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+									display += '<li class="media my-4">';
+									
+									if ( JSONData.assessContentList[i].user.profileImage != null ) {
+										display += '<img src="/resources/image/woo/' + JSONData.assessContentList[i].user.profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									}
+									
+									if ( JSONData.assessContentList[i].user.profileImage == null ) {
+										display += '<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+									}
+									
+									display += '<div class="media-body">';
+									display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
+									display += '<span>';
+									
+									if ( JSONData.assessContentList[i].user.nickName != null ) {
+										display += '<strong>' + JSONData.assessContentList[i].user.nickName + '</strong>';
 									}
 									else {
-										display += '<div class="class-assess-content-outer-div">';
-									}
-
-									display += '<div class="profile-and-name">';
-									display += '<div size="24" class="profile-outer-div">';
-									display += '<span class="profile-outer-span1 profile-outer-span2">';
-									// 나중에 회원 프로필 사진으로 대체하기 
-									// display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
-									
-									var profileImage = 'unnamed.jpg';
-							
-									if (JSONData.assessContentList[i].user.profileImage != null) {
-										profileImage = JSONData.assessContentList[i].user.profileImage; 
+										display += '<strong>' + JSONData.assessContentList[i].user.name + '</strong>';
 									}
 									
-									display += '<img src="/resources/image/logo/' + profileImage + '" class="class-assess-img-tag" onError="this.src="/resources/image/logo/unnamed.jpg"">';
-									
+									display += '<small class="text-muted">' + JSONData.assessContentList[i].regDate + '</small>';
 									display += '</span>';
-									display += '</div>';
-									display += '<div class="name-outer-div">';
-									display += '<div class="name-inner-div1 name-inner-div2">';
-									display += JSONData.assessContentList[i].user.nickName;
-									display += '&nbsp;&nbsp;';
-									display += '<span class="pull-right">';
-									display += '<i class="fas fa-star"></i>';
-									display += '&nbsp;&nbsp;';
-									display += JSONData.assessContentList[i].assessStar;
-									display += '점';
+									display += '<span class="lesson-reply-reset-button-span">';
+									display += '<span>';
+									display += '<small>';
+									display += '<span class="assess-star-span-right-tool-bar pull-right">';
+									display += '<i class="fas fa-star"></i>&nbsp;&nbsp;' + JSONData.assessContentList[i].assessStar + '&nbsp;점';
 									display += '</span>';
-									display += '<div>';
-									display += JSONData.assessContentList[i].regDate;
+									display += '</small>';
+									display += '</span>';
+									display += '</span>';
+									display += '</h6>';
+									display += '<div class="here-is-change-update-div">';
+									display += '<p>' + JSONData.assessContentList[i].assessContent + '</p>';
 									display += '</div>';
 									display += '</div>';
-									display += '</div>';
-									display += '</div>';
-									display += '<div class="class-assess-reply-outer-div">';
-									display += '<div class="class-assess-reply-content1 class-assess-reply-content2">';
-									display += JSONData.assessContentList[i].assessContent;
-									display += '</div>';
-									display += '</div>';
-									display += '</div>';
+									display += '</li>';
 									display += '<hr/>';
 								}
 								
-								display += '<span class="class-assess-scroll"></span>';
-								$('.class-assess-scroll:last').after(display);
+								display += '<span class="scroll-page"></span>';
+								
+								$('.scroll-page:last').after(display);
 								
 								maxPage = JSONData.resultPage.maxPage;
 								
@@ -710,71 +700,73 @@
 						    					hobbyClassNo : "${hobbyClass.hobbyClassNo}",  
 						    					assessContent : $('.hidden-assess-content').val()  
 						    				})
-						    			}).then(e => e.json()).then(e => {
-						    				console.log(e);
-						    				maxPage = e.resultPage.maxPage;
+						    			}).then(JSONData => JSONData.json()).then(JSONData => {
+						    				console.log(JSONData);
+						    				maxPage = JSONData.resultPage.maxPage;
 						    				currentPage = 1;
 						    				// 여기서 깆ㄴ 리스트 삭제하고 새거 붙이고 저 우측 툴바에 통계도 바꿔주고...
 						    				$('.class-assess-scroll').remove();
-						    				$('.class-assess-content-outer-div').remove();
+						    				$('.why-div-wrapper-need').remove();
 						    				
 						    				$('.class-assess-scroll-flag').after('<span class="class-assess-scroll"></span>');
 						    				
 						    				var display = '';
 						    				
-						    				for (var i = 0; i < e.classAssessList.length; i++) {
-						    					var logonUserId = "${sessionScope.user.userId}";
+						    				display += '<div class="why-div-wrapper-need">';
 						    				
-						    					if ( e.classAssessList[i].user.userId == logonUserId ) {
-													display += '<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">';
+						    				for ( var i = 0; i < JSONData.classAssessList.length; i++ ) {
+												display += '<li class="media my-4">';
+												
+												if ( JSONData.classAssessList[i].user.profileImage != null ) {
+													display += '<img src="/resources/image/woo/' + JSONData.classAssessList[i].user.profileImage + '" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+												}
+												
+												if ( JSONData.classAssessList[i].user.profileImage == null ) {
+													display += '<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src="/resources/image/logo/unnamed.jpg"">';
+												}
+												
+												display += '<div class="media-body">';
+												display += '<h6 class="mt-0 mb-1 d-flex justify-content-between">';
+												display += '<span>';
+												
+												if ( JSONData.classAssessList[i].user.nickName != null ) {
+													display += '<strong>' + JSONData.classAssessList[i].user.nickName + '</strong>';
 												}
 												else {
-													display += '<div class="class-assess-content-outer-div">';
+													display += '<strong>' + JSONData.classAssessList[i].user.name + '</strong>';
 												}
-						    					
-						    					display += '<div class="profile-and-name">';
-						    					display += '<div size="24" class="profile-outer-div">';
-						    					display += '<span class="profile-outer-span1 profile-outer-span2">';
-						    					
-						    					// 나중에 프로필 사진으로 대체하기 
-						    					display += '<img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/>';
-						    					// 나중에 프로필 사진으로 대체하기 
-						    					
-						    					display += '</span>';
-						    					display += '</div>';
-						    					display += '<div class="name-outer-div">';
-						    					display += '<div class="name-inner-div1 name-inner-div2">';
-						    					display += e.classAssessList[i].user.nickName;
-						    					display += '&nbsp;&nbsp;';
-						    					display += '<span class="pull-right">';
-						    					display += '<i class="fas fa-star"></i>';
-						    					display += '&nbsp;&nbsp;';
-						    					display += e.classAssessList[i].assessStar;
-						    					display += '점';
-						    					display += '</span>';
-						    					display += '<div>';
-						    					display += e.classAssessList[i].regDate;
-						    					display += '</div>';
-						    					display += '</div>';
-						    					display += '</div>';
-						    					display += '</div>';
-						    					display += '<div class="class-assess-reply-outer-div">';
-						    					display += '<div class="class-assess-reply-content1 class-assess-reply-content2">';
-						    					display += e.classAssessList[i].assessContent;
-						    					display += '</div>';
-						    					display += '</div>';
-						    					display += '</div>';
-						    				}
-						    				
-						    				display += '<span class="class-assess-scroll"></span>';
-						    				
+												
+												display += '<small class="text-muted">' + JSONData.classAssessList[i].regDate + '</small>';
+												display += '</span>';
+												display += '<span class="lesson-reply-reset-button-span">';
+												display += '<span>';
+												display += '<small>';
+												display += '<span class="assess-star-span-right-tool-bar-assess-content pull-right">';
+												display += '<i class="fas fa-star"></i>&nbsp;&nbsp;' + JSONData.classAssessList[i].assessStar + '&nbsp;점';
+												//display += '<i class="fas fa-star"></i>5&nbsp;점';
+												display += '</span>';
+												display += '</small>';
+												display += '</span>';
+												display += '</span>';
+												display += '</h6>';
+												display += '<div class="here-is-change-update-div">';
+												display += '<p>' + JSONData.classAssessList[i].assessContent + '</p>';
+												display += '</div>';
+												display += '</div>';
+												display += '</li>';
+												display += '<hr/>';
+											}
+											display += '</ul>';
+											display += '<span class="scroll-page"></span>';
+						    				display += '</div>';
+											
 						    				$('.class-assess-scroll').after(display);
 						    				
-						    				$('.class-assess-count').text( e.resultPage.totalCount + ' 개' );
+						    				$('.class-assess-count').text( JSONData.resultPage.totalCount + ' 개' );
 						    				
-						    				var lastStarValue = '<i class="fas fa-star"></i>&nbsp;&nbsp;' + e.hobbyClass.totalGrade;
+						    				//var lastStarValue = '<i class="fas fa-star"></i>&nbsp;&nbsp;' + JSONData.hobbyClass.totalGrade;
 						    				
-						    				$('.assess-star-span-right-tool-bar').html(lastStarValue);
+						    				//$('.assess-star-span-right-tool-bar').html(lastStarValue);
 						    				
 						    				if ( maxPage == currentPage ) {
 												$('.btn-class-assess-more').hide();
@@ -823,10 +815,10 @@
 								toast.addEventListener('mouseleave', Swal.resumeTimer);
 							}
 						});
-						
+						 
 						Toast.fire({
 							icon : 'success', 
-							title : '한줄평 작성 완료'
+							title : '한줄평 완료'
 						})
 					
 						$('.lesson-content').hide();
@@ -896,12 +888,12 @@
     			
     			if ( textLength < 1 ) {
     				$('.text-length-alert').text('내용을 입력해주세요.');
-    				return;
+    				return false;
     			}
     			
     			if ( assessContent = '' ) {
     				$('.text-length-alert').text('공백은 입력할 수 없습니다.');
-    				return;
+    				return false;
     			}
     			/* 왜 안담기지..
     			console.log($('.hidden-assess-content'));
@@ -1114,8 +1106,120 @@
 			})
 			// 강의 상세보기 구간 ------------------------------------------------
 			
-		
+			// 클릭시 위로가기 ----------------------------------
+			$(".mini-button-to-top").on("click", function () {
+            	$('body,html').animate({
+    				scrollTop: 0
+    			}, 200);
+    			return false;
+            });
+			// 클릭시 위로가기 ----------------------------------
 		})
+		
+		function ul(index) {
+			var purchaseCheck = $('.hidden-purchase-check').val();	
+			
+			console.log('click!' + index)
+			
+			var underlines = document.querySelectorAll(".underline");
+		
+			for (var i = 0; i < underlines.length; i++) {
+				underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
+			}
+			
+			$('.lesson-content').hide();
+			
+			
+			// 클래스 소개 관련 
+			if ( index == 0 ) {
+				$('.class-intro-content').show();
+				var offset = $('.class-intro-content').offset();
+				$('html, body').animate({scrollTop : offset.top}, 400);
+
+			} 
+			else if ( index != 0 ) {
+				$('.class-intro-content').hide();
+			}
+			
+			// 클래스 준비물 관련 
+			if ( index == 1 ) {
+				$('.class-kit-content').show();
+				var offset = $('.class-kit-content').offset();
+				$('html, body').animate({scrollTop : offset.top}, 400);
+			} 
+			else if ( index != 1 ) {
+				$('.class-kit-content').hide();
+			}
+			
+			// 클래스 한줄평 관련
+			if ( index == 2 ) {
+				// 클래스 진행상태에 따른 클래스 한줄평 숨기고 보이고 그것 ----------------------
+				
+				// 클래스 진행상태에 따른 클래스 한줄평 숨기고 보이고 그것 ----------------------
+				var classState = $('.hidden-class-state').val();	
+				if ( classState == '6' ) {
+					$('.class-assess-content').show();
+					$('.end-class').show();
+					$('.non-end-class').hide();
+					var offset = $('.class-assess-content').offset();
+					$('html, body').animate({scrollTop : offset.top}, 400);
+				}
+				else if ( classState != '6' ) {
+					$('.class-assess-content').show();
+					$('.end-class').hide();
+					$('.non-end-class').show();
+					var offset = $('.non-end-class').offset();
+					$('html, body').animate({scrollTop : offset.top}, 400);
+				}
+			}
+			else if ( index != 2 ) {
+				$('.class-assess-content').hide();
+			}
+
+			if ( index == 3 ) {
+				$('.lesson-content').show();
+				
+				console.log( $('.btn-owl-carousel').length );
+				if ( $('.btn-owl-carousel').length == 0 ) {
+					console.log("부엉이 이벤트 만들기");
+					
+					// 부엉이 이벤트 
+					$('.owl-carousel').owlCarousel({
+					    loop:true,
+					    nav:true,
+					    navText:["<div class='nav-btn prev-slide'><button type='button' class='btn btn-basic'><i class='fas fa-arrow-left'></i></button></div>","<div class='nav-btn next-slide'><button type='button' class='btn btn-basic'><i class='fas fa-arrow-right'></i></button></div>"],
+					    responsive:{
+					        0:{
+					            items:1
+					        },
+					        600:{
+					            items:1
+					        },
+					        1000:{
+					            items:1
+					        }
+					    }
+					})
+					// 부엉이 이벤트
+					
+					var offset = $('.lesson-content').offset();
+					$('html, body').animate({scrollTop : offset.top}, 400);
+					
+				}
+				else if ( index != 3 ) {
+					$('.lesson-content').hide();
+					console.log("부엉이는 이미 있다!");
+				}
+			}
+			
+			if ( index == 4 ) {
+				var userId = $('.user-hidden-class-intro-value').val();
+				
+				
+				self.location = "/community/listCommunity?hobbyClassNo=" + $('.hidden-hobby-class-number').val();
+
+			}
+		}
 	</script>
 	
 	<style>
@@ -1247,11 +1351,14 @@
 		    top: 0px;
 		    max-height: 100vh;
 		    padding: 24px;
+		    /*
 		    border-radius: 3px;
-		    border-width: 1px;
+		    border-width: 0px;
 		    border-style: solid;
-		    border-color: rgb(255, 255, 255);
+		    border-color: rgb(255, 255, 255) !important;
 		    border-image: initial;
+		    */
+		    border : none !important;
 		    overflow: auto;
 		}
 		
@@ -2301,6 +2408,131 @@
 			top : calc(50% - (58px / 2));
 			right : calc(50% - (58px / 2));
 		}
+		
+		
+		
+		
+		.nav-menu-black {
+		  position: relative;
+		  white-space: nowrap;
+		  background: white;
+		  padding: var(--underline-height) 0;
+		  margin: 2em 0;
+		  box-shadow: 0 1em 2em rgba(0, 0, 0, 0.05);
+		}
+		
+		.underline {
+		  display: block;
+		  position: absolute;
+		  z-index: 0;
+		  bottom: 0;
+		  left: 0;
+		  height: var(--underline-height);
+		  width: 20%;
+		  background: black;
+		  pointer-events: none;
+		  mix-blend-mode: multiply;
+		  -webkit-transition: -webkit-transform var(--transition-duration) ease-in-out;
+		  transition: -webkit-transform var(--transition-duration) ease-in-out;
+		  transition: transform var(--transition-duration) ease-in-out;
+		  transition: transform var(--transition-duration) ease-in-out, -webkit-transform var(--transition-duration) ease-in-out;
+		}
+		.underline:nth-child(1) {
+		  background: yellow;
+		  -webkit-transition: calc(var(--transition-duration) * .8);
+		  transition: calc(var(--transition-duration) * .8);
+		}
+		.underline:nth-child(2) {
+		  background: cyan;
+		  -webkit-transition: calc(var(--transition-duration) * 1.2);
+		  transition: calc(var(--transition-duration) * 1.2);
+		}
+		.underline:nth-child(3) {
+		  background: magenta;
+		}
+		
+		.nav-menu-black a {
+		  display: inline-block;
+		  z-index: 10;
+		  width: 20%;
+		  padding: 1em 0;
+		  text-align: center;
+		  cursor: pointer;
+		}
+		
+		.nav-menu-black .underline {
+		  background: #222;
+		  border-radius: .25em;
+		  height: calc(var(--underline-height) / 2);
+		  mix-blend-mode: initial;
+		}
+		
+		:root {
+		  --underline-height: .5em;
+		}
+		
+		.mini-button-to-top:hover {
+		    cursor: pointer;
+		}
+		
+		@media (max-width: 576px) {
+		    .mini-button-to-top {
+		        position: fixed;
+		        bottom: 3rem;
+		        right: 1rem;
+		        font-size: 1rem;
+		        width: 2rem;
+		        height: 2rem;
+		        text-align: center;
+		        line-height: 2rem;
+		        border: 0;
+		        border-radius: 2rem;
+		        background-color: rgba(255, 255, 255, 0.5);
+		        z-index:9999;
+		    }
+		}
+				
+		.mini-button-to-top {
+		    position: fixed;
+		    bottom: 3rem;
+		    right: 3rem;
+		    font-size: 1.5rem;
+		    width: 3rem;
+		    height: 3rem;
+		    text-align: center;
+		    line-height: 3rem;
+		    border: 0;
+		    border-radius: 2rem;
+		    background-color: rgba(255, 255, 255, 0.5);
+		    z-index:9999;
+		}
+		
+		/*
+		.class-intro-to-the-top-mini {
+		    position: fixed;
+		    bottom: 6rem;
+		    right: 2rem;
+		    font-size: 1.5rem;
+		    width: 3rem;
+		    height: 3rem;
+		    text-align: center;
+		    line-height: 3rem;
+		    border: 0;
+		    border-radius: 2rem;
+		    background-color: rgb(36, 36, 36);
+		    z-index: 100;
+		}
+		*/
+
+		.class-intro-content-in-summer-note img {
+			width : 100% !important;
+			height : auto !important;
+		}
+		
+		.class-intro-content-in-summer-note {
+			/* float : center; */
+			margin : 0 auto;
+		}
 	</style>
 
 </head>
@@ -2327,8 +2559,8 @@
 	  		<span class="sr-only">Loading...</span>
 		</div>
 	</div>
-	
-	<div class="container">
+
+	<div class="container container-small-nav-menu">
 		<div class="row">
 			<div class="col-lg-12">
 				<nav class="navbar navbar-expand-lg navbar-light bg-white class-intro-nav-bar">
@@ -2384,6 +2616,25 @@
 			</div>
 		</div>
 	</div>
+
+		<!-- 테스트중 -->
+		<div class="container-fluid container-big-nav-menu">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<nav class="black nav-menu-black">
+					  <div class="underline"></div>
+					  <div class="underline"></div>
+					  <div class="underline"></div>
+					  <a onClick="ul(0)">클래스 소개</a>
+					  <a onClick="ul(1)">클래스 준비물</a>
+					  <a onClick="ul(2)">클래스 한줄평</a>
+					  <a onClick="ul(3)">클래스 강의</a>
+					  <a onClick="ul(4)">클래스 커뮤니티</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- 테스트중 -->
 	
 	<br/><br/>
 	
@@ -2517,12 +2768,12 @@
 														<dt class="this-is-dt mr-4">
 															${hobbyClass.event.eventTitle }
 														</dt>
-														<dt class="this-is-dt mr-4">
-															${hobbyClass.event.eventStartDate } 부터 ~ ${hobbyClass.event.eventEndDate } 까지
-														</dt>
-														<dt class="this-is-dt mr-4">
-															${hobbyClass.event.eventDiscount } % 할인
-														</dt>
+															<dt class="this-is-dt hide-dt-tag mr-4">
+																${hobbyClass.event.eventStartDate } 부터 ~ ${hobbyClass.event.eventEndDate } 까지
+															</dt>
+															<dt class="this-is-dt hide-dt-tag mr-4">
+																${hobbyClass.event.eventDiscount } % 할인
+															</dt>
 														<dd class="this-is-dd">
 															<fmt:formatNumber value="${hobbyClass.event.resultPrice }" pattern="#,###" />&nbsp;원
 														</dd>
@@ -2544,6 +2795,7 @@
 														</dl>
 													</c:forEach>
 													 -->
+													 </dl>
 												</div>
 											</div>
 										</div>
@@ -2683,40 +2935,48 @@
 						</div>
 						<!-- 생생한 후기 글씨 시작 -->
 						
-						<c:forEach var="assessContent" items="${listAssessContent }">
-							<!-- 나중에 그거 forEach문 돌릴 구간 -->
-							<c:if test="${sessionScope.user.userId == assessContent.user.userId }">
-								<div class="class-assess-content-outer-div class-assess-content-outer-div-logon-mine">
-							</c:if>
-							<c:if test="${sessionScope.user.userId != assessContent.user.userId }">
-								<div class="class-assess-content-outer-div">
-							</c:if>
-								<div class="profile-and-name">
-									<div size="24" class="profile-outer-div">
-										<span class="profile-outer-span1 profile-outer-span2">
-											<!-- 나중에 프로필 사진으로 대체하기 -->
-											<!-- <img src="/images/hobbyclass/default-profile.jpg" class="class-assess-img-tag"/> -->
-												<img src="/resources/image/logo/${!empty reply.user.profileImage ? reply.user.profileImage : 'unnamed.jpg'}" class="class-assess-img-tag" onError="this.src='/resources/image/logo/unnamed.jpg'">
-										</span>
-									</div>
-									
-									<div class="name-outer-div">
-										<div class="name-inner-div1 name-inner-div2">
-											${assessContent.user.nickName }&nbsp;&nbsp; <span class="pull-right"><i class="fas fa-star"></i>&nbsp;&nbsp;${assessContent.assessStar }점</span>
-											<div>${assessContent.regDate }</div>
-										</div>		
-									</div>
-								</div>
+						<div class="why-div-wrapper-need">
+							<ul class="list-unstyled">
+								<c:forEach var="classAssess" items="${listAssessContent }">
+									<li class="media my-4">
+										<c:if test="${!empty classAssess.user.profileImage }">
+											<img src="/resources/image/woo/${classAssess.user.profileImage}" class="mr-3 lesson-reply-profile-image" onError="this.src='/resources/image/logo/unnamed.jpg'">
+										</c:if>
+										<c:if test="${empty classAssess.user.profileImage }">
+											<img src="/resources/image/logo/unnamed.jpg" class="mr-3 lesson-reply-profile-image" onError="this.src='/resources/image/logo/unnamed.jpg'">
+										</c:if>
+										
+										<div class="media-body">
+											<h6 class="mt-0 mb-1 d-flex justify-content-between">
+												<span>
+													<strong>${ !empty classAssess.user.nickName ? classAssess.user.nickName : classAssess.user.name }</strong>
+													<small class="text-muted">${classAssess.regDate }</small>
+												</span>
+												
+												<span class="lesson-reply-reset-button-span">
+													<span>
+														<small>
+															<span class="assess-star-span-right-tool-bar pull-right">
+																<i class="fas fa-star"></i>&nbsp;&nbsp;${classAssess.assessStar }&nbsp;점
+															</span>
+														</small>
+													</span>
+												</span>
+											</h6>
+											<div class="here-is-change-update-div">
+												<p>${classAssess.assessContent }</p>
+											</div>
+										</div>
+									</li>
+									<hr/>
+								</c:forEach>
 								
-								<div class="class-assess-reply-outer-div">
-									<div class="class-assess-reply-content1 class-assess-reply-content2">
-										${assessContent.assessContent }
-									</div>
-								</div>
-								<hr/>
-							</div>
-							<!-- 나중에 그거 forEach문 돌릴 구간 -->
-						</c:forEach>
+								<!-- 검색결과 출력될 span -->
+							</ul>
+							
+							<span class="scroll-page"></span>
+							
+						</div>
 						
 						<!-- class-assess-scroll을 붙여넣을 그 공간 깃대와도 같다 -->
 						<span class="class-assess-scroll-flag"></span>
@@ -2922,6 +3182,18 @@
 							이미 구매한 클래스입니다.
 						</span>
 					</button>
+					
+					<button type="button" class="purchase-button-add-assess-content purchase-button1 purchase-button2 can-add-button">
+						<span class="purchase-button-text">
+							한줄평 작성하기
+						</span>
+					</button>
+							
+					<button type="button" class="purchase-button-add-assess-content purchase-button1 purchase-button2 cannot-add-button" disabled>
+						<span class="purchase-button-text">
+							한줄평 작성하기
+						</span>
+					</button>
 				</div>
 				
 				
@@ -2929,6 +3201,12 @@
 		</div>
 	</div>
 	<!-- 화면 작아지면 출력할 푸터바 끝 -->
+	
+	<!-- 누르면 위로 올라가는 버튼 -->
+	<span class="mini-button-to-top shadow">
+    	<i class="fas fa-arrow-up arrow-i-tag"></i>
+    </span>
+	<!-- 누르면 위로 올라가는 버튼 -->
 	
 	<!-- 클래스 한줄평 작성 모달창 시작
 	

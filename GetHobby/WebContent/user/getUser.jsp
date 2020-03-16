@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>GetHobby</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>      
 <!-- Bootstrap CSS -->
@@ -50,6 +51,11 @@
 	<script src="/resources/javascript/min/channelTalk.js"></script>
 	
 	<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
+	<!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
 	<!-- header CSS -->
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	<!-- header js -->
@@ -60,7 +66,11 @@ var hashtaglist = [];
 var inputCheck = 0;
 	//////////////////////주소찾기 //////////////////////////////
 	function postcode() {
+				var width = 500; //팝업의 너비
+				var height = 500; //팝업의 높이
 		        new daum.Postcode({
+		        	width: width,
+		        	height: height,
 		            oncomplete: function(data) {
 		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -99,7 +109,10 @@ var inputCheck = 0;
 		                // 커서를 상세주소 필드로 이동한다.
 		                document.getElementById("detailAddress").focus();
 		            }
-		        }).open();
+		        }).open({
+		        	left: (window.screen.width / 2) - (width / 2),
+		            top: (window.screen.height / 2) - (height / 2)
+		        });
 		    }
 	
 	//////해쉬태그 5개 선택///////////
@@ -362,12 +375,8 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
     box-sizing: border-box;
 }
 .bXUojH {
-    width: 100%;
     padding-right: 4px;
     padding-left: 4px;
-}
-.bXUojH {
-    width: 35%;
 }
 h1 {
     display: block;
@@ -857,6 +866,29 @@ path[Attributes Style] {
 .logKjs input[type="file"] {
     display: none;
 }
+@media (max-width: 991px){
+	.bXUojH {
+		width: 100%;
+	}
+}
+@media (min-width: 992px){
+	.bXUojH {
+		width: 35%;
+	}
+}
+.admt {
+	margin-top: 8px;
+}
+.inUTcF {
+	margin-left: 12px !important;
+    margin-right: 12px !important;
+}
+body{
+	width:100%;
+}
+#root {
+	width: 100%;
+}
 </style>
 </head>
 <body>
@@ -979,7 +1011,7 @@ path[Attributes Style] {
 									</div>
 									<div>		
 									<jsp:include page="/user/hashtagModal.jsp" />								
-										<div  class="cvzQqA" style="width: 530px;height: 30px;margin-right: 0px;">					
+										<div  class="cvzQqA" style="width: 100%;height: 30px;margin-right: 0px;">					
 										<span id = "hashtagselect" class="aaa flMyeK eYKibL kVAMqa"  style="cursor : pointer;width:50%;float:right;height: 30px;float: left;heightmargin-top:0px;">관심분야 선택</span>
 										</div>
 										<input type="hidden" id="hashtag" name="hashtag" />
@@ -989,13 +1021,13 @@ path[Attributes Style] {
 									   	 <label for="ssn" class="cvzQqA">주소</label>
 									   	 								   
 										    <div >
-										      <input type="text" class="aDress" id="postCode" name="postCode" style="float:left" placeholder="우편번호" value="${user.postCode }" autocomplete="off">
-											    <button type="button" class="flMyeK eYKibL kVAMqa" onclick="postcode()" style="width:50%;float:right;margin-top:0px;" color="orange" >
+										      <input type="text" class="aDress admt" id="postCode" name="postCode" style="float:left" placeholder="우편번호" value="${user.postCode }" autocomplete="off">
+											    <button type="button" class="flMyeK eYKibL kVAMqa" onclick="postcode()" style="width:50%;float:right;margin-top:8px;" color="orange" >
 											    <span class="">우편번호 찾기</span>
 											    </button>
 										    										      	      
-										      <input type="text" class="cNSGNe" id="address" name="address" placeholder="주소" value="${user.address}" autocomplete="off"><br>
-										      <input type="text" class="cNSGNe" id="detailAddress" name="detailAddress" placeholder="상세주소"  value="${user.detailAddress}" autocomplete="off">
+										      <input type="text" class="cNSGNe admt" id="address" name="address" placeholder="주소" value="${user.address}" autocomplete="off"><br>
+										      <input type="text" class="cNSGNe admt" id="detailAddress" name="detailAddress" placeholder="상세주소"  value="${user.detailAddress}" autocomplete="off">
 										     </div>										      
 										    
 									     		    

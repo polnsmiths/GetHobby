@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>GetHobby</title>
 <%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,12 +36,15 @@
     <script src="/resources/javascript/commonHeader.js"></script>
     
   <style>
+  .content-wrapper {
+  	padding: 0px 24px 24px 24px;
+  }
   	@media (max-width: 660px) {
   	
   		.component-option-div {
 	  		width: 100%;
 	  		height: auto;
-	  		padding: 0px 24px 24px 24px;
+	  		padding: 0px;
 	  		background-color: rgb(255, 255, 255);
 	  		margin: auto;
   		}
@@ -61,13 +65,13 @@
 		.component-option-div {
 	  		width: 640px;
 	  		height: 708px;
-	  		padding: 0px 24px 24px 24px;
+	  		padding: 0px;
 	  		background-color: rgb(255, 255, 255);
 	  		margin: auto;		
   		}
   		.gso-hea-nav {
   			position: relative;
-  			width: 592px;
+  			width: 100%;
   			margin-bottom: 24px;
   		}
   		footer {
@@ -1711,6 +1715,19 @@ path[Attributes Style] {
 							                </div>
 						                </a>
 				
+				
+										<div color="#1b1c1d" class="header-mynemo-div">
+					                	<div class="header-mynemo-span" style="text-decoration:none;">
+						                	크리에이터 센터
+						                </div>
+					                </div>
+					                <div class="header-mynemo-hr"></div>
+					                <div color="#1b1c1d" class="header-mynemo-div">
+					                	<div class="header-mynemo-span" style="text-decoration:none;">
+						                	구매 내역
+						                </div>
+					                </div>
+					                <div class="header-mynemo-hr"></div>
 						                <div><hr class="header-mynemo-logout-hr">
 							                <div color="#1b1c1d" class="header-mynemo-logout-div">
 								                <a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">
@@ -1731,131 +1748,132 @@ path[Attributes Style] {
 	           </nav>
 		
 			<!-------------------- Header End -------------------->
-
-				<h1 class="select-page-title">
-					구성품 선택하기
-				</h1>
-				
-				<!-- 무료배송 정보 -->
-				<div class="free-delivery-info-div">
-					<div class="all-free-delivery-title">
-						<svg width="18" height="18" viewBox="0 0 24 24">
-							<path fill="#00b79d" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
-							</path>
-						</svg>
-						모두 무료배송이에요!
-					</div>
-					<div class="all-free-delivery-info">
-						수강에 필요한 모든 준비물이 포함된 키트를 무료배송으로 간단하게 받아보세요.
-					</div>
-				</div>
-				
-				<div class="set-select-div box-shadow">
-					<div class="select-div-up-box">
-						<div class="select-div-up-content">
-							세트 할인
-						</div>
-					</div>
-					<h4 class="set-select-title">
-						<div class="kitNameClass">${hobbyClass.kitName}</div>
-						<svg width="24" height="24" viewBox="0 0 24 24">
-							<path fill="#cdd1d4" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z">
-							</path>
-						</svg>
-					</h4>
+				<div class="content-wrapper">
+					<h1 class="select-page-title">
+						구성품 선택하기
+					</h1>
 					
-					<div class="mini-lesson-info-div">
-						<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
-							<path fill="#858a8d" fill-rule="evenodd" d="M5.846 6c-.917 0-1.142.043-1.368.164a.727.727 0 00-.314.314c-.12.226-.164.45-.164 1.368v8.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h12.308c.917 0 1.142-.043 1.368-.164a.727.727 0 00.314-.314c.12-.226.164-.45.164-1.368V7.846c0-.917-.043-1.142-.164-1.368a.727.727 0 00-.314-.314c-.226-.12-.45-.164-1.368-.164H5.846zm0-2h12.308c1.337 0 1.822.14 2.311.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v8.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 01-1.135 1.134c-.489.262-.974.401-2.31.401H5.844c-1.336 0-1.821-.14-2.31-.4A2.726 2.726 0 012.4 18.464c-.262-.489-.401-.974-.401-2.31v-8.31c0-1.336.14-1.821.4-2.31A2.726 2.726 0 013.536 4.4C4.024 4.139 4.509 4 5.845 4zM11 13.765l2.798-1.763L11 10.238v3.527zM9 9.75c0-1.352 1.457-2.219 2.615-1.489l3.571 2.25c1.085.684 1.085 2.295 0 2.979l-3.571 2.25c-1.158.73-2.615-.137-2.615-1.49v-4.5z">
-							</path>
-						</svg>
-						15주 수강권
-						<div class="mini-price-info-div">
-							<span class="mini-sale-percent-span hobbyClassSalePercent"></span>
-							<span class="mini-sale-after hobbyClassPrice"></span>
+					<!-- 무료배송 정보 -->
+					<div class="free-delivery-info-div">
+						<div class="all-free-delivery-title">
+							<svg width="18" height="18" viewBox="0 0 24 24">
+								<path fill="#00b79d" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
+								</path>
+							</svg>
+							모두 무료배송이에요!
+						</div>
+						<div class="all-free-delivery-info">
+							수강에 필요한 모든 준비물이 포함된 키트를 무료배송으로 간단하게 받아보세요.
 						</div>
 					</div>
 					
-					<div class="mini-lesson-info-div">
-						<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
-							<path fill="#858a8d" fill-rule="evenodd" d="M11 10H4v2h7v-2zm2 0v2h7v-2h-7zm-2 4H5v6h6v-6zm2 0v6h6v-6h-6zM5.535 8A4 4 0 0112 3.354 4 4 0 0118.465 8H20c1.219 0 2 .781 2 2v2c0 .843-.374 1.477-1.008 1.788.005.069.008.14.008.212v6c0 1.219-.781 2-2 2H5c-1.219 0-2-.781-2-2v-6c0-.072.003-.143.008-.212C2.374 13.478 2 12.843 2 12v-2c0-1.219.781-2 2-2h1.535zM15 8a2 2 0 10-2-2v2h2zm-4-2a2 2 0 10-2 2h2V6z">
-							</path>
-						</svg>
-						${hobbyClass.kitName}
-						<div class="mini-price-info-div">
-							<span class="mini-price-span kitPrice"></span>
+					<div class="set-select-div box-shadow">
+						<div class="select-div-up-box">
+							<div class="select-div-up-content">
+								세트 할인
+							</div>
 						</div>
-					</div>
+						<h4 class="set-select-title">
+							<div class="kitNameClass">${hobbyClass.kitName}</div>
+							<svg width="24" height="24" viewBox="0 0 24 24">
+								<path fill="#cdd1d4" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z">
+								</path>
+							</svg>
+						</h4>
 						
-					<div class="mini-kit-info-div">
-						<span class="show-kit-span">
-						구성품 보기						
-						</span>
-					</div>
-					<div class="pretty-blank-box"></div>
-					<div class="select-difficult-price-div">
-						<div class="big-sale-percent-div">
-							<strong class="iamstrong setTotalSalePercent"></strong>
-						</div>
-						<div class="mini-difficult-price-div">
-							<div>
-								<span class="mini-sale-before setTotalPrice"></span>
-								<span class="mini-sale-after setSalePrice"></span>
-							</div>
-							<div>
-								<!-- <span class="ifsplitmoney"></span> -->
-								<strong class="iamstrongfinal setSalePrice"></strong>
+						<div class="mini-lesson-info-div">
+							<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
+								<path fill="#858a8d" fill-rule="evenodd" d="M5.846 6c-.917 0-1.142.043-1.368.164a.727.727 0 00-.314.314c-.12.226-.164.45-.164 1.368v8.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h12.308c.917 0 1.142-.043 1.368-.164a.727.727 0 00.314-.314c.12-.226.164-.45.164-1.368V7.846c0-.917-.043-1.142-.164-1.368a.727.727 0 00-.314-.314c-.226-.12-.45-.164-1.368-.164H5.846zm0-2h12.308c1.337 0 1.822.14 2.311.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v8.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 01-1.135 1.134c-.489.262-.974.401-2.31.401H5.844c-1.336 0-1.821-.14-2.31-.4A2.726 2.726 0 012.4 18.464c-.262-.489-.401-.974-.401-2.31v-8.31c0-1.336.14-1.821.4-2.31A2.726 2.726 0 013.536 4.4C4.024 4.139 4.509 4 5.845 4zM11 13.765l2.798-1.763L11 10.238v3.527zM9 9.75c0-1.352 1.457-2.219 2.615-1.489l3.571 2.25c1.085.684 1.085 2.295 0 2.979l-3.571 2.25c-1.158.73-2.615-.137-2.615-1.49v-4.5z">
+								</path>
+							</svg>
+							15주 수강권
+							<div class="mini-price-info-div">
+								<span class="mini-sale-percent-span hobbyClassSalePercent"></span>
+								<span class="mini-sale-after hobbyClassPrice"></span>
 							</div>
 						</div>
-					
-					</div>
-					
-				</div>
-				
-				<div class="single-select-div box-shadow">
-					<div class="select-div-up-box thisisgood">
-						<div class="select-div-up-content">
-							추천
-						</div>
-					</div>
-					<h4 class="set-select-title">
-						수강권 Only
-						<svg width="24" height="24" viewBox="0 0 24 24">
-							<path fill="#cdd1d4" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z">
-							</path>
-						</svg>
-					</h4>
-					
-					<div class="mini-lesson-info-div">
-						<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
-							<path fill="#858a8d" fill-rule="evenodd" d="M5.846 6c-.917 0-1.142.043-1.368.164a.727.727 0 00-.314.314c-.12.226-.164.45-.164 1.368v8.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h12.308c.917 0 1.142-.043 1.368-.164a.727.727 0 00.314-.314c.12-.226.164-.45.164-1.368V7.846c0-.917-.043-1.142-.164-1.368a.727.727 0 00-.314-.314c-.226-.12-.45-.164-1.368-.164H5.846zm0-2h12.308c1.337 0 1.822.14 2.311.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v8.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 01-1.135 1.134c-.489.262-.974.401-2.31.401H5.844c-1.336 0-1.821-.14-2.31-.4A2.726 2.726 0 012.4 18.464c-.262-.489-.401-.974-.401-2.31v-8.31c0-1.336.14-1.821.4-2.31A2.726 2.726 0 013.536 4.4C4.024 4.139 4.509 4 5.845 4zM11 13.765l2.798-1.763L11 10.238v3.527zM9 9.75c0-1.352 1.457-2.219 2.615-1.489l3.571 2.25c1.085.684 1.085 2.295 0 2.979l-3.571 2.25c-1.158.73-2.615-.137-2.615-1.49v-4.5z">
-							</path>
-						</svg>
-						15주 수강권
-						<div class="mini-price-info-div">
-							<span class="mini-sale-percent-span hobbyClassSalePercent"></span>
-							<span class="mini-sale-after hobbyClassPrice"></span>
-						</div>
-					</div>
 						
-					<div class="pretty-blank-box"></div>
-					<div class="select-difficult-price-div">
-						<div class="big-sale-percent-div">
-							<strong class="iamstrong hobbyClassSalePercent"></strong>
-						</div>
-						<div class="mini-difficult-price-div">
-							<div>
-								<span class="mini-sale-before singleTotalPrice"></span>
-								<span class="mini-sale-after singleSalePrice"></span>
-							</div>
-							<div>
-								<!-- <span class="ifsplitmoney"></span> -->
-								<strong class="iamstrongfinal singleSalePrice"></strong>
+						<div class="mini-lesson-info-div">
+							<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
+								<path fill="#858a8d" fill-rule="evenodd" d="M11 10H4v2h7v-2zm2 0v2h7v-2h-7zm-2 4H5v6h6v-6zm2 0v6h6v-6h-6zM5.535 8A4 4 0 0112 3.354 4 4 0 0118.465 8H20c1.219 0 2 .781 2 2v2c0 .843-.374 1.477-1.008 1.788.005.069.008.14.008.212v6c0 1.219-.781 2-2 2H5c-1.219 0-2-.781-2-2v-6c0-.072.003-.143.008-.212C2.374 13.478 2 12.843 2 12v-2c0-1.219.781-2 2-2h1.535zM15 8a2 2 0 10-2-2v2h2zm-4-2a2 2 0 10-2 2h2V6z">
+								</path>
+							</svg>
+							${hobbyClass.kitName}
+							<div class="mini-price-info-div">
+								<span class="mini-price-span kitPrice"></span>
 							</div>
 						</div>
-					
+							
+						<div class="mini-kit-info-div">
+							<span class="show-kit-span">
+							구성품 보기						
+							</span>
+						</div>
+						<div class="pretty-blank-box"></div>
+						<div class="select-difficult-price-div">
+							<div class="big-sale-percent-div">
+								<strong class="iamstrong setTotalSalePercent"></strong>
+							</div>
+							<div class="mini-difficult-price-div">
+								<div>
+									<span class="mini-sale-before setTotalPrice"></span>
+									<span class="mini-sale-after setSalePrice"></span>
+								</div>
+								<div>
+									<!-- <span class="ifsplitmoney"></span> -->
+									<strong class="iamstrongfinal setSalePrice"></strong>
+								</div>
+							</div>
+						
+						</div>
+						
 					</div>
 					
+					<div class="single-select-div box-shadow">
+						<div class="select-div-up-box thisisgood">
+							<div class="select-div-up-content">
+								추천
+							</div>
+						</div>
+						<h4 class="set-select-title">
+							수강권 Only
+							<svg width="24" height="24" viewBox="0 0 24 24">
+								<path fill="#cdd1d4" fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8z">
+								</path>
+							</svg>
+						</h4>
+						
+						<div class="mini-lesson-info-div">
+							<svg width="16" height="16" class="mini-cute-svg" viewBox="0 0 24 24">
+								<path fill="#858a8d" fill-rule="evenodd" d="M5.846 6c-.917 0-1.142.043-1.368.164a.727.727 0 00-.314.314c-.12.226-.164.45-.164 1.368v8.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h12.308c.917 0 1.142-.043 1.368-.164a.727.727 0 00.314-.314c.12-.226.164-.45.164-1.368V7.846c0-.917-.043-1.142-.164-1.368a.727.727 0 00-.314-.314c-.226-.12-.45-.164-1.368-.164H5.846zm0-2h12.308c1.337 0 1.822.14 2.311.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v8.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 01-1.135 1.134c-.489.262-.974.401-2.31.401H5.844c-1.336 0-1.821-.14-2.31-.4A2.726 2.726 0 012.4 18.464c-.262-.489-.401-.974-.401-2.31v-8.31c0-1.336.14-1.821.4-2.31A2.726 2.726 0 013.536 4.4C4.024 4.139 4.509 4 5.845 4zM11 13.765l2.798-1.763L11 10.238v3.527zM9 9.75c0-1.352 1.457-2.219 2.615-1.489l3.571 2.25c1.085.684 1.085 2.295 0 2.979l-3.571 2.25c-1.158.73-2.615-.137-2.615-1.49v-4.5z">
+								</path>
+							</svg>
+							15주 수강권
+							<div class="mini-price-info-div">
+								<span class="mini-sale-percent-span hobbyClassSalePercent"></span>
+								<span class="mini-sale-after hobbyClassPrice"></span>
+							</div>
+						</div>
+							
+						<div class="pretty-blank-box"></div>
+						<div class="select-difficult-price-div">
+							<div class="big-sale-percent-div">
+								<strong class="iamstrong hobbyClassSalePercent"></strong>
+							</div>
+							<div class="mini-difficult-price-div">
+								<div>
+									<span class="mini-sale-before singleTotalPrice"></span>
+									<span class="mini-sale-after singleSalePrice"></span>
+								</div>
+								<div>
+									<!-- <span class="ifsplitmoney"></span> -->
+									<strong class="iamstrongfinal singleSalePrice"></strong>
+								</div>
+							</div>
+						
+						</div>
+						
+					</div>
 				</div>
 				
 				<!-- footer -->
@@ -1997,7 +2015,15 @@ path[Attributes Style] {
 			
 		$(function(){
 			
-			
+			// 크리에이터 센터 이동
+			$(document).on("click", ".header-mynemo-span:contains('크리에이터 센터')", function(){
+        		self.location = "/hobbyclass/getMyHobbyClassList";
+        	});
+        	
+        	// 구매 내역 이동
+        	$(document).on("click", ".header-mynemo-span:contains('구매 내역')", function(){
+        		self.location = "/purchase/getPaymentHistoryList";
+        	});
 			
 			$(document).on("click", ".show-kit-span", function(){
 				$("#kitViewModalButton").click();
@@ -2010,6 +2036,8 @@ path[Attributes Style] {
 				$(".paymethod-card").css("box-shadow", "");
 				$(".paymethod-card").css("background", "");			
 			});
+			
+			
 			
 			setTimeout(function() { $(".paymethod-card").focus() }, 500);
 			////////////////////////////// 가격정보 //////////////////////////////
@@ -2191,20 +2219,17 @@ path[Attributes Style] {
 		    }
 		    
 		    // IamPort API
-		    IMP.init('API Key'); // API Key
+		    IMP.init('imp74448656'); // API Key
 		    function iamport() {
 		    	
 		    	
 		    	 var iamportAmount;
-				    var payMethod;
-				    if( $(".paymethod-card-on").css("display") == 'block' ){
-				    	payMethod = 'card';
-				    }else if( $(".paymethod-phone-on").css("display") == 'block' ){
+				    var payMethod = 'card';
+				    if( $(".paymethod-phone-on").css("display") == 'block' ){
 				    	payMethod = 'phone';
 				    }
-				    
+				   
 				    var name = '15주 수강권';
-				    alert( componentOption );
 				    if( componentOption == '1' ){
 				    	name = $(".kitNameClass").text().trim();
 				    }
@@ -2215,7 +2240,7 @@ path[Attributes Style] {
 				    	iamportAmount = iamportSingleTotalPrice;
 				    }
 				    var buyerEmail = '${sessionScope.user.userId}';
-					
+				
 		    	IMP.request_pay({
 				    pg : 'inicis',
 				    pay_method : payMethod,
@@ -2224,6 +2249,18 @@ path[Attributes Style] {
 				    amount :  10,
 				    buyer_email : buyerEmail,
 				    buyer_tel : buyerTel,
+				    m_redirect_url : "http://192.168.0.144:8080/purchase/mobileComplete?hobbyClassNo="+$("input[name='hobbyClassNo']").val()
+				    		
+				    		+"&receiverName="+$("input[name='receiverName']").val()
+				    		+"&receiverPhone="+$("input[name='receiverPhone']").val()
+				    		+"&dlvyAddr="+$("input[name='dlvyAddr']").val()
+				    		+"&dlvyDetailAddr="+$("input[name='dlvyDetailAddr']").val()
+				    		
+				    		+"&dlvyPostcode="+$("input[name='dlvyPostcode']").val()
+				    		+"&dlvyRequest="+$("input[name='dlvyRequest']").val()
+				    		+"&payMethod="+payMethod
+				    		+"&purchasePrice="+iamportAmount
+				    		+"&componentOption="+componentOption
 				}, function(rsp) {
 				    if ( rsp.success ) {
 				    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
@@ -2252,17 +2289,18 @@ path[Attributes Style] {
 				    	}).done(function(everythings_fine) {
 				    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 				    		if ( everythings_fine ) {
+				    			
 				    			var msg = '결제가 완료되었습니다.';
 				    			msg += '\n고유ID : ' + rsp.imp_uid;
 				    			msg += '\결제 금액 : ' + rsp.paid_amount;
 				    			msg += '카드 승인번호 : ' + rsp.apply_num;
 				
 				    			alert(msg);
+				    			
 				    			self.location = "/searchHobbyClass/getSearchHobbyClassIntro?hobbyClassNo="+$("input[name='hobbyClassNo']").val();
 				    		} else {
 				    			//[3] 아직 제대로 결제가 되지 않았습니다.
 				    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-				    			alert("?");
 				    		}
 				    	});
 				    } else {

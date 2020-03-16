@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gethobby.common.Page;
 import com.gethobby.common.Search;
+import com.gethobby.service.community.CommunityDAO;
 import com.gethobby.service.community.CommunityService;
 import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Reply;
 import com.gethobby.service.domain.User;
+import com.gethobby.service.searchhobbyclass.SearchHobbyClassService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
 @Controller
@@ -35,6 +37,9 @@ public class CommunityController {
 	@Autowired
 	@Qualifier("communityServiceImpl")
 	private CommunityService communityService;
+	@Autowired
+	@Qualifier("searchHobbyClassServiceImpl")
+	private SearchHobbyClassService searchHobbyClassService;
 	
 	public CommunityController() {
 		// TODO Auto-generated constructor stub
@@ -72,7 +77,6 @@ public class CommunityController {
 		//int hobbyClassNo = 10000;
 		//hobbyClass.setHobbyClassNo(hobbyClassNo);
 		//////////////////////////////////////
-		
 		
 		Map<String, Object> serviceMap = new HashMap<String, Object>();
 		serviceMap.put("search", search);
@@ -142,13 +146,35 @@ public class CommunityController {
 		//hobbyClass.setHobbyClassNo(hobbyClassNo);
 		//////////////////////////////////////
 		
-		
 		Map<String, Object> serviceMap = new HashMap<String, Object>();
 		serviceMap.put("search", search);
 		serviceMap.put("hobbyClassNo", hobbyClassNo);
 		
 		//해당 클래스번호와 일치하는 글, 댓글 리스트 가져오는 service
 		Map<String, Object> map = communityService.getCommunityList(serviceMap);
+		String creatorName = (String)map.get("creatorName");
+		System.out.println("\n\n\n\ncreatorName\n"+creatorName);
+		
+		//구매여부 판별
+		int purchaseCheck = 0;
+		String userId= null;
+		
+		if( user != null) {
+			userId= user.getUserId();
+			System.out.println("\n\n\npurchaseCheck에 가져가는 userId---->"+userId);
+			serviceMap.put("userId", userId);
+			purchaseCheck = searchHobbyClassService.getPurchaseClassCheck(serviceMap); //구매여부에 hobbyClassNo와 userId 필요. 
+			System.out.println("\npurchaseCheck----> "+purchaseCheck);
+			
+			if(user.getUserId().equals(creatorName)) { //로그인한 사람이 해당 클래스의 크리에이터이면 글 쓸수있게 purchaseCheck을 1로 바꿔줌..
+				purchaseCheck = 1; 
+			}
+			
+		}//outer-if
+		/// 0 이면 안 산 사람/ 1이면 산 사람
+		model.addAttribute("purchaseCheck", purchaseCheck);
+		
+		
 		
 		int totalCount = (Integer)map.get("totalCountCommunityArticle");
 		System.out.println("클래스의 총 글 갯수:"+totalCount);
@@ -157,6 +183,7 @@ public class CommunityController {
 		List<Article> articleList = (List<Article>)map.get("articleList");
 		List<List<Reply>> array = (List<List<Reply>>)map.get("array");
 		
+		model.addAttribute("creatorName", (String)map.get("creatorName"));
 		model.addAttribute("sessionUser", user);
 		model.addAttribute("hobbyClassNo", hobbyClassNo);
 		model.addAttribute("resultPage", resultPage);
@@ -180,37 +207,61 @@ public class CommunityController {
 	
 	//글 등록 
 	@RequestMapping(value = "addCommunityArticle", method = RequestMethod.POST )
-	public String addCommunityArticle(@ModelAttribute("article") Article article, HttpSession session, Model model )throws Exception{
-	//public String addCommunityArticle(@ModelAttribute("article") Article article, HttpSession session,
-		//	@RequestParam("hobbyClassNo")int hobbyClassNo		)throws Exception{
+	public String addCommunityArticle(@ModelAttribute("article") Article article, 
+				HttpSession session, Model model )throws Exception{
+	//public String addCommunityArticle( HttpSession session,@RequestParam("hobbyClassNo")int hobbyClassNo, 	
+	//				@RequestParam("articleContent")String articleContent )throws Exception{
 		
 		System.out.println("\n\n\n/addCommunityArticle");
-		System.out.println("\n\n\narticle---\n"+article);
-		System.out.println("\n\nhobbyClassNo---"+article.getHobbyClass().getHobbyClassNo());
+		System.out.println("\n\n\n확인확인article---\n"+article);
+//		System.out.println("\n\n\n확인확인article---\n"+hobbyClass);
+//		System.out.println("\n\nhobbyClassNo---\n"+hobbyClassNo);
+//		System.out.println("\n\narticleContent---"+articleContent);
 		
 		User user = (User)session.getAttribute("user");
 		
-		if(user.getUserId() != null) { //+ 해당 클래스를 구매했는지도 체크해줘야...
-			article.setUser(user);
-		}
+//		HobbyClass hobbyClass = new HobbyClass();
+//		hobbyClass.setHobbyClassNo(hobbyClassNo);
+//		Article article = new Article();
+//		article.setArticleContent(articleContent);
+//		article.setHobbyClass(hobbyClass);
+		article.setUser(user);
 	
+		System.out.println("\n\n\n확인확인article---\n"+article);
+		System.out.println("\n\n\n확인확인---\n"+article.getHobbyClass());
 		
-		System.out.println("\n\n\narticle---\n"+article.getUser());
 		communityService.addCommunityArticle(article);
 		
+		//return "forward:/community/listCommunity?hobbyClassNo="+hobbyClassNo;
 		return "forward:/community/listCommunity?hobbyClassNo="+article.getHobbyClass().getHobbyClassNo();
 	}
 	
 	
 	@RequestMapping(value = "getCommunity") //==> method = RequestMethod.GET으로 설정하면 안됨
-	public String getCommunity(@RequestParam("articleNo") int articleNo, 
-									Model model)throws Exception{
+	public String getCommunity(@RequestParam("articleNo") int articleNo, @RequestParam("hobbyClassNo") int hobbyClassNo, 
+									Model model, HttpSession session)throws Exception{
 		
 		System.out.println("\n\n\n\n\n/getCommunity");
-		System.out.println("articleNo:"+articleNo);
+		System.out.println("\narticleNo:"+articleNo);
+		System.out.println("\nhobbyClassNo:"+hobbyClassNo);
 		
 		Map<String, Object> map = communityService.getCommunity(articleNo);
 		Article article = (Article) map.get("article");
+		
+		Map<String, Object> serviceMap = new HashMap<String, Object>();
+		User user = (User)session.getAttribute("user");
+		//구매여부 판별
+		int purchaseCheck = 0;
+		String userId= null;
+		serviceMap.put("hobbyClassNo", hobbyClassNo);
+		
+		if( user != null) {
+			userId= user.getUserId();
+			System.out.println("\n\n\npurchaseCheck에 가져가는 userId---->"+userId);
+			serviceMap.put("userId", userId);
+			purchaseCheck = searchHobbyClassService.getPurchaseClassCheck(serviceMap); //구매여부에 hobbyClassNo와 userId 필요. 
+			System.out.println("\npurchaseCheck----> "+purchaseCheck);
+		}
 		
 		//글 내용 가독성있게 적당히 띄워쓰기하는 파트
 		article.setArticleContent( article.getArticleContent().replaceAll("\n", "<br>") );
@@ -233,6 +284,8 @@ public class CommunityController {
 		
 		int totalCountCommunityReply = (Integer)map.get("totalCountCommunityReply");
 		
+		/// 0 이면 안 산 사람/ 1이면 산 사람
+		model.addAttribute("purchaseCheck", purchaseCheck);
 		model.addAttribute("article", map.get("article"));
 		model.addAttribute("replyList", list);
 		model.addAttribute("totalCountCommunityReply", totalCountCommunityReply);
@@ -253,18 +306,28 @@ public class CommunityController {
 		return "forward:/community/updateCommunityArticleView.jsp";
 	}
 	
-	@RequestMapping(value = "updateCommunityArticle", method = RequestMethod.POST)
+	@RequestMapping(value = "updateCommunityArticle")
 	public String updateCommunityArticle(HttpSession session, Model model, @ModelAttribute("article") Article article)throws Exception{
+		//public String updateCommunityArticle(HttpSession session,@RequestParam int articleNo, @RequestParam int hobbyClassNo,
+		//					@RequestParam String articleContent)throws Exception{
 		
 		System.out.println("\n\n\n\n /updateCommunityArticle");
-		System.out.println("\n\n\n\narticle--\n"+article);
-		System.out.println("\n\n\n\narticle--\n"+article.getArticleContent());
-		System.out.println("\n\narticle User--\n"+article.getUser());
+		System.out.println("\n\n\n\n 확인-\n"+article);
+//		System.out.println("\n\n\n\narticle--\n"+articleNo);
+//		System.out.println("\n\n\n\narticle--\n"+articleContent);
 		
+//		Article article = new Article();
+//		HobbyClass hobbyClass = new HobbyClass();
+		User user = (User)session.getAttribute("user");
+		
+//		hobbyClass.setHobbyClassNo(hobbyClassNo);
+//		article.setArticleNo(articleNo);
+//		article.setHobbyClass(hobbyClass);
+//		article.setArticleContent(articleContent);
 		communityService.updateCommunityArticle(article);
 		
 		
-		return "forward:/community/getCommunity?articleNo="+article.getArticleNo();
+		return "forward:/community/getCommunity?articleNo="+article.getArticleNo()+"&hobbyClassNo="+article.getHobbyClass().getHobbyClassNo();
 	}
 	
 	@RequestMapping(value = "deleteCommunityArticle", method = RequestMethod.GET)

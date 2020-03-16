@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>GetHobby</title>
 	<meta name="viewport"content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<!-- 웹사이트 파비콘 -->
@@ -110,7 +110,7 @@
 						<video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="985px" height="554px" data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'>
 						<!-- <video id="lesson-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'> -->
 						 	<!--poster="http://계정명.cache.iwinv.net/thumbnail/Sample.jpg"  -->
-							<source src="http://localhost:3000/video/${lesson.lesson.lessonVideo }" type='video/mp4'>
+							<source src="http://localhost:3000/videoPreview/${lesson.lesson.lessonVideo }" type='video/mp4'>
 						</video>
 					</div> 
 
@@ -139,7 +139,12 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<c:if test="${!empty lesson.lesson.hobbyClass.hobbyClassImage }">
+								<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							</c:if>
+							<c:if test="${empty lesson.lesson.hobbyClass.hobbyClassImage }">
+								<img class="right-fixed-img-tag" src="/resources/image/gon/ohcbImage.png" />
+							</c:if>
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -156,7 +161,14 @@
 					<div class="lesson-project-real-content-outer-div">
 						<span class="lesson-project-outer-div-of-many-p overflow-auto ">
 							<p><strong>[WELCOME]</strong> ${lesson.lesson.lessonTitle }</p>
-							<p><img src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" /></p>
+							<p>
+								<c:if test="${!empty lesson.lesson.hobbyClass.hobbyClassImage }">
+									<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+								</c:if>
+								<c:if test="${empty lesson.lesson.hobbyClass.hobbyClassImage }">
+									<img class="right-fixed-img-tag" src="/resources/image/gon/ohcbImage.png" />
+								</c:if>
+							</p>
 							<p>${lesson.lesson.lessonContent }</p>
 						</span>
 					</div>
@@ -169,7 +181,12 @@
 				<div class="right-fixed-div-outer">
 					<div class="right-fixed-div-inner">
 						<span class="span-image-tag-outer">
-							<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							<c:if test="${!empty lesson.lesson.hobbyClass.hobbyClassImage }">
+								<img class="right-fixed-img-tag" src="/images/hobbyclass/${lesson.lesson.hobbyClass.hobbyClassImage }" />
+							</c:if>
+							<c:if test="${empty lesson.lesson.hobbyClass.hobbyClassImage }">
+								<img class="right-fixed-img-tag" src="/resources/image/gon/ohcbImage.png" />
+							</c:if>	
 						</span>
 						<div class="div-tag-text-outer">
 							<div class="div-tag-text-inner1 div-tag-text-inner2">
@@ -217,46 +234,55 @@
 	<!-- 레슨 제목 선택 시 뜨는 모달창 끝 -->
 	
 	<script type="text/javascript">	
-		// 바로 video.js 생성 ----------------------------------------------
+	
+		$(function(){
 		
-		var video = videojs('lesson-video', {
-				controls : true,
-				autoplay : false, 
-				preload : 'auto', 
-				playbackRates: [0.5, 1, 1.5, 2, 2.5] 
-		})
-		
-		// var video = videojs('lesson-video');
-		// 바로 video.js 생성 ----------------------------------------------
-		
-		// keydown 이벤트 ----------------------------------------------
-		$(document).on('keydown', function(event){
-			var updatetextarea = $('.update-textarea-check').val();
-			var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
+			//
+			$(document).on("click", ".go-to-the-class-intro-button:contains('클래스 미리보기')", function(){
+				self.location = "/searchHobbyClass/getPreview?hobbyClassNo="+$(".class-number").val();
+			});
 			
-				if ( checkFocusTextArea.length == 0 ) {
-					var currentTime = Math.floor(video.currentTime());
-					var duration = Math.floor(video.duration());
-		
-					if ( event.keyCode == '37' ) {
-						
-						if ( currentTime - 10 <= 0 ) {
-							video.currentTime(0);
-							return;
+			// 바로 video.js 생성 ----------------------------------------------
+			
+			var video = videojs('lesson-video', {
+					controls : true,
+					autoplay : false, 
+					preload : 'auto', 
+					playbackRates: [0.5, 1, 1.5, 2, 2.5] 
+			})
+			
+			// var video = videojs('lesson-video');
+			// 바로 video.js 생성 ----------------------------------------------
+			
+			// keydown 이벤트 ----------------------------------------------
+			$(document).on('keydown', function(event){
+				var updatetextarea = $('.update-textarea-check').val();
+				var checkFocusTextArea = $('.form-control.col-9.col-md-10.mr-1:focus');
+				
+					if ( checkFocusTextArea.length == 0 ) {
+						var currentTime = Math.floor(video.currentTime());
+						var duration = Math.floor(video.duration());
+			
+						if ( event.keyCode == '37' ) {
+							
+							if ( currentTime - 10 <= 0 ) {
+								video.currentTime(0);
+								return;
+							}
+							video.currentTime( ( currentTime - 10 ) ); 
 						}
-						video.currentTime( ( currentTime - 10 ) ); 
-					}
-					else if ( event.keyCode == '39' ) {
-						
-						if ( currentTime + 10 >= duration ) {
-							video.currentTime( duration );
-							return;
+						else if ( event.keyCode == '39' ) {
+							
+							if ( currentTime + 10 >= duration ) {
+								video.currentTime( duration );
+								return;
+							}
+							video.currentTime( ( currentTime + 10 ) );
 						}
-						video.currentTime( ( currentTime + 10 ) );
 					}
-				}
-		})
-		// keydown 이벤트 ----------------------------------------------
+			})
+			// keydown 이벤트 ----------------------------------------------
+		});
 	</script>
 
 	

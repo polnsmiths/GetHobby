@@ -42,12 +42,12 @@
 	    height:100%;
   	}
   	.pgkvm-img-out-div {
+  		height:100%;
   		display: flex;
 	    flex-direction: row;
 	    align-items: flex-start;
 	    align-content: flex-start;
-	    margin-bottom: 16px;
-	    height:112px;
+	    margin-bottom: 16px;  
   	}
   	.kitvm-kitname {
   		margin-bottom: 4px;
@@ -75,6 +75,28 @@
   		border: 0;
   		outline: 0 none;
   	}
+  	@media (min-width: 992px){
+  		.modal-content {
+  			width: 460px;
+  		}
+  		.modal-header {
+  			width:432px;
+  		}
+  		.pgkvm-img-out-div {
+  			height:112px;
+  		}
+  	}
+  	@media (max-width: 991px){
+  		.modal-content {
+  			width: 100%;
+  		}
+  		.modal-header {
+  			width:100%;
+  		}
+  		.pgkvm-img-out-div {
+  			height:auto;
+  		}
+  	}
   </style>
 </head>
 <body>
@@ -87,8 +109,8 @@
 <!-- Modal -->
 <div class="modal fade" id="kitViewModal" tabindex="-1" role="dialog" aria-labelledby="kitViewModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered" role="document">
-    <div class="modal-content" style="padding:16px 12px; margin:0px; width:460px;">
-      <div class="modal-header" style="border:0; outline:0; width:432px;">
+    <div class="modal-content" style="padding:16px 12px; margin-top:64px;">
+      <div class="modal-header" style="border:0; outline:0; ">
         <h5 class="modal-title" id="kitViewModalLabel" style="font-size: 24px; font-weight: bold; color: rgb(62, 64, 66); line-height: 32px; letter-spacing: -0.4px;">
         	준비물키트
         </h5>

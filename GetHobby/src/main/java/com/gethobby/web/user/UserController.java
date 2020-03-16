@@ -59,6 +59,7 @@ import com.gethobby.common.Search;
 import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.User;
+import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.user.UserService;
 
 //ȸ������ Controller
@@ -70,6 +71,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("openHobbyClassServiceImpl")
+	private OpenHobbyClassService oepnhobbyClassService;
 	
 	@Value("#{apiKeyProperties['captchaClientId']}")
 	String captchaClientId;
@@ -124,7 +129,8 @@ public class UserController {
 		
 	System.out.println("addUser() POST  ::::::::::::::::::::"+user);		
 	
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+//		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+		String temDir = "C:/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/GetHobby/resources/image/logo/";
 		String fileName = "";
 		System.out.println("file::::::::::::::::"+file);
 	
@@ -155,7 +161,7 @@ public class UserController {
 		map.put("list", user.getHashtag());		
 		
 		userService.addUser(map);
-		return "redirect:/index.jsp";
+		return "redirect:/user/captcha";
 	}
 	
 //	@RequestMapping(value="login", method = RequestMethod.POST)
@@ -418,7 +424,7 @@ public class UserController {
 			
 			 user.setUserId(userId);
 			 user.setPassword(password);	 
-			 
+			 session.setAttribute("snsInfo", user);
 			 return "forward:/user/pathSNSLoginInfo.jsp";
 		 }else {
 			Map<String, Object> map = userService.getUser(userId);
@@ -435,7 +441,8 @@ public class UserController {
 	public String addUserSNSInfo(@ModelAttribute("user")User user, @RequestParam("file") List<MultipartFile> file,HttpSession session )throws Exception{
 		
 		
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+//		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+		String temDir = "C:/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/GetHobby/resources/image/logo/";
 		String fileName = "";
 	
 		if(file.get(0).getSize() !=0) {
@@ -469,7 +476,7 @@ public class UserController {
 	
 	@RequestMapping(value="kakaoCallBack" , method = RequestMethod.GET)
 	public String kakoCallBack(@RequestParam("code") String code, HttpSession session) throws Exception{
-		String redirectURL = "http://127.0.0.1:8080/user/kakaoCallBack";
+		String redirectURL = "http://192.168.0.144:8080/user/kakaoCallBack";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
 		
 		Map<String,Object> userInfo = new HashMap<String, Object>();
@@ -557,7 +564,8 @@ public class UserController {
 		 if(userService.checkDuplication(userId)) {
 			 user.setUserId(userId);
 			 user.setPassword(password); 
-			 
+			 System.out.println("user::::::::::::::::::::::::::"+user);
+			 session.setAttribute("snsInfo", user);
 			 return "forward:/user/pathSNSLoginInfo.jsp";
 		 }else {
 			Map<String, Object> map = userService.getUser(userId);
@@ -597,7 +605,7 @@ public class UserController {
 		
 		session.setAttribute("user", session.getAttribute("user"));
 		
-		return "forward:/user/changeUserCreator.jsp";
+		return "/user/changeUserCreator.jsp";
 	}
 	@RequestMapping(value = "changeUserCreator" , method = RequestMethod.POST)
 	public String changeUserCreator(@ModelAttribute User user, HttpSession session) throws Exception{
@@ -612,9 +620,9 @@ public class UserController {
 		User resultUser = new User();		
 		resultUser = (User)returnMap.get("user");
 		session.setAttribute("user", resultUser);
-		
+		oepnhobbyClassService.addHobbyClass(((User)session.getAttribute("user")).getUserId());
 		System.out.println("changeUserCreator ::::::::::::::" + resultUser);
-		return "redirect:/searchhobbyclass/getSearchHobbyClassList.jsp";
+		return "redirect:/openhobbyclass/listMyHobbyClass.jsp";
 	}
 	@RequestMapping(value ="addNotice", method = RequestMethod.GET)
 	public String addNotice(HttpSession session)throws Exception{
@@ -679,7 +687,7 @@ public class UserController {
 	public String updateNotice(@ModelAttribute Article article)throws Exception{
 		System.out.println("updateArticle::::::"+article);
 		userService.updateNotice(article);
-		return "forward:/user/listNotice/1";
+		return "forward:/user/listNotice";
 	}
 	
 	@RequestMapping(value="listNotice")
@@ -702,6 +710,7 @@ public class UserController {
 		
 		User user = new User();		
 		user = (User)session.getAttribute("user");
+		System.out.println("user:::::::::::"+user);
 		if(user.getRole().equals("2")) {
 			return "forward:/admin/listNoticeAdmin.jsp";
 		}else {
@@ -719,17 +728,24 @@ public class UserController {
 	
 	@RequestMapping(value="updateUser", method = RequestMethod.POST)
 	public String updateUser(@ModelAttribute("user") User user, @RequestParam("file") List<MultipartFile> file , HttpSession session,@RequestParam("beforefile") String beforeName) throws Exception{
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println("updateUser::::::::::::::::::::::::::"+user);
-		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+//		String temDir = "C:/Users/user/git/gethobby/GetHobby/WebContent/resources/image/logo/";
+		String temDir = "C:/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/GetHobby/resources/image/logo/";
 		String fileName = "";
 		
 		if(file.get(0).getSize() !=0) {
 				for (int i = 0; i < file.size(); i++) {
 					
-					File saveFile = new File(temDir + file.get(i).getOriginalFilename());
-					file.get(i).transferTo(saveFile);
+					//File saveFile = new File(temDir + file.get(i).getOriginalFilename()); update
+					//file.get(i).transferTo(saveFile); update
+					//fileName += file.get(i).getOriginalFilename(); update
 					
-					fileName += file.get(i).getOriginalFilename();
+					// 수정된 부분 : fileName 프로토콜 (currentTimeMills + .확장자 ==> 17자리)
+					String fileExtension = file.get(i).getOriginalFilename().substring(file.get(i).getOriginalFilename().lastIndexOf("."));
+					fileName = System.currentTimeMillis() + fileExtension;
+					file.get(i).transferTo(new File(temDir,fileName));
+					// 수정된 부분 끝
 					
 						if((file.size() -1) != i) {
 							fileName += "/";

@@ -59,4 +59,6 @@ public interface SearchHobbyClassDAO {
 	public Article getClassCommunityArticleContent(String communityNo) throws Exception;
 	
 	public List<Reply> getClassCommunityReplyContent(String communityNo) throws Exception;
+	
+	public List<LessonTimes> getHobbyClassEncodingLessonList(int hobbyClassNo) throws Exception;
 }

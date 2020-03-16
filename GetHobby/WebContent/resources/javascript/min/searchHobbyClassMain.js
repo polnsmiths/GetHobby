@@ -13,6 +13,10 @@
 		var delta = 50;
 		var timer = null;
 		
+		// 메인창에 새롭게 스크롤 추가되서 푸터 컨트롤
+		$('.footer-outer-div').hide();
+		
+		
 		// 스피너 무조건 감추기
 		$('.spinner-outer-div').hide();
 		
@@ -22,10 +26,24 @@
 		if ( onloadWidth <= 980 ) {
 			 $('.outer-event-carousel-div').hide();
 			 $('.mini-size-category-total-outer-container-div').show();
+			 $('#popularPrev').hide();
+			 $('#popularNext').hide();
+			 $('#registerPrev').hide();
+			 $('#registerNext').hide();
+			 $('#recommendPrev').hide();
+			 $('#recommendNext').hide();
+			 $('.main-scroll-outer-div').hide();
 		}
 		else if ( onloadWidth > 980 ) {
 			 $('.outer-event-carousel-div').show();
 			 $('.mini-size-category-total-outer-container-div').hide();
+			 $('#popularPrev').show();
+			 $('#popularNext').show();
+			 $('#registerPrev').show();
+			 $('#registerNext').show();
+			 $('#recommendPrev').show();
+			 $('#recommendNext').show();
+			 $('.main-scroll-outer-div').show();
 		}
 		// 시작하자마자 창 크기 재서 뭘 숨기고 뭘 감추고 하기 
 		
@@ -89,6 +107,182 @@
 			$(this).find('.nav-span-text').css({
 				'font-weight' : 'bold'
 			});
+			
+			$('.check-search').val('0');
+			$('.main-scroll-outer-div').show();
+			$('.main-scroll-current-page').val(1);
+			
+			$('.footer-outer-div').hide();
+			
+			var mainSearchObj = new Object();
+			
+			mainSearchObj.currentPage = 1;
+			mainSearchObj.category = 'all'; 
+			
+			$.ajax(
+					{
+						url : "/searchHobbyClass/json/getHobbyClassList", 
+						method :  "post", 
+						dataType : "json", 
+						headers : {
+							"Accept" : "application/json", 
+							"Content-Type" : "application/json"
+						}, 
+						data : JSON.stringify({
+							search : mainSearchObj, 
+							stateValue : "0" 
+						}), 
+						success : function(JSONData, status) {
+							
+							var display = "";
+							var category = ""; 
+							
+							display += "<div class='container'>";
+							display += "<div class='card-deck'>";
+							for(var i = 0; i < JSONData.hobbyClassList.length; i++) {
+								if ( JSONData.hobbyClassList[i].category == 'E' ) {
+									category = "운동";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'A' ) {
+									category = "미술";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'M' ) {
+									category = "음악";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'L' ) {
+									category = "라이프스타일";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'C' ) {
+									category = "요리";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'H' ) {
+									category = "공예";
+								}
+								display += "<div class='col-md-4'>";
+								display += "<div class='card'>";
+								display += "<input type='hidden' name='hobbyClassNo' value='" + JSONData.hobbyClassList[i].hobbyClassNo +"'/>";
+								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
+								display += "<div id='cardImage'>";
+								display += "<span>";
+								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								
+								if ( JSONData.hobbyClassList[i].event != null ) { 
+									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
+										display += "<div class='outer-card-image'>";
+										
+										display += "<div class='inner-card-bottom-text'>최대";
+										display += "</div>";
+										
+										display += "<div class='inner-card-top-text'>" + JSONData.hobbyClassList[i].event.eventDiscount +'%';
+										display += "</div>";
+										display += "<div class='inner-card-bottom-text'>할인 중";
+										display += "</div>";
+										display += "</div>";
+									}
+								}
+
+								display += "</div>";
+								display += "</span>";
+								
+								display += "<div class='card-body'>";
+								
+								display += "<div class='card-title'>";
+								display += "<div class='go-to-the-center-please'>";
+								display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName + "</span>";
+								display += "</span>";
+								display += "</div>";
+								display += "</div>";
+								
+								display += "<p class='card-text'><span class='badge wrapper-basic text-wrap'><i class='fas fa-list'></i>&nbsp;" + category + "</span></p>";	
+								display += "<p class='card-text'>";
+								
+								for (var k = 0; k < JSONData.hobbyClassList[i].hashtag.length; k++){
+									display += "<span class='badge wrapper-basic text-wrap'><i class='fas fa-hashtag'></i>" + JSONData.hobbyClassList[i].hashtag[k] + "</span>";
+									display += "<br/>";
+								}
+								display += "</p>";
+								// display += "<p class='card-text'><i class='fa fa-heart' aria-hidden='true'></i> " + JSONData.hobbyClassList[i].steamCount;
+								display += "</p>";
+								display += "</div>";
+								display += "<div class='card-footer'>";
+								display += "<small class='text-muted'>";
+								display += "<p class='card-text'>";
+								
+								
+
+								if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								}		
+								
+								
+								if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
+									display += "<i class='far fa-heart'></i>";
+								}
+								else if ( JSONData.hobbyClassList[i].steamCheck == '1' ) {
+									display += "<i class='fas fa-heart'></i>";
+								}
+								display += "<span name='steamCount'>";
+								display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
+								display += "</span>";
+								display += "</button>";
+								
+								display += "</small>";
+								display += "</div>";
+								
+								display += "<span class='badge wrapper-yello text-wrap please-go-right float-right'>";
+								display += '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 19h18v-2H3v2zm0-6h18v-2H3v2zm0-8v2h18V5H3z" fill="#FFFFFF"></path><circle cx="8" cy="18" r="2" fill="#FFFFFF"></circle><circle cx="8" cy="6" r="2" fill="#FFFFFF"></circle><circle cx="16" cy="12" r="2" fill="#FFFFFF"></circle></svg>';
+								
+								var classState = '';
+								
+								if ( JSONData.hobbyClassList[i].hobbyClassState == 3 ) {
+									classState = '수요조사 중';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 5 ) {
+									classState = '개강';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 4 ) {
+									classState = '수요조사 완료';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 6 ) {
+									classState = '종강';
+								}
+								else {
+									classState = '그 외';
+								}
+								display += '&nbsp;';
+								display += classState;
+								display += "</div>";
+								display += "</div>";
+							}
+							
+							display += "</div>";
+							display += "<br/><br/><br/><br/><br/>";
+							display += "</div>";
+							display += "<span class='main-scroll-page'></span>"
+							
+							$(".main-scroll-page:last").after(display);
+							
+							$('.main-scroll-max-page').val(JSONData.resultPage.maxPage);
+							
+							$('#search-alignment-button-div').hide();
+							
+							$('.main-scroll-current-page').val(2);
+							
+							if ( JSONData.resultPage.maxPage < ( $('.main-scroll-current-page').val() * 1 )  ) {
+								$('.footer-outer-div').show();
+							}
+							
+							$('.main-scroll-outer-div').show;
+						}
+					}
+			)
+			
 			
 			var index = $(this).find('.navbar-nav-link-input').val();
 			
@@ -156,6 +350,9 @@
 			$('.dropdown-main-button').text('검색조건');
 			$('.search-keyword-input').val('');
 			
+			$('.check-search').val('1');
+			$('.main-scroll-outer-div').hide();
+			
 			maxPage = null;
 			currentPage = 1;
 			hashtagArray = [];
@@ -207,6 +404,9 @@
 									display += "<div class='container'>";
 									display += "<div class='card-deck'>";
 									for(var i = 0; i < JSONData.hobbyClassList.length; i++) {
+										
+										var sessionUserId = $('.user-hidden-value').val();
+										
 										if ( JSONData.hobbyClassList[i].category == 'E' ) {
 											category = "운동";
 										}
@@ -255,7 +455,13 @@
 										
 										display += "<div class='card-title'>";
 										display += "<div class='go-to-the-center-please'>";
-										display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName + "</span>";
+										display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName;
+										
+										if ( JSONData.hobbyClassList[i].user.userId == sessionUserId ) {
+											display += '&nbsp;<i class="fas fa-star"></i>';
+										}
+										
+										display += "</span>";
 										display += "</span>";
 										display += "</div>";
 										display += "</div>";
@@ -276,8 +482,15 @@
 										display += "<p class='card-text'>";
 										
 										
-	
-										display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										}	
 										
 										if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 											display += "<i class='far fa-heart'></i>";
@@ -287,6 +500,7 @@
 										}
 										display += "<span name='steamCount'>";
 										display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
+										display += "</span>";
 										
 										display += "</button>";
 										
@@ -492,9 +706,11 @@
 		
 		// 스크롤 이벤트 --------------------------------------------------------------
 		$(window).scroll(function(){
-			clearTimeout( timer );
-		    timer = setTimeout( scrollHobbyClass, delta );
-//			timer = setTimeout( scrollHobbyClass, 20 );
+			if ( $('.check-search').val() != 0 ) {
+				clearTimeout( timer );
+			    timer = setTimeout( scrollHobbyClass, delta );
+	//			timer = setTimeout( scrollHobbyClass, 20 );
+			}
 		});
 		// 스크롤 이벤트 --------------------------------------------------------------
 		
@@ -603,8 +819,15 @@
 										display += "<p class='card-text'>";
 										
 										
-	
-										display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										}	
 										
 										if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 											display += "<i class='far fa-heart'></i>";
@@ -614,7 +837,7 @@
 										}
 										display += "<span name='steamCount'>";
 										display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
-										
+										display += "</span>";
 										display += "</button>";
 										
 										display += "</small>";
@@ -714,18 +937,20 @@
 							else if ( JSONData.hobbyClass.steamCheck == '1' ) {
 								display += "<i class='fas fa-heart'></i>";
 							}
-	
+							display += "<span name='steamCount'>";
+							display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
+							display += "</span>";
 							steamButton.html(display);
 							
 							steamCountInput.val(JSONData.hobbyClass.steamCount);
-							
+							/*
 							display = "";
 							display += "<span name='steamCount'>";
 							display += "&nbsp;&nbsp;" + JSONData.hobbyClass.steamCount;
 							display += "</span>";
 							
 							steamButton.parent().children('span').html(display);
-							
+							*/
 						}
 					}
 			)
@@ -889,7 +1114,15 @@
 								
 								
 	
-								display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								}	
 								
 								if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 									display += "<i class='far fa-heart'></i>";
@@ -899,7 +1132,7 @@
 								}
 								display += "<span name='steamCount'>";
 								display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
-								
+								display += "</span>";
 								display += "</button>";
 								
 								display += "</small>";
@@ -1115,7 +1348,15 @@
 								display += "<small class='text-muted'>";
 								display += "<p class='card-text'>";
 								
-								display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								}	
 								
 								if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 									display += "<i class='far fa-heart'></i>";
@@ -1125,7 +1366,7 @@
 								}
 								display += "<span name='steamCount'>";
 								display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
-								
+								display += "</span>";
 								display += "</button>";
 		
 								display += "</small>";
@@ -1245,6 +1486,9 @@
 			$('.dropdown-main-button').text('검색조건');
 			$('.search-keyword-input').val('');
 			
+			$('.check-search').val('1');
+			$('.main-scroll-outer-div').hide();
+			
 			maxPage = null;
 			currentPage = 1;
 			hashtagArray = [];
@@ -1289,6 +1533,8 @@
 								}), 
 								success : function(JSONData, status) {
 									currentPage += 1;
+									
+									var sessionUserId = $('.user-hidden-value').val();
 									
 									var display = "";
 									var category = ""; 
@@ -1344,7 +1590,13 @@
 										
 										display += "<div class='card-title'>";
 										display += "<div class='go-to-the-center-please'>";
-										display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName + "</span>";
+										display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName;
+										
+										if ( JSONData.hobbyClassList[i].user.userId == sessionUserId ) {
+											display += '&nbsp;<i class="fas fa-star"></i>';
+										}
+										
+										display += "</span>";
 										display += "</span>";
 										display += "</div>";
 										display += "</div>";
@@ -1366,7 +1618,15 @@
 										
 										
 	
-										display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+										}
+										else {
+											display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+										}	
 										
 										if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 											display += "<i class='far fa-heart'></i>";
@@ -1376,7 +1636,7 @@
 										}
 										display += "<span name='steamCount'>";
 										display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
-										
+										display += "</span>";
 										display += "</button>";
 										
 										display += "</small>";
@@ -1441,6 +1701,14 @@
 				   $('#search-form-group').hide();
 				   
 				   $('.mini-size-category-total-outer-container-div').show();
+				   
+				   $('#popularPrev').hide();
+				 $('#popularNext').hide();
+				 $('#registerPrev').hide();
+				 $('#registerNext').hide();
+				 $('#recommendPrev').hide();
+				 $('#recommendNext').hide();
+				 $('.main-scroll-outer-div').hide();
 			   }
 			   else if ( windowWidth > 980 ) {
 				   $('.mini-size-category-total-outer-container-div').hide();
@@ -1456,7 +1724,15 @@
 					   $('.outer-event-carousel-div').show();
 					   $('#search-form-group').hide();
 					   $('#search-alignment-button-div').hide();
+					   $('.main-scroll-outer-div').show();
 				   }
+				   
+				   $('#popularPrev').show();
+					 $('#popularNext').show();
+					 $('#registerPrev').show();
+					 $('#registerNext').show();
+					 $('#recommendPrev').show();
+					 $('#recommendNext').show();
 					
 			   }
 		});
@@ -1479,6 +1755,9 @@
 			
 			$('.dropdown-main-button').text('검색조건');
 			$('.search-keyword-input').val('');
+			
+			$('.check-search').val('1');
+			$('.main-scroll-outer-div').hide();
 			
 			maxPage = null;
 			currentPage = 1;
@@ -1600,7 +1879,16 @@
 								
 								
 
-								display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								}		
+								
 								
 								if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
 									display += "<i class='far fa-heart'></i>";
@@ -1610,7 +1898,7 @@
 								}
 								display += "<span name='steamCount'>";
 								display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
-								
+								display += "</span>";
 								display += "</button>";
 								
 								display += "</small>";
@@ -1660,5 +1948,392 @@
 					}
 			)
 		})
+		
+		
+			
+
+			var mainSearchObj = new Object();
+			
+			mainSearchObj.currentPage = 1;
+			mainSearchObj.category = 'all'; 
+			
+			$.ajax(
+					{
+						url : "/searchHobbyClass/json/getHobbyClassList", 
+						method :  "post", 
+						dataType : "json", 
+						headers : {
+							"Accept" : "application/json", 
+							"Content-Type" : "application/json"
+						}, 
+						data : JSON.stringify({
+							search : mainSearchObj, 
+							stateValue : "0" 
+						}), 
+						success : function(JSONData, status) {
+							
+							var sessionUserId = $('.user-hidden-value').val();
+							
+							var display = "";
+							var category = ""; 
+							
+							display += "<div class='container'>";
+							display += "<div class='card-deck'>";
+							for(var i = 0; i < JSONData.hobbyClassList.length; i++) {
+								// alert(JSONData.hobbyClassList[i].user.userId + ' / ' + sessionUserId);
+								
+								if ( JSONData.hobbyClassList[i].category == 'E' ) {
+									category = "운동";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'A' ) {
+									category = "미술";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'M' ) {
+									category = "음악";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'L' ) {
+									category = "라이프스타일";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'C' ) {
+									category = "요리";
+								}
+								else if ( JSONData.hobbyClassList[i].category == 'H' ) {
+									category = "공예";
+								}
+								display += "<div class='col-md-4'>";
+								display += "<div class='card'>";
+								display += "<input type='hidden' name='hobbyClassNo' value='" + JSONData.hobbyClassList[i].hobbyClassNo +"'/>";
+								display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
+								display += "<div id='cardImage'>";
+								display += "<span>";
+								display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+								
+								if ( JSONData.hobbyClassList[i].event != null ) { 
+									if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
+										display += "<div class='outer-card-image'>";
+										
+										display += "<div class='inner-card-bottom-text'>최대";
+										display += "</div>";
+										
+										display += "<div class='inner-card-top-text'>" + JSONData.hobbyClassList[i].event.eventDiscount +'%';
+										display += "</div>";
+										display += "<div class='inner-card-bottom-text'>할인 중";
+										display += "</div>";
+										display += "</div>";
+									}
+								}
+
+								display += "</div>";
+								display += "</span>";
+								
+								display += "<div class='card-body'>";
+								
+								display += "<div class='card-title'>";
+								display += "<div class='go-to-the-center-please'>";
+								display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName;
+								
+								if ( JSONData.hobbyClassList[i].user.userId == sessionUserId ) {
+									display += '&nbsp;<i class="fas fa-star"></i>';
+								}
+								
+								display += "</span>";						
+								
+								display += "</div>";
+								display += "</div>";
+								
+								display += "<p class='card-text'><span class='badge wrapper-basic text-wrap'><i class='fas fa-list'></i>&nbsp;" + category + "</span></p>";	
+								display += "<p class='card-text'>";
+								
+								for (var k = 0; k < JSONData.hobbyClassList[i].hashtag.length; k++){
+									display += "<span class='badge wrapper-basic text-wrap'><i class='fas fa-hashtag'></i>" + JSONData.hobbyClassList[i].hashtag[k] + "</span>";
+									display += "<br/>";
+								}
+								display += "</p>";
+								// display += "<p class='card-text'><i class='fa fa-heart' aria-hidden='true'></i> " + JSONData.hobbyClassList[i].steamCount;
+								display += "</p>";
+								display += "</div>";
+								display += "<div class='card-footer'>";
+								display += "<small class='text-muted'>";
+								display += "<p class='card-text'>";
+								
+								
+
+								if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+								}
+								else {
+									display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+								}		
+								
+								
+								if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
+									display += "<i class='far fa-heart'></i>";
+								}
+								else if ( JSONData.hobbyClassList[i].steamCheck == '1' ) {
+									display += "<i class='fas fa-heart'></i>";
+								}
+								display += "<span name='steamCount'>";
+								display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
+								display += "</span>";
+								display += "</button>";
+								
+								display += "</small>";
+								display += "</div>";
+								
+								display += "<span class='badge wrapper-yello text-wrap please-go-right float-right'>";
+								display += '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 19h18v-2H3v2zm0-6h18v-2H3v2zm0-8v2h18V5H3z" fill="#FFFFFF"></path><circle cx="8" cy="18" r="2" fill="#FFFFFF"></circle><circle cx="8" cy="6" r="2" fill="#FFFFFF"></circle><circle cx="16" cy="12" r="2" fill="#FFFFFF"></circle></svg>';
+								
+								var classState = '';
+								
+								if ( JSONData.hobbyClassList[i].hobbyClassState == 3 ) {
+									classState = '수요조사 중';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 5 ) {
+									classState = '개강';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 4 ) {
+									classState = '수요조사 완료';
+								}
+								else if ( JSONData.hobbyClassList[i].hobbyClassState == 6 ) {
+									classState = '종강';
+								}
+								else {
+									classState = '그 외';
+								}
+								display += '&nbsp;';
+								display += classState;
+								display += "</div>";
+								display += "</div>";
+							}
+							
+							display += "</div>";
+							display += "<br/><br/><br/><br/><br/>";
+							display += "</div>";
+							display += "<span class='main-scroll-page'></span>"
+							
+							$(".main-scroll-page:last").after(display);
+							
+							$('.main-scroll-max-page').val(JSONData.resultPage.maxPage);
+							
+							$('#search-alignment-button-div').hide();
+							
+							$('.main-scroll-current-page').val(2);
+							
+							if ( JSONData.resultPage.maxPage < ( $('.main-scroll-current-page').val() * 1 )  ) {
+								alert('abc');
+								$('.footer-outer-div').show();
+							}
+							
+							$('.main-scroll-outer-div').show;
+						}
+					}
+			)
+			
+			
+			// 스크롤 이벤트 --------------------------------------------------------------
+			
+			$(window).scroll(function(){
+				if ( $('.check-search').val() == '0' ) {
+					clearTimeout( timer );
+				    timer = setTimeout( scrollHobbyClassMain, delta );
+	//				timer = setTimeout( scrollHobbyClass, 20 );
+				}
+			});
+			
+			// 스크롤 이벤트 --------------------------------------------------------------
+			
+			// 스크롤 내려서 다음페이지에 넘길 때 쓸 function--------------------------------------
+			function scrollHobbyClassMain() {
+				var currentPage = ( $('.main-scroll-current-page').val() * 1 );
+				var maxPage = ( $('.main-scroll-max-page').val() * 1 );
+				if( $(document).height() - 250 <= $(window).scrollTop() + $(window).height() ){
+					console.log(currentPage + ' / ' + maxPage);
+		 			if ( maxPage >= currentPage ) {
+		 				$('.footer-outer-div').hide();
+		 				currentPage++;
+						$('.main-scroll-current-page').val(currentPage);
+						var obj = new Object();
+						
+						obj.currentPage = currentPage;
+						obj.category = 'all'; 
+						
+						$.ajax(
+								{
+									url : "/searchHobbyClass/json/getHobbyClassList", 
+									method :  "post", 
+									dataType : "json", 
+									headers : {
+										"Accept" : "application/json", 
+										"Content-Type" : "application/json"
+									}, 
+									data : JSON.stringify({
+										search : obj, 
+										stateValue : "0" 
+									}), 
+									success : function(JSONData, status) {
+										
+										var display = "";
+										var category = ""; 
+										
+										display += "<div class='container'>";
+										display += "<div class='card-deck'>";
+										for(var i = 0; i < JSONData.hobbyClassList.length; i++) {
+											if ( JSONData.hobbyClassList[i].category == 'E' ) {
+												category = "운동";
+											}
+											else if ( JSONData.hobbyClassList[i].category == 'A' ) {
+												category = "미술";
+											}
+											else if ( JSONData.hobbyClassList[i].category == 'M' ) {
+												category = "음악";
+											}
+											else if ( JSONData.hobbyClassList[i].category == 'L' ) {
+												category = "라이프스타일";
+											}
+											else if ( JSONData.hobbyClassList[i].category == 'C' ) {
+												category = "요리";
+											}
+											else if ( JSONData.hobbyClassList[i].category == 'H' ) {
+												category = "공예";
+											}
+											display += "<div class='col-md-4'>";
+											display += "<div class='card'>";
+											display += "<input type='hidden' name='hobbyClassNo' value='" + JSONData.hobbyClassList[i].hobbyClassNo +"'/>";
+											display += "<input type='hidden' name='steamCount' value='" + JSONData.hobbyClassList[i].steamCount +"'/>";
+											display += "<div id='cardImage'>";
+											display += "<span>";
+											display += "<img name='cardImage' src='/images/hobbyclass/" + JSONData.hobbyClassList[i].hobbyClassImage + "' class='card-img-top' height='250px'>";
+											
+											if ( JSONData.hobbyClassList[i].event != null ) { 
+												if ( JSONData.hobbyClassList[i].hobbyClassState != '6' && JSONData.hobbyClassList[i].hobbyClassState != '5' ) {
+													display += "<div class='outer-card-image'>";
+													
+													display += "<div class='inner-card-bottom-text'>최대";
+													display += "</div>";
+													
+													display += "<div class='inner-card-top-text'>" + JSONData.hobbyClassList[i].event.eventDiscount +'%';
+													display += "</div>";
+													display += "<div class='inner-card-bottom-text'>할인 중";
+													display += "</div>";
+													display += "</div>";
+												}
+											}
+
+											display += "</div>";
+											display += "</span>";
+											
+											display += "<div class='card-body'>";
+											
+											display += "<div class='card-title'>";
+											display += "<div class='go-to-the-center-please'>";
+											display += "<span class='card-title-class-title'>" + JSONData.hobbyClassList[i].hobbyClassName + "</span>";
+											display += "</span>";
+											display += "</div>";
+											display += "</div>";
+											
+											display += "<p class='card-text'><span class='badge wrapper-basic text-wrap'><i class='fas fa-list'></i>&nbsp;" + category + "</span></p>";	
+											display += "<p class='card-text'>";
+											
+											for (var k = 0; k < JSONData.hobbyClassList[i].hashtag.length; k++){
+												display += "<span class='badge wrapper-basic text-wrap'><i class='fas fa-hashtag'></i>" + JSONData.hobbyClassList[i].hashtag[k] + "</span>";
+												display += "<br/>";
+											}
+											display += "</p>";
+											// display += "<p class='card-text'><i class='fa fa-heart' aria-hidden='true'></i> " + JSONData.hobbyClassList[i].steamCount;
+											display += "</p>";
+											display += "</div>";
+											display += "<div class='card-footer'>";
+											display += "<small class='text-muted'>";
+											display += "<p class='card-text'>";
+											
+											
+
+											if ( JSONData.hobbyClassList[i].hobbyClassState == '5' ) {
+												display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+											}
+											else if ( JSONData.hobbyClassList[i].hobbyClassState == '6' ) {
+												display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"' disabled>";
+											}
+											else {
+												display += "<button type='button' class='btn btn-light' name='steam' value='" + JSONData.hobbyClassList[i].steamCheck +"'>";
+											}		
+											
+											
+											if ( JSONData.hobbyClassList[i].steamCheck == '0' ) {
+												display += "<i class='far fa-heart'></i>";
+											}
+											else if ( JSONData.hobbyClassList[i].steamCheck == '1' ) {
+												display += "<i class='fas fa-heart'></i>";
+											}
+											display += "<span name='steamCount'>";
+											display += "&nbsp;&nbsp;" + JSONData.hobbyClassList[i].steamCount;
+											display += "</span>";
+											display += "</button>";
+											
+											display += "</small>";
+											display += "</div>";
+											
+											display += "<span class='badge wrapper-yello text-wrap please-go-right float-right'>";
+											display += '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 19h18v-2H3v2zm0-6h18v-2H3v2zm0-8v2h18V5H3z" fill="#FFFFFF"></path><circle cx="8" cy="18" r="2" fill="#FFFFFF"></circle><circle cx="8" cy="6" r="2" fill="#FFFFFF"></circle><circle cx="16" cy="12" r="2" fill="#FFFFFF"></circle></svg>';
+											
+											var classState = '';
+											
+											if ( JSONData.hobbyClassList[i].hobbyClassState == 3 ) {
+												classState = '수요조사 중';
+											}
+											else if ( JSONData.hobbyClassList[i].hobbyClassState == 5 ) {
+												classState = '개강';
+											}
+											else if ( JSONData.hobbyClassList[i].hobbyClassState == 4 ) {
+												classState = '수요조사 완료';
+											}
+											else if ( JSONData.hobbyClassList[i].hobbyClassState == 6 ) {
+												classState = '종강';
+											}
+											else {
+												classState = '그 외';
+											}
+											display += '&nbsp;';
+											display += classState;
+											display += "</div>";
+											display += "</div>";
+										}
+										
+										display += "</div>";
+										display += "<br/><br/><br/><br/><br/>";
+										display += "</div>";
+										display += "<span class='main-scroll-page'></span>"
+										
+										$(".main-scroll-page:last").after(display);
+										
+										$('.main-scroll-max-page').val(JSONData.resultPage.maxPage);
+										
+										$('#search-alignment-button-div').hide();
+										
+										if ( maxPage < currentPage ) {
+											$('.footer-outer-div').show();
+										}
+										
+									}
+								}
+						)
+							 										
+		 	 		}        
+		 	 	}               		           
+		 	}
+			// 스크롤 내려서 다음페이지에 넘길 때 쓸 function--------------------------------------
+			
+			// 클릭시 위로가기 ----------------------------------
+			$(".mini-button-to-top").on("click", function () {
+            	$('body,html').animate({
+    				scrollTop: 0
+    			}, 200);
+    			return false;
+            });
+			// 클릭시 위로가기 ----------------------------------
+		
 	})
 			

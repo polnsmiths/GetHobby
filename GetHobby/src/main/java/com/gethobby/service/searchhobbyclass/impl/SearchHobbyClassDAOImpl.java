@@ -177,4 +177,10 @@ public class SearchHobbyClassDAOImpl implements SearchHobbyClassDAO {
 		return sqlSession.selectList("HobbyClassMapper.getClassCommunityReplyContent", communityNo);
 	}
 
+
+	@Override
+	public List<LessonTimes> getHobbyClassEncodingLessonList(int hobbyClassNo) throws Exception {
+		return sqlSession.selectList("HobbyClassMapper.getHobbyClassEncodingLessonList", hobbyClassNo);
+	}
+
 }

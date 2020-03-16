@@ -252,7 +252,7 @@ public class SearchHobbyClassRestController {
 		
 		returnMap.put("classAssessList", classAssessList);
 		returnMap.put("resultPage", resultPage);
-		
+		System.out.println("----------------classAssessList ? : " + classAssessList);
 		HobbyClass lastHobbyClass = searchHobbyClassService.getHobbyClass(inputData); 
 		returnMap.put("hobbyClass", lastHobbyClass);
 		

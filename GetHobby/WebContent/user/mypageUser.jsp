@@ -4,6 +4,7 @@
 <html>
 <head>
 
+<title>GetHobby</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,11 +44,6 @@
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="/resources/css/common.css">
 
-    <!-- 메인 메뉴 CSS -->
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <!-- 메인 메뉴 js -->
-    <script src="/resources/javascript/header.js"></script>
-
 	<!-- 채널톡 js -->
 	<script src="/resources/javascript/min/channelTalk.js"></script>
 	
@@ -64,7 +60,17 @@
 	<!-- javascript, css import -->
 	<script src="/resources/javascript/min/listRecentlyHobbyClass.js"></script>
 	<link rel="stylesheet" href="/resources/css/min/listRecentlyHobbyClass.css" /> 
-		<!-- header CSS -->
+	
+	<!-- javascript, css import -->
+	<script src="/resources/javascript/min/listListenHobbyClass.js"></script>
+	<link rel="stylesheet" href="/resources/css/min/listListenHobbyClass.css" />
+	
+	<!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
+	<!-- header CSS -->
 	<link rel="stylesheet" href="/resources/css/commonHeader.css" />
 	<!-- header js -->
 	<script src="/resources/javascript/commonHeader.js"></script>
@@ -89,11 +95,61 @@
 		
 		$("#buyschedule").on("click",function(){
 			
-			self.location="/myhobbyclass/getPurchaseHobbyClassSchedule.jsp";
+			// self.location="/myhobbyclass/getPurchaseHobbyClassSchedule.jsp";
+			self.location = "/myHobbyClass/getPurchaseHobbyClassSchedule";
 		});
 		
 		$(".purchaseHistory").on("click", function(){
 			self.location = "/purchase/getPaymentHistoryList";
+		});
+		
+		var onloadWidth = $(window).width();
+		
+		if ( onloadWidth <= 980 ) {
+			$('#recentlyPrev').hide();
+			$('#recentlyNext').hide();
+			$('#recommendPrev').hide();
+			$('#recommendNext').hide();
+			$('#listenPrev').hide();
+			$('#listenNext').hide();
+			$('#steamPrev').hide();
+			$('#steamNext').hide();
+		}
+		else {
+			$('#recentlyPrev').show();
+			$('#recentlyNext').show();
+			$('#recommendPrev').show();
+			$('#recommendNext').show();
+			$('#listenPrev').show();
+			$('#listenNext').show();
+			$('#steamPrev').show();
+			$('#steamNext').show();
+		}
+		
+		$( window ).resize(function() {
+			   var windowWidth = $(this).width(); // 화면 창 변화 그대로 가져오기 
+			   var windowHeight = $(this).height();
+			   
+			   if ( windowWidth <= 980 ) {
+				   $('#recentlyPrev').hide();
+					$('#recentlyNext').hide();
+					$('#recommendPrev').hide();
+					$('#recommendNext').hide();
+					$('#listenPrev').hide();
+					$('#listenNext').hide();
+					$('#steamPrev').hide();
+					$('#steamNext').hide();
+			   }
+			   else {
+				   $('#recentlyPrev').show();
+					$('#recentlyNext').show();
+					$('#recommendPrev').show();
+					$('#recommendNext').show();
+					$('#listenPrev').show();
+					$('#listenNext').show();
+					$('#steamPrev').show();
+					$('#steamNext').show();
+			   }
 		});
 	});
 	
@@ -147,6 +203,10 @@ img {
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1140px;
 }
 a {
     color: inherit;
@@ -183,10 +243,7 @@ h4 {
     letter-spacing: -0.3px;
     margin: 0px;
 }
-.goPQgE {
-    display: flex;
-    margin-top: 24px;
-}
+
 .bsSvWG {
     width: 72px;
     -webkit-box-align: center;
@@ -342,13 +399,45 @@ img#imageImage {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.card-footer {
+	background-color : #FFFFFF;
+}
+.btn-light {
+	background-color: #FFFFFF !important;
+	border-color: #FFFFFF;
+}
+.myfl-o {
+	display: inline-flex;
+	flex: auto;
+}
+.goPQgE {
+    display: flex;
+    margin-top: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
+    max-width: 1140px;
+}
+@media (min-width: 992px){
+	
+}
+@media (max-width: 991px){
+	
+}
+.myfl-bt {
+	cursor: pointer;
+	width: 100%;
+	margin-left: 8px;
+}
 </style>
 <body>
 	 <jsp:include page="/common/header.jsp"/>
-	<div class="MyPage__Box-sc-15vbtd3-6 iWyAzq" style="padding-left: 320px;margin-top: 120px;margin-bottom: 50px;">
+	<div class="MyPage__Box-sc-15vbtd3-6 iWyAzq" style="padding-left: auto; margin-top: 120px;margin-bottom: 50px;">
+			<div style="width: 100%; max-width:1140px; margin-left:auto; margin-right:auto;">
 			<span class="RatioImage__Container-wwqqoo-0 eAfAEc MyPage__ProfileImg-sc-15vbtd3-11 fNYfEW" id="imageSpan">
 			<img id="imageImage" srcset="" src="../resources/image/logo/${!empty user.profileImage ? user.profileImage : 'unnamed.jpg'}" alt="" class="RatioImage__Img-wwqqoo-1 gRslZu">
 			</span>
+			</div>
 			<div class="MyPage__UserNameContainer-sc-15vbtd3-2 CLMeE">
 				<a class="MyPage__ProfileEditLink-sc-15vbtd3-4 feMNUL" href="/user/getUser?userId=${sessionScope.user.userId}" style="text-decoration: none;">
 					<h2 class="sc-bdVaJa cZzCCw" style="font-size: 30px;">${sessionScope.user.nickName}</h2>
@@ -357,33 +446,48 @@ img#imageImage {
 				
 			</div>		
 		<div class="goPQgE">
-			<div>
-				<button type="button" id="getuser" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="padding-left: 16px;border-left-width: 20px;margin-left: 0px;width: 120px;cursor: pointer;">
+			<div class="myfl-o">
+				<button type="button" id="getuser" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC myfl-bt" id="sendcreator" color="orange" fill="true" style="padding-left: 16px;border-left-width: 20px;">
 					<span class="sc-fjdhpX kCztpU">회원 정보</span>							
 				</button>
 			</div>
-			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+			<div class="myfl-o">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC myfl-bt" id="sendcreator" color="orange" fill="true">
 					<span class="sc-fjdhpX kCztpU">좋아요 목록</span>							
 				</button>
 			</div>
-			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC purchaseHistory" id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+			<div class="myfl-o">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC purchaseHistory myfl-bt" id="sendcreator" color="orange" fill="true">
 					<span class="sc-fjdhpX kCztpU">구매내역</span>							
 				</button>
 			</div>
+			<!-- 수정
 			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC myfl-bt" id="sendcreator" color="orange" fill="true" style="margin-left: 50px;width: 100%; cursor: pointer;">
 					<span class="sc-fjdhpX kCztpU">수강</span>							
 				</button>
 			</div>
-			<div>
-				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC " id="buyschedule" color="orange" fill="true" style="margin-left: 50px;width: 120px;cursor: pointer;">
+			 -->
+			<div class="myfl-o">
+				<button type="button" class="sc-jTzLTM flMyeKKK sc-kEYyzF fIJpfC myfl-bt" id="buyschedule" color="orange" fill="true">
 					<span class="sc-fjdhpX kCztpU">클래스 일정</span>							
 				</button>
 			</div>
 		</div>
 	</div>
+	
+	<div class="include-for-listen-hobby-class">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<jsp:include page="/myhobbyclass/listListenHobbyClass.jsp" />
+				</div>
+			</div>
+		</div>
+		<br/><br/>
+	</div>
+	
+	
 	<div class="include-for-recently-hobby-class">
 		<div class="container">
 			<div class="row">

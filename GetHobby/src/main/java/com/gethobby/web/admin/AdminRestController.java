@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.HobbyClass;
+import com.gethobby.service.domain.LessonTimes;
 import com.gethobby.service.delivery.DeliveryService;
 import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
+import com.gethobby.service.searchhobbyclass.SearchHobbyClassService;
 import com.gethobby.service.user.UserService;
 
 //2020-02-24 Git Commit
@@ -52,10 +54,13 @@ public class AdminRestController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
-	
 	@Autowired
 	@Qualifier("deliveryServiceImpl")
 	private DeliveryService deliveryService;
+	
+	@Autowired
+	@Qualifier("searchHobbyClassServiceImpl")
+	private SearchHobbyClassService searchHobbyClassService;
 
 	@Value("#{apiKeyProperties['smartTracking']}")
 	private String apiKey;
@@ -119,6 +124,8 @@ public class AdminRestController {
 			result += line;
 		}
 		
+		System.out.println("dlvyCompany result::::::::::: " + dlvyCompany);
+		System.out.println("trackingNo result::::::::::: " + trackingNo);
 		System.out.println("response result::::::::::: " + result);
 		br.close();
 		
@@ -173,6 +180,17 @@ public class AdminRestController {
 	
 	@RequestMapping( value="json/hobbyClass/saveCheckHobbyClassAdmin", method=RequestMethod.POST )
 	public int saveCheckHobbyClassAdmin(@RequestBody HobbyClass hobbyClass) throws Exception {
+		List<LessonTimes> lessonTimesList = searchHobbyClassService.getHobbyClassEncodingLessonList(hobbyClass.getHobbyClassNo());
+		
+		for(int i = 0; i < lessonTimesList.size(); i++) {
+			String url = "http://192.168.0.144:3000/videoEncoding/" + lessonTimesList.get(i).getLesson().getLessonVideo();
+			URL encodingUrl = new URL(url);
+			
+			HttpURLConnection con = (HttpURLConnection)encodingUrl.openConnection();
+			con.setRequestMethod("GET");
+			con.getResponseCode();
+		}
+		
 		return oepnhobbyClassService.saveCheckHobbyClassAdmin(hobbyClass.getHobbyClassNo());
 	}
 	

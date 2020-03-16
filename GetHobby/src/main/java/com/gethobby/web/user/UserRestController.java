@@ -255,7 +255,7 @@ public class UserRestController {
 		
 		session.setAttribute("state", state);
 		
-		String redirectURL = URLEncoder.encode("http://127.0.0.1:8080/user/naverCallback","UTF-8");
+		String redirectURL = URLEncoder.encode("http://192.168.0.144:8080/user/naverCallback","UTF-8");
 		String loginURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id="+NaverClientId+"&redirect_uri="+redirectURL+"&state="+(String)session.getAttribute("state");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -265,7 +265,7 @@ public class UserRestController {
 	}
 	@RequestMapping(value="json/kakaoLogin", method = RequestMethod.GET)
 	public Map kakaoLogin() throws Exception{
-		String redirectUrl = "http://127.0.0.1:8080/user/kakaoCallBack";
+		String redirectUrl = "http://192.168.0.144:8080/user/kakaoCallBack";
 		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?client_id="+kakaoClientId+"&redirect_uri="+redirectUrl+"&response_type=code";
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -284,7 +284,7 @@ public class UserRestController {
 				"\r\n" + 
 				"다음 링크를 통해 "+recipient+" 계정의 Get취미 비밀번호를 재설정하세요.\r\n" + 
 				"비밀번호 재설정을 요청하지 않았다면 이 이메일을 무시하셔도 됩니다.\r\n" +
-				"http://127.0.0.1:8080/user/newPassword/"+recipient+
+				"http://192.168.0.144:8080/user/newPassword/"+recipient+
 				"\r\n" + 
 				"감사합니다.\r\n" + 
 				"\r\n" + 
@@ -319,7 +319,7 @@ public class UserRestController {
 		MimeBodyPart mbp = new MimeBodyPart();
 		String htmlText = "<img src=\"cid:image\"><h2>안녕하세요.<h2><br><p>비밀번호 변경을 눌러 "+recipient+ "계정의 Get취미 비밀번호를 재설정하세요.<br>" + 
 								"비밀번호 재설정을 요청하지 않았다면 이 이메일을 무시하셔도 됩니다.<br>" + 
-								"<a href=http://127.0.0.1:8080/user/newPassword/"+recipient+">비밀번호 변경</a><br>감사합니다.<br>감자면</p>"; 						 
+								"<a href=http://192.168.0.144:8080/user/newPassword/"+recipient+">비밀번호 변경</a><br>감사합니다.<br>감자면</p>"; 						 
 		mbp.setContent(htmlText, "text/html; charset=utf-8");
 		multi.addBodyPart(mbp);
 		
@@ -335,7 +335,7 @@ public class UserRestController {
 		System.out.println("mimemessage::::::::::::::::::::::::::::::::::::::::"+mimemessage);
 		Transport.send(mimemessage);		
 		
-		String mailurl = "http://127.0.0.1:8080/user/getPassword.jsp";
+		String mailurl = "http://192.168.0.144:8080/user/getPassword.jsp";
 		
 		Map<String, Object> mapp = new HashMap<String, Object>();
 		mapp.put("mailURL", mailurl);
@@ -348,7 +348,7 @@ public class UserRestController {
 		String url = "https://"+hostname+"/smscenter/v1.0/sendsms";
 		
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
-		credsProvider.setCredentials(new AuthScope(hostname,443,AuthScope.ANY_REALM), new UsernamePasswordCredentials(bluehouselabNickName,bluehouselabAppId));
+		credsProvider.setCredentials(new AuthScope(hostname,443,AuthScope.ANY_REALM), new UsernamePasswordCredentials("byeol","a1c36bc2546811eab4b90cc47a1fcfae"));
 		
 		AuthCache authCache = new BasicAuthCache();
 		authCache.put(new HttpHost(hostname,443,"https"), new BasicScheme());
@@ -368,7 +368,7 @@ public class UserRestController {
 			receiverList.add(map.get("receivePhone"));
 			
 			Random random = new Random();
-			ran = random.nextInt(9999);
+			ran = random.nextInt(8999)+1000;
 			String content = "인증번호를 입력해주세요.["+ran+"]";
 			
 			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\""+receiverList.get(0)+"\"],\"content\":\""+content+"\"}";

@@ -66,6 +66,10 @@ public class LessonController {
 		inputData.put("search", search);
 		
 		LessonTimes lesson = lessonService.getLesson(inputData);
+		String videoSource = lesson.getLesson().getLessonVideo();
+	
+		videoSource = videoSource.substring(0, videoSource.indexOf(".")) + ".m3u8";
+		lesson.getLesson().setLessonVideo(videoSource);
 		model.addAttribute("lesson", lesson);
 		System.out.println("---------lesson ? : " + lesson);
 		Map<String, Object> replyMap = lessonService.getLessonReplyList(inputData);
@@ -99,7 +103,10 @@ public class LessonController {
 		inputData.put("hobbyClassNo", map.get("hobbyClassNo"));
 		
 		LessonTimes lesson = lessonService.getArrowLesson(inputData);
-
+		String videoSource = lesson.getLesson().getLessonVideo();
+		
+		videoSource = videoSource.substring(0, videoSource.indexOf(".")) + ".m3u8";
+		lesson.getLesson().setLessonVideo(videoSource);
 		model.addAttribute("lesson", lesson);
 		
 		inputData.put("lessonNo", lesson.getLesson().getLessonNo());

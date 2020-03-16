@@ -28,11 +28,11 @@
                	    </div>  
                     <div class="side-title-box-single">
                     	<img class="side-title-box-single-img" src="/resources/image/gon/freeArticleSide.jpg">
-                  		자유 게시판
+                  		아무말대잔치
                	    </div> 
                	    <div class="side-title-box-single">
 						<img class="side-title-box-single-img" src="/resources/image/gon/imageArticleSide.jpg">
-                  		사진 게시판
+                  		하루 한 장
                	    </div>           
             </div>        
         </nav>
@@ -69,8 +69,8 @@
 				                    </span>
 				                    <div class="header-mynemo-profile-flow-one fa-angle-downa">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-											<path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" fill="#ffffff"/>
-											<path d="M0 0h24v24H0z" fill="none"/>
+											<path d="M0 0h24v24H0V0z" fill="none"/>
+											<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="#ffffff"/>
 										</svg>
 									</div>
 				                </div>
@@ -79,9 +79,9 @@
 								<div class="header- dropdown-menu dropdown-menu-right header-dropdown mt-3 p-2 border-0 first-load-div" style="position:absolute; top: -100px;">
 					                <div class="header-mynemo-out-div" style="padding:0px; background-color:white; width:120px;">
 						                <div color="#1b1c1d" class="header-mynemo-logout-div">
-						                	<div class="header-mynemo-logout-span jauNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">자유게시판</div>
+						                	<div class="header-mynemo-logout-span jauNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">아무말대잔치</div>
 						                	<div style="background:white; width:100%; height:2px;"></div>
-						                	<div class="header-mynemo-logout-span sajinNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">사진게시판</div>
+						                	<div class="header-mynemo-logout-span sajinNaviClass" style="height:37px; width:120px; color: rgb(253, 126, 20); font-size:16px; padding:8px 0px; text-align: center;">하루 한 장</div>
 						                </div>
 					                </div>
 				                </div>
@@ -90,7 +90,7 @@
 	                   <c:if test="${ ! empty user }">
 		                   <c:if test="${ sessionScope.user.role == '1' }">
 		                   <div class="header-title-box-single">
-		                   	크리에이터 센터
+		                   	크리에이터 센터 
 		                   </div>
 		                   </c:if>
 		                   <c:if test="${ sessionScope.user.role == '0' }">
@@ -114,7 +114,7 @@
 	                   </c:if>
 	                   
 	                   <c:if test="${ ! empty user }">
-	                   <div style="margin:0px 24px; padding:0px; color:white; font-size:24px; font-weight:bold; line-height:32px; etter-spacing: -0.4px;">
+	                   <div style="margin:0px 0px 0px 24px;; padding:0px; color:white; font-size:24px; font-weight:bold; line-height:32px; etter-spacing: -0.4px;">
 	                   		
 	                   		<!-- 프로필 -->
 				            <div class="dropdown d-flex justify-content-end">
@@ -126,8 +126,8 @@
 				                    
 				                    <div class="header-mynemo-profile-flow-one fa-angle-down">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-											<path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" fill="#ffffff"/>
-											<path d="M0 0h24v24H0z" fill="none"/>
+											<path d="M0 0h24v24H0V0z" fill="none"/>
+											<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="#ffffff"/>
 										</svg>
 									</div>
 				                </div>
@@ -154,7 +154,29 @@
 							                </span>
 						                </div>
 					                </a>
-			
+					                
+					                <c:if test="${ sessionScope.user.role == '0' }">
+									<div color="#1b1c1d" class="header-mynemo-div">
+					                	<div class="header-mynemo-span" style="text-decoration:none;">
+						                	크리에이터 지원
+						                </div>
+					                </div>   
+					                <div class="header-mynemo-hr"></div>
+					                </c:if>
+					                <c:if test="${ sessionScope.user.role == '1' }">
+									<div color="#1b1c1d" class="header-mynemo-div">
+					                	<div class="header-mynemo-span" style="text-decoration:none;">
+						                	크리에이터 센터
+						                </div>
+					                </div>   
+					                <div class="header-mynemo-hr"></div>
+					                </c:if>
+					                <div color="#1b1c1d" class="header-mynemo-div">
+					                	<div class="header-mynemo-span" style="text-decoration:none;">
+						                	구매 내역
+						                </div>
+					                </div>
+					                <div class="header-mynemo-hr"></div>
 					                <div><hr class="header-mynemo-logout-hr">
 						                <div color="#1b1c1d" class="header-mynemo-logout-div">
 						                	<a href="/user/logout" class="header-mynemo-logout-span" style="text-decoration:none;">

@@ -34,6 +34,7 @@ $(function(){
 	   }
 	
 	
+	
 	// 화면 작아지면 띄울 맨밑에 그거 숨기기
 	$('.small-width-row').hide();
 
@@ -217,6 +218,32 @@ $(function(){
 	// 댓글 추가 요청 --------------------------------------------------------------------------
 	//$('.lesson-reply-add-button-div').on('click', function(){
 	$(document).on('click', '.col-2.col-md-1.btn.btn-basic', function(){
+		var totalReport = $('.lesson-user-report-count').val();
+		
+		if ( totalReport >= 5 ) {
+			const Toast = Swal.mixin({
+				toast : true, 
+				position : 'top', 
+				showConfirmButton : false, 
+				showCancelButton : false,
+				timer : 1500, 
+				timerProgressBar : false, 
+				onOpen : (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer);
+					toast.addEventListener('mouseleave', Swal.resumeTimer);
+				}
+			});
+			
+			Toast.fire({
+				icon : 'error', 
+				title : '댓글을 작성할 수 없는 상태입니다.'
+			});
+			
+			
+			return false;
+		}
+		
+		
 		var replyContent = $('.form-control.col-9.col-md-10.mr-1').val();
 		$('.form-control.col-9.col-md-10.mr-1').val('');
 		$('.form-control.col-9.col-md-10.mr-1').val(null);
@@ -395,7 +422,7 @@ $(function(){
 			$('.report-reply-number-hidden').val(replyNo);
 			
 			var display = '';
-			display += '<div class="report-check-reason-text"><h6>해당 댓글' + replyText + '을 <span class="text-danger">부적절한 내용</span> 사유로 신고하시겠습니까?</h6></div>';
+			display += '<div class="report-check-reason-text"><h6>해당 댓글' + replyText + '을 <span class="text-danger">부적절한 내용</span> 사유로<br/> 신고하시겠습니까?</h6></div>';
 			
 			$('.report-reply-content-check').html(display);
 			
@@ -838,7 +865,7 @@ $(function(){
 		$('.report-hidden-input-value').val(stateValue);
 		
 		var display = '';
-		display += '<div class="report-check-reason-text">해당 댓글' + replyContent + '을 <span class="text-danger">' + buttonText + '</span> 사유로 <br/>신고하시겠습니까?</div>';
+		display += '<div class="report-check-reason-text"><h6>해당 댓글' + replyContent + '을 <span class="text-danger">' + buttonText + '</span> 사유로 <br/>신고하시겠습니까?</h6></div>';
 		$('.report-reply-content-check').html(display);
 	});
 	// 신고 모달창 클릭시 이벤트 -------------------------------------------------------
@@ -898,13 +925,16 @@ $(function(){
 	$( window ).resize(function() {
 	   var windowWidth = $(this).width(); // 화면 창 변화 그대로 가져오기 
 	   var windowHeight = $(this).height();
-
-	   if ( windowWidth <= 1090 ) {
+	   console.log('----' + windowWidth);
+//	   if ( windowWidth <= 1090 ) {
+	   if ( windowWidth <= 980 ) {
+		   console.log('hide');
 		   $('.lesson-project-content-outer-div').hide();
 		   $('.lesson-reply-content-total-outer-div').hide();
 		   $('.col-lg-4.fixed-right-tool-bar').hide();
 		   $('.small-width-row').show();
 		   $('.lesson-header-total-arrow').hide();
+		   $('.fixed-right-tool-bar').hide();
 //		   $('.col-lg-4.fixed-right-tool-bar').attr('class', 'col-lg-4 fixed-bottom');
 	   }
 	   else {
@@ -913,6 +943,7 @@ $(function(){
 		   $('.col-lg-4.fixed-right-tool-bar').show();
 		   $('.small-width-row').hide();
 		   $('.lesson-header-total-arrow').show();
+		   $('.fixed-right-tool-bar').show();
 //		   $('.col-lg-4.fixed-bottom').attr('class', 'col-lg-4 fixed-right-tool-bar');
 	   }
 	   

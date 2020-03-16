@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>GetHobby</title>
 	<meta charset="UTF-8">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,6 +50,9 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			
+			
+			
 			var hobbyClassNo = $('.hidden-hobby-class-number').val();	
 			
 			var kitImage = '';
@@ -66,6 +70,82 @@
 			$('.end-class').hide();
 			$('.non-end-class').hide();
 			// 클래스 한줄평인데 일단 다 가리고 보자
+			
+			// 돌아가기 버튼 이벤트 
+			$(document).on("click",".gpv-cct-cco",function(){
+				self.location = "/hobbyclass/getSaveHobbyClass?hobbyClassNo="+hobbyClassNo;
+			});
+			
+			// 모달 창 닫기
+			$(".close-btn").click(function(){
+				$('#exampleModalCenter').modal('hide');
+			});
+			
+			// 계속 작성하기 버튼
+			$(document).on("click", ".gesockbutton", function(){
+				self.location = "/hobbyclass/getSaveHobbyClass?hobbyClassNo="+hobbyClassNo;
+			});
+			
+			// 검토하기 버튼 이벤트
+			var count = 0;
+			$(document).on("click",".gpv-cct-cc",function(){
+				$(".saveCheckButton").click();
+				
+				getCheck('${hobbyClass.hobbyClassImage}', 'hobbyClassImage');
+				//var tempIntro = ${hobbyClass.hobbyClassIntro};
+				//alert(tempIntro);
+				//getCheck('${hobbyClass.hobbyClassIntro}', 'hobbyClassIntro');
+				getCheck('${hobbyClass.hobbyClassName}', 'hobbyClassName');
+				getCheck('${hobbyClass.category}', 'category');
+				getCheck('${hobbyClass.hashtag[0]}', 'hashtag');
+				getCheck('${hobbyClass.hashtag[1]}', 'hashtag');
+				getCheck('${hobbyClass.hashtag[2]}', 'hashtag');
+				getCheck('${hobbyClass.kitImage}', 'kitImage');
+				getCheck('${hobbyClass.kitName}', 'kitName');
+				getCheck('${hobbyClass.kitIntro}', 'kitIntro');
+				getCheck('${hobbyClass.kitPrice}', 'kitPrice');
+				getCheck('${lesson[0].lessonVideo}', 'lessonVideo');
+				getCheck('${lesson[0].lessonTitle}', 'lessonTitle');
+				getCheck('${lesson[0].lessonProject}', 'lessonProject');
+				getCheck('${lesson[0].lessonIntro}', 'lessonIntro');
+				//getCheck('${lesson[0].lessonContent}', 'lessonContent');
+				getCheck('${lesson[0].lessonImage}', 'lessonImage');
+				$('.hobbyClassIntro').hide();
+				$('.lessonContent').hide();
+				
+				
+				
+				
+				
+			});
+			
+			function getCheck(property,name) {
+				if( property == null || property == '' || property == 0 || property == []){
+					$('.'+name).show();
+				}else{
+					$('.'+name).hide();
+					count ++;
+				}
+				if( count <= 15 ){
+					//$(".gpv-cct-cc").hide();
+					$(".classcheckbutton").show();
+					$(".md-cli").hide();
+					$(".md-sadim").hide();
+					self.location = "/hobbyclass/saveCheckHobbyClass?hobbyClassNo="+hobbyClassNo;
+					count = 0;
+				}else{
+					//$(".gpv-cct-cc").show();
+					$(".classcheckbutton").hide();
+					$(".md-cli").show();
+					$(".md-sadim").hide();
+					
+				}
+			}
+			
+			// 클래스 검토하기 버튼 이벤트
+			$(document).on("click", ".classcheckbutton", function(){
+				self.location = "/hobbyclass/saveCheckHobbyClass?hobbyClassNo="+hobbyClassNo;
+			});
 			
 			// 쿠키 저장용 ajax --------------------------------------------------------	
 			$.ajax(
@@ -310,7 +390,7 @@
 								
 								var currentPage = ( i - 1 ) * pageSize + 1;
 								var nowMaxPage = ( i * pageSize );
-			
+								
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {		
 									if( JSONData.lessonList[j - 1].lessonImage != null ){
 										display += '<div class="item"><img src="/images/hobbyclass/' + JSONData.lessonList[j - 1].lessonImage + '" /></div>';
@@ -327,6 +407,7 @@
 								display += '<div class="lesson-content-text-list-outer-div">';
 								
 								for(var j = currentPage; j <= nowMaxPage; j++ ) {
+
 									display += '<a class="lesson-content-click-a-tag">';
 									display += '<div class="lesson-content-inner-div mt-4">';
 									display += '<div class="lesson-content-number-div">';
@@ -344,7 +425,7 @@
 									}
 									display += '</div>';
 									display += '</div>';
-									
+
 									display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + '" /> ';
 									
 									display += '</a>';
@@ -394,11 +475,17 @@
 										display += '</div>';
 										
 										display += '<div class="lesson-content-text-div">';
-										display += JSONData.lessonList[j - 1].lessonTitle;
+										if( JSONData.lessonList[j - 1].lessonTitle != null ){
+											display += JSONData.lessonList[j - 1].lessonTitle;
+										}else{
+											display += '강의 제목을 정해주세요.';
+										}
 										display += '</div>';
 										display += '</div>';
 										
-										display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + ' /> ';
+										
+										
+										display += '<input type="hidden" class="hidden-lesson-content-lesson-number" value=" ' + JSONData.lessonList[j - 1].lessonNo + '" > ';
 										
 										display += '</a>';
 									}
@@ -417,7 +504,7 @@
 			
 			// 강의 상세보기 구간 ------------------------------------------------
 			$(document).on('click', '.lesson-content-click-a-tag', function(){
-				
+				//alert( $(this).find('.hidden-lesson-content-lesson-number').val() );
 				var lessonNo = ( $(this).find('.hidden-lesson-content-lesson-number').val() ) * 1;
 				
 				var hobbyClassNo = $('.hidden-hobby-class-number').val();
@@ -1593,11 +1680,527 @@
 		.class-intro-content-in-summer-note {
 			overflow : hidden;
 		}
+		.gpv-indi {
+			background-color: rgb(255, 249, 242);
+		    padding: 16px 32px;
+		    border-radius: 3px;
+		}
+		.gpv-indione {
+			font-size: 14px;
+		    color: rgb(62, 64, 66);
+		    line-height: 20px;
+		    letter-spacing: -0.2px;
+		    font-weight: bold;
+		    display: inline-flex;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    margin: 0px 0px 8px;
+		}
+		.gpv-inditwo {
+			font-size: 11px;
+		    font-weight: normal;
+		    color: rgb(62, 64, 66);
+		    line-height: 16px;
+		    letter-spacing: normal;
+		    margin: 0px;
+		}
+		.gpv-insp {
+			display: flex;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    margin-right: 5px;
+		}
+		.gpv-top {
+			margin-top: 32px;
+			max-width: 960px;
+		}
+		.gpv-kidi {
+			position: relative;
+		    margin-left: auto;
+    		margin-right: auto;
+   			max-width: 960px;
+		}
+		.gpv-chbt {
+			margin: 8px 0px 8px 8px;
+			width: auto;
+		    display: inline-flex;
+		    vertical-align: middle;
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(255, 146, 43);
+		    font-weight: 500;
+		    font-size: 14px;
+		    letter-spacing: -0.2px;
+		    height: 32px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 12px;
+		    transition: background-color 0.1s ease 0s;
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    border-width: 0px;
+		    border-style: initial;
+		    border-color: initial;
+		    border-image: initial;
+		    outline: none;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		}
+		.gpv-chbtsp {
+			display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex: 0 0 auto;
+		    color: rgb(255, 255, 255);
+		    font-weight: 500;
+		    font-size: 14px;
+		    letter-spacing: -0.2px;
+		    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    		line-height: inherit;
+		}
+		.gpv-chabt {
+			margin: 8px 0px 8px auto;
+		    border-width: 1px;
+		    border-style: solid;
+		    border-color: rgb(221, 224, 226);
+		    border-image: initial;
+		    width: auto;
+		    display: inline-flex;
+		    vertical-align: middle;
+		    color: rgb(62, 64, 66);
+		    background-color: rgb(255, 255, 255);
+		    font-weight: 500;
+		    font-size: 14px;
+		    letter-spacing: -0.2px;
+		    height: 32px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 12px;
+		    transition: background-color 0.1s ease 0s;
+		    box-sizing: border-box;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    margin: 0px;
+		    padding: 0px;
+		    flex: initial;
+		}
+		.gpv-chabta {
+			color: rgb(62, 64, 66);
+			width: 100%;
+		    height: 100%;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    text-decoration: none;
+		}
+		.gpv-chtx {
+			font-size: 14px;
+		    color: rgb(62, 64, 66);
+		    line-height: 20px;
+		    letter-spacing: -0.2px;
+		    font-weight: bold;
+		    margin: 12px 0px 0px;
+		}
+		@media (max-width: 1023px){
+			.gpv-tmod {
+				margin-left: 24px;
+    			margin-right: 24px;	
+			}
+		}
+		.gpv-tmod {
+			position: relative;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+		.gpv-tmodi {
+			width:100%;
+			display:flex;
+		}
+		.gpv-cct-cc {
+			background-color: rgb(255, 146, 43); 
+			color: rgb(255, 255, 255); 
+			display: inline-flex; 
+			vertical-align: middle; 
+			font-weight: bold; 	
+			height: 36px; 
+			padding: 0px 12px; 
+			width: auto; 
+			margin: 8px 0px 8px 8px; 
+			border:0; o
+			utline:0 none; 
+			border-radius: 3px;
+			letter-spacing: -0.2px;
+			font-size: 15px;
+		}
 		
+		.gpv-cct-cco {
+			color: rgb(62, 64, 66);
+			width: 100%;
+		    height: 100%;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    align-items: center;
+		    flex-direction: row;
+		    text-decoration: none;
+		    margin: 8px 0px 8px auto;
+		    border-width: 1px;
+		    border-style: solid;
+		    border-color: rgb(221, 224, 226);
+		    border-image: initial;
+		    width: auto;
+		    display: inline-flex;
+		    vertical-align: middle;
+		    color: rgb(62, 64, 66);
+		    background-color: rgb(255, 255, 255);
+		    font-weight: 500;
+		    font-size: 15px;
+		    height: 36px;
+		    text-decoration-line: none;
+		    border-radius: 3px;
+		    padding: 0px 12px;
+		    transition: background-color 0.1s ease 0s;
+		}
+		
+		.gpv-cct-cc:focus {
+			border:0 ;
+			outline: 0 none;
+			background-color: rgb(253, 126, 20);
+		}
+		.gpv-cct-cc:hover {
+			background-color: rgb(253, 126, 20);
+		}
+		.gpv-cct-cco:focus {
+			box-shadow: none;
+			outline: 0 none;
+		}
+		.gpv-cct-cco:hover {
+			
+		
+		}
+		
+		.purchase-button:focus {
+			border:0;
+			outline: 0 none;
+			background-color: rgb(253, 126, 20);
+		}
+		.purchase-button:hover {
+			background-color: rgb(253, 126, 20);
+		}
+		.temnav {
+			padding-left: 0px;
+		}
+		
+		@media (max-width: 960px){
+			.md-od {
+				width: 100%;
+				padding: 24px;
+			}
+			.modal-content {
+				width: 100%;
+			}
+		}
+		
+		@media (min-width: 961px){
+			.md-od {
+				top: 50%;
+			    left: 50%;
+			    width: 480px;
+			    transform: translate(-50%, -50%);
+			    max-height: 95%;
+			    animation: 0.25s ease 0s 1 normal none running openModal;
+			    padding: 32px 24px;
+			    position: fixed;
+			    overflow-y: auto;
+			    z-index: 3000;
+			    box-shadow: rgba(0, 0, 0, 0.08) 0px 3px 6px 0px, rgba(0, 0, 0, 0.12) 0px 8px 16px 0px;
+			    padding: 24px;
+			    background: rgb(255, 255, 255);
+			}
+		}
+		.md-h1 {
+			font-size: 24px;
+    font-weight: bold;
+    color: rgb(62, 64, 66);
+    line-height: 32px;
+    letter-spacing: -0.4px;
+    display: flex;
+    margin: 0px 0px 8px;
+    padding: 0px;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+		}
+		.md-h1oned {
+			-webkit-box-flex: 1;
+    flex-grow: 1;
+
+		}
+		.close-btn {
+			width: 24px;
+    height: 24px;
+    z-index: 2001;
+    cursor: pointer;
+    flex: 0 0 auto;
+		}
+		.md-sadim {
+			text-align: center;
+    font-size: 64px;
+		}
+		.md-cli {
+			margin-bottom: 12px;
+			font-size: 16px;
+		    font-weight: normal;
+		    color: rgb(62, 64, 66);
+		    line-height: 24px;
+		    letter-spacing: -0.2px;
+		}
+		.mdb-gj {
+			margin-top: 12px;
+			width: 100%;
+    display: flex;
+    vertical-align: middle;
+    color: rgb(62, 64, 66);
+    background-color: rgb(248, 248, 249);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.2px;
+    height: 40px;
+    text-decoration-line: none;
+    border-radius: 3px;
+    padding: 0px 16px;
+    transition: background-color 0.1s ease 0s;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 0px;
+    flex: initial;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: inherit;
+		}
+		
+		.md-texi {
+			font-size: 9px;
+    letter-spacing: normal;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    font-weight: bold;
+    line-height: 1;
+    color: rgb(62, 64, 66);
+    margin: 0px;
+		}
+		
+		.md-texo {
+			margin-right: 4px;
+    margin-bottom: 4px;
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(237, 239, 240);
+    box-sizing: border-box;
+    border-radius: 10px;
+    flex: 0 0 auto;
+    padding: 0px 6px;
+		}
+		.gesockbutton:focus {
+			border:0;
+			outline: 0 none;
+			box-shadow: none;
+		}
+		.gesockbutton:hover {
+			background: rgb(226, 226, 226);
+		}
+		.classcheckbutton:hover {
+			background: rgb(226, 226, 226);
+		}
 	</style>
 
 </head>
 <body>
+	
+	<!-- 검토요청 모달 -->
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary saveCheckButton" data-toggle="modal" data-target="#exampleModalCenter" style="display:none;">
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="md-od">
+		      <h1 class="md-h1">
+			      <div class="md-h1oned">
+			      	아직 완성하지 않으신 것 같아요
+			      </div>
+			      <div class="close-btn">
+				      <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+					      <path d="M17.59 5L12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41 17.59 5z" fill="#a8aeb3">
+					      </path>
+				      </svg>
+			      </div>
+		      </h1>
+		      <div class="md-sadim">
+			      <span role="img" aria-label="Loudly">
+			      	😭
+			      </span>
+		      </div>
+		      <div class="md-cli">
+		     	 검토 요청을 하시기 전에 아래의 항목들을 모두 입력해주세요!
+		      </div>
+		      <div class="md-texo hobbyClassImage">
+			      <div color="#3e4042" class="md-texi hobbyClassImage">
+			      	커버 이미지
+			      </div>
+		      </div>
+		      <div class="md-texo hobbyClassIntro">
+			      <div color="#3e4042" class="md-texi hobbyClassIntro">
+			      	클래스 소개
+			      </div>
+		      </div>
+		      <div class="md-texo hobbyClassName">
+			      <div color="#3e4042" class="md-texi hobbyClassName">
+			      	클래스 제목
+			      </div>
+		      </div>
+		      <div class="md-texo category">
+			      <div color="#3e4042" class="md-texi category">
+			     	 클래스 카테고리
+			      </div>
+		      </div>
+		      <div class="md-texo hashtag">
+			      <div color="#3e4042" class="md-texi hashtag">
+			     	 클래스 해쉬태그
+			      </div>
+		      </div>
+		      <div class="md-texo kitImage">
+			      <div color="#3e4042" class="md-texi kitImage">
+			     	 준비물 이미지
+			      </div>
+		      </div>
+		      <div class="md-texo kitName">
+			      <div color="#3e4042" class="md-texi kitName">
+			     	 준비물 이름
+			      </div>
+		      </div>
+		      <div class="md-texo kitIntro">
+			      <div color="#3e4042" class="md-texi kitIntro">
+			     	 준비물 소개
+			      </div>
+		      </div>
+		      <div class="md-texo kitPrice">
+			      <div color="#3e4042" class="md-texi kitPrice">
+			     	 준비물 가격
+			      </div>
+		      </div>
+		      <div class="md-texo lessonVideo">
+			      <div color="#3e4042" class="md-texi lessonVideo">
+			      	강의 영상
+			      </div>
+		      </div>
+		      <div class="md-texo lessonTitle">
+			      <div color="#3e4042" class="md-texi lessonTitle">
+			      	강의 제목
+			      </div>
+		      </div>
+		      <div class="md-texo lessonProject">
+			      <div color="#3e4042" class="md-texi lessonProject">
+			      	강의 과제
+			      </div>
+		      </div>
+		      <div class="md-texo lessonIntro">
+			      <div color="#3e4042" class="md-texi lessonIntro">
+			      	강의 소개
+			      </div>
+		      </div>
+		      <div class="md-texo lessonContent">
+			      <div color="#3e4042" class="md-texi lessonContent">
+			      	수업 노트
+			      </div>
+		      </div>
+		      <div class="md-texo lessonImage">
+			      <div color="#3e4042" class="md-texi lessonImage">
+			      	강의 소개 이미지
+			      </div>
+		      </div>
+		      <button type="button" class="mdb-gj gesockbutton" color="default" fill="true">
+		      <span class="">
+		      	계속해서 작성하기
+		      </span>
+		      </button>
+		      <button type="button" class="mdb-gj classcheckbutton" color="default" fill="true">
+		      <span class="">
+		      	검토 요청하기
+		      </span>
+		      </button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+		
+	<!-- 클래스 검토하기 타이틀 -->
+	<div style="width:100%; max-width:960px; margin: auto; padding:0px 24px;">
+		<div style="display:flex;">
+			<div style="font-weight:bold; font-height: 20px; display:inline-flex; margin: 12px 0px 0px; font-size:16px;">
+				클래스 검토하기
+			</div>
+			<span style="display:inline-flex; vertical-align: middle; flex:none; margin-left: auto;">
+				<button class="gpv-cct-cco">
+				돌아가기</button>
+			</span>
+			<button class="gpv-cct-cc">
+			검토 요청</button>
+		</div>
+	</div>
+	
+	<!-- 한번 더 확인해주세요 -->
+	<div class="gpv-kidi">
+		<div class="gpv-indi">
+			<div class="gpv-indione">
+				<span class="gpv-insp">
+					<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M21.872 19.51A1 1 0 0121 21H3a1 1 0 01-.872-1.49l9-16a1 1 0 011.744 0l9 16zM13 15V9h-2v6h2zm0 3v-2h-2v2h2z" fill="#fd7e14">
+						</path>
+					</svg>
+				</span>
+				한번 더 확인해주세요
+			</div>
+			<div class="gpv-inditwo">
+				크리에이터님이 작성한 내용이 반영된 미리보기화면입니다. 틀린 내용은 없는지 담고자하신 내용이 잘 담겨있는지 한번 더 확인해주세요.
+				<br>참고 클래스를 참조해서 작성해주시면 더 반응이 좋은 페이지를 만들 수 있어요.
+			</div>
+		</div>
+	</div>
 	
 	<input type="hidden" class="user-hidden-class-intro-value" value="${sessionScope.user.userId }"/>
 	<input type="hidden" class="steam-count"/>
@@ -1611,12 +2214,11 @@
 	<input type="hidden" class="hidden-class-state" value="${hobbyClass.hobbyClassState }" />
 	<input type="hidden" class="hidden-class-assess-check" value="${ !empty classAssess ? '1' : '0' }" />
 	
-	<br/><br/><br/><br/>
 	
-	<div class="container">
+	<div class="container gpv-top">
 		<div class="row">
 			<div class="col-lg-12">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light temnav">
 					<span class="navbar-brand">클래스 메뉴</span>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -1625,7 +2227,7 @@
 						<ul class="navbar-nav">
 							<li class="nav-item active nav-in-class-detail-menu">
 								<a class="nav-link">
-									<span class="nav-span-inner-nav-link">
+									<span class="nav-span-inner-nav-link" style="padding-left: 0px;">
 										<span>클래스 소개</span>
 										<input type="hidden" value="0" class="navbar-nav-link-inner-span-input"/>
 									</span>
@@ -1849,7 +2451,12 @@
 						
 						<h3 class="class-intro-h4-lesson-days1 class-intro-h4-lesson-days2">
 							<span class="class-intro-h4-category">
-								${hobbyClass.hobbyClassName }
+							<c:if test="${!empty hobbyClass.hobbyClassName}">
+								${hobbyClass.hobbyClassName}
+							</c:if>
+							<c:if test="${empty hobbyClass.hobbyClassName}">
+								클래스를 대표할 수 있는 제목을 정해주세요.
+							</c:if>					
 							</span>			
 							&nbsp;클래스의 	
 							<br/>
@@ -1871,7 +2478,12 @@
 								<div class="class-intro-expect-days-inner">
 									<div class="class-intro-expect-days-real-outer-div">
 										<span class="class-kit-expect-days-real-span">
-											${hobbyClass.kitName }
+											<c:if test="${!empty hobbyClass.kitName}">
+												${hobbyClass.kitName}
+											</c:if>
+											<c:if test="${empty hobbyClass.kitName}">
+												클래스 준비물 이름을 정해주세요.
+											</c:if>
 										</span>
 									</div>
 									<div class="class-intro-expect-static-date">
@@ -1906,7 +2518,12 @@
 							<div class="class-assess-outer-div2">
 								<h4 class="class-assess-title1 class-assess-title2 class-assess-title3">
 									<span class="class-assess-count">
-										${hobbyClass.kitName } 
+										<c:if test="${!empty hobbyClass.kitName}">
+											${hobbyClass.kitName}
+										</c:if>
+										<c:if test="${empty hobbyClass.kitName}">
+											클래스 준비물 이름을 정해주세요.
+										</c:if>
 									</span>
 									&nbsp;의 상세한 설명입니다.
 								</h4>
@@ -2142,7 +2759,7 @@
 	<!-- 화면 작아지면 출력할 푸터바 시작 -->
 	<div class="container small-width-bottom-fixed">
 		<div class="row">
-			<div class="col-lg-12 fixed-bottom">
+			<div class="col-lg-12 fixed-bottom" style="width:100%; padding: 0px;">
 				<div class="class-intro-purchase-button mt-2">
 					<button type="button" class="purchase-button purchase-button1 purchase-button2">
 						<span class="purchase-button-text">

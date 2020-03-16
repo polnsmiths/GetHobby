@@ -6,7 +6,7 @@ import java.util.Map;
 import com.gethobby.common.Search;
 import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.Lesson;
-//2020-02-24 Git Commit
+
 public interface OpenHobbyClassDAO {
 	
 	public List getHobbyClassList(Search search) throws Exception;  
@@ -69,7 +69,5 @@ public interface OpenHobbyClassDAO {
 	public int getHobbyClassTotalCountAdmin(Map<String, Object> totalCountMap) throws Exception;
 	
 	public int saveCheckHobbyClassAdmin(int hobbyClassNo) throws Exception; 
-	
-	public int updateHobbyClassAdmin(HobbyClass hobbyClass) throws Exception; 
-	
+
 }//end of interface HobbyClassDAO

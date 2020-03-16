@@ -11,16 +11,17 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gethobby.common.Search;
+import com.gethobby.service.domain.HobbyClass;
 import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
 import com.gethobby.service.purchase.PurchaseService;
 
-//2020-02-24 Git Commit
 @Controller
 @RequestMapping("/hobbyclass/*")
 public class OpenHobbyClassController {
@@ -52,7 +53,7 @@ public class OpenHobbyClassController {
 	public String getHobbyClassInfo(Model model, HttpSession session) throws Exception {
 		model.addAttribute("hobbyClass", oepnhobbyClassService.getHobbyClassInfo( ((User)session.getAttribute("user")).getUserId() ) );
 		return "/openhobbyclass/saveHobbyClass.jsp";
-	}
+	}//end of getHobbyClassInfo
 		
 	@RequestMapping( value="getSaveHobbyClass", method=RequestMethod.GET )
 	public String getSaveHobbyClass(@RequestParam("hobbyClassNo") int hobbyClassNo, Model model) throws Exception {
@@ -70,10 +71,16 @@ public class OpenHobbyClassController {
 	public String getPreview(@RequestParam("hobbyClassNo") int hobbyClassNo, Model model) throws Exception {
 		return "/openhobbyclass/test.jsp";
 	}//end of getDetailView
+	
+	@RequestMapping( value="saveCheckHobbyClass", method=RequestMethod.GET )
+	public String saveCheckHobbyClass(@RequestParam("hobbyClassNo") int hobbyClassNo) throws Exception {
+		oepnhobbyClassService.saveCheckHobbyClass(hobbyClassNo);
+		return "redirect:/hobbyclass/getMyHobbyClassList";
+	}//end of saveCheckHobbyClass
 
-	@Scheduled(cron="0 0 0 * * *") // 1초마다 실행
+	@Scheduled(cron="0 0 0 * * *") // 매일 정오마다 실행
     public void updateClassState() throws Exception{
 		oepnhobbyClassService.updateClassState();
-    }
+    }//end of updateClassState
 
 }//end of OpenHobbyClassController

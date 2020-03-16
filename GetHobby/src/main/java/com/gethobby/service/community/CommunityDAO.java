@@ -35,4 +35,7 @@ public interface CommunityDAO {
 	public int getTotalCountCommunityArticle(int hobbyClassNo)throws Exception; 
 	//Community Main화면 구성할 한개의 글에 달린 댓글의  갯수 가져오는 메서드
 	public int getTotalCountCommunityReply(int articleNo)throws Exception; 
+	
+	public String getCreatorAtHobbyClass(int hobbyClassNo)throws Exception;
+	
 }

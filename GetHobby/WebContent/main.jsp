@@ -5,6 +5,7 @@
 <!doctype html>
 <html>
 <head>
+<title>GetHobby</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -41,6 +42,8 @@
 <script src="/resources/javascript/commonHeader.js"></script>
 <link rel="stylesheet" href="/resources/css/commonHeader.css" />
 <link rel="stylesheet" href="/" />
+
+<script src="/resources/javascript/min/channelTalk.js"></script>
 
 <style>
 

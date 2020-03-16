@@ -22,6 +22,17 @@
 
         $(function () {
         	
+        	var footerCurrentPage = ( $('#currentPage').val() * 1 ) + 1;
+    		var footerTotalCount = ( $('#totalCount').val() );
+        	
+    		if ( footerCurrentPage > footerTotalCount ) {
+    			$(".footerDiv").show();
+    		}
+    		else {
+    			$(".footerDiv").hide();
+    		}
+        	
+        	
         	var file = new Object();
 
 
@@ -200,8 +211,6 @@
                 
             });
                 
-
-            
             // 스크롤 이벤트 --------------------------------------------------------------
             $(window).scroll(function(){
             	clearTimeout( null );
@@ -219,9 +228,7 @@
 
             });
             
-            
-            
-            
+
         	// 댓글 리스트 스크롤로 추가할때 쓸 function ----------------------------------------
         	function scrollBoardArticleList() {
         		var currentPage = ( $('#currentPage').val() * 1 ) + 1;
@@ -232,7 +239,8 @@
         		
         		console.log("현재 페이지>>>>>>" + currentPage);
         		var maxPage = $('#maxPage').val();
-        		console.log("최대 페이지>>>>>>" + maxPage);
+        		// console.log("최대 페이지>>>>>>" + maxPage);
+        		console.log("최대 페이지>>>>>>" + totalCount);
         		
         		if(currentPage == 2) {
 //        			currentPage += 9;
@@ -266,7 +274,7 @@
         							}), 
         							success : function(JSONData, status) {
         								var items = [];
-        								
+        							
         								console.log('scroll ajax');
         								for(var i = 0; i < JSONData.list.length; i++) {
         									var display = '';
@@ -320,6 +328,13 @@
         								$('#maxPage').val(JSONData.resultPage.maxPage);
         								$('#currentPage').val( currentPage );
         								
+        								if ( currentPage >= totalCount ) {
+        									
+        	        		    			$(".footerDiv").show();
+        	        		    		}
+        	        		    		else {
+        	        		    			$(".footerDiv").hide();
+        	        		    		}
         							}
         						}
         				);

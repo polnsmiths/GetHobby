@@ -97,13 +97,13 @@ $(function(){
 						display += "</div>";
 						display += "</div>";
 						
-						display += "<p class='card-text'><span class='badge wrapper-basic text-wrap'><i class='fas fa-list'></i>&nbsp;" + category + "</span></p>";	
+						display += "<p class='card-text'><span class='badge wrapper-basic text-wrap text-wrap-width-class'><i class='fas fa-list'></i>&nbsp;" + category + "</span></p>";	
 						
 						display += "<p class='card-text'>";
 						
 						for (var k = 0; k < JSONData.registerHobbyClassList[i].hashtag.length; k++){
-							display += "<span class='badge wrapper-basic text-wrap'><i class='fas fa-hashtag'></i>" + JSONData.registerHobbyClassList[i].hashtag[k] + "</span>";
-							display += "<br/>";
+							display += "<span class='badge wrapper-basic text-wrap text-hashtag-wrap-width-class'><i class='fas fa-hashtag'></i>" + JSONData.registerHobbyClassList[i].hashtag[k] + "</span>";
+							display += "&nbsp;";
 						}
 						
 						display += "</p>";

@@ -4,6 +4,7 @@
 <html lang="ko">
 
 <head>
+	<title>GetHobby</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
@@ -57,7 +58,9 @@
 <!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 
 
-
+	<!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>
+    
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 
 <!-- include summernote css/js -->
@@ -121,6 +124,36 @@ function fncAddBoardArticle(){
 		$("button.btn-basic").on("click", function(){
 			fncAddBoardArticle();
 		});
+		
+		$("button.btn-outline-basic").on("click", function(){
+			
+			Swal.fire({
+				  title: '취소하시겠습니까?',
+				  text: "작성하신 내용은 저장되지 않습니다.",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '확인',
+				  cancelButtonText: '취소'
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+			    		title: '취소되었습니다',
+						icon: 'success',
+						showConfirmButton: false,
+						timer: 620
+				    }).then((result) => {
+				    	
+					    self.location='/article/getBoardArticleList?boardCode=0';
+				    })
+				    
+				  }
+				  
+				})
+			
+			
+		});
 
 	});
 	
@@ -154,7 +187,7 @@ function fncAddBoardArticle(){
 
 	<div class="mt-5">&nbsp;</div>
 	<div class="container">
-    <h1 class="sol-board-header">자유게시판 게시글 작성</h1>
+    <h1 class="sol-board-header">게시글 작성</h1>
         <form id="sol-add-free" class="form-group my-5 py-5">
             <input type="hidden" name="boardCode" value="0">
             <div class="form-row my-3">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%-- //2020-02-24 Git Commit --%>
 	<div class="d-none d-lg-block">
 		<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="width:100%; padding-left:24px;">
@@ -27,7 +28,6 @@
 					    </span>
 				    </button>
 				    
-				
 				</div>
 			</div>
 			
@@ -44,12 +44,12 @@
 					<div>
 						<div style="float: left;">
 							<button type="button" class="btn btn-light">
-								<span style="font-size: 14px;">미리보기
+								<span class="getPreviewClass" style="font-size: 14px;">미리보기
 								</span>
 							</button>
 						</div>
 						<div style="float: left;">
-							<button type="button" class="btn btn-light">
+							<button type="button" class="btn btn-light saveAndOutButton">
 						   		<span style="font-size: 14px;">저장 후 나가기
 						   		</span>
 					   		</button>
@@ -57,6 +57,9 @@
 			        </div>
 		        </div>
 		    </div>
-		    
+		    <div class="progress-div" style="position:relative; top: 12px; left:-24px; width:100%;">
+			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="120"></div>
+			</div>
 		</nav>
+		
 	</div>

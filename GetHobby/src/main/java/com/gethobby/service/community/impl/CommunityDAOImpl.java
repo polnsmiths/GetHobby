@@ -25,6 +25,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 	@Override
 	public Article getCommunityArticle(int articleNo) throws Exception {
 		
@@ -131,6 +133,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 		
 		return sqlSession.selectOne("CommuReplyMapper.getTotalCountCommunityReply", articleNo);
 		
+	}
+	
+	@Override
+	public String getCreatorAtHobbyClass(int hobbyClassNo) throws Exception {
+		
+		return sqlSession.selectOne("CommuArticleMapper.getCreatorAtHobbyClass", hobbyClassNo);
 	}
 	
 }

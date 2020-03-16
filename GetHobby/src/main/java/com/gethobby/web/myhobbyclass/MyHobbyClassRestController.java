@@ -218,9 +218,11 @@ public class MyHobbyClassRestController {
 
 		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 		
+		System.out.println("---------------------startDate ? : " + myHobbyClassService.getHobbyClassStateStartDate(hobbyClassNo).getStartDate());
+		
 		for(int i = 0; i < 4; i++) {
 			Calendar hobbyClassDate = Calendar.getInstance();
-			hobbyClassDate.setTime(userPurchase.get(0).getHobbyClass().getStartDate());
+			hobbyClassDate.setTime(myHobbyClassService.getHobbyClassStateStartDate(hobbyClassNo).getStartDate());
 			
 			Calendar checkDate = hobbyClassDate;
 
@@ -422,10 +424,10 @@ public class MyHobbyClassRestController {
 		
 		List<String> calendarList = new ArrayList<String>();
 		List<String> calendarNameList = new ArrayList<String>();
-		
+		System.out.println("---------------------startDate ? : " + myHobbyClassService.getHobbyClassStateStartDate(hobbyClassNo).getStartDate());
 		for(int i = 0; i < 4; i++) {
 			Calendar hobbyClassDate = Calendar.getInstance();
-			hobbyClassDate.setTime(userPurchase.get(0).getHobbyClass().getStartDate());
+			hobbyClassDate.setTime(myHobbyClassService.getHobbyClassStateStartDate(hobbyClassNo).getStartDate());
 			
 			Calendar checkDate = hobbyClassDate;
 
@@ -436,6 +438,7 @@ public class MyHobbyClassRestController {
 			String checkDateCalendarString = checkDate.get(Calendar.YEAR) + "-" + ( checkDate.get(Calendar.MONTH) + 1) + "-" + checkDate.get(Calendar.DAY_OF_MONTH);
 			calendarList.add( checkDate.get(Calendar.YEAR) + "-" + ( checkDate.get(Calendar.MONTH) + 1) + "-" + checkDate.get(Calendar.DAY_OF_MONTH) );
 			calendarNameList.add(checkDateString);
+			System.out.println("------------------------------checkDateString ? : " + checkDateString);
 		}
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -464,7 +467,7 @@ public class MyHobbyClassRestController {
 		
 		for(int i = 0; i < 7; i++) {
 			Calendar hobbyClassDate = Calendar.getInstance();
-			hobbyClassDate.setTime(userPurchase.get(0).getHobbyClass().getStartDate());
+			hobbyClassDate.setTime(myHobbyClassService.getHobbyClassStateStartDate(hobbyClassNo).getStartDate());
 			
 			Calendar checkDate = hobbyClassDate;
 

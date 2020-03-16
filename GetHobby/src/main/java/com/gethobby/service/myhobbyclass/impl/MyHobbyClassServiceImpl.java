@@ -281,4 +281,10 @@ public class MyHobbyClassServiceImpl implements MyHobbyClassService {
 		
 		return hobbyClassList;
 	}
+
+	@Override
+	public HobbyClass getHobbyClassStateStartDate(String hobbyClassNo) throws Exception {
+		// TODO Auto-generated method stub
+		return myHobbyClassDAO.getHobbyClassStateStartDate(hobbyClassNo);
+	}
 }

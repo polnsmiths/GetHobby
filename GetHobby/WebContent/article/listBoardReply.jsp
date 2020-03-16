@@ -19,7 +19,7 @@
 	                	</c:if>
 	                	<span> ${ article.totalFavor } </span> 
 	                </button>
-	                <span> 신고 </span>
+	                <span class="article-report-span"> 신고 </span>
             	</c:if>
             	<c:if test="${ sessionScope.user.userId eq article.user.userId }">
             		<c:if test="${ param.boardCode eq '0' }">
@@ -49,7 +49,7 @@
         
            <!-- <input type="hidden" id="currentPage" name="currentPage"/> 
            <input type="hidden" id="maxPage" name="maxPage" value=""/> -->
-        <ul class="list-unstyled px-5">
+        <ul class="list-unstyled px-lg-5">
         </ul>
     </div>
 

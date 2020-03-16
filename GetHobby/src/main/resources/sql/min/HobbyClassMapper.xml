@@ -223,9 +223,6 @@
  		WHERE hc.class_no = s.class_no(+)  
  		      AND hc.user_id = u.user_id 
  		      AND hc.category = e.event_category(+)  
- 			  <if test="userId != null">
- 			  	AND hc.user_id != #{userId} 
- 			  </if>
  		      <if test="search.hashtag != null">
  		      	AND hc.class_no = h.class_no 
  		      </if>
@@ -242,6 +239,11 @@
  		      <if test="search.category != 'all'">
  		      	    AND hc.category = #{search.category}   
  		      </if> 
+ 		      AND hc.class_state != '0' 
+ 		      AND hc.class_state != '1' 
+ 		      AND hc.class_state != '2' 
+ 		      AND hc.class_state != '4' 
+ 		      AND hc.class_state != '7' 
  		ORDER BY hc.class_no ASC 
 	</sql>
 	
@@ -325,7 +327,7 @@
 		                WHERE l.class_no = sum.class_no 
 		                      AND l.lesson_no = lt.lesson_no(+) 
 		                      AND l.class_no = #{hobbyClassNo} 
-		                ORDER BY l.class_no ASC                  
+		                ORDER BY l.class_no ASC, l.lesson_no ASC                   
 		             ) inner_table 
 		     ) 	
 	</select>
@@ -416,6 +418,7 @@
  		      AND hc.class_no = grade.class_no(+)  
  		      AND hc.category = e.event_category(+)   
  		      AND hc.class_state = '3' 
+ 		      AND hc.total_steam <![CDATA[<]]> 200 
  		ORDER BY start_date DESC, hc.class_no DESC  
 	</sql>
 	
@@ -795,5 +798,20 @@
 			(   
 				<include refid="listenHobbyClassList" />
 				 	) countTable
+	</select>
+	
+	<select id="getHobbyClassStateStartDate" parameterType="java.lang.String" resultMap="hobbyClassMap">
+		SELECT 
+		start_date 
+		FROM class_date 
+		WHERE class_no = #{hobbyClassNo} 
+	</select>
+	
+	<!-- 인코딩용으로 새로 추가 -->
+	<select id="getHobbyClassEncodingLessonList" parameterType="java.lang.Integer" resultMap="lessonTimesMap">
+		SELECT 
+		lesson_no, lesson_video 
+		FROM lesson 
+		WHERE class_no = #{hobbyClassNo}  
 	</select>
 </mapper>

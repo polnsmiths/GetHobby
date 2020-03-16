@@ -75,11 +75,12 @@
 	</select>
 	
 	<select id="getNewHobbyClass" parameterType="string" resultMap="hobbyclassSelectMap">
-		SELECT CLASS_NO, USER_ID, CLASS_TITLE, CLASS_IMAGE, CLASS_STATE, CLASS_INTRO, CLASS_PRICE, CATEGORY, KIT_NAME, KIT_PRICE, KIT_IMAGE, KIT_INTRO, ROWNUM
-		FROM HOBBYCLASS
-		WHERE USER_ID = #{userId}
-		AND ROWNUM = 1
-		ORDER BY CLASS_NO DESC
+		SELECT ROWNUM, data.*
+		FROM (	SELECT CLASS_NO, USER_ID, CLASS_TITLE, CLASS_IMAGE, CLASS_STATE, CLASS_INTRO, CLASS_PRICE, CATEGORY, KIT_NAME, KIT_PRICE, KIT_IMAGE, KIT_INTRO, ROWNUM
+				FROM HOBBYCLASS
+				WHERE USER_ID = #{userId}
+				ORDER BY CLASS_NO DESC	) data
+		WHERE ROWNUM = 1
 
 	</select>
 	
@@ -437,14 +438,5 @@
 		</set>
 		WHERE CLASS_NO = #{hobbyClassNo}
 	</update>
-	
-	<update id="updateHobbyClassAdmin" parameterType="hobbyclass">
-		UPDATE HOBBYCLASS
-		<set>
-			
-		</set>
-		WHERE CLASS_NO = #{hobbyClassNo}
-	</update>
-	
-	
+
 </mapper>

@@ -7,6 +7,7 @@
 <html lang="ko">
 
 <head>
+	<title>GetHobby</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
@@ -59,6 +60,10 @@
 
 	<link rel="stylesheet" href="/resources/css/sol/article.css">
 <style>
+.inUTcF {
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+}
 </style>
 
 <script>
@@ -131,7 +136,7 @@ $(function() {
         <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
         <form  id="search" class="form-group search my-5 pt-5 d-flex justify-content-between">
-            <h4 class="font-weight-bold"><i class="far fa-file-alt mx-3"></i>자유게시판</h4>
+            <h4 class="font-weight-bold"><i class="far fa-file-alt mx-3"></i>아무말대잔치</h4>
             <input type="hidden" name="boardCode" value="0">
             <div class="form-row">
                 <div class="input-group col-lg-3">
@@ -250,7 +255,7 @@ $(function() {
         <h1 class="sol-board-header">Get취미 커뮤니티</h1>
 
         <div class="row d-flex justify-content-between mx-1">
-            <h4 class="font-weight-bold"><i class="far fa-file-alt"></i>자유게시판</h4>
+            <h4 class="font-weight-bold"><i class="far fa-file-alt"></i>아무말대잔치</h4>
             <c:if test="${ ! empty sessionScope.user.userId }">
             <button type="button" class="btn btn-basic btn-sm"> <i class="fas fa-pencil-alt"></i> 작성</button>
             </c:if>

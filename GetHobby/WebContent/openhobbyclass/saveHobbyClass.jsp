@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>GetHobby</title>
 <%-- //2020-02-24 Git Commit --%>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,20 +13,30 @@
   <!-- 웹사이트 파비콘 -->
   <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
   <link rel="icon" href="/resources/image/logo/logo-favicon.png">
-  
   <!-- favicon 404 에러 안보이게  -->
   <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   
+  <!-- jQuery CDN -->
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>		
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+  
+  <!-- bootStrap CDN -->		
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/resources/css/saveHobbyClass.css">	
+  
+  <!-- popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  
+  <!-- summerNote -->	
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.js"></script>
   <%-- <script src="lang/summernote-ko-KR.js"></script> --%>
-  <script src="http://malsup.github.com/jquery.form.js"></script>
-
+  
+  
+  
+  <!-- project css, js link -->
+  <link rel="stylesheet" href="/resources/css/saveHobbyClass.css">
+  
   <style type="text/css">
   	select {
 		width: 100%;
@@ -233,8 +244,139 @@
 		margin-right: 26px;
 		float: left;
 	}
+	.shchtm-con {
+		padding:16px 12px; 
+		margin:0px; 
+		width:460px;
+	}
+	.shchtm-hea {
+		border:0; 
+		outline:0; 
+		width:432px;
+	}
+	.shchtm-foo {
+		border:0; 
+		outline:0; 
+		width:432.1px; 
+		height:40px; 
+		padding:0px; 
+		margin-bottom:12px;
+	}
+	.shc-htm-xab {
+		cursor:not-allowed; 
+		margin:0px; 
+		float:left; 
+		width:368px; 
+		height:40px; 
+		background-color: rgb(255, 232, 204); 
+		border:0; 
+		outline:0;
+	}
+	.shc-htm-ab {
+		display:none; 
+		margin:0px; 
+		float:left; 
+		width:368px; 
+		height:40px; 
+		background-color: rgb(255, 146, 43); 
+		border:0; 
+		outline:0;
+	}
+	.shchtm-lab {
+		float:left; 
+		width:216px; 
+		height:24px;
+	}
+	.shchtm-oudi {
+		width:432px; 
+		height:400px;
+	}
+	.shchtm-wrdi {
+		width:432px; 
+		margin-bottom:20px; 
+		height:24px;
+	}
+	.shc-shclm-di {
+		 position:relative; 
+		 top: -65px;
+	}
 }
+.shc-htm-xab:hover {
+	border:0; 
+	outline:0 none;
+	background-color: rgb(255, 232, 204);
+	
+}
+.shc-htm-ab:hover {
+	border: 0;
+	outline: 0 none;
+	background: rgb(255, 146, 43);
+}
+@media (max-width: 416px){
+	.shc-shclm-di {
+		 position: relative !important;
+		 top: 115px !important;
+	}
+}
+
+
 @media (max-width: 991px) {
+	.shc-shclm-di {
+		 position:relative; 
+		 top: 35px;
+	}
+	.shchtm-wrdi {
+		width:100%; 
+		margin-bottom:20px; 
+		height:24px;
+		display: flex;
+	}
+	.shchtm-oudi {
+		width:100%; 
+		height:400px;
+	}
+	.shchtm-lab {
+		flex: 1 1;
+		float:left; 
+		max-width:216px; 
+		height:24px;
+	}
+	.shc-htm-ab {
+		display:none; 
+		margin:0px; 
+		float:left; 
+		max-width: 100%; 
+		height:40px; 
+		background-color: rgb(255, 146, 43); 
+		border:0; 
+		outline:0;
+		flex: 1 auto;
+	}
+	.shc-htm-xab {
+		cursor:not-allowed; 
+		margin:0px; 
+		float:left; 
+		height:40px; 
+		max-width: 100%; 
+		background-color: rgb(255, 232, 204); 
+		border:0; 
+		outline:0;
+		flex: 1 auto;
+	}
+	.shchtm-foo {
+		width:100%;
+		max-width: 432.1px;
+		display:flex;
+	}
+	.shchtm-con {
+		width:100%; 
+		max-width:460px;
+		padding:16px 12px; 
+	}
+	.shchtm-hea {
+		width:100%;
+		max-width:432px;
+	}
 	.summernote_div {
 		width:100%;
 	}
@@ -254,7 +396,7 @@
 		width: 100%;
 		min-width: 238px;
     	min-height: 178.5px;
-    	height: auto;
+    	height: 100%;
 		overflow: hidden;	
 	}
 	
@@ -294,7 +436,7 @@
 		margin-bottom: 32px;
 	}
 	.card_div {
-		height: 144px;
+		height: auto;
 		width: 100%;
 	}
 	.lesson_title_div {
@@ -353,7 +495,7 @@
     border-radius: 50%;
     background: white;
     display: none;
-	z-index: 10;
+	z-index: 1000;
 }
 .shc-classInfo-ImageDeleteButton:focus, .shc-lesson-one-ImageDeleteButton:focus, .shc-lesson-two-ImageDeleteButton:focus, .shc-kit-ImageDeleteButton:focus{
 	border: 0;
@@ -438,7 +580,7 @@ iframe{
 	<div>
 	<!-- Start of 진행바 -->
 	<div class="progress-div">
-	  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 0%; height:4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+	  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 0%; height:4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="120"></div>
 	</div>
 	<!-- End of 진행바 --> 
 	
@@ -540,7 +682,7 @@ iframe{
 				    <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">클래스 소개하기</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb" value='${hobbyClass.hobbyClassIntro}'>
+							<div style="display:none;" id="sumb-info-div">${hobbyClass.hobbyClassIntro}</div>
 						    <form method="post">
 						      
 							  <textarea id="summernote1" name="editordata1"></textarea>
@@ -568,7 +710,7 @@ iframe{
 				    </div>
 				    
 				    <div style=" width:100%; height:40px; margin-top: 32px; ">
-						    <button type="button" id="infoYesButton" class="btn btn-dark" style="display: none; margin-left:14px; float: left; background-color: rgb(255, 146, 43); padding: 0px 15px; border:0; width:59.61px; height:40px;"><span style="font-size: 14px; color: rgb(255, 255, 255);">다음</span></button>
+						    <button type="button" id="infoYesButton" class="btn btn-dark ifyb" style="display: none; margin-left:14px; float: left; background-color: rgb(255, 146, 43); padding: 0px 15px; border:0; width:59.61px; height:40px;"><span style="font-size: 14px; color: rgb(255, 255, 255);">다음</span></button>
 						    <button type="button" id="infoNoButton" disabled class="btn btn-dark" style=" margin-left:14px; float: left; background-color: rgb(255, 202, 164); color: rgb(255, 255, 255); cursor: not-allowed; padding: 0px 15px; border:0; width:59.61px; height:40px;"><span style="font-size: 14px; ">다음</span></button>
 				    </div>
 		  		</div>
@@ -584,21 +726,19 @@ iframe{
 		  		
 		  		<div class="d-none d-lg-block" style="margin-bottom: 32px;">
 		  		<div class="lesson_title_div">
-		  		<div style="font-color: rgb(62, 64, 66);font-size: 24px; font-weight: bold; float:left;">02 클래스 강의정보</div>		  		
-			  		<div style="float:right;">
+		  		<div style="font-color: rgb(62, 64, 66); font-size: 24px; font-weight: bold; float:left;">02 클래스 강의정보</div>		  		
+			  		
+		  		</div>
+		  		</div>
+		  		<div class="shc-shclm-di" style="float:right;">
 			  			<jsp:include page="/openhobbyclass/saveHobbyClassLessonModal.jsp" />
 			  		</div>
-		  		</div>
-		  		</div>
-		  		
 		  		
 		  		<div class="d-block d-lg-none">
 			  		<div class="header_title_div">
 				  		<div style="border:0; outline:0; width: 100%; height:54px;" class="nav flex-column nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 							<div style="width:100%; height:54px;"><div style="float:left;">02 클래스 강의정보</div> 
-								<div style="float:right;">
-						  			<jsp:include page="/openhobbyclass/saveHobbyClassLessonModal.jsp" />
-						  		</div>
+								
 								<button type="button" style="background-color:white; float:left; margin-left: 4px; padding: 0px; width:24px; height:24px;" class="nav-link" id="hobbyClassLessonAndroidMenu-tab" data-toggle="tab" href="#hobbyClassLessonAndroidMenu" aria-controls="v-pills-hobbyClassLessonAndroidMenu" aria-selected="false">
 									<svg width="24" height="24" class="FormTitle__StyledIconChevronDown-td4kks-5 jUkHLk" viewBox="0 0 24 24">
 								  		<path fill="#3e4042" fill-rule="evenodd" d="M5.5 8.5l6.5 6 6.5-6L20 10l-8 7.5L4 10z">
@@ -637,7 +777,7 @@ iframe{
 			    
 			    	<div class="form-group">
 				      <label for="inputState" style="margin-bottom:4px; font-size:14px;">강의 제목</label>
-				      <input type="text" name="lessonTitle" value="${hobbyClass.lesson[0].lessonTitle}" class="form-control lessonInput" id="inputState" style="font-size:14px; color: rgb(168, 174, 179);" placeholder="강의를 대표할 수 있는 제목을 정해주세요.">
+				      <input type="text" name="lessonTitle" value="${hobbyClass.lesson[0].lessonTitle}" class="form-control lessonInput" id="inputState" style="font-size:14px; color: rgb(168, 174, 179);" placeholder="강의 제목을 정해주세요.">
 				      <h6 class="warning-mini-h6 warning-mini-max-length-lesson">
 					      <svg width="16" height="16" viewBox="0 0 24 24">
 						      <path fill="rgb(255, 82, 82)" fill-rule="evenodd" d="M21.872 19.51A1 1 0 0121 21H3a1 1 0 01-.872-1.49l9-16a1 1 0 011.744 0l9 16zM13 15V9h-2v6h2zm0 3v-2h-2v2h2z"/>
@@ -708,7 +848,7 @@ iframe{
 				     <div class="form-group">
 				    	<label for="inputState" style="margin-bottom:4px; font-size:14px;">수업 노트</label>
 						<div class="summernote_div">
-							<input type="hidden" name="sumb-lesson" value='${hobbyClass.lesson[0].lessonIntro}'>
+							<div style="display:none;" id="sumb-lesson-div">${hobbyClass.lesson[0].lessonContent}</div>						
 						    <form method="post">
 						      
 							  <textarea id="summernote2" name="editordata2"></textarea>
@@ -870,54 +1010,55 @@ iframe{
 						<div style="font-size: 16px;">체크리스트<span style="margin-left: 8px; font-size: 9px; color: rgb(252, 61, 70);">*체크해주셔야 제출하실 수 있습니다.</span></div>
 					</div>
 					
-					 <div class="card_div">
-					    <div class="card" style="margin-bottom: 16px;">
-					      <div class="card-body" style="padding: 20px 24px;">
-					      	<label class="guide-1 shc-gl" style="width:100%;">
-					     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
-					     		<input name="guide-1" type="checkbox" style="display: none;">    		
-					        	<span style="font-size: 16px; margin-left:8px;">클래스에서 배우게 될 기법, 노하우, 스킬</span></label>
-					        <div style="font-size: 14px; margin-left: 30px;">구체적으로 어떤 과정을 통해 작품을 만들어 보는지 안내가 되었나요? 내 클래스를 통해 배우게 될 나만의 기법, 노하우, 스킬을 소개해주세요.</div>
-					      </div>
-					    </div>
+					<div style="display:flex; flex-direction: column; position:relative;">
+						 <div class="card_div" style="display:inline-flex; flex:1 1 1 1;">
+						    <div class="card" style="margin-bottom: 16px;">
+						      <div class="card-body" style="padding: 20px 24px;">
+						      	<label class="guide-1 shc-gl" style="width:100%;">
+						     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
+						     		<input name="guide-1" type="checkbox" style="display: none;">    		
+						        	<span style="font-size: 16px; margin-left:8px;">클래스에서 배우게 될 기법, 노하우, 스킬</span></label>
+						        <div style="font-size: 14px; margin-left: 30px;">구체적으로 어떤 과정을 통해 작품을 만들어 보는지 안내가 되었나요? 내 클래스를 통해 배우게 될 나만의 기법, 노하우, 스킬을 소개해주세요.</div>
+						      </div>
+						    </div>
+						  </div>
+						  
+						  <div class="card_div" style="display:inline-flex; flex:1 1 1 1;">
+						    <div class="card" style="margin-bottom: 16px;">
+						      <div class="card-body" style="padding: 20px 24px;">
+						      	<label class="guide-2 shc-gl" style="width:100%;">
+						     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
+						     		<input name="guide-2" type="checkbox" style="display: none;">					     		
+						        	<span style="font-size: 16px; margin-left:8px;">클래스를 통해 만들어 볼 완성작</span></label>
+						        <div style="font-size: 14px; margin-left: 30px;">내 클래스를 들으면 어떤 작품을 만들어 볼 수 있는지 수강생이 한 눈에 알 수 있나요? 나의 평소 작업물과 스타일을 다양한 작품 사진으로 전달해주세요.</div>
+						      </div>
+						    </div>
+						  </div>
+						  
+						  <div class="card_div" style="display:inline-flex; flex:1 1 1 1;">
+						    <div class="card" style="margin-bottom: 16px;">
+						      <div class="card-body" style="padding: 20px 24px;">
+						      	<label class="guide-3 shc-gl" style="width:100%;">
+						     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
+						     		<input name="guide-3" type="checkbox" style="display: none;"> 
+						        	<span style="font-size: 16px; margin-left:8px;">맞춤법 검사</span></label> 
+						        <div style="font-size: 14px; margin-left: 30px;">오로지 텍스트와 이미지로 나의 클래스를 보여주는 곳이기 때문에 맞춤법은 나의 인상을 결정 짓는 중요한 부분이랍니다. 맞춤법 검사를 필수적으로 진행해주세요.</div>
+						      </div>
+						    </div>
+						  </div>
+						  
+						  <div class="card_div" style="display:inline-flex; flex:1 1 1 1;">
+						    <div class="card" style="margin-bottom: 16px;">
+						      <div class="card-body" style="padding: 20px 24px;">
+						      	<label class="guide-4 shc-gl" style="width:100%;">
+						     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
+						     		<input name="guide-4" type="checkbox" style="display: none;">   
+						        	<span style="font-size: 16px; margin-left:8px;">가독성 높이기</span></label> 
+						        <div style="font-size: 14px; margin-left: 30px;">편집창 내 서식을 이용하여 긴 글에 리듬감을 부여할 수 있어요. 중요한 부분에 적절히 이용한다면 긴 글을 끝까지 읽게 할 수 있어요.</div>
+						      </div>
+						    </div>
+						  </div>
 					  </div>
-					  
-					  <div class="card_div">
-					    <div class="card" style="margin-bottom: 16px;">
-					      <div class="card-body" style="padding: 20px 24px;">
-					      	<label class="guide-2 shc-gl" style="width:100%;">
-					     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
-					     		<input name="guide-2" type="checkbox" style="display: none;">					     		
-					        	<span style="font-size: 16px; margin-left:8px;">클래스를 통해 만들어 볼 완성작</span></label>
-					        <div style="font-size: 14px; margin-left: 30px;">내 클래스를 들으면 어떤 작품을 만들어 볼 수 있는지 수강생이 한 눈에 알 수 있나요? 나의 평소 작업물과 스타일을 다양한 작품 사진으로 전달해주세요.</div>
-					      </div>
-					    </div>
-					  </div>
-					  
-					  <div class="card_div">
-					    <div class="card" style="margin-bottom: 16px;">
-					      <div class="card-body" style="padding: 20px 24px;">
-					      	<label class="guide-3 shc-gl" style="width:100%;">
-					     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
-					     		<input name="guide-3" type="checkbox" style="display: none;"> 
-					        	<span style="font-size: 16px; margin-left:8px;">맞춤법 검사</span></label> 
-					        <div style="font-size: 14px; margin-left: 30px;">오로지 텍스트와 이미지로 나의 클래스를 보여주는 곳이기 때문에 맞춤법은 나의 인상을 결정 짓는 중요한 부분이랍니다. 맞춤법 검사를 필수적으로 진행해주세요.</div>
-					      </div>
-					    </div>
-					  </div>
-					  
-					  <div class="card_div">
-					    <div class="card" style="margin-bottom: 16px;">
-					      <div class="card-body" style="padding: 20px 24px;">
-					      	<label class="guide-4 shc-gl" style="width:100%;">
-					     		<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M19 19H5V5h14v14zM5 3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5z"></path></svg>
-					     		<input name="guide-4" type="checkbox" style="display: none;">   
-					        	<span style="font-size: 16px; margin-left:8px;">가독성 높이기</span></label> 
-					        <div style="font-size: 14px; margin-left: 30px;">편집창 내 서식을 이용하여 긴 글에 리듬감을 부여할 수 있어요. 중요한 부분에 적절히 이용한다면 긴 글을 끝까지 읽게 할 수 있어요.</div>
-					      </div>
-					    </div>
-					  </div>
-					
 			  		<div style="font-size: 16px; margin: 0px 0px 16px;">제출 전 체크리스트까지 확인했다면 검토요청 해주세요!</div>
 			  		<div style="font-size: 14px;">검토 요청 후 평균적으로 영업일 3일 이내 검토가 완료되며, <p>
 			  		검토 후 메일(${hobbyClass.user.userId})로 피드백이 전송됩니다 : )</div>
@@ -937,9 +1078,6 @@ iframe{
 		  <!-- Start of Android Menu -->
 		  
 		  <div class="tab-pane" id="hobbyClassInfoAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassInfoAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
 			<div class="start_hobbyclassInfo">
 			<div class="d-block d-lg-none">
 		  		<div class="header_title_div">
@@ -957,7 +1095,7 @@ iframe{
 			  	<div class="nav flex-column nav-tabs anrd-shc-menu-div" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="tab_a_class nav-link" id="hobbyClassInfo-tab" data-toggle="tab" href="#hobbyClassInfo" role="tab" aria-controls="v-pills-hobbyClassInfo" aria-selected="false">
 			      01 클래스 기본정보
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-info-tb" style="float: right; margin-right:10px; display:none">
 				      	<svg width="20" height="20" viewBox="0 0 24 24">
 					      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 					      	</path>
@@ -967,7 +1105,7 @@ iframe{
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassLesson-tab" data-toggle="tab" href="#hobbyClassLesson" role="tab" aria-controls="v-pills-hobbyClassLesson" aria-selected="false">
 			      02 클래스 강의정보
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-lesson-tb" style="display:none; float: right; margin-right:10px;">
 				      	<svg width="20" height="20" viewBox="0 0 24 24">
 					      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 					      	</path>
@@ -977,7 +1115,7 @@ iframe{
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassKit-tab" data-toggle="tab" href="#hobbyClassKit" role="tab" aria-controls="v-pills-hobbyClassKit" aria-selected="false">
 			      03 클래스 준비물
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-kit-tb" style="display:none; float: right; margin-right:10px;">
 				      	<svg width="20" height="20" viewBox="0 0 24 24">
 					      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 					      	</path>
@@ -996,11 +1134,6 @@ iframe{
 		  
 		  
 		  <div class="tab-pane" id="hobbyClassLessonAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassLessonAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-			
-			
 			<div class="start_hobbyclassInfo">
 			
 			<div class="d-block d-lg-none">
@@ -1018,15 +1151,15 @@ iframe{
 			<div style="font-size: 16px; font-weight: bold; color:rgb(62, 64, 66);">
 			  	<div class="nav flex-column nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="tab_a_class nav-link" id="hobbyClassInfo-tab" data-toggle="tab" href="#hobbyClassInfo" role="tab" aria-controls="v-pills-hobbyClassInfo" aria-selected="false">01 클래스 기본정보 
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-info-tb" style="float: right; margin-right:10px; display:none"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassLesson-tab" data-toggle="tab" href="#hobbyClassLesson" role="tab" aria-controls="v-pills-hobbyClassLesson" aria-selected="false">02 클래스 강의정보
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-lesson-tb" style="display:none; float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassKit-tab" data-toggle="tab" href="#hobbyClassKit" role="tab" aria-controls="v-pills-hobbyClassKit" aria-selected="false">03 클래스 준비물
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-kit-tb" style="display:none; float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassCheck-tab" data-toggle="tab" href="#hobbyClassCheck" role="tab" aria-controls="v-pills-hobbyClassCheck" aria-selected="false">04 검토 요청 전 확인
@@ -1040,9 +1173,7 @@ iframe{
 		  
 		  
 		  <div class="tab-pane" id="hobbyClassKitAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassKitAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
+
 			<div class="start_hobbyclassInfo">
 			<div class="d-block d-lg-none">
 		  		<div class="header_title_div">
@@ -1059,15 +1190,15 @@ iframe{
 		  	<div style="font-size: 16px; font-weight: bold; color:rgb(62, 64, 66);">
 			  	<div class="nav flex-column nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="tab_a_class nav-link" id="hobbyClassInfo-tab" data-toggle="tab" href="#hobbyClassInfo" role="tab" aria-controls="v-pills-hobbyClassInfo" aria-selected="false">01 클래스 기본정보 
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-info-tb" style="float: right; margin-right:10px; display:none"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassLesson-tab" data-toggle="tab" href="#hobbyClassLesson" role="tab" aria-controls="v-pills-hobbyClassLesson" aria-selected="false">02 클래스 강의정보
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-lesson-tb" style="display:none; float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassKit-tab" data-toggle="tab" href="#hobbyClassKit" role="tab" aria-controls="v-pills-hobbyClassKit" aria-selected="false">03 클래스 준비물
-			      	<div style="float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
+			      	<div class="shc-kit-tb" style="display:none; float: right; margin-right:10px;"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z"></path></svg></div>
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassCheck-tab" data-toggle="tab" href="#hobbyClassCheck" role="tab" aria-controls="v-pills-hobbyClassCheck" aria-selected="false">04 검토 요청 전 확인
@@ -1080,9 +1211,6 @@ iframe{
 		  
 		  
 		  <div class="tab-pane" id="hobbyClassCheckAndroidMenu" role="tabpanel" aria-labelledby="hobbyClassCheckAndroidMenu-tab">
-			<div class="progress-div">
-			  <div class="progress-bar" role="progressbar" style="background-color: rgb(253, 126, 20); width: 100%; height:1px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
 			
 			<div class="start_hobbyclassInfo">
 				<div class="d-block d-lg-none">
@@ -1100,7 +1228,7 @@ iframe{
 			  	<div style="font-size: 16px; font-weight: bold; color:rgb(62, 64, 66);">
 			  	<div class="nav flex-column nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="tab_a_class nav-link" id="hobbyClassInfo-tab" data-toggle="tab" href="#hobbyClassInfo" role="tab" aria-controls="v-pills-hobbyClassInfo" aria-selected="false">01 클래스 기본정보 
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-info-tb" style="float: right; margin-right:10px; display:none">
 			      	<svg width="20" height="20" viewBox="0 0 24 24">
 			      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 			      	</path>
@@ -1109,7 +1237,7 @@ iframe{
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassLesson-tab" data-toggle="tab" href="#hobbyClassLesson" role="tab" aria-controls="v-pills-hobbyClassLesson" aria-selected="false">02 클래스 강의정보
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-lesson-tb" style="display:none; float: right; margin-right:10px;">
 			      	<svg width="20" height="20" viewBox="0 0 24 24">
 			      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 			      	</path>
@@ -1118,7 +1246,7 @@ iframe{
 			      </a>
 			      <hr/>
 			      <a style="border:0; padding:0px; margin-bottom: 10px;" class="nav-link" id="hobbyClassKit-tab" data-toggle="tab" href="#hobbyClassKit" role="tab" aria-controls="v-pills-hobbyClassKit" aria-selected="false">03 클래스 준비물
-			      	<div style="float: right; margin-right:10px;">
+			      	<div class="shc-kit-tb" style="display:none; float: right; margin-right:10px;">
 			      	<svg width="20" height="20" viewBox="0 0 24 24">
 			      	<path fill="#3E4042" fill-rule="evenodd" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1.666 14.795l7.5-7.5-1.175-1.184-6.325 6.326-2.992-2.984-1.175 1.175 4.167 4.167z">
 			      	</path>
@@ -1146,9 +1274,8 @@ iframe{
 	<script type="text/javascript">
 
 		$(function(){
-				
-			
-    		// summernote onload Setting
+						
+    		// summernote onload Setting : 클래스 소개하기
 	    	$('#summernote1').summernote({
 	    		lang: 'ko-KR',
 	    		height: 550,
@@ -1169,7 +1296,8 @@ iframe{
 	    	        }
 
 	    	});
-    		
+	    	
+    		// summernote onload Setting : 강의 수업 노트 [0]
 	    	$('#summernote2').summernote({
 	    		lang: 'ko-KR',
 	    		height: 550,
@@ -1190,10 +1318,11 @@ iframe{
 	    	        }
 
 	    	});
+		
 	    	// Summernote Date Write
-			var summ1 = $("input[name='sumb']").val();
+			var summ1 = $("#sumb-info-div").html(); 
     		$('#summernote1').summernote('code', summ1);	
-    		var summ2 = $("input[name='sumb-lesson']").val();
+    		var summ2 = $("#sumb-lesson-div").html(); 
     		$('#summernote2').summernote('code', summ2);	
     		
     		// Summernote imageUpload
@@ -1221,6 +1350,10 @@ iframe{
     		// 클래스 미리보기
     		$(document).on("click", ".getPreviewClass", function(){
     			// 미리보기 하기 전에 ajax로 저장처리
+    			saveHobbyClassInfo();
+    			saveLesson();
+    			saveKit();
+    			
     			self.location = "/searchHobbyClass/getPreview?hobbyClassNo="+$("input[name='hobbyClassNo']").val();
     		});
     		
@@ -1240,13 +1373,7 @@ iframe{
 				$(this).removeClass('nav-link active').addClass('nav-link');
 			});
 			
-			
-			window.onbeforeunload = function(e) {
-				alert("?");
-				  if ($('.form').val()) {
-				    return '작성 중인 글이 있습니다.';
-				  }
-				};
+		
 			
 			// (변화, 입력, 복사, 잘라내기, 붙여넣기) 이벤트 : Next Button 활성화 비활성화 : 작성이 모두 완료된 상태라면 활성화 ==> 사용자가 사용 중일 때
 			$(document).on("change input copy cut paste", function(e){		
@@ -1298,7 +1425,7 @@ iframe{
 						&& $(".classInfo_image").attr("src") != "/resources/image/gon/addimage.jpg"
 						&& $(".classInfo_image").attr("src") != null && $(".classInfo_image").attr("src") != ""
 						&& $("input[name='hobbyClassName']").val().length <= 30	) {
-					progress += 30;
+					progress += 40;
 					infoSvgCheck = true;
 					$('#infoNoButton').css({'display':'none'});
 		            $('#infoYesButton').css({'display':'inline-block'});	  
@@ -1319,7 +1446,7 @@ iframe{
 					&& $(".classLesson_image_two").attr("src") != null && $(".classLesson_image_two").attr("src") != ""
 					&& $("input[name='lessonTitle']").val().length <= 30 ) {
 					
-					progress += 30;
+					progress += 40;
 					lessonSvgCheck = true;
 					$('#lessonNoButton').css({'display':'none'}); // 강의 다음 버튼 비활성화
 					$('#lessonYesButton').css({'display':'inline-block'}); // 강의 다음 버튼 활성화
@@ -1336,7 +1463,7 @@ iframe{
 					&& $(".classKit_image").attr("src") != "" && $(".classKit_image").attr("src") != null
 					&& $("input[name='kitName']").val().length <= 30 ) {
 					
-					progress += 30;
+					progress += 40;
 					kitSvgCheck = true;
 					$('#kitNoButton').css({'display':'none'}); // 준비물 다음 버튼 비활성화
 					$('#kitYesButton').css({'display':'inline-block'}); // 준비물 다음 버튼 활성화
@@ -1458,9 +1585,13 @@ iframe{
 				$(".shc-kit-ImageDeleteButton").css("display","none");
 			});
 
-			// 클래스 기본정보 저장
+			
 	    	$(document).on("click","#infoYesButton", function(){
-	    		
+	    		saveHobbyClassInfo();
+	    	});
+	    	
+	    	// 클래스 기본정보 저장
+	    	function saveHobbyClassInfo() {
 	    		
 	    		var hashtag = $("input[name='hobbyClassHashtag']").val().split(',');    		
 	    		var hashtagList = [];
@@ -1524,11 +1655,16 @@ iframe{
 	    						}
 	    					}
    				});//end of ajax
+	    	}//end of saveHobbyClassInfo
+	    	
+	    	
+	    	
+	    	$(document).on("click","#lessonYesButton", function(){
+	    		saveLesson();
 	    	});
 	    	
 	    	// 클래스 강의정보 저장
-	    	$(document).on("click","#lessonYesButton", function(){
-
+	    	function saveLesson() {
 	    		var markupStr2 = $('#summernote2').summernote('code');
 	    		if( $("input[name='lessonTitle']").val() != "" && $("input[name='lessonTitle']").val() != null
 						&& $("input[name='lessonProject']").val() != "" && $("input[name='lessonProject']").val() != null								
@@ -1584,13 +1720,15 @@ iframe{
 
 	    					}
 	    				});//end of ajax
-	    		
-	    		
+	    	}//end of saveLesson
+	    	
+	    	
+	    	$(document).on("click","#kitYesButton", function(){
+	    		saveKit();
 	    	});
 	    	
-	    	// 클래스 준비물 저장
-	    	$(document).on("click","#kitYesButton", function(){
-	    		
+    		// 클래스 준비물 저장
+    		function saveKit() {
 	    		if( $("input[name='kitName']").val() != "" && $("input[name='kitName']").val() != null					
 						&& $("input[name='kitIntro']").val() != "" && $("input[name='kitIntro']").val() != null
 						&& $("input[name='kitPrice']").val() != "" && $("input[name='kitPrice']").val() != null 
@@ -1652,7 +1790,7 @@ iframe{
 	    						}//end of if
 	    					}//end of Call Back Function
 	    				});//end of ajax
-	    	});//end of 클래스 준비물 저장 
+	    	};//end of saveKit 
 	    	
 	    	// 클래스 검토요청
 			$(document).on("click","#checkYesButton", function(){
@@ -2156,7 +2294,7 @@ iframe{
 				                	   xhr.upload.addEventListener("progress", function(evt) {
 				                	      if (evt.lengthComputable) {
 				                	      var percentComplete = evt.loaded / evt.total;
-				                	      $(".progress-bar").css("width",(percentComplete*100) + '%');
+				                	      $(".progress-bar").css("width",(percentComplete*120) + '%');
 				                	      }
 				                	   }, false);
 				                	   return xhr;
@@ -2437,7 +2575,32 @@ iframe{
 	    		return resultList;
 	    	}
 
-	    	
+	    	// 버튼 hover Event
+	    	$(document).on("mouseover", "#infoYesButton", function(){
+	    		$(this).css("background-color","rgb(253, 126, 20)");
+	    	});
+			$(document).on("mouseout", "#infoYesButton", function(){
+				$(this).css("background-color","rgb(255, 146, 43)");
+	    	});
+			$(document).on("mouseover", "#lessonYesButton", function(){
+	    		$(this).css("background-color","rgb(253, 126, 20)");
+	    	});
+			$(document).on("mouseout", "#lessonYesButton", function(){
+				$(this).css("background-color","rgb(255, 146, 43)");
+	    	});
+			$(document).on("mouseover", "#kitYesButton", function(){
+	    		$(this).css("background-color","rgb(253, 126, 20)");
+	    	});
+			$(document).on("mouseout", "#kitYesButton", function(){
+				$(this).css("background-color","rgb(255, 146, 43)");
+	    	});
+			$(document).on("mouseover", "#checkYesButton", function(){
+	    		$(this).css("background-color","rgb(253, 126, 20)");
+	    	});
+			$(document).on("mouseout", "#checkYesButton", function(){
+				$(this).css("background-color","rgb(255, 146, 43)");
+	    	});
+			
 		});
 	</script>
 </body>

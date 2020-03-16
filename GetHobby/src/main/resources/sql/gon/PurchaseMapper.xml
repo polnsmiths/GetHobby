@@ -50,7 +50,7 @@
 	</resultMap>
 
 	<select id="getComponentOption" parameterType="int" resultMap="hobbyclassSelectMap">
-		SELECT CLASS_NO, CLASS_PRICE, KIT_PRICE, KIT_NAME, CLASS_TITLE, KIT_IMAGE, CLASS_IMAGE
+		SELECT CLASS_NO, CLASS_PRICE, KIT_PRICE, KIT_NAME, CLASS_TITLE, KIT_IMAGE, CLASS_IMAGE, KIT_INTRO
 		FROM HOBBYCLASS
 		WHERE CLASS_NO = #{hobbyClassNo}
 	</select>
@@ -165,7 +165,7 @@
 										OR COMPONENT_OPTION LIKE '%${searchKeyword}%'
 										</if>
 										
-									ORDER BY PURCHASE_ID DESC	) search_data
+									ORDER BY PURCHASE_DATE DESC	) search_data
 						WHERE ROWNUM &lt;= #{endRowNum}
 						<if test="category !='' and category != null">
 							AND search_data.PURCHASE_CODE = #{category}

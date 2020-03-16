@@ -43,6 +43,21 @@
 			outline: 0 none;
 			background-color: red;
 		}
+		@media (min-width: 992px){
+			.shclm-div {
+				height: 506px;
+			}
+		}
+		@media (max-width: 991px){
+			.shclm-div {
+				height: 410px;
+			}
+		}
+		#exampleModalCenter {
+			padding:0px !important;
+		}
+		
+		
 	</style>
 </head>
 <body>
@@ -68,12 +83,11 @@
 	        </button>
 	      </div>
 		      
-	      <div class="modal-body shclm-div" style="overflow-y: scroll; width:100%; height:506px;">
+	      <div class="modal-body shclm-div" style="overflow-y: scroll; width:100%;">
 	        
 	        <c:set var="i" value="0" />
 			<c:forEach var="lesson" items="${hobbyClass.lesson}">
 			<c:set var="i" value="${i+1}" />   
-			<input type="hidden" name="lessonContent-modal" value="${lesson.lessonContent}">
 			<input type="hidden" name="lessonNo-modal" value="${lesson.lessonNo}">
 			<input type="hidden" name="lessonVideo-modal" value="${lesson.lessonVideo}">
 			<input type="hidden" name="lessonTitle-modal" value="${lesson.lessonTitle}">
@@ -124,8 +138,7 @@
         					} ,
 	    					success : function(JSONData, status) {
 								var currentSpace = $(".lessonIndex:contains('"+$("input[name='lessonNo']").val()+"')");
-								currentSpace.prev().prev().prev().prev().prev().prev().prev("input[name='lessonContent-modal']").val($('#summernote2').summernote('code'));
-								currentSpace.prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val($("input[name='lessonNo']").val());
+								//currentSpace.prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val($("input[name='lessonNo']").val());
 								currentSpace.prev().prev().prev().prev().prev("input[name='lessonVideo-modal']").val($("input[name='lessonVideo']").val());
 								currentSpace.prev().prev().prev().prev("input[name='lessonTitle-modal']").val($("input[name='lessonTitle']").val());
 								currentSpace.prev().prev().prev("input[name='lessonProject-modal']").val($("input[name='lessonProject']").val());
@@ -201,7 +214,23 @@
 					$(".shc-lesson-two-ImageDeleteButton").css("display","none");
 					
 				}
-				$('#summernote2').summernote('code',$(this).prev().prev().prev().prev().prev().prev().prev("input[name='lessonContent-modal']").val());
+				
+				$.ajax(
+	    				{
+	    					url: "/hobbyclass/json/getLesson",
+	    					method: "POST",
+	    					data: JSON.stringify({
+	    						lessonNo: $(this).prev().prev().prev().prev().prev().prev("input[name='lessonNo-modal']").val()
+	    					}),
+	    					dataType : "json" ,
+        					headers : {
+        						"Accept" : "application/json" ,
+        						"Content-Type" : "application/json"
+        					} ,
+	    					success : function(JSONData, status) {
+	    						$('#summernote2').summernote('code', JSONData.lessonContent);
+	    					}
+	    				});
 				return false;
 			});
 			

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>GetHobby</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,11 @@ var hash = [];
 var inputCheck = 0;
 	//////////////////////주소찾기 //////////////////////////////
 	function postcode() {
+		var width = 500; 
+		var height = 500;
 		        new daum.Postcode({
+		        	width: width, 
+	        	    height: height,
 		            oncomplete: function(data) {
 		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -63,7 +67,10 @@ var inputCheck = 0;
 		                // 커서를 상세주소 필드로 이동한다.
 		                document.getElementById("detailAddress").focus();
 		            }
-		        }).open();
+		        }).open({
+		       	 left: (window.screen.width / 2) - (width / 2),
+	        	    top: (window.screen.height / 2) - (height / 2)
+		        });
 		    }
 	
 	//////해쉬태그 5개 선택///////////
@@ -309,13 +316,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
     box-sizing: border-box;
 }
 .bXUojH {
-    width: 100%;
     padding-right: 4px;
     padding-left: 4px;
 }
-.bXUojH {
-    width: 35%;
-}
+
 h1 {
     display: block;
     font-size: 2em;
@@ -806,7 +810,16 @@ path[Attributes Style] {
 .logKjs input[type="file"] {
     display: none;
 }
-
+@media (min-width: 992px){
+	.bXUojH {
+	    width: 35%;
+	}
+}
+@media (max-width: 991px){
+	.bXUojH {
+	    width: 100%;
+	}
+}
 </style>
 </head>
 <body>
@@ -823,8 +836,8 @@ path[Attributes Style] {
 							<div class="sc-gHboQg bXUojH" style="margin-top: 60px;">
 								<h1>필수 추가정보</h1>
 								<form id="pulsAddUserInfo" enctype="multipart/form-data">
-									 <input type="hidden" id="userId" name="userId" value='${sessionScope.user.userId}'>
-									  <input type="hidden" id="password" name="password" value='${sessionScope.user.password}'>
+									 <input type="hidden" id="userId" name="userId" value="${sessionScope.snsInfo.userId}">
+									  <input type="hidden" id="password" name="password" value="${sessionScope.snsInfo.password}">
 									  <div class="Profile__EditProfileImageWrapper-sc-1sl3brv-1 cRNLYZ">
 										  <label class="S3UploadButton__Container-a68j44-0 logKjs">								
 											  <input type="file" id="file" name="file" onchange="preview(this,$('#image_section'));">
@@ -917,7 +930,7 @@ path[Attributes Style] {
 									</div>
 									<div>		
 									<jsp:include page="/user/hashtagModal.jsp" />								
-										<div  class="cvzQqA" style="width: 530px;height: 30px;margin-right: 0px;">					
+										<div  class="cvzQqA" style="width: 100%;height: 30px;margin-right: 0px;">					
 										<span id = "hashtagselect" class="aaa flMyeK eYKibL kVAMqa"  style="cursor : pointer;width:50%;float:right;height: 30px;float: left;heightmargin-top:0px;">관심분야 선택</span>
 										</div>
 										<input type="hidden" id="hashtag" name="hashtag" />

@@ -153,6 +153,11 @@ public class CommunityServiceImpl implements CommunityService {
 		int totalCountCommunityArticle =communityDAO.getTotalCountCommunityArticle((Integer)serviceMap.get("hobbyClassNo"));
 		//System.out.println("totalCountCommunityArticle확인:"+totalCountCommunityArticle);
 		
+		//해당클래스의 크리에이터이름 가져오기
+		String creatorName = communityDAO.getCreatorAtHobbyClass((Integer)serviceMap.get("hobbyClassNo"));
+		System.out.println("\n\ncreatorName::\n"+creatorName);
+		
+		map.put("creatorName", creatorName);
 		map.put("totalCountCommunityArticle", totalCountCommunityArticle );
 		map.put("articleList", articlelist);
 		map.put("array", array);

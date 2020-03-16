@@ -192,7 +192,7 @@
 	
 	<select id="getLesssonList"	parameterType="java.lang.Integer" resultMap="searchLessonMap">
 		SELECT 
-		lesson_no, lesson_image, lesson_title
+		lesson_no, class_no, lesson_video, lesson_content, lesson_project, lesson_intro, lesson_image, lesson_title
 		FROM lesson
 		WHERE class_no = #{hobbyClassNo} 
 	</select>

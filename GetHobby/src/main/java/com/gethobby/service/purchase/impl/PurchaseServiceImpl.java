@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -228,6 +229,34 @@ public class PurchaseServiceImpl implements PurchaseService{
 			
 			return everythingsFine;
 		}
+		
+		public boolean mobileComplete(HttpServletRequest request, HttpSession session) throws Exception {
+			request.setCharacterEncoding("UTF-8");
+
+			if( request.getParameter("imp_success").equals("true") ) {
+				Purchase purchase = new Purchase();
+				HobbyClass hobbyClass = new HobbyClass();
+				hobbyClass.setHobbyClassNo(Integer.parseInt(request.getParameter("hobbyClassNo")));
+				
+				purchase.setPurchaseId(request.getParameter("imp_uid"));
+				purchase.setHobbyClass(hobbyClass);
+				purchase.setReceiverName(request.getParameter("receiverName"));
+				purchase.setReceiverPhone(request.getParameter("receiverPhone"));
+				purchase.setDlvyAddr(request.getParameter("dlvyAddr"));
+				purchase.setDlvyDetailAddr(request.getParameter("dlvyDetailAddr"));
+				purchase.setDlvyPostcode(request.getParameter("dlvyPostcode"));
+				purchase.setDlvyRequest(request.getParameter("dlvyRequest"));
+				purchase.setPayMethod(request.getParameter("payMethod"));
+				purchase.setPurchasePrice(Integer.parseInt(request.getParameter("purchasePrice")));
+				purchase.setComponentOption(request.getParameter("componentOption"));
+	
+				if ( this.paymentComplete(purchase, session) ) {
+					return true;
+				}
+				
+			}
+			return false;
+		}
 
 		public Map<String, Object> getPaymentHistoryListAdmin(Search search) throws Exception {
 			if( search.getCurrentPage() == 0 ) {
@@ -237,6 +266,12 @@ public class PurchaseServiceImpl implements PurchaseService{
 			Map<String, Object> purchaseMap = new HashMap<String, Object>();
 			Map<String, Object> totalCountMap = new HashMap<String, Object>();
 			purchaseMap.put("purchase", purchaseDAO.getPaymentHistoryListAdmin(search));
+			
+			List tempList = (List) purchaseMap.get("purchase");
+			for( int index=0; index<tempList.size(); index++) {
+				int hobbyClassNo = ((Purchase)tempList.get(index)).getHobbyClass().getHobbyClassNo();
+				((Purchase)tempList.get(index)).setHobbyClass(openHobbyClassService.getHobbyClass(hobbyClassNo, "530"));
+			}
 			
 			// 전체 구매 개수
 			totalCountMap.put("totalCountPurchase", "전체");

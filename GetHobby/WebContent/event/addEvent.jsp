@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>GetHobby</title>
 
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
@@ -86,6 +87,9 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
+
  
 <style type="text/css">
 	 .btn-basic {
@@ -125,7 +129,15 @@
 			$(document).on("click", "#addEventButton", function() {
 				
 				//alert('이벤트 등록 버튼');
-				fnAddEvent(eventAddcount);
+				//fnAddEvent(eventAddcount);
+				 swal.fire({
+       			  title: '등록되었습니다!',
+       			  text: 'Get취미IfYouCAN',
+       			  imageUrl: '/resources/image/logo/logo-favicon.png',
+       			  timer : 800
+       			}).then((result)=>{
+       				fnAddEvent(eventAddcount);
+       			}) 
 
 			})
 			
@@ -171,10 +183,12 @@
     $(function() {
     
     	 $.datepicker.setDefaults({
+    		 
     		 dateFormat: 'yy-mm-dd'
     		 ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
     		 ,yearSuffix: "년"
     		 ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+    		 ,monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
     		 ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
     		 //,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
     		 ,changeMonth: true //콤보박스에서 월 선택 가능
@@ -183,8 +197,27 @@
                 //,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
     	 });
     	
-    	$("#eventStartDate").datepicker();
-		$("#eventEndDate").datepicker();
+/*     	$("#eventStartDate").datepicker();
+		$("#eventEndDate").datepicker(); */
+		
+		
+    	 $("#eventStartDate").datepicker({
+    		 minDate: 0,   //선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)        
+    		 onClose: function( selectedDate ) {    
+                 // 시작일(fromDate) datepicker가 닫힐때
+                 // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                 $("#eventEndDate").datepicker( "option", "minDate", selectedDate );
+             }                
+    	 });
+		
+		$("#eventEndDate").datepicker({
+			minDate: 0,
+            onClose: function( selectedDate ) {
+                // 종료일(toDate) datepicker가 닫힐때
+                // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+                $("#fromDate").datepicker( "option", "maxDate", selectedDate );
+            }     
+		});
 		
     });
     

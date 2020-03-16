@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>GetHobby</title>	
     
     <!-- 웹사이트 파비콘 -->
     <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
@@ -56,6 +57,28 @@
 	var currentPage = 1;
 
 	
+    $(function () {
+
+        $(".sol-to-the-top").on("click", function () {
+
+            //window.scrollTo(0, 0);
+
+        	$('body,html').animate({
+				scrollTop: 0
+			}, 200);
+        	
+			return false;
+
+        	
+
+        });
+
+    });
+	
+	
+	
+	
+	
 	$(function() {
 	
 	/////더보기버튼 클릭시 BUTTON1
@@ -70,6 +93,14 @@
 		//alert('hobby'+hobbyClassNo);
 		//alert('sessionUserId'+sessionUserId);
 		//alert('sessionProfileImage'+sessionProfileImage);
+
+		//크리에이터 회원인티 체크
+		var creatorName = $("input[id='hidden_creatorName']").val();
+		console.log('creatorName-->'+creatorName);
+		
+		//구매 회원 체크
+		var purchaseCheck = $("input[id='hidden_purchaseCheck']").val();
+		console.log('purchaseCheck-->'+purchaseCheck);
 		
 		if(totalCount%10 == 0 ){
 			if(currentPage > totalCount/10){
@@ -128,8 +159,8 @@
 	    				moreCommunity +=	"<span class='lcmnt-fpiod'>";
 	    				moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi' style='size: 40px; width: 40px;'>";
 	    	  				 }else if(data.articleList[i].user.profileImage != null){
-	    	  			moreCommunity +=	data.articleList[i].user.profileImage;	    	  			
-	    				//moreCommunity +=	"<img src='/resources/image/min/"+data.articleList[i].user.profileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi' style='size: 40px; width: 40px;'>";
+	    	  			//moreCommunity +=	data.articleList[i].user.profileImage;	    	  			
+	    				moreCommunity +=	"<img src='/resources/image/logo/"+data.articleList[i].user.profileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi lcmnt-form-fis' style='size: 40px; width: 40px;'>";
 	    	  				}	
 	    				moreCommunity += "</span>";
 	    					
@@ -185,11 +216,12 @@
 	    							
 	    								//<!-- 프로필 사진 -->
 	    			   				+"<span class='lcmnt-fpiod-reply'>";
-	    								if(data.array[i][j].user.profileImage == null){
+	    				//				if(data.array[i][j].user.profileImage == null){
 	    			   moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
-	    			    	  			}else if(data.array[i][j].user.profileImage != null){
-	    			   moreCommunity +=	data.array[i][j].user.profileImage;	    	  			
-	    			    	  			}	
+	    			    //	  			}else if(data.array[i][j].user.profileImage != null){
+	    			   //moreCommunity +=	data.array[i][j].user.profileImage;	    	  			
+	    			 //  moreCommunity +=	"<img src='/resources/image/logo/"+data.array[i][j].user.profileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";    	  			
+	    			   // 	  			}	
 	    				moreCommunity +="</span>";	
 	    						
 	    								//<!-- default가 닉네임 => 없으면 이름으로 표시 -->
@@ -208,12 +240,15 @@
 	    								+"</div>";
 	    								
 
-										if(sessionUserId  == data.array[i][j].user.userId){
 						moreCommunity	+="<div class='button-reply-wrapper'>";				
+										if(sessionUserId  == data.array[i][j].user.userId && purchaseCheck == 1 ){
 						moreCommunity	+="<button class='replyDelete_Button btn btn-outline-basic m-1 button-reply' id='replyDelete_Button'>삭제</button>";
 	    				moreCommunity	+="<button class='replyUpdate_Button btn btn-basic m-1 button-reply' id='replyUpdate_Button'>수정</button>";
+										}
+										if(sessionUserId == creatorName && purchaseCheck == 1){
+						moreCommunity	+="<button class='creator_replyDelete_Button btn btn-outline-basic m-1 button-reply' id='creator_replyDelete_Button'>처리</button>";					
+										}
 	    				moreCommunity	+="</div>";
-										}	   
 	    								
 	    		  	moreCommunity	+="</div>"
 	    								
@@ -237,7 +272,8 @@
     									if(data.articleList[i].user.profileImage == null){
     					moreCommunity +=	"<img src='/resources/image/logo/unnamed.jpg' class='lcmnt-form-fi'>";
     	  				 				}else if(data.articleList[i].user.profileImage != null){
-    	  				moreCommunity +=	data.articleList[i].user.profileImage;	  
+    	  				//moreCommunity +=	data.articleList[i].user.profileImage;	  
+    	  				moreCommunity +=	"<img src='/resources/image/logo/"+data.articleList[i].user.profileImage+"' class='lcmnt-form-fi'>";  
 				    	  				}	
     	  				  moreCommunity += "</span>"
     	  				  				+"</div>"
@@ -281,8 +317,17 @@
 	})//더보기버튼 function
 	
 	
-	///글작성하기 버튼 클릭시 BUTTON2
+	///글작성하기 버튼 클릭시 BUTTON2 
 	$(document).on("click", "#WriteArticleButton", function() {
+		
+		//구매 회원 체크
+		var purchaseCheck = $("input[id='hidden_purchaseCheck']").val();
+		console.log('purchaseCheck-->'+purchaseCheck);
+		
+		if( purchaseCheck == '0'){
+			swal.fire("클래스 구매 후 이용해주세요", "비구매 회원은 글을 등록할 수 없습니다 :)", "error");
+			return;
+		}else{
 		
 		//alert('글작성하기버튼');
 		var hobbyClassNo =$('#hidden_hobbyClassNo').val();
@@ -294,6 +339,8 @@
 		}
 		self.location = "/community/addCommunityArticleView?hobbyClassNo="+hobbyClassNo;
 		
+		}//구매회원체크 if
+		
 	})//글작성하기 function
 	
 	
@@ -303,15 +350,32 @@
 		//alert('상세보기버튼');
 		var articleNo = $(this).parents('.outer_div').find('.hidden_articleNo').val();
 		console.log('hidden_articleNo ? :' + articleNo);
+		var hobbyClassNo = $('#hidden_hobbyClassNo').val();
 		
-		self.location = "/community/getCommunity?articleNo="+articleNo;
+		self.location = "/community/getCommunity?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
 
 	})//글상세보기 function
+	
+/* 	///처리 클릭시 BUTTON 
+	$(document).on("click", ".creator_replyDelete_Button", function() {
+		
+		//alert('상세보기버튼');
+		var articleNo = $(this).parents('.outer_div').find('.hidden_articleNo').val();
+		console.log('hidden_articleNo ? :' + articleNo);
+		var hobbyClassNo = $('#hidden_hobbyClassNo').val();
+		
+		self.location = "/community/getCommunity?articleNo="+articleNo+"&hobbyClassNo="+hobbyClassNo;
+
+	})//크리에이터의 댓글 처리 function */
 	
 	
 	///댓글수정 버튼 클릭시 BUTTON4 (최초요청)
 	$(document).on("click", "#replyUpdate_Button", function() {
 
+		//구매 회원 체크
+		var purchaseCheck = $("input[id='hidden_purchaseCheck']").val();
+		console.log('purchaseCheck-->'+purchaseCheck);
+		
 		//alert('수정');
 		var replyNo = $(this).parents('.reply_div').find('.hidden_replyNo').val();
 		console.log('hidden_replyNo ? :' + replyNo);
@@ -371,10 +435,10 @@
  				//if(forUserProfileImage== null){
  					displayReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
 	  			//}else if(forUserProfileImage != null){
-	  			//	displayReply += forUserProfileImage;
-	  				//displayReply +=	"<img src='"+forUserProfileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
+	  				//displayReply += forUserProfileImage;
+	  			//	displayReply +=	"<img src='/resources/image/logo/"+forUserProfileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
 	  			//}
-			  	displayReply +="</span>";
+			  	displayReply +="</span>"; 
 	
 		
 				//<!-- default가 닉네임 => 없으면 이름으로 표시 -->
@@ -391,7 +455,7 @@
 							  +"</div>";
 		
 				
-				if(sessionUserId  == forUserId){ 
+				if(sessionUserId  == forUserId && purchaseCheck == 1){ 
 					displayReply 	+="<div class='button-reply-wrapper'>";
 					displayReply	+="<button class='replyDelete_Button btn btn-outline-basic m-1 button-reply' id='replyDelete_Button'>삭제</button>";
 					displayReply	+="<button class='replyUpdate_Button btn btn-basic m-1 button-reply' id='replyUpdate_Button'>수정</button>";
@@ -419,8 +483,8 @@
  				//if(reply_userprofileImag == null){
 					updateReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
 				//}else if(reply_userprofileImag != null){
-				//	updateReply +=	reply_userprofileImag;	    	  			
-					//updateReply +=	"<img src='"+reply_userprofileImag+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
+					//updateReply +=	reply_userprofileImag;	    	  			
+				//	updateReply +=	"<img src='/resources/image/logo/"+reply_userprofileImag+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
 				//}	 
 					
  					updateReply +="</span>";
@@ -489,7 +553,11 @@
 			var articleNo = $(this).parents('.outer_div').find('.hidden_articleNo').val();
 			var thisOuterDiv = $(this).parents('.outer_div');
 			
-			//console.log('updateContent:'+updateContent);
+			/// \n ==> <br> 로 바꾸는 정규표현식
+			var updateContent = updateContent.replace(/(\n|\r\n)/g, '<br>');
+			console.log('정규표현식 후 replyContent ? :' + updateContent);
+			
+			console.log('updateContent------>:'+updateContent);
 			console.log('replyNo'+replyNo);
 			$(this).parents('.reply_div').find('textarea').val("");
 			
@@ -529,25 +597,36 @@
 	
 	///댓글등록 버튼 클릭시 BUTTON6
 	$(document).on("click", "#addReply_Button", function() {	
-
+		
+		var purchaseCheck = $("input[id='hidden_purchaseCheck']").val();
+		//alert("purchaseCheck-->"+purchaseCheck);
+		//구매 회원 체크
+		if(purchaseCheck == '0'){
+			swal.fire("클래스 구매 후 이용해주세요", "비구매 회원은 댓글을 등록할 수 없습니다 :)", "error");
+			$(this).parents('.reply_write_div').find('textarea').val("");
+			return;
+		}else{
+		
 		var articleNo = $(this).parents('.outer_div').find('.hidden_articleNo').val();
 		console.log('articleNo ? :' + articleNo);
 	
 		var replyContent = $(this).parents('.reply_write_div').find('textarea').val();
-		// \n ==> <br> 로 바꾸는 정규표현식
+		/// \n ==> <br> 로 바꾸는 정규표현식
 		var result_replyContent = replyContent.replace(/(\n|\r\n)/g, '<br>');
-		console.log('replyContent ? :' + result_replyContent);
+		console.log('정규표현식 후 replyContent ? :' + result_replyContent);
 		
 		var thisOuterDiv = $(this).parents('.outer_div');
 		
-		if(replyContent == null || replyContent.length<1){
-			alert("댓글내용을 입력해주세요.");
-			return;
-		} 
+			if(replyContent == null || replyContent.length<1){
+				alert("댓글내용을 입력해주세요.");
+				return;
+			} 
 		
 		$(this).parents('.reply_write_div').find('textarea').val("");
 		
 		fn_addReply(articleNo, result_replyContent, thisOuterDiv);
+		
+		}//구매회원체크 if
 	})
 	
 	
@@ -709,6 +788,9 @@
 		var sessionUserId = $('.hidden_session_userId').val();
 		console.log('getCommunityReplyList의 세션 userId---'+sessionUserId);
 		
+		var purchaseCheck = $("input[id='hidden_purchaseCheck']").val();
+		console.log('purchaseCheck-->'+purchaseCheck);
+		
 		 $.ajax(
 		    		{
 		        url : "/community/json/getReplyListUnderArticle/"+articleNo,
@@ -747,7 +829,8 @@
     							displayReply +=	"<span class='lcmnt-fpiod-reply'>";	
     									displayReply +=	"<img src='/resources/image/logo/unnamed.jpg' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";
     			    	  			}else if(data.list[i].user.profileImage != null){
-    			    	  				displayReply +=	data.list[i].user.profileImage;	    	  			
+    			    	  				//displayReply +=	data.list[i].user.profileImage;	    	  			
+    			    	  				displayReply +=	"<img src='/resources/image/logo/"+data.list[i].user.profileImage+"' class='RatioImage__Img-wwqqoo-1 gRslZu' style='size: 22px; width: 22px;'>";	    	  			
     			    	  			}	
     							displayReply += "</span>";
     						
@@ -768,7 +851,7 @@
     									+"</div>";
     								
 
-									if(sessionUserId  == data.list[i].user.userId){
+									if(sessionUserId  == data.list[i].user.userId && purchaseCheck == 1){
 										displayReply	+="<div class='button-reply-wrapper'>";
 										displayReply	+="<button class='replyDelete_Button btn btn-outline-basic m-1  button-reply' id='replyDelete_Button'>삭제</button>";
 										displayReply	+="<button class='replyUpdate_Button btn btn-basic m-1 button-reply' id='replyUpdate_Button'>수정</button>";
@@ -829,13 +912,16 @@
 			
 			<!-- ////// INPUT HIDDEN /////////// -->	
 			<input type="hidden" name="hidden_hobbyClassNo" id="hidden_hobbyClassNo" value="${hobbyClassNo}">	
+			<input type="hidden" name="hidden_purchaseCheck" id="hidden_purchaseCheck" value="${purchaseCheck }">	
 			<input type="hidden" name="hidden_totalCount" id="hidden_totalCount" value="${resultPage.totalCount}">	
 			<input type="hidden" name="hidden_session_userId" id="hidden_session_userId" class="hidden_session_userId" value="${sessionUser.userId}">
 			<input type="hidden" name="hidden_session_name" id=hidden_session_name class="hidden_session_name" value="${sessionUser.name}">
 			<input type="hidden" name="hidden_session_profileImage" id="hidden_session_profileImage" class="hidden_session_profileImage" value="${sessionUser.profileImage}">
 			<input type="hidden" name="hidden_session_nickName" id="hidden_session_nickName" class="hidden_session_nickName" value="${sessionUser.nickName}">
+			<input type="hidden" name="hidden_CreatorName" id="hidden_CreatorName" value="${creatorName}">	
+			
 	
-	
+
 			<c:set var="i" value="1"/>
 			<c:forEach var="articleList" items="${articleList}" varStatus="status">
 			<div class="outer_div">
@@ -857,7 +943,7 @@
 								<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
 							</c:if>
 							<c:if test="${articleList.user.profileImage != null }">
-								<img src="${articleList.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
+								<img src="/resources/image/logo/${articleList.user.profileImage}" class="RatioImage__Img-wwqqoo-1 gRslZu lcmnt-apfi" style="size: 40px; width: 40px;">
 							</c:if>
 						</span>
 						
@@ -887,7 +973,7 @@
 				<!-- 댓글 갯수 div -->
 				</br>
 				<div class="reply_totalReport_div lcmnt-ah4_totalReport">
-					${articleList.totalReport }개의 댓글 
+					${articleList.totalReport}개의 댓글 
 				</div>
 				
 				
@@ -918,7 +1004,8 @@
 							<img src="/resources/image/logo/unnamed.jpg" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
 						</c:if>
 						<c:if test="${array.user.profileImage != null }">
-							${array.user.profileImage }
+							
+							<img src="/resources/image/logo/${array.user.profileImage }" class="RatioImage__Img-wwqqoo-1 gRslZu" style="size: 22px; width: 22px;">
 						</c:if>
 						</span>
 						
@@ -938,12 +1025,15 @@
 						</div>
 						
 						
-							<c:if test="${sessionUser.userId == array.user.userId}">
 						<div class="button-reply-wrapper"> <!-- 사망각 -->
+							<c:if test="${sessionUser.userId == array.user.userId && purchaseCheck == 1}"> <!-- 댓글 쓴 사람이름이 세션이름이랑 같으면 -->
 								<button class="replyDelete_Button btn btn-outline-basic m-1 button-reply" id="replyDelete_Button">삭제</button>
 								<button class="replyUpdate_Button btn btn-basic m-1 button-reply" id="replyUpdate_Button">수정</button>
-						</div> <!-- 사망각 -->
 							</c:if>
+							<c:if test="${sessionUser.userId == creatorName && purchaseCheck == 1 }"> <!-- 크리에이터면  -->
+								<button class="creator_replyDelete_Button btn btn-outline-basic m-1 button-reply" id="creator_replyDelete_Button">처리</button>
+							</c:if>
+						</div> <!-- 사망각 -->
 							
 						
 						
@@ -971,12 +1061,12 @@
 										<img class="lcmnt-form-fi" src="/resources/image/logo/unnamed.jpg">
 										</c:if>
 										<c:if test="${articleList.user.profileImage != null }">
-										<img class="lcmnt-form-fi" src="/resources/image/min/${articleList.user.profileImage}">
+										<img class="lcmnt-form-fi" src="/resources/image/logo/${articleList.user.profileImage}">
 										</c:if>
 									</span>
 								</div>
 	                            <textarea class="replyInput lcmnt-tf-textarea" id="replyInput" name="replyInput" placeholder="댓글을 입력해주세요."></textarea>
-	                             <!-- 등록버튼 등록버튼 -->                                                                                                                                                                                                                     <br>
+	                             <!-- 등록버튼 등록버튼 -->                                                        
 	                            <div class="lcmnt-bs-d">
 	                                <button type="button" id="addReply_Button" class="addReply_Button btn btn-basic m-1 lcmnt-bs-b">
 		                               	<span class="lcmnt-bs-i">
@@ -1004,13 +1094,20 @@
 			
 			</div>
 	
+			<c:if test="${resultPage.totalCount > 10}">
 			<!-- 더보기버튼 -->
-			<div class="moreCommunity_Button">
-			<button type="button" class="btn btn-basic m-1" style="size: 20px" id="moreCommunity_Button">더보기</button>
+			<div class="moreCommunity_Button d-flex justify-content-center">
+			<button type="button" class="btn btn-basic m-1 more_button " style="size: 20px" id="moreCommunity_Button">더보기</button>
 			</div>
+			</c:if>
 			
 	
 	</div> 
+	
+	<span class="sol-to-the-top shadow">
+         <i class="fas fa-arrow-up"></i>
+    </span>
+	
 	
 	   	</br>
     	</br>

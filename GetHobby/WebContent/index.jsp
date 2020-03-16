@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GetHobby</title>
 </head>
 <body>
 	<h2>Hello World!!</h2><br>

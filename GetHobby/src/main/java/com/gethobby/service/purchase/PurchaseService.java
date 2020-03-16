@@ -3,6 +3,7 @@ package com.gethobby.service.purchase;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
@@ -27,6 +28,8 @@ public interface PurchaseService {
 	public Purchase requestRefund(String purchaseId) throws Exception;
 	
 	public boolean paymentComplete(Purchase purchase, HttpSession session) throws Exception;
+	
+	public boolean mobileComplete(HttpServletRequest request, HttpSession session) throws Exception;
 	
 	public int getLessonNoASC(int hobbyClassNo) throws Exception;
 	

@@ -14,7 +14,7 @@
     
     <!-- favicon 404 에러 안보이게  -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
+	<title>GetHobby</title>
     <!-- 웹 폰트 (나눔고딕) -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="/resources/css/common.css">
 
 	<!-- 채널톡 js -->
-	<script src="/resources/javascript/min/channelTalk.js"></script>
+	<!-- <script src="/resources/javascript/min/channelTalk.js"></script> -->
 	
 	<!-- ////////////////////////위를 복사하세요//////////////////////////////////////// -->
 
@@ -96,6 +96,12 @@
 	  		<span class="sr-only">Loading...</span>
 		</div>
 	</div>
+	
+	<!-- 누르면 위로 올라가는 버튼 -->
+	<span class="mini-button-to-top shadow">
+    	<i class="fas fa-arrow-up arrow-i-tag"></i>
+    </span>
+	<!-- 누르면 위로 올라가는 버튼 -->
 	
 	<!-- navbar 시작 -->
 	<div class="container">
@@ -532,7 +538,7 @@
 	<span class="scroll-page"></span>
 	
 	<div class="include-for-popular-hobby-class">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12">
 					<jsp:include page="./listPopularHobbyClass.jsp" />
@@ -566,9 +572,27 @@
 		</div>
 	</c:if>
 	
+	
+	
+	<input type="hidden" class="main-scroll-current-page" value="1" />
+	<input type="hidden" class="main-scroll-max-page" />
+	<input type="hidden" class="check-search" value="0" />
+	
+	<div class="main-scroll-outer-div">
+		<div class="container border-bottom mb-5">
+			<h4 class="popular-hobby-class-list-h4-tag mt-3 mb-3">클래스 목록</h4>
+		</div>
+	
+		<span class="main-scroll-page-flag"></span>
+		
+		<span class="main-scroll-page"></span>
+	</div>
+	
+	
 	<div class="footer-outer-div">
 		<br/><br/><br/><br/><br/>
 		<jsp:include page="/common/footer.jsp"></jsp:include>
 	</div>
+
 </body>
 </html>

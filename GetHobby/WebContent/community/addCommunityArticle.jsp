@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
+<title>GetHobby</title>
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
 <link rel="icon" href="/resources/image/logo/logo-favicon.png">
@@ -64,12 +64,11 @@
 <script src="/resources/javascript/commonHeader.js"></script>
 <link rel="stylesheet" href="/resources/css/commonHeader.css" />
 
-
-
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script> 
  
 <style type="text/css">
 	
@@ -102,25 +101,30 @@
 			///글 등록하기 버튼 클릭시
 			$(document).on("click", "#updateArticleContentButton", function() {
 				
-				alert('글 등록 버튼');
+				//alert('글 등록 버튼');
 				//로그인 정보는 세션에서 가져가고
-				//클래스No는 input으로 받을 예정.
 				var articleContent = $('#summernote').val();
-				//console.log(articleContent);
+				console.log(articleContent);
+				var hobbyClassNo = $("input[class='hidden_hobbyClassNo']").val();
+				console.log(hobbyClassNo);
+				
 				//alert(articleContent);
+				
 				
 				if(articleContent == null || articleContent.length<1){
 					alert('글 내용을 입력해주세요.....');
 					return;
 				}
 				
-				wal.fire({
+				
+				$("form#addCommunityArticle").attr("method", "POST").attr("action", "/community/addCommunityArticle").submit();
+				//self.location = "/community/addCommunityArticle?hobbyClassNo="+hobbyClassNo+"&articleContent="+articleContent;
+				
+				swal.fire({
       			  title: '등록완료!',
       			  text: 'Get취미IfYouCAN',
       			  imageUrl: '/resources/image/logo/logo-favicon.png'
       			});
-				$("form").attr("method", "POST").attr("action", "/community/addCommunityArticle").submit();
-				
 			})
 			
 			/// 취소 버튼 클릭시
@@ -164,7 +168,7 @@
 	    		height: 700,
 	    		minHeight : 700,
 	    		maxHeight : 700,
-	    		width: 1024,
+	    		maxWidth: 1024,
 	/*     		  toolbar: [
 	    		    // [groupName, [list of button]]
 	    		    ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -215,7 +219,7 @@
 					
 	        	},
 	        	error:function(request,status,error){
-			            alert("ajax과정 실패");
+			            //alert("ajax과정 실패");
 			       }
 			}); //ajax
 		}//sendArticleFile    
@@ -239,9 +243,9 @@
 	<h1 class="sol-board-header">클래스커뮤니티 게시글 등록</h1>
 	<hr>
 
-<form name="addCommunityArticle">
-
-		<input type="hidden" name="HobbyClass.hobbyClassNo" class="hidden_hobbyClassNo" value="${hobbyClassNo }">
+	 <form id="addCommunityArticle" name="addCommunityArticle" class="addCommunityArticle"> 
+	 
+		<input type="hidden" name="hobbyClass.hobbyClassNo" class="hidden_hobbyClassNo" value="${hobbyClassNo }">
 	
 <!--   
         <div class="p-3 py-4 mb-2 text-left rounded">
@@ -264,7 +268,7 @@
             </div>
 	
   	
-  </form>
+  	</form>
 
 </div>
 

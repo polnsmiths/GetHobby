@@ -5,6 +5,7 @@
 <html lang="ko">
 
 <head>
+	<title>GetHobby</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
@@ -157,7 +158,7 @@ $(function() {
 
 	<div class="mt-5">&nbsp;</div>	
 	<div class="container">
-    <h1 class="sol-board-header">자유게시판 게시글 작성</h1>
+    <h1 class="sol-board-header">게시글 작성</h1>
         <form id="sol-update-article" class="form-group my-5 py-5">
         	<input type="hidden" name="articleNo" value="${ article.articleNo }">
             <input type="hidden" name="boardCode" value="0">

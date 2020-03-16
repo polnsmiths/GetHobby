@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gethobby.common.Page;
 import com.gethobby.common.Search;
+import com.gethobby.service.article.ArticleService;
 import com.gethobby.service.delivery.DeliveryService;
+import com.gethobby.service.domain.Article;
 import com.gethobby.service.domain.Purchase;
 import com.gethobby.service.domain.User;
 import com.gethobby.service.openhobbyclass.OpenHobbyClassService;
@@ -56,7 +58,9 @@ public class AdminController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
-	
+	@Autowired
+	@Qualifier("articleServiceImpl")
+	private ArticleService articleService;	
 	
 	@Autowired
 	@Qualifier("deliveryServiceImpl")
@@ -247,5 +251,19 @@ public class AdminController {
 		model.addAttribute("stopUserCount", map.get("stopUserCount"));
 		model.addAttribute("retireUserCount", map.get("retireUserCount"));		
 		return "forward:/admin/listUserAdmin.jsp";
+	}
+	
+	@RequestMapping( value = "getReportTargetArticle" )
+	public String getTargetReportArticle(@RequestParam("articleNo") int articleNo, @RequestParam("boardCode") String boardCode, Model model) throws Exception {
+		
+		Article article = articleService.getBoardArticle(articleNo);
+		
+		model.addAttribute("article", article);
+		String path = "";
+		if ( boardCode.equals("1") ) {
+			path = "forward:/questionreport/getPhotoArticleReportTarget.jsp";
+		}
+		
+		return path;
 	}
 }

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>GetHobby</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,11 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	
 <!-- header CSS -->
 <link rel="stylesheet" href="/resources/css/commonHeader.css" />
 <!-- header js -->
@@ -169,6 +173,7 @@ html {
     margin-right: 24px;
 }
 
+
 .QtLBl {
     display: flex;
     flex-wrap: wrap;
@@ -176,12 +181,9 @@ html {
     justify-content: center; //
     align-content: stretch;
     margin-right: -12px;
-    margin-left: -12px;
 }
-.QtLBl {
-    margin-right: -4px;
-    margin-left: -4px;
-}
+
+
 
 
 div {
@@ -195,13 +197,10 @@ div {
     box-sizing: border-box;
 }
 .bXUojH {
-    width: 100%;
     padding-right: 4px;
     padding-left: 4px;
 }
-.bXUojH {
-    width: 35%;
-}
+
 h1 {
     display: block;
     font-size: 2em;
@@ -440,6 +439,26 @@ button, input, optgroup, select, textarea {
 .chvMGF:hover, .chvMGF:active {
     background-color: rgb(221, 221, 225);
 }
+@media (min-width: 992px){
+	.QtLBl {
+	    margin-right: -4px;
+	    margin-left: 800px;   
+	    width: 1200px;
+	}
+	.bXUojH {
+	    width: 35%;
+	}
+}
+@media (max-width: 991px){
+	.QtLBl {
+	    margin-right: -4px;
+	    margin-left: auto;   
+	    width: auto;
+	}
+	.bXUojH {
+	    width: 100%;
+	}
+}
 </style>
 </head>
 <body>	
@@ -447,8 +466,8 @@ button, input, optgroup, select, textarea {
 	<main class="pages__Main-sc-1xw23vo-1 gulakV">
 		<div class="ResetPasswordPage__Container-sc-5hwzkh-0 fKDyJz">
 			<div class="sc-eerKOB inUTcF">
-				<div class="sc-eilVRo QtLBl" style="margin-top: 60px;margin-left: 600px;width: 1200px;">
-					<div class="sc-gHboQg bXUojH" >
+				<div class="sc-eilVRo QtLBl" style="margin-top: 60px;">
+					<div class="sc-gHboQg bXUojH" style="margin:auto;">
 						<h1 style="margin-bottom: 10px;">새로운 비밀번호를<br>설정해주세요</h1>
 							<div class="sc-bdVaJa hBKkTB ResetPasswordPage__ResetPasswordMessage-sc-5hwzkh-3 ljnjdo">아이디(이메일)를 입력하면 암호를 재설정할 수 있는 링크를 아이디(이메일)로 보내드릴게요.
 							</div>

@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>GetHobby</title>
 
 <!-- 웹사이트 파비콘 -->
 <link rel=" shortcut icon" href="/resources/image/logo/logo-favicon.png">
@@ -448,7 +449,7 @@ $(function() {
 		
 		<c:if test="${total > 3}">
 		<!-- 버튼 -->
-			<div class="more-button-outer-div" style="margin-top : 20px">
+			<div class="more-button-outer-div d-flex justify-content-center" style="margin-top : 20px">
 			
 				<button type="button" class="btn btn-basic m-1" id="moreEventButton">더보기</button>
 
@@ -461,6 +462,11 @@ $(function() {
 
 
 	</div>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
 	
 		<jsp:include page="/common/footer.jsp" />
 

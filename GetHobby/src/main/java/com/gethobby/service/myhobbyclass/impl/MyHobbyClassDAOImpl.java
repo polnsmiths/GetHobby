@@ -88,4 +88,10 @@ public class MyHobbyClassDAOImpl implements MyHobbyClassDAO {
 		return sqlSession.selectList("HobbyClassMapper.getListenHobbyClassList", userId);
 	}
 
+	@Override
+	public HobbyClass getHobbyClassStateStartDate(String hobbyClassNo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("HobbyClassMapper.getHobbyClassStateStartDate", hobbyClassNo);
+	}
+
 }
