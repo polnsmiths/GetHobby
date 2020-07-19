@@ -30,7 +30,8 @@
    - [Get취미 동작영상(담당모듈)](https://www.youtube.com/watch?v=J5WHY0hJKlE)
 - 자료
    - [발표 ppt](https://www.slideshare.net/hakyungchoi/gethobby)   
-   - [개인 포트폴리오](https://drive.google.com/file/d/15qF-Ubn4iX9Ds7RoZYrkg0k8CyKQjBiT/view?usp=sharing)
+   - [개인 포트폴리오](https://drive.google.com/file/d/15qF-Ubn4iX9Ds7RoZYrkg0k8CyKQjBiT/view?usp=sharingg)
+   - [프로젝트 보고서(전문)](https://drive.google.com/file/d/12P8Ot49ntN6AkZEYIHp527UwDAuCQE1u/view?usp=sharing)
 
 - 분석 산출물
    - UseCase Modeling 
