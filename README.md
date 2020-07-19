@@ -29,8 +29,7 @@
    - [Get취미 동작영상(전체)](https://www.youtube.com/watch?v=Jc2T4dWS-Y0)
    - [Get취미 동작영상(담당모듈)](https://www.youtube.com/watch?v=J5WHY0hJKlE)
 - 자료
-   - [발표 ppt](https://www.slideshare.net/hakyungchoi/gethobby)
-   
+   - [발표 ppt](https://www.slideshare.net/hakyungchoi/gethobby)   
    - [개인 포트폴리오](https://drive.google.com/file/d/15qF-Ubn4iX9Ds7RoZYrkg0k8CyKQjBiT/view?usp=sharing)
 
 - 분석 산출물
