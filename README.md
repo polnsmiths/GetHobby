@@ -41,26 +41,33 @@
 - 설계 산출물
    - Application Modeling
         - 설계 표준
-      <img src="https://user-images.githubusercontent.com/57661476/87876869-d121d200-ca15-11ea-846b-5923a2d45a61.PNG" width="500" height="400">
-      <img src="https://user-images.githubusercontent.com/57661476/87876890-f44c8180-ca15-11ea-9340-78f3e1f5fc17.PNG" width="400" height="500">
+        
+           <img src="https://user-images.githubusercontent.com/57661476/87876869-d121d200-ca15-11ea-846b-5923a2d45a61.PNG" width="500" height="400">
+           <img src="https://user-images.githubusercontent.com/57661476/87876890-f44c8180-ca15-11ea-9340-78f3e1f5fc17.PNG" width="400" height="500">
        
-        - Class Diagram
-         <img src="https://user-images.githubusercontent.com/57661476/87876901-04fcf780-ca16-11ea-8f70-539ceb4180f6.PNG" width="500" height="400">
+       - Class Diagram
        
-        - VOPC Diagram
-         <img src="https://user-images.githubusercontent.com/57661476/87876904-09291500-ca16-11ea-8ad8-b6f1373f61e1.PNG" width="500" height="400">
+           <img src="https://user-images.githubusercontent.com/57661476/87876901-04fcf780-ca16-11ea-8f70-539ceb4180f6.PNG" width="500" height="400">
+       
+       - VOPC Diagram
+       
+           <img src="https://user-images.githubusercontent.com/57661476/87876904-09291500-ca16-11ea-8ad8-b6f1373f61e1.PNG" width="500" height="400">
        
    - 화면 분석
-        - 화면 정의서
-            <img src="https://user-images.githubusercontent.com/57661476/87876911-1514d700-ca16-11ea-9c29-5f638380da5e.PNG" width="500" height="400">
-             <img src="https://user-images.githubusercontent.com/57661476/87876915-1940f480-ca16-11ea-86c6-44ace4ab5841.PNG" width="500" height="400">
+   
+       - 화면 정의서
+       
+            <img src="https://user-images.githubusercontent.com/57661476/87876911-1514d700-ca16-11ea-9c29-5f638380da5e.PNG" width="500" height="400">            
+            <img src="https://user-images.githubusercontent.com/57661476/87876915-1940f480-ca16-11ea-86c6-44ace4ab5841.PNG" width="500" height="400">
          
    - 데이터 분석(Physical)
-        - ERD
-             <img src="https://user-images.githubusercontent.com/57661476/87876921-21009900-ca16-11ea-823d-e68f2f775bc1.PNG" width="500" height="600">
+       - ERD
+       
+            <img src="https://user-images.githubusercontent.com/57661476/87876921-21009900-ca16-11ea-823d-e68f2f775bc1.PNG" width="500" height="600">
               
-        - 테이블 정의서
-            <img src="https://user-images.githubusercontent.com/57661476/79084106-0068d900-7d6d-11ea-8069-f1065a1e0a36.jpg" width="500" height="400">
+       - 테이블 정의서
+       
+            <img src="https://user-images.githubusercontent.com/57661476/79084106-0068d900-7d6d-11ea-8069-f1065a1e0a36.jpg" width="500" height="400">           
             <img src="https://user-images.githubusercontent.com/57661476/79084110-019a0600-7d6d-11ea-8b9d-3eb97dfb0d76.jpg" width="500" height="300">
 
 
