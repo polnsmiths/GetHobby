@@ -31,10 +31,26 @@
 - 자료
    - [ppt보고서]
 
-- 산출물
-   - DB 구조
-    <img src="https://user-images.githubusercontent.com/57661476/79084106-0068d900-7d6d-11ea-8069-f1065a1e0a36.jpg" width="500" height="400">
-    <img src="https://user-images.githubusercontent.com/57661476/79084110-019a0600-7d6d-11ea-8b9d-3eb97dfb0d76.jpg" width="500" height="300">
+- 분석 산출물
+   - UseCase Modeling 
+        - 현업요구사항정의서 등   
+   - Application Modeling
+   - 화면분석
+   - 데이터분석(Logical)
+   
+- 설계 산출물
+   - Application Modeling
+       - 설계 표준
+       - Class Diagram
+       - VOPC Diagram
+   - 화면 분석
+       - 화면 정의서
+   - 데이터 분석(Physical)
+       - ERD
+       - 테이블 목록
+       - 테이블 정의서
+        <img src="https://user-images.githubusercontent.com/57661476/79084106-0068d900-7d6d-11ea-8069-f1065a1e0a36.jpg" width="500" height="400">
+        <img src="https://user-images.githubusercontent.com/57661476/79084110-019a0600-7d6d-11ea-8b9d-3eb97dfb0d76.jpg" width="500" height="300">
 
 
 
