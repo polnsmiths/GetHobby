@@ -37,8 +37,8 @@
    - UseCase Modeling 
         - 현업요구사항정의서     
         
-           <img src="https://user-images.githubusercontent.com/57661476/91731476-d2801600-ebe1-11ea-9cfe-89150ac9dcfc.PNG"  width="500" height="400">
-           <img src="https://user-images.githubusercontent.com/57661476/91731497-d6ac3380-ebe1-11ea-8d79-1444aa2d99c4.PNG"  width="400" height="500">
+           <img src="https://user-images.githubusercontent.com/57661476/91734872-72d83980-ebe6-11ea-89d6-23b867830938.png"  width="650" height="500">
+           <img src="https://user-images.githubusercontent.com/57661476/91734884-78358400-ebe6-11ea-8479-dc8e3b96b4f7.png"  width="600" height="450">
         
         - 요구사항 추적표 
         
@@ -53,7 +53,7 @@
         - Use Case Diagram
         
              <img src="https://user-images.githubusercontent.com/57661476/91731622-03f8e180-ebe2-11ea-8002-690d40868894.png" width="450" height="600">            
-             <img src="https://user-images.githubusercontent.com/57661476/91731628-065b3b80-ebe2-11ea-9df0-1e1f9e396e34.png" width="350" height="600">
+             <img src="https://user-images.githubusercontent.com/57661476/91731628-065b3b80-ebe2-11ea-9df0-1e1f9e396e34.png" width="350" height="450">
         
         - Use Case 정의서
         
@@ -63,7 +63,7 @@
     - Application Modeling     
         - Class Diagram
         
-            <img src="https://user-images.githubusercontent.com/57661476/91731707-1ffc8300-ebe2-11ea-801a-98c7f68032ac.PNG" width="800" height="550">
+            <img src="https://user-images.githubusercontent.com/57661476/91734816-60f69680-ebe6-11ea-8634-664fef3d6bb1.PNG" width="800" height="550">
             
         - VOPC Diagram
         
