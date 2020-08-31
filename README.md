@@ -7,7 +7,7 @@
 
 - 개발 기간 : 2019.12.23 ~ 2020.03.12 (총 11주)
 
-- 참여 인원 : 5명 ( 김지민, 김태우, 최하경, 이한솔, 이태곤 
+- 참여 인원 : 5명 ( 김지민, 김태우, 최하경, 이한솔, 이태곤)
 
 - 사용 기술 
     - O/S : Windows 10
@@ -56,7 +56,7 @@
         - 현업요구사항정의서     
         
            <img src="https://user-images.githubusercontent.com/57661476/91734872-72d83980-ebe6-11ea-89d6-23b867830938.png"  width="650" height="500">
-           <img src="https://user-images.githubusercontent.com/57661476/91734884-78358400-ebe6-11ea-8479-dc8e3b96b4f7.png"  width="600" height="450">
+           <img src="https://user-images.githubusercontent.com/57661476/91734884-78358400-ebe6-11ea-8479-dc8e3b96b4f7.png"  width="650" height="450">
         
         - 요구사항 추적표 
         
@@ -122,7 +122,7 @@
    - 데이터 분석(Physical)
        - ERD
        
-            <img src="https://user-images.githubusercontent.com/57661476/87876921-21009900-ca16-11ea-823d-e68f2f775bc1.PNG" width="500" height="600">
+            <img src="https://user-images.githubusercontent.com/57661476/87876921-21009900-ca16-11ea-823d-e68f2f775bc1.PNG" width="700" height="600">
               
        - 테이블 정의서
        
