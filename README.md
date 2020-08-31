@@ -44,8 +44,8 @@
    - Application Modeling
         - 설계 표준
         
-           <img src="https://user-images.githubusercontent.com/57661476/87876869-d121d200-ca15-11ea-846b-5923a2d45a61.PNG" width="500" height="400">
-           <img src="https://user-images.githubusercontent.com/57661476/87876890-f44c8180-ca15-11ea-9340-78f3e1f5fc17.PNG" width="400" height="500">
+           <img src="https://user-images.githubusercontent.com/57661476/91729786-0c501d00-ebe0-11ea-861b-d09df4bdf89c.PNG" width="500" height="400">
+           <img src="https://user-images.githubusercontent.com/57661476/91730108-7c5ea300-ebe0-11ea-8e0c-acc222737218.PNG" width="400" height="500">
        
        - Class Diagram
        
