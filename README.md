@@ -52,7 +52,7 @@
         
         - Use Case Diagram
         
-             <img src="https://user-images.githubusercontent.com/57661476/91731622-03f8e180-ebe2-11ea-8002-690d40868894.png" width="450" height="600">            
+             <img src="https://user-images.githubusercontent.com/57661476/91735942-f8101e00-ebe7-11ea-8baa-2114bdc4afcb.PNG" width="450" height="600">            
              <img src="https://user-images.githubusercontent.com/57661476/91731628-065b3b80-ebe2-11ea-9df0-1e1f9e396e34.png" width="350" height="450">
         
         - Use Case 정의서
@@ -71,10 +71,12 @@
             
    - 화면 분석 
         - 화면 정의서
+        
             <img src="https://user-images.githubusercontent.com/57661476/91731760-399dca80-ebe2-11ea-9d55-4d07b119109e.PNG" width="850" height="600">
             
    - 데이터분석(Logical)
         - ERD
+        
             <img src="https://user-images.githubusercontent.com/57661476/91731776-40c4d880-ebe2-11ea-8184-4f7814337ae1.png" width="700" height="550">
             
 - 설계 산출물
